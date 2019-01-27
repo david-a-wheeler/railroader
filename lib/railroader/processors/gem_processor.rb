@@ -1,7 +1,7 @@
-require 'brakeman/processors/lib/basic_processor'
+require 'railroader/processors/lib/basic_processor'
 
 #Processes Gemfile and Gemfile.lock
-class Brakeman::GemProcessor < Brakeman::BasicProcessor
+class Railroader::GemProcessor < Railroader::BasicProcessor
 
   def initialize *args
     super

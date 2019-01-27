@@ -1,11 +1,11 @@
-require 'brakeman/checks/check_cross_site_scripting'
+require 'railroader/checks/check_cross_site_scripting'
 
 #Checks for calls to link_to in versions of Ruby where link_to did not
 #escape the first argument.
 #
 #See https://rails.lighthouseapp.com/projects/8994/tickets/3518-link_to-doesnt-escape-its-input
-class Brakeman::CheckLinkTo < Brakeman::CheckCrossSiteScripting
-  Brakeman::Checks.add self
+class Railroader::CheckLinkTo < Railroader::CheckCrossSiteScripting
+  Railroader::Checks.add self
 
   @description = "Checks for XSS in link_to in versions before 3.0"
 

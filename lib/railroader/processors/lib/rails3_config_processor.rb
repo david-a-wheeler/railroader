@@ -1,5 +1,5 @@
 
-require 'brakeman/processors/lib/basic_processor'
+require 'railroader/processors/lib/basic_processor'
 
 #Processes configuration. Results are put in tracker.config.
 #
@@ -15,7 +15,7 @@ require 'brakeman/processors/lib/basic_processor'
 #  tracker.config.rails[:active_record][:whitelist_attributes]
 #
 #Values for tracker.config.rails will still be Sexps.
-class Brakeman::Rails3ConfigProcessor < Brakeman::BasicProcessor
+class Railroader::Rails3ConfigProcessor < Railroader::BasicProcessor
   RAILS_CONFIG = Sexp.new(:call, nil, :config)
 
   def initialize *args
@@ -26,7 +26,7 @@ class Brakeman::Rails3ConfigProcessor < Brakeman::BasicProcessor
   #Use this method to process configuration file
   def process_config src, file_name
     @file_name = file_name
-    res = Brakeman::AliasProcessor.new(@tracker).process_safely(src, nil, @file_name)
+    res = Railroader::AliasProcessor.new(@tracker).process_safely(src, nil, @file_name)
     process res
   end
 
@@ -79,7 +79,7 @@ class Brakeman::Rails3ConfigProcessor < Brakeman::BasicProcessor
         option = level[o]
 
         if not option.is_a? Hash
-          Brakeman.debug "[Notice] Skipping config setting: #{options.map(&:to_s).join(".")}"
+          Railroader.debug "[Notice] Skipping config setting: #{options.map(&:to_s).join(".")}"
           return exp
         end
 

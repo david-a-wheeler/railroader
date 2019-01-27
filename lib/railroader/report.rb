@@ -1,9 +1,9 @@
-require 'brakeman/report/report_base'
+require 'railroader/report/report_base'
 
 #Generates a report based on the Tracker and the results of
 #Tracker#run_checks. Be sure to +run_checks+ before generating
 #a report.
-class Brakeman::Report
+class Railroader::Report
   attr_reader :tracker
 
   VALID_FORMATS = [:to_html, :to_pdf, :to_csv, :to_json, :to_tabs, :to_hash, :to_s, :to_markdown, :to_codeclimate, :to_plain, :to_text]
@@ -17,21 +17,21 @@ class Brakeman::Report
     reporter = case format
     when :to_codeclimate
       require_report 'codeclimate'
-      Brakeman::Report::CodeClimate
+      Railroader::Report::CodeClimate
     when :to_csv
       require_report 'csv'
-      Brakeman::Report::CSV
+      Railroader::Report::CSV
     when :to_html
       require_report 'html'
-      Brakeman::Report::HTML
+      Railroader::Report::HTML
     when :to_json
       return self.to_json
     when :to_tabs
       require_report 'tabs'
-      Brakeman::Report::Tabs
+      Railroader::Report::Tabs
     when :to_hash
       require_report 'hash'
-      Brakeman::Report::Hash
+      Railroader::Report::Hash
     when :to_markdown
       return self.to_markdown
     when :to_plain, :to_text, :to_s
@@ -56,27 +56,27 @@ class Brakeman::Report
   end
 
   def require_report type
-    require "brakeman/report/report_#{type}"
+    require "railroader/report/report_#{type}"
   end
 
   def to_json
     require_report 'json'
-    generate Brakeman::Report::JSON
+    generate Railroader::Report::JSON
   end
 
   def to_table
     require_report 'table'
-    generate Brakeman::Report::Table
+    generate Railroader::Report::Table
   end
 
   def to_markdown
     require_report 'markdown'
-    generate Brakeman::Report::Markdown
+    generate Railroader::Report::Markdown
   end
 
   def to_text
     require_report 'text'
-    generate Brakeman::Report::Text
+    generate Railroader::Report::Text
   end
 
   alias to_plain to_text

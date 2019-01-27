@@ -1,6 +1,6 @@
 require 'pathname'
 
-module Brakeman
+module Railroader
   module Codeclimate
     class EngineConfiguration
 
@@ -32,7 +32,7 @@ module Brakeman
       def configured_options
         @configured_options = {}
         # ATM this gets parsed as a string instead of bool: "config":{ "debug":"true" }
-        if brakeman_configuration["debug"] && brakeman_configuration["debug"].to_s.downcase == "true"
+        if railroader_configuration["debug"] && railroader_configuration["debug"].to_s.downcase == "true"
           @configured_options[:debug] = true
           @configured_options[:report_progress] = false
         end
@@ -41,15 +41,15 @@ module Brakeman
           @configured_options[:only_files] = active_include_paths
         end
 
-        if brakeman_configuration["app_path"]
-          @configured_options[:path_prefix] = brakeman_configuration["app_path"]
-          path = Pathname.new(Dir.pwd) + brakeman_configuration["app_path"]
+        if railroader_configuration["app_path"]
+          @configured_options[:path_prefix] = railroader_configuration["app_path"]
+          path = Pathname.new(Dir.pwd) + railroader_configuration["app_path"]
           @configured_options[:app_path] = path.to_s
         end
         @configured_options
       end
 
-      def brakeman_configuration
+      def railroader_configuration
         if engine_config["config"]
           engine_config["config"]
         else
@@ -59,8 +59,8 @@ module Brakeman
 
       def active_include_paths
         @active_include_paths ||=
-          if brakeman_configuration["app_path"]
-            stripped_include_paths(brakeman_configuration["app_path"])
+          if railroader_configuration["app_path"]
+            stripped_include_paths(railroader_configuration["app_path"])
           else
             engine_config["include_paths"] && engine_config["include_paths"].compact
           end

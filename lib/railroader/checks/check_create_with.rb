@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckCreateWith < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckCreateWith < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for strong params bypass in CVE-2014-3514"
 

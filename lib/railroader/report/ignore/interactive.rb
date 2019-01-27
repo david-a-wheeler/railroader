@@ -1,9 +1,9 @@
-Brakeman.load_brakeman_dependency 'highline'
+Railroader.load_railroader_dependency 'highline'
 
-module Brakeman
+module Railroader
   class InteractiveIgnorer
     def initialize file, warnings
-      @ignore_config = Brakeman::IgnoreConfig.new(file, warnings)
+      @ignore_config = Railroader::IgnoreConfig.new(file, warnings)
       @new_warnings = warnings
       @skip_ignored = false
       @skip_rest = false
@@ -39,7 +39,7 @@ module Brakeman
           if @ignore_config.file and not @ignore_config.file.empty?
             q.default = @ignore_config.file
           else
-            q.default = "config/brakeman.ignore"
+            q.default = "config/railroader.ignore"
           end
         end
 
@@ -172,7 +172,7 @@ q - Quit, do not update ignored warnings
         if @ignore_config.file and not @ignore_config.file.empty?
           q.default = @ignore_config.file
         else
-          q.default = "config/brakeman.ignore"
+          q.default = "config/railroader.ignore"
         end
       end
 
@@ -185,7 +185,7 @@ q - Quit, do not update ignored warnings
     end
 
     def reset_config
-      @ignore_config = Brakeman::IgnoreConfig.new(@ignore_config.file, @new_warnings)
+      @ignore_config = Railroader::IgnoreConfig.new(@ignore_config.file, @new_warnings)
     end
 
     def process_warnings

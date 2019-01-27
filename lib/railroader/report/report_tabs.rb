@@ -1,6 +1,6 @@
-#Generated tab-separated output suitable for the Jenkins Brakeman Plugin:
-#https://github.com/presidentbeef/brakeman-jenkins-plugin
-class Brakeman::Report::Tabs < Brakeman::Report::Base
+#Generated tab-separated output suitable for the Jenkins Railroader Plugin:
+#https://github.com/presidentbeef/railroader-jenkins-plugin
+class Railroader::Report::Tabs < Railroader::Report::Base
   def generate_report
     [[:generic_warnings, "General"], [:controller_warnings, "Controller"],
       [:model_warnings, "Model"], [:template_warnings, "Template"]].map do |meth, category|

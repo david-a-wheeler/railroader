@@ -1,4 +1,4 @@
-require 'brakeman/processors/lib/basic_processor'
+require 'railroader/processors/lib/basic_processor'
 
 #Processes configuration. Results are put in tracker.config.
 #
@@ -14,7 +14,7 @@ require 'brakeman/processors/lib/basic_processor'
 #  tracker.config[:rails][:action_controller][:session_store]
 #
 #Values for tracker.config.rails will still be Sexps.
-class Brakeman::Rails2ConfigProcessor < Brakeman::BasicProcessor
+class Railroader::Rails2ConfigProcessor < Railroader::BasicProcessor
   #Replace block variable in
   #
   #  Rails::Initializer.run |config|
@@ -29,7 +29,7 @@ class Brakeman::Rails2ConfigProcessor < Brakeman::BasicProcessor
   #Use this method to process configuration file
   def process_config src, file_name
     @file_name = file_name
-    res = Brakeman::ConfigAliasProcessor.new.process_safely(src, nil, file_name)
+    res = Railroader::ConfigAliasProcessor.new.process_safely(src, nil, file_name)
     process res
   end
 
@@ -39,7 +39,7 @@ class Brakeman::Rails2ConfigProcessor < Brakeman::BasicProcessor
     target = process target if sexp? target
 
     if exp.method == :gem and exp.first_arg.value == "erubis"
-      Brakeman.notify "[Notice] Using Erubis for ERB templates"
+      Railroader.notify "[Notice] Using Erubis for ERB templates"
       @tracker.config.erubis = true
     end
 
@@ -121,7 +121,7 @@ class Brakeman::Rails2ConfigProcessor < Brakeman::BasicProcessor
 end
 
 #This is necessary to replace block variable so we can track config settings
-class Brakeman::ConfigAliasProcessor < Brakeman::AliasProcessor
+class Railroader::ConfigAliasProcessor < Railroader::AliasProcessor
 
   RAILS_INIT = Sexp.new(:colon2, Sexp.new(:const, :Rails), :Initializer)
 
@@ -137,7 +137,7 @@ class Brakeman::ConfigAliasProcessor < Brakeman::AliasProcessor
     method = exp.block_call.method
 
     if sexp? target and target == RAILS_INIT and method == :run
-      env[Sexp.new(:lvar, exp.block_args.value)] = Brakeman::Rails2ConfigProcessor::RAILS_CONFIG
+      env[Sexp.new(:lvar, exp.block_args.value)] = Railroader::Rails2ConfigProcessor::RAILS_CONFIG
     end
 
     process_default exp

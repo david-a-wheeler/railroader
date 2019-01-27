@@ -1,10 +1,10 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #Check for unsafe manipulation of strings
 #Right now this is just a version check for
 #https://groups.google.com/group/rubyonrails-security/browse_thread/thread/edd28f1e3d04e913?pli=1
-class Brakeman::CheckSafeBufferManipulation < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckSafeBufferManipulation < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Check for Rails versions with SafeBuffer bug"
 

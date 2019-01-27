@@ -7,7 +7,7 @@
       "message": "Potentially dangerous attribute available for mass assignment",
       "file": "app/models/account.rb",
       "line": null,
-      "link": "http://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "link": "http://railroaderscanner.org/docs/warning_types/mass_assignment/",
       "code": ":admin",
       "render_path": null,
       "location": {
@@ -25,7 +25,7 @@
       "message": "Potentially dangerous attribute available for mass assignment",
       "file": "app/models/account.rb",
       "line": null,
-      "link": "http://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "link": "http://railroaderscanner.org/docs/warning_types/mass_assignment/",
       "code": ":admin",
       "render_path": null,
       "location": {
@@ -38,5 +38,5 @@
     }
   ],
   "updated": "2013-12-20 22:14:42 +0200",
-  "brakeman_version": "2.3.1"
+  "railroader_version": "2.3.1"
 }

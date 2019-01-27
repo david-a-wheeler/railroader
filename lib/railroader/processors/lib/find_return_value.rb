@@ -1,12 +1,12 @@
-require 'brakeman/processors/alias_processor'
+require 'railroader/processors/alias_processor'
 
 #Attempts to determine the return value of a method.
 #
 #Preferred usage:
 #
-#  Brakeman::FindReturnValue.return_value exp
-class Brakeman::FindReturnValue
-  include Brakeman::Util
+#  Railroader::FindReturnValue.return_value exp
+class Railroader::FindReturnValue
+  include Railroader::Util
 
   #Returns a guess at the return value of a given method or other block of code.
   #
@@ -34,7 +34,7 @@ class Brakeman::FindReturnValue
 
   #Process method (or, actually, any Sexp) for return value.
   def process_method exp, env = nil
-    exp = Brakeman::AliasProcessor.new.process_safely exp, env
+    exp = Railroader::AliasProcessor.new.process_safely exp, env
 
     find_explicit_return_values exp
 
@@ -44,12 +44,12 @@ class Brakeman::FindReturnValue
       unless body.empty?
         @return_values << last_value(body)
       else
-        Brakeman.debug "FindReturnValue: Empty method? #{exp.inspect}"
+        Railroader.debug "FindReturnValue: Empty method? #{exp.inspect}"
       end
     elsif exp
       @return_values << last_value(exp)
     else
-       Brakeman.debug "FindReturnValue: Given something strange? #{exp.inspect}"
+       Railroader.debug "FindReturnValue: Given something strange? #{exp.inspect}"
     end
 
     exp

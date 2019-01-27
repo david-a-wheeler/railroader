@@ -1,12 +1,12 @@
-require 'brakeman/options'
+require 'railroader/options'
 
-module Brakeman
+module Railroader
 
-  # Implements handling of running Brakeman from the command line.
+  # Implements handling of running Railroader from the command line.
   class Commandline
     class << self
 
-      # Main method to run Brakeman from the command line.
+      # Main method to run Railroader from the command line.
       #
       # If no options are provided, ARGV will be parsed and used instead.
       # Otherwise, the options are expected to be a Hash like the one returned
@@ -39,45 +39,45 @@ module Brakeman
       #
       # If the latest version is newer, quit with a message.
       def check_latest
-        if error = Brakeman.ensure_latest
-          quit Brakeman::Not_Latest_Version_Exit_Code, error
+        if error = Railroader.ensure_latest
+          quit Railroader::Not_Latest_Version_Exit_Code, error
         end
       end
 
       # Runs a comparison report based on the options provided.
       def compare_results options
         require 'json'
-        vulns = Brakeman.compare options.merge(:quiet => options[:quiet])
+        vulns = Railroader.compare options.merge(:quiet => options[:quiet])
 
         if options[:comparison_output_file]
           File.open options[:comparison_output_file], "w" do |f|
             f.puts JSON.pretty_generate(vulns)
           end
 
-          Brakeman.notify "Comparison saved in '#{options[:comparison_output_file]}'"
+          Railroader.notify "Comparison saved in '#{options[:comparison_output_file]}'"
         else
           puts JSON.pretty_generate(vulns)
         end
 
         if options[:exit_on_warn] && vulns[:new].count > 0
-          quit Brakeman::Warnings_Found_Exit_Code
+          quit Railroader::Warnings_Found_Exit_Code
         end
       end
 
       # Handle options that exit without generating a report.
       def early_exit_options options
         if options[:list_checks] or options[:list_optional_checks]
-          Brakeman.list_checks options
+          Railroader.list_checks options
           quit
         elsif options[:create_config]
-          Brakeman.dump_config options
+          Railroader.dump_config options
           quit
         elsif options[:show_help]
-          puts Brakeman::Options.create_option_parser({})
+          puts Railroader::Options.create_option_parser({})
           quit
         elsif options[:show_version]
-          require 'brakeman/version'
-          puts "brakeman #{Brakeman::Version}"
+          require 'railroader/version'
+          puts "railroader #{Railroader::Version}"
           quit
         end
       end
@@ -89,10 +89,10 @@ module Brakeman
       # Returns an option hash and the app_path.
       def parse_options argv
         begin
-          options, _ = Brakeman::Options.parse! argv
+          options, _ = Railroader::Options.parse! argv
         rescue OptionParser::ParseError => e
           $stderr.puts e.message
-          $stderr.puts "Please see `brakeman --help` for valid options"
+          $stderr.puts "Please see `railroader --help` for valid options"
           quit(-1)
         end
 
@@ -115,22 +115,22 @@ module Brakeman
 
       # Runs a regular report based on the options provided.
       def regular_report options
-        tracker = run_brakeman options 
+        tracker = run_railroader options 
 
         if tracker.options[:exit_on_warn] and not tracker.filtered_warnings.empty?
-          quit Brakeman::Warnings_Found_Exit_Code
+          quit Railroader::Warnings_Found_Exit_Code
         end
 
         if tracker.options[:exit_on_error] and tracker.errors.any?
-          quit Brakeman::Errors_Found_Exit_Code
+          quit Railroader::Errors_Found_Exit_Code
         end
       end
 
-      # Actually run Brakeman.
+      # Actually run Railroader.
       #
       # Returns a Tracker object.
-      def run_brakeman options
-        Brakeman.run options.merge(:print_report => true, :quiet => options[:quiet])
+      def run_railroader options
+        Railroader.run options.merge(:print_report => true, :quiet => options[:quiet])
       end
 
       # Run either a comparison or regular report based on options provided.
@@ -141,10 +141,10 @@ module Brakeman
           else
             regular_report options
           end
-        rescue Brakeman::NoApplication => e
-          quit Brakeman::No_App_Found_Exit_Code, e.message
-        rescue Brakeman::MissingChecksError => e
-          quit Brakeman::Missing_Checks_Exit_Code, e.message
+        rescue Railroader::NoApplication => e
+          quit Railroader::No_App_Found_Exit_Code, e.message
+        rescue Railroader::MissingChecksError => e
+          quit Railroader::Missing_Checks_Exit_Code, e.message
         end
       end
 

@@ -1,8 +1,8 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #This check looks for regexes that include user input.
-class Brakeman::CheckRegexDoS < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckRegexDoS < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   ESCAPES = {
     s(:const, :Regexp) => [
@@ -15,10 +15,10 @@ class Brakeman::CheckRegexDoS < Brakeman::BaseCheck
 
   #Process calls
   def run_check
-    Brakeman.debug "Finding dynamic regexes"
-    calls = tracker.find_call :method => [:brakeman_regex_interp]
+    Railroader.debug "Finding dynamic regexes"
+    calls = tracker.find_call :method => [:railroader_regex_interp]
 
-    Brakeman.debug "Processing dynamic regexes"
+    Railroader.debug "Processing dynamic regexes"
     calls.each do |call|
       process_result call
     end

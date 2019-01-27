@@ -1,7 +1,7 @@
-require 'brakeman/processors/template_processor'
+require 'railroader/processors/template_processor'
 
 #Processes HAML templates.
-class Brakeman::HamlTemplateProcessor < Brakeman::TemplateProcessor
+class Railroader::HamlTemplateProcessor < Railroader::TemplateProcessor
   HAML_FORMAT_METHOD = /format_script_(true|false)_(true|false)_(true|false)_(true|false)_(true|false)_(true|false)_(true|false)/
   HAML_HELPERS = s(:colon2, s(:const, :Haml), :Helpers)
   JAVASCRIPT_FILTER = s(:colon2, s(:colon2, s(:const, :Haml), :Filters), :Javascript)

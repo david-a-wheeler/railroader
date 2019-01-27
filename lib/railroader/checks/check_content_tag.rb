@@ -1,4 +1,4 @@
-require 'brakeman/checks/check_cross_site_scripting'
+require 'railroader/checks/check_cross_site_scripting'
 
 #Checks for unescaped values in `content_tag`
 #
@@ -13,8 +13,8 @@ require 'brakeman/checks/check_cross_site_scripting'
 #                                            |
 #            Escaped by default, can be explicitly escaped
 #            or not by passing in (true|false) as fourth argument
-class Brakeman::CheckContentTag < Brakeman::CheckCrossSiteScripting
-  Brakeman::Checks.add self
+class Railroader::CheckContentTag < Railroader::CheckCrossSiteScripting
+  Railroader::Checks.add self
 
   @description = "Checks for XSS in calls to content_tag"
 
@@ -34,7 +34,7 @@ class Brakeman::CheckContentTag < Brakeman::CheckCrossSiteScripting
     @inspect_arguments = tracker.options[:check_arguments]
     @mark = nil
 
-    Brakeman.debug "Checking for XSS in content_tag"
+    Railroader.debug "Checking for XSS in content_tag"
     @content_tags.each do |call|
       process_result call
     end

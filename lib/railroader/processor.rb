@@ -1,10 +1,10 @@
 #Load all files in processors/
-Dir.glob("#{File.expand_path(File.dirname(__FILE__))}/processors/*.rb").each { |f| require f.match(/brakeman\/processors.*/)[0] }
-require 'brakeman/tracker'
+Dir.glob("#{File.expand_path(File.dirname(__FILE__))}/processors/*.rb").each { |f| require f.match(/railroader\/processors.*/)[0] }
+require 'railroader/tracker'
 require 'set'
 require 'pathname'
 
-module Brakeman
+module Railroader
   #Makes calls to the appropriate processor.
   #
   #The ControllerProcessor, TemplateProcessor, and ModelProcessor will

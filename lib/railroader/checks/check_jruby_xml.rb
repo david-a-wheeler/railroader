@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckJRubyXML < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckJRubyXML < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for versions with JRuby XML parsing backend"
 

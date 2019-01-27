@@ -1,4 +1,4 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #At the moment, this looks for
 #
@@ -7,8 +7,8 @@ require 'brakeman/checks/base_check'
 #which is essentially a blacklist approach (no actions are checked EXCEPT the
 #ones listed) versus a whitelist approach (ONLY the actions listed will skip
 #the check)
-class Brakeman::CheckSkipBeforeFilter < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckSkipBeforeFilter < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Warn when skipping CSRF or authentication checks by default"
 

@@ -1,12 +1,12 @@
 require 'thread'
-require 'brakeman/differ'
+require 'railroader/differ'
 
 #Collects up results from running different checks.
 #
 #Checks can be added with +Check.add(check_class)+
 #
 #All .rb files in checks/ will be loaded.
-class Brakeman::Checks
+class Railroader::Checks
   @checks = []
   @optional_checks = []
 
@@ -44,7 +44,7 @@ class Brakeman::Checks
     if included_checks == Set['CheckNone']
       return []
     else
-      loaded = self.checks.map { |name| name.to_s.gsub('Brakeman::', '') }.to_set
+      loaded = self.checks.map { |name| name.to_s.gsub('Railroader::', '') }.to_set
       missing = (included_checks - loaded) + (excluded_checks - loaded)
 
       unless missing.empty?
@@ -60,7 +60,7 @@ class Brakeman::Checks
     if options[:min_confidence]
       @min_confidence = options[:min_confidence]
     else
-      @min_confidence = Brakeman.get_defaults[:min_confidence]
+      @min_confidence = Railroader.get_defaults[:min_confidence]
     end
 
     @warnings = []
@@ -100,7 +100,7 @@ class Brakeman::Checks
   def diff other_checks
     my_warnings = self.all_warnings
     other_warnings = other_checks.all_warnings
-    Brakeman::Differ.new(my_warnings, other_warnings).diff
+    Railroader::Differ.new(my_warnings, other_warnings).diff
   end
 
   #Return an array of all warnings found.
@@ -124,7 +124,7 @@ class Brakeman::Checks
 
     checks.each do |c|
       check_name = get_check_name c
-      Brakeman.notify " - #{check_name}"
+      Railroader.notify " - #{check_name}"
 
       if parallel
         threads << Thread.new do
@@ -141,7 +141,7 @@ class Brakeman::Checks
 
     threads.each { |t| t.join }
 
-    Brakeman.notify "Checks finished, collecting results..."
+    Railroader.notify "Checks finished, collecting results..."
 
     if parallel
       threads.each do |thread|
@@ -205,5 +205,5 @@ end
 
 #Load all files in checks/ directory
 Dir.glob("#{File.expand_path(File.dirname(__FILE__))}/checks/*.rb").sort.each do |f|
-  require f.match(/(brakeman\/checks\/.*)\.rb$/)[0]
+  require f.match(/(railroader\/checks\/.*)\.rb$/)[0]
 end

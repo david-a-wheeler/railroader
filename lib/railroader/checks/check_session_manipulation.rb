@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckSessionManipulation < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckSessionManipulation < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Check for user input in session keys"
 

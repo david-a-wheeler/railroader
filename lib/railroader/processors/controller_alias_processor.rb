@@ -1,12 +1,12 @@
-require 'brakeman/processors/alias_processor'
-require 'brakeman/processors/lib/render_helper'
-require 'brakeman/processors/lib/render_path'
-require 'brakeman/processors/lib/find_return_value'
+require 'railroader/processors/alias_processor'
+require 'railroader/processors/lib/render_helper'
+require 'railroader/processors/lib/render_path'
+require 'railroader/processors/lib/find_return_value'
 
 #Processes aliasing in controllers, but includes following
 #renders in routes and putting variables into templates
-class Brakeman::ControllerAliasProcessor < Brakeman::AliasProcessor
-  include Brakeman::RenderHelper
+class Railroader::ControllerAliasProcessor < Railroader::AliasProcessor
+  include Railroader::RenderHelper
 
   #If only_method is specified, only that method will be processed,
   #other methods will be skipped.
@@ -22,7 +22,7 @@ class Brakeman::ControllerAliasProcessor < Brakeman::AliasProcessor
 
   def process_controller name, src, file_name
     if not node_type? src, :class
-      Brakeman.debug "#{name} is not a class, it's a #{src.node_type}"
+      Railroader.debug "#{name} is not a class, it's a #{src.node_type}"
       return
     else
       @current_class = name
@@ -49,7 +49,7 @@ class Brakeman::ControllerAliasProcessor < Brakeman::AliasProcessor
       methods.each do |name|
         #Need to process the method like it was in a controller in order
         #to get the renders set
-        processor = Brakeman::ControllerProcessor.new(@app_tree, @tracker)
+        processor = Railroader::ControllerProcessor.new(@app_tree, @tracker)
         method = mixin.get_method(name)[:src].deep_clone
 
         if node_type? method, :defn
@@ -76,7 +76,7 @@ class Brakeman::ControllerAliasProcessor < Brakeman::AliasProcessor
   def process_defn exp
     meth_name = exp.method_name
 
-    Brakeman.debug "Processing #{@current_class}##{meth_name}"
+    Railroader.debug "Processing #{@current_class}##{meth_name}"
 
     #Skip if instructed to only process a specific method
     #(but don't skip if this method was called from elsewhere)
@@ -115,7 +115,7 @@ class Brakeman::ControllerAliasProcessor < Brakeman::AliasProcessor
     if method == :head
       @rendered = true
     elsif exp.target.nil? and method == :template_exists?
-      env[exp.first_arg] = Sexp.new(:lit, :"brakeman:existing_template")
+      env[exp.first_arg] = Sexp.new(:lit, :"railroader:existing_template")
     elsif @tracker.options[:interprocedural] and
       @current_method and (exp.target.nil? or exp.target.node_type == :self)
 
@@ -143,7 +143,7 @@ class Brakeman::ControllerAliasProcessor < Brakeman::AliasProcessor
     filter = find_method name, @current_class
 
     if filter.nil?
-      Brakeman.debug "[Notice] Could not find filter #{name}"
+      Railroader.debug "[Notice] Could not find filter #{name}"
       return
     end
 
@@ -154,7 +154,7 @@ class Brakeman::ControllerAliasProcessor < Brakeman::AliasProcessor
         env[variable] = value
       end
     else
-      processor = Brakeman::AliasProcessor.new @tracker
+      processor = Railroader::AliasProcessor.new @tracker
       processor.process_safely(method.body_list, only_ivars(:include_request_vars))
 
       ivars = processor.only_ivars(:include_request_vars).all
@@ -187,7 +187,7 @@ class Brakeman::ControllerAliasProcessor < Brakeman::AliasProcessor
       end
     end
 
-    render_path = Brakeman::RenderPath.new.add_controller_render(@current_class, @current_method, line, relative_path(@file_name))
+    render_path = Railroader::RenderPath.new.add_controller_render(@current_class, @current_method, line, relative_path(@file_name))
     super name, args, render_path, line
   end
 

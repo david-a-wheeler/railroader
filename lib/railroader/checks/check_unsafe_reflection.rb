@@ -1,11 +1,11 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 # Checks for string interpolation and parameters in calls to
 # String#constantize, String#safe_constantize, Module#const_get and Module#qualified_const_get.
 #
 # Exploit examples at: http://blog.conviso.com.br/exploiting-unsafe-reflection-in-rubyrails-applications/
-class Brakeman::CheckUnsafeReflection < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckUnsafeReflection < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for unsafe reflection"
 

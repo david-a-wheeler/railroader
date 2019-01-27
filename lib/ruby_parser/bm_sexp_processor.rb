@@ -10,7 +10,7 @@
 # SexpProcessor will call #process_lit, if it is defined.
 #
 
-class Brakeman::SexpProcessor
+class Railroader::SexpProcessor
 
   VERSION = 'CUSTOM'
 

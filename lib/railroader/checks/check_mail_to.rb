@@ -1,11 +1,11 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #Check for cross-site scripting vulnerability in mail_to :encode => :javascript
 #with certain versions of Rails (< 2.3.11 or < 3.0.4).
 #
 #http://groups.google.com/group/rubyonrails-security/browse_thread/thread/f02a48ede8315f81
-class Brakeman::CheckMailTo < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckMailTo < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for mail_to XSS vulnerability in certain versions"
 
@@ -32,7 +32,7 @@ class Brakeman::CheckMailTo < Brakeman::BaseCheck
   #Check for javascript encoding of mail_to address
   #    mail_to email, name, :encode => :javascript
   def mail_to_javascript?
-    Brakeman.debug "Checking calls to mail_to for javascript encoding"
+    Railroader.debug "Checking calls to mail_to for javascript encoding"
 
     tracker.find_call(:target => false, :method => :mail_to).each do |result|
       result[:call].each_arg do |arg|

@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckDivideByZero < Brakeman::BaseCheck
-  Brakeman::Checks.add_optional self
+class Railroader::CheckDivideByZero < Railroader::BaseCheck
+  Railroader::Checks.add_optional self
 
   @description = "Warns on potential division by zero"
 

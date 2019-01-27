@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckSimpleFormat < Brakeman::CheckCrossSiteScripting
-  Brakeman::Checks.add self
+class Railroader::CheckSimpleFormat < Railroader::CheckCrossSiteScripting
+  Railroader::Checks.add self
 
   @description = "Checks for simple_format XSS vulnerability (CVE-2013-6416) in certain versions"
 

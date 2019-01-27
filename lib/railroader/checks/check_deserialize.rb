@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckDeserialize < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckDeserialize < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for unsafe deserialization of objects"
 

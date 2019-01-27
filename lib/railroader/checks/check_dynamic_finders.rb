@@ -1,8 +1,8 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #This check looks for regexes that include user input.
-class Brakeman::CheckDynamicFinders < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckDynamicFinders < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Check unsafe usage of find_by_*"
 

@@ -1,6 +1,6 @@
-Brakeman.load_brakeman_dependency 'terminal-table'
+Railroader.load_railroader_dependency 'terminal-table'
 
-class Brakeman::Report::Table < Brakeman::Report::Base
+class Railroader::Report::Table < Railroader::Report::Base
   def initialize *args
     super
     @table = Terminal::Table
@@ -64,7 +64,7 @@ class Brakeman::Report::Table < Brakeman::Report::Base
 
   #Generate listings of templates and their output
   def generate_templates
-    out_processor = Brakeman::OutputProcessor.new
+    out_processor = Railroader::OutputProcessor.new
     template_rows = {}
     tracker.templates.each do |name, template|
       template.each_output do |out|
@@ -108,7 +108,7 @@ class Brakeman::Report::Table < Brakeman::Report::Base
 
 Application path: #{tracker.app_path}
 Rails version: #{rails_version}
-Brakeman version: #{Brakeman::Version}
+Railroader version: #{Railroader::Version}
 Started at #{tracker.start_time}
 Duration: #{tracker.duration} seconds
 Checks run: #{checks.checks_run.sort.join(", ")}

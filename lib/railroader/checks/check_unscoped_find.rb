@@ -1,13 +1,13 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 # Checks for unscoped calls to models' #find and #find_by_id methods.
-class Brakeman::CheckUnscopedFind < Brakeman::BaseCheck
-  Brakeman::Checks.add_optional self
+class Railroader::CheckUnscopedFind < Railroader::BaseCheck
+  Railroader::Checks.add_optional self
 
   @description = "Check for unscoped ActiveRecord queries"
 
   def run_check
-    Brakeman.debug("Finding instances of #find on models with associations")
+    Railroader.debug("Finding instances of #find on models with associations")
 
     associated_model_names = active_record_models.keys.select do |name|
       if belongs_to = active_record_models[name].associations[:belongs_to]

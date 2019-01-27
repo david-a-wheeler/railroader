@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckRenderDoS < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckRenderDoS < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Warn about denial of service with render :text (CVE-2014-0082)"
 

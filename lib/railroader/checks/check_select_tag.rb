@@ -1,9 +1,9 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #Checks for CVE-2012-3463, unescaped input in :prompt option of select_tag:
 #https://groups.google.com/d/topic/rubyonrails-security/fV3QUToSMSw/discussion
-class Brakeman::CheckSelectTag < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckSelectTag < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Looks for unsafe uses of select_tag() in some versions of Rails 3.x"
 

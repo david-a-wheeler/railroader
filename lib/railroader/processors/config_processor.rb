@@ -1,14 +1,14 @@
-require 'brakeman/processors/base_processor'
-require 'brakeman/processors/alias_processor'
-require 'brakeman/processors/lib/rails3_config_processor.rb'
-require 'brakeman/processors/lib/rails2_config_processor.rb'
+require 'railroader/processors/base_processor'
+require 'railroader/processors/alias_processor'
+require 'railroader/processors/lib/rails3_config_processor.rb'
+require 'railroader/processors/lib/rails2_config_processor.rb'
 
-class Brakeman::ConfigProcessor
+class Railroader::ConfigProcessor
   def self.new tracker
     if tracker.options[:rails3]
-      Brakeman::Rails3ConfigProcessor.new tracker
+      Railroader::Rails3ConfigProcessor.new tracker
     else
-      Brakeman::Rails2ConfigProcessor.new tracker
+      Railroader::Rails2ConfigProcessor.new tracker
     end
   end
 end

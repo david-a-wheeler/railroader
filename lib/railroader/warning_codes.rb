@@ -1,4 +1,4 @@
-module Brakeman::WarningCodes
+module Railroader::WarningCodes
   Codes = {
     :sql_injection => 0,
     :sql_injection_limit_offset => 1,

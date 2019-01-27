@@ -1,16 +1,16 @@
-require 'brakeman/processors/base_processor'
-require 'brakeman/processors/alias_processor'
-require 'brakeman/processors/lib/module_helper'
-require 'brakeman/tracker/library'
+require 'railroader/processors/base_processor'
+require 'railroader/processors/alias_processor'
+require 'railroader/processors/lib/module_helper'
+require 'railroader/tracker/library'
 
 #Process generic library and stores it in Tracker.libs
-class Brakeman::LibraryProcessor < Brakeman::BaseProcessor
-  include Brakeman::ModuleHelper
+class Railroader::LibraryProcessor < Railroader::BaseProcessor
+  include Railroader::ModuleHelper
 
   def initialize tracker
     super
     @file_name = nil
-    @alias_processor = Brakeman::AliasProcessor.new tracker
+    @alias_processor = Railroader::AliasProcessor.new tracker
     @current_module = nil
     @current_class = nil
     @intializer_env = nil
@@ -22,11 +22,11 @@ class Brakeman::LibraryProcessor < Brakeman::BaseProcessor
   end
 
   def process_class exp
-    handle_class exp, @tracker.libs, Brakeman::Library
+    handle_class exp, @tracker.libs, Railroader::Library
   end
 
   def process_module exp
-    handle_module exp, Brakeman::Library
+    handle_module exp, Railroader::Library
   end
 
   def process_defn exp

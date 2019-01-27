@@ -1,13 +1,13 @@
 require 'set'
-require 'brakeman/processors/alias_processor'
-require 'brakeman/processors/lib/render_helper'
-require 'brakeman/processors/lib/render_path'
-require 'brakeman/tracker'
+require 'railroader/processors/alias_processor'
+require 'railroader/processors/lib/render_helper'
+require 'railroader/processors/lib/render_path'
+require 'railroader/tracker'
 
 #Processes aliasing in templates.
 #Handles calls to +render+.
-class Brakeman::TemplateAliasProcessor < Brakeman::AliasProcessor
-  include Brakeman::RenderHelper
+class Railroader::TemplateAliasProcessor < Railroader::AliasProcessor
+  include Railroader::RenderHelper
 
   FORM_METHODS = Set[:form_for, :remote_form_for, :form_remote_for]
 
@@ -23,13 +23,13 @@ class Brakeman::TemplateAliasProcessor < Brakeman::AliasProcessor
 
     if @called_from
       if @called_from.include_template? name
-        Brakeman.debug "Skipping circular render from #{@template.name} to #{name}"
+        Railroader.debug "Skipping circular render from #{@template.name} to #{name}"
         return
       end
 
       super name, args, @called_from.dup.add_template_render(@template.name, line, @file_name)
     else
-      super name, args, Brakeman::RenderPath.new.add_template_render(@template.name, line, @file_name)
+      super name, args, Railroader::RenderPath.new.add_template_render(@template.name, line, @file_name)
     end
   end
 
@@ -41,7 +41,7 @@ class Brakeman::TemplateAliasProcessor < Brakeman::AliasProcessor
     name
   end
 
-  UNKNOWN_MODEL_CALL = Sexp.new(:call, Sexp.new(:const, Brakeman::Tracker::UNKNOWN_MODEL), :new)
+  UNKNOWN_MODEL_CALL = Sexp.new(:call, Sexp.new(:const, Railroader::Tracker::UNKNOWN_MODEL), :new)
   FORM_BUILDER_CALL = Sexp.new(:call, Sexp.new(:const, :FormBuilder), :new)
 
   #Looks for form methods and iterating over collections of Models

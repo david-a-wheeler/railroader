@@ -1,6 +1,6 @@
 require 'pathname'
 
-module Brakeman
+module Railroader
   class AppTree
     VIEW_EXTENSIONS = %w[html.erb html.haml rhtml js.erb html.slim].join(",")
 

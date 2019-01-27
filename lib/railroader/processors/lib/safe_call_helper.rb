@@ -1,4 +1,4 @@
-module Brakeman
+module Railroader
   module SafeCallHelper
     [[:process_safe_call, :process_call],
      [:process_safe_attrasgn, :process_attrasgn],

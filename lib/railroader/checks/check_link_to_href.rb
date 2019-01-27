@@ -1,4 +1,4 @@
-require 'brakeman/checks/check_cross_site_scripting'
+require 'railroader/checks/check_cross_site_scripting'
 
 #Checks for calls to link_to which pass in potentially hazardous data
 #to the second argument.  While this argument must be html_safe to not break
@@ -6,8 +6,8 @@ require 'brakeman/checks/check_cross_site_scripting'
 #:url_safe_method.  This prevents attacks such as javascript:evil() or
 #data:<encoded XSS> which is html_safe, but not safe as an href
 #Props to Nick Green for the idea.
-class Brakeman::CheckLinkToHref < Brakeman::CheckLinkTo
-  Brakeman::Checks.add self
+class Railroader::CheckLinkToHref < Railroader::CheckLinkTo
+  Railroader::Checks.add self
 
   @description = "Checks to see if values used for hrefs are sanitized using a :url_safe_method to protect against javascript:/data: XSS"
 

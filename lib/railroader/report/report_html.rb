@@ -1,6 +1,6 @@
 require 'cgi'
 
-class Brakeman::Report::HTML < Brakeman::Report::Base
+class Railroader::Report::HTML < Railroader::Report::Base
   HTML_CONFIDENCE = [ "<span class='high-confidence'>High</span>",
     "<span class='med-confidence'>Medium</span>",
     "<span class='weak-confidence'>Weak</span>" ]
@@ -39,12 +39,12 @@ class Brakeman::Report::HTML < Brakeman::Report::Base
         :ignored_warnings => ignored_warnings.length
         }
 
-      Brakeman::Report::Renderer.new('overview', :locals => locals).render
+      Railroader::Report::Renderer.new('overview', :locals => locals).render
   end
 
   #Generate listings of templates and their output
   def generate_templates
-    out_processor = Brakeman::OutputProcessor.new
+    out_processor = Railroader::OutputProcessor.new
     template_rows = {}
     tracker.templates.each do |name, template|
       template.each_output do |out|
@@ -56,13 +56,13 @@ class Brakeman::Report::HTML < Brakeman::Report::Base
 
     template_rows = template_rows.sort_by{|name, value| name.to_s}
 
-      Brakeman::Report::Renderer.new('template_overview', :locals => {:template_rows => template_rows}).render
+      Railroader::Report::Renderer.new('template_overview', :locals => {:template_rows => template_rows}).render
   end
 
   def render_array template, headings, value_array, locals
     return if value_array.empty?
 
-    Brakeman::Report::Renderer.new(template, :locals => locals).render
+    Railroader::Report::Renderer.new(template, :locals => locals).render
   end
 
   def convert_warning warning, original
@@ -105,10 +105,10 @@ class Brakeman::Report::HTML < Brakeman::Report::Base
       :tracker => tracker,
       :checks => checks,
       :rails_version => rails_version,
-      :brakeman_version => Brakeman::Version
+      :railroader_version => Railroader::Version
       }
 
-    Brakeman::Report::Renderer.new('header', :locals => locals).render
+    Railroader::Report::Renderer.new('header', :locals => locals).render
   end
 
   #Generate HTML for warnings, including context show/hidden via Javascript

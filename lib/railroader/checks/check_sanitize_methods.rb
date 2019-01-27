@@ -1,9 +1,9 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #sanitize and sanitize_css are vulnerable:
 #CVE-2013-1855 and CVE-2013-1857
-class Brakeman::CheckSanitizeMethods < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckSanitizeMethods < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for versions with vulnerable sanitize and sanitize_css"
 

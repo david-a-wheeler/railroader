@@ -1,7 +1,7 @@
 require 'set'
 require 'json'
 
-module Brakeman
+module Railroader
   class IgnoreConfig
     attr_reader :shown_warnings, :ignored_warnings
     attr_accessor :file
@@ -98,7 +98,7 @@ module Brakeman
       if File.exist? file
         @already_ignored = JSON.parse(File.read(file), :symbolize_names => true)[:ignored_warnings]
       else
-        Brakeman.notify "[Notice] Could not find ignore configuration in #{file}"
+        Railroader.notify "[Notice] Could not find ignore configuration in #{file}"
         @already_ignored = []
       end
 
@@ -124,7 +124,7 @@ module Brakeman
       output = {
         :ignored_warnings => warnings,
         :updated => Time.now.to_s,
-        :brakeman_version => Brakeman::Version
+        :railroader_version => Railroader::Version
       }
 
       File.open file, "w" do |f|

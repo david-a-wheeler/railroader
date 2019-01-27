@@ -1,4 +1,4 @@
-module Brakeman
+module Railroader
   class RenderPath
     attr_reader :path
 

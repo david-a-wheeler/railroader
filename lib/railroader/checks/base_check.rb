@@ -1,18 +1,18 @@
-require 'brakeman/processors/output_processor'
-require 'brakeman/processors/lib/processor_helper'
-require 'brakeman/warning'
-require 'brakeman/util'
+require 'railroader/processors/output_processor'
+require 'railroader/processors/lib/processor_helper'
+require 'railroader/warning'
+require 'railroader/util'
 
 #Basis of vulnerability checks.
-class Brakeman::BaseCheck < Brakeman::SexpProcessor
-  include Brakeman::ProcessorHelper
-  include Brakeman::SafeCallHelper
-  include Brakeman::Util
+class Railroader::BaseCheck < Railroader::SexpProcessor
+  include Railroader::ProcessorHelper
+  include Railroader::SafeCallHelper
+  include Railroader::Util
   attr_reader :tracker, :warnings
 
   # This is for legacy support.
   # Use :high, :medium, or :low instead when creating warnings.
-  CONFIDENCE = Brakeman::Warning::CONFIDENCE
+  CONFIDENCE = Railroader::Warning::CONFIDENCE
 
   Match = Struct.new(:type, :match)
 
@@ -20,7 +20,7 @@ class Brakeman::BaseCheck < Brakeman::SexpProcessor
     attr_accessor :name
 
     def inherited(subclass)
-      subclass.name = subclass.to_s.match(/^Brakeman::(.*)$/)[1]
+      subclass.name = subclass.to_s.match(/^Railroader::(.*)$/)[1]
     end
   end
 
@@ -45,7 +45,7 @@ class Brakeman::BaseCheck < Brakeman::SexpProcessor
   def add_result result, location = nil
     location ||= (@current_template && @current_template.name) || @current_class || @current_module || @current_set || result[:location][:class] || result[:location][:template]
     location = location[:name] if location.is_a? Hash
-    location = location.name if location.is_a? Brakeman::Collection
+    location = location.name if location.is_a? Railroader::Collection
     location = location.to_sym
 
     if result.is_a? Hash
@@ -141,7 +141,7 @@ class Brakeman::BaseCheck < Brakeman::SexpProcessor
   def warn options
     extra_opts = { :check => self.class.to_s }
 
-    warning = Brakeman::Warning.new(options.merge(extra_opts))
+    warning = Railroader::Warning.new(options.merge(extra_opts))
     warning.file = file_for warning
     warning.relative_path = relative_path(warning.file)
 
@@ -150,7 +150,7 @@ class Brakeman::BaseCheck < Brakeman::SexpProcessor
 
   #Run _exp_ through OutputProcessor to get a nice String.
   def format_output exp
-    Brakeman::OutputProcessor.new.format(exp).gsub(/\r|\n/, "")
+    Railroader::OutputProcessor.new.format(exp).gsub(/\r|\n/, "")
   end
 
   #Checks if mass assignment is disabled globally in an initializer.
@@ -259,7 +259,7 @@ class Brakeman::BaseCheck < Brakeman::SexpProcessor
     location ||= (@current_template && @current_template.name) || @current_class || @current_module || @current_set || result[:location][:class] || result[:location][:template]
 
     location = location[:name] if location.is_a? Hash
-    location = location.name if location.is_a? Brakeman::Collection
+    location = location.name if location.is_a? Railroader::Collection
     location = location.to_sym
 
     @results.each do |r|

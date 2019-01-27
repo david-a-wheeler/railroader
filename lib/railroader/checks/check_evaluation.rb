@@ -1,18 +1,18 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #This check looks for calls to +eval+, +instance_eval+, etc. which include
 #user input.
-class Brakeman::CheckEvaluation < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckEvaluation < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Searches for evaluation of user input"
 
   #Process calls
   def run_check
-    Brakeman.debug "Finding eval-like calls"
+    Railroader.debug "Finding eval-like calls"
     calls = tracker.find_call :method => [:eval, :instance_eval, :class_eval, :module_eval]
 
-    Brakeman.debug "Processing eval-like calls"
+    Railroader.debug "Processing eval-like calls"
     calls.each do |call|
       process_result call
     end

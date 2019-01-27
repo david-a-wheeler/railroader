@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckSymbolDoSCVE < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckSymbolDoSCVE < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for versions with ActiveRecord symbol denial of service vulnerability"
 

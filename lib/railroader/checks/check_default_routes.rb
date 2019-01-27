@@ -1,8 +1,8 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #Checks if default routes are allowed in routes.rb
-class Brakeman::CheckDefaultRoutes < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckDefaultRoutes < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for default routes"
 
@@ -28,7 +28,7 @@ class Brakeman::CheckDefaultRoutes < Brakeman::BaseCheck
 
   def check_for_action_globs
     return if allow_all_actions?
-    Brakeman.debug "Checking each controller for default routes"
+    Railroader.debug "Checking each controller for default routes"
 
     tracker.routes.each do |name, actions|
       if actions.is_a? Array and actions[0] == :allow_all_actions

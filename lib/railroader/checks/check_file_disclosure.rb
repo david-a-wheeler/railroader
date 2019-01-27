@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckFileDisclosure < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckFileDisclosure < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = 'Checks for versions with file existence disclosure vulnerability'
 

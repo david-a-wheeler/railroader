@@ -1,11 +1,11 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #Checks if password is stored in controller
 #when using http_basic_authenticate_with
 #
 #Only for Rails >= 3.1
-class Brakeman::CheckBasicAuth < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckBasicAuth < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for the use of http_basic_authenticate_with"
 

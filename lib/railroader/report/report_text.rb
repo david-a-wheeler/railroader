@@ -1,6 +1,6 @@
-Brakeman.load_brakeman_dependency 'highline'
+Railroader.load_railroader_dependency 'highline'
 
-class Brakeman::Report::Text < Brakeman::Report::Base
+class Railroader::Report::Text < Railroader::Report::Base
   def generate_report
     HighLine.use_color = !!tracker.options[:output_color]
     summary_option = tracker.options[:summary_only]
@@ -35,10 +35,10 @@ class Brakeman::Report::Text < Brakeman::Report::Base
 
   def generate_header
     [
-      header("Brakeman Report"), 
+      header("Railroader Report"), 
       label("Application Path", tracker.app_path),
       label("Rails Version", rails_version),
-      label("Brakeman Version", Brakeman::Version),
+      label("Railroader Version", Railroader::Version),
       label("Scan Date", tracker.start_time),
       label("Duration", "#{tracker.duration} seconds"),
       label("Checks Run", checks.checks_run.sort.join(", "))
@@ -112,7 +112,7 @@ class Brakeman::Report::Text < Brakeman::Report::Base
   end
 
   def generate_templates
-    out_processor = Brakeman::OutputProcessor.new
+    out_processor = Railroader::OutputProcessor.new
 
     template_rows = {}
     tracker.templates.each do |name, template|
@@ -132,7 +132,7 @@ class Brakeman::Report::Text < Brakeman::Report::Base
     out = [
       label('Confidence', confidence(w.confidence)),
       label('Category', w.warning_type.to_s),
-      label('Check', w.check.gsub(/^Brakeman::Check/, '')),
+      label('Check', w.check.gsub(/^Railroader::Check/, '')),
       label('Message', w.message)
     ]
 

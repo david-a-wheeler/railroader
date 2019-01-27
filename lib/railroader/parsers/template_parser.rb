@@ -1,6 +1,6 @@
-module Brakeman
+module Railroader
   class TemplateParser
-    include Brakeman::Util
+    include Railroader::Util
     attr_reader :tracker
     KNOWN_TEMPLATE_EXTENSIONS = /.*\.(erb|haml|rhtml|slim)$/
 
@@ -16,7 +16,7 @@ module Brakeman
       type = path.match(KNOWN_TEMPLATE_EXTENSIONS)[1].to_sym
       type = :erb if type == :rhtml
       name = template_path_to_name path
-      Brakeman.debug "Parsing #{path}"
+      Railroader.debug "Parsing #{path}"
 
       begin
         src = case type
@@ -47,15 +47,15 @@ module Brakeman
     def parse_erb path, text
       if tracker.config.escape_html?
         if tracker.options[:rails3]
-          require 'brakeman/parsers/rails3_erubis'
-          Brakeman::Rails3Erubis.new(text, :filename => path).src
+          require 'railroader/parsers/rails3_erubis'
+          Railroader::Rails3Erubis.new(text, :filename => path).src
         else
-          require 'brakeman/parsers/rails2_xss_plugin_erubis'
-          Brakeman::Rails2XSSPluginErubis.new(text, :filename => path).src
+          require 'railroader/parsers/rails2_xss_plugin_erubis'
+          Railroader::Rails2XSSPluginErubis.new(text, :filename => path).src
         end
       elsif tracker.config.erubis?
-        require 'brakeman/parsers/rails2_erubis'
-        Brakeman::ScannerErubis.new(text, :filename => path).src
+        require 'railroader/parsers/rails2_erubis'
+        Railroader::ScannerErubis.new(text, :filename => path).src
       else
         require 'erb'
         src = if ERB.instance_method(:initialize).parameters.assoc(:key) # Ruby 2.6+
@@ -63,7 +63,7 @@ module Brakeman
         else
           ERB.new(text, nil, path).src
         end
-        src.sub!(/^#.*\n/, '') if Brakeman::Scanner::RUBY_1_9
+        src.sub!(/^#.*\n/, '') if Railroader::Scanner::RUBY_1_9
         src
       end
     end
@@ -74,8 +74,8 @@ module Brakeman
     end
 
     def parse_haml path, text
-      Brakeman.load_brakeman_dependency 'haml'
-      Brakeman.load_brakeman_dependency 'sass'
+      Railroader.load_railroader_dependency 'haml'
+      Railroader.load_railroader_dependency 'sass'
 
       Haml::Engine.new(text,
                        :filename => path,
@@ -89,7 +89,7 @@ module Brakeman
     end
 
     def parse_slim path, text
-      Brakeman.load_brakeman_dependency 'slim'
+      Railroader.load_railroader_dependency 'slim'
 
       Slim::Template.new(path,
                          :disable_capture => true,
@@ -97,7 +97,7 @@ module Brakeman
     end
 
     def self.parse_inline_erb tracker, text
-      fp = Brakeman::FileParser.new(tracker, nil)
+      fp = Railroader::FileParser.new(tracker, nil)
       tp = self.new(tracker, fp)
       src = tp.parse_erb '_inline_', text
       type = tp.erubis? ? :erubis : :erb

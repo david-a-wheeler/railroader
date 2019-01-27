@@ -1,14 +1,14 @@
 require 'set'
-require 'brakeman/call_index'
-require 'brakeman/checks'
-require 'brakeman/report'
-require 'brakeman/processors/lib/find_call'
-require 'brakeman/processors/lib/find_all_calls'
-require 'brakeman/tracker/config'
-require 'brakeman/tracker/constants'
+require 'railroader/call_index'
+require 'railroader/checks'
+require 'railroader/report'
+require 'railroader/processors/lib/find_call'
+require 'railroader/processors/lib/find_all_calls'
+require 'railroader/tracker/config'
+require 'railroader/tracker/constants'
 
 #The Tracker keeps track of all the processed information.
-class Brakeman::Tracker
+class Railroader::Tracker
   attr_accessor :controllers, :constants, :templates, :models, :errors,
     :checks, :initializers, :config, :routes, :processor, :libs,
     :template_cache, :options, :filter_cache, :start_time, :end_time,
@@ -16,7 +16,7 @@ class Brakeman::Tracker
 
   #Place holder when there should be a model, but it is not
   #clear what model it will be.
-  UNKNOWN_MODEL = :BrakemanUnresolvedModel
+  UNKNOWN_MODEL = :RailroaderUnresolvedModel
 
   #Creates a new Tracker.
   #
@@ -27,19 +27,19 @@ class Brakeman::Tracker
     @processor = processor
     @options = options
 
-    @config = Brakeman::Config.new(self)
+    @config = Railroader::Config.new(self)
     @templates = {}
     @controllers = {}
     #Initialize models with the unknown model so
     #we can match models later without knowing precisely what
     #class they are.
     @models = {}
-    @models[UNKNOWN_MODEL] = Brakeman::Model.new(UNKNOWN_MODEL, nil, nil, nil, self)
+    @models[UNKNOWN_MODEL] = Railroader::Model.new(UNKNOWN_MODEL, nil, nil, nil, self)
     @routes = {}
     @initializers = {}
     @errors = []
     @libs = {}
-    @constants = Brakeman::Constants.new
+    @constants = Railroader::Constants.new
     @checks = nil
     @processed = nil
     @template_cache = Set.new
@@ -58,8 +58,8 @@ class Brakeman::Tracker
       backtrace = [ backtrace ]
     end
 
-    Brakeman.debug exception
-    Brakeman.debug backtrace
+    Railroader.debug exception
+    Railroader.debug backtrace
 
     @errors << { :error => exception.to_s.gsub("\n", " "), :backtrace => backtrace }
   end
@@ -67,7 +67,7 @@ class Brakeman::Tracker
   #Run a set of checks on the current information. Results will be stored
   #in Tracker#checks.
   def run_checks
-    @checks = Brakeman::Checks.run_checks(@app_tree, self)
+    @checks = Railroader::Checks.run_checks(@app_tree, self)
 
     @end_time = Time.now
     @duration = @end_time - @start_time
@@ -157,7 +157,7 @@ class Brakeman::Tracker
 
   #Searches the initializers for a method call
   def check_initializers target, method
-    finder = Brakeman::FindCall.new target, method, self
+    finder = Railroader::FindCall.new target, method, self
 
     initializers.sort.each do |name, initializer|
       finder.process_source initializer
@@ -168,7 +168,7 @@ class Brakeman::Tracker
 
   #Returns a Report with this Tracker's information
   def report
-    Brakeman::Report.new(@app_tree, self)
+    Railroader::Report.new(@app_tree, self)
   end
 
   def warnings
@@ -209,7 +209,7 @@ class Brakeman::Tracker
   end
 
   def index_call_sites
-    finder = Brakeman::FindAllCalls.new self
+    finder = Railroader::FindAllCalls.new self
 
     self.each_method do |definition, set_name, method_name, file|
       finder.process_source definition, :class => set_name, :method => method_name, :file => file
@@ -223,7 +223,7 @@ class Brakeman::Tracker
       finder.process_source template.src, :template => template, :file => template.file
     end
 
-    @call_index = Brakeman::CallIndex.new finder.calls
+    @call_index = Railroader::CallIndex.new finder.calls
   end
 
   #Reindex call sites
@@ -258,7 +258,7 @@ class Brakeman::Tracker
 
     @call_index.remove_indexes_by_class classes_to_reindex
 
-    finder = Brakeman::FindAllCalls.new self
+    finder = Railroader::FindAllCalls.new self
 
     method_sets.each do |set|
       set.each do |set_name, info|

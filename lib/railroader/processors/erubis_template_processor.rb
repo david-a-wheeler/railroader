@@ -1,7 +1,7 @@
-require 'brakeman/processors/template_processor'
+require 'railroader/processors/template_processor'
 
 #Processes ERB templates using Erubis instead of erb.
-class Brakeman::ErubisTemplateProcessor < Brakeman::TemplateProcessor
+class Railroader::ErubisTemplateProcessor < Railroader::TemplateProcessor
 
   #s(:call, TARGET, :method, ARGS)
   def process_call exp

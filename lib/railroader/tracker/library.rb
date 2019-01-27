@@ -1,9 +1,9 @@
-require 'brakeman/tracker/collection'
-require 'brakeman/tracker/controller'
-require 'brakeman/tracker/model'
+require 'railroader/tracker/collection'
+require 'railroader/tracker/controller'
+require 'railroader/tracker/model'
 
-module Brakeman
-  class Library < Brakeman::Collection
+module Railroader
+  class Library < Railroader::Collection
     include ControllerMethods
     include ModelMethods
 

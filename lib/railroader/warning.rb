@@ -1,9 +1,9 @@
 require 'json'
 require 'digest/sha2'
-require 'brakeman/warning_codes'
+require 'railroader/warning_codes'
 
 #The Warning class stores information about warnings
-class Brakeman::Warning
+class Railroader::Warning
   attr_reader :called_from, :check, :class, :confidence, :controller,
     :line, :method, :model, :template, :user_input, :user_input_type,
     :warning_code, :warning_set, :warning_type
@@ -71,7 +71,7 @@ class Brakeman::Warning
       @method = :before_filter
     end
 
-    if @user_input.is_a? Brakeman::BaseCheck::Match
+    if @user_input.is_a? Railroader::BaseCheck::Match
       @user_input_type = @user_input.type
       @user_input = @user_input.match
     elsif @user_input == false
@@ -110,10 +110,10 @@ class Brakeman::Warning
     end
 
     if options[:warning_code]
-      @warning_code = Brakeman::WarningCodes.code options[:warning_code]
+      @warning_code = Railroader::WarningCodes.code options[:warning_code]
     end
 
-    Brakeman.debug("Warning created without warning code: #{options[:warning_code]}") unless @warning_code
+    Railroader.debug("Warning created without warning code: #{options[:warning_code]}") unless @warning_code
 
     @format_message = nil
     @row = nil
@@ -164,7 +164,7 @@ class Brakeman::Warning
 
   def format_with_user_input strip = true, &block
     if self.user_input
-      formatted = Brakeman::OutputProcessor.new.format(code, self.user_input, &block)
+      formatted = Railroader::OutputProcessor.new.format(code, self.user_input, &block)
       formatted.gsub!(/(\t|\r|\n)+/, " ") if strip
       formatted
     else
@@ -196,11 +196,11 @@ class Brakeman::Warning
       if @link_path.start_with? "http"
         @link = @link_path
       else
-        @link = "https://brakemanscanner.org/docs/warning_types/#{@link_path}"
+        @link = "https://railroaderscanner.org/docs/warning_types/#{@link_path}"
       end
     else
       warning_path = self.warning_type.to_s.downcase.gsub(/\s+/, '_') + "/"
-      @link = "https://brakemanscanner.org/docs/warning_types/#{warning_path}"
+      @link = "https://railroaderscanner.org/docs/warning_types/#{warning_path}"
     end
 
     @link
@@ -266,7 +266,7 @@ class Brakeman::Warning
     { :warning_type => self.warning_type,
       :warning_code => @warning_code,
       :fingerprint => self.fingerprint,
-      :check_name => self.check.gsub(/^Brakeman::Check/, ''),
+      :check_name => self.check.gsub(/^Railroader::Check/, ''),
       :message => self.message,
       :file => self.file,
       :line => self.line,
@@ -286,7 +286,7 @@ class Brakeman::Warning
   private
 
   def format_ruby code, strip
-    formatted = Brakeman::OutputProcessor.new.format(code)
+    formatted = Railroader::OutputProcessor.new.format(code)
     formatted.gsub!(/(\t|\r|\n)+/, " ") if strip
     formatted
   end

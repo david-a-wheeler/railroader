@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckYAMLParsing < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckYAMLParsing < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for YAML parsing vulnerabilities (CVE-2013-0156)"
 

@@ -1,4 +1,4 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #Checks for string interpolation and parameters in calls to
 #Kernel#system, Kernel#exec, Kernel#syscall, and inside backticks.
@@ -8,8 +8,8 @@ require 'brakeman/checks/base_check'
 # system("rf -rf #{params[:file]}")
 # exec(params[:command])
 # `unlink #{params[:something}`
-class Brakeman::CheckExecute < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckExecute < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Finds instances of possible command injection"
 
@@ -24,18 +24,18 @@ class Brakeman::CheckExecute < Brakeman::BaseCheck
 
   #Check models, controllers, and views for command injection.
   def run_check
-    Brakeman.debug "Finding system calls using ``"
+    Railroader.debug "Finding system calls using ``"
     check_for_backticks tracker
 
     check_open_calls
 
-    Brakeman.debug "Finding other system calls"
+    Railroader.debug "Finding other system calls"
     calls = tracker.find_call :targets => [:IO, :Open3, :Kernel, :'POSIX::Spawn', :Process, nil],
       :methods => [:capture2, :capture2e, :capture3, :exec, :pipeline, :pipeline_r,
         :pipeline_rw, :pipeline_start, :pipeline_w, :popen, :popen2, :popen2e,
         :popen3, :spawn, :syscall, :system], :nested => true
 
-    Brakeman.debug "Processing system calls"
+    Railroader.debug "Processing system calls"
     calls.each do |result|
       process_result result
     end

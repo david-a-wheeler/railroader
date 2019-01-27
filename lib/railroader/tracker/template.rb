@@ -1,7 +1,7 @@
-require 'brakeman/tracker/collection'
+require 'railroader/tracker/collection'
 
-module Brakeman
-  class Template < Brakeman::Collection
+module Railroader
+  class Template < Railroader::Collection
     attr_accessor :type
     attr_reader :render_path
     attr_writer :src

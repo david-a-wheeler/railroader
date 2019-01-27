@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckBasicAuthTimingAttack < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckBasicAuthTimingAttack < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Check for timing attack in basic auth (CVE-2015-7576)"
 

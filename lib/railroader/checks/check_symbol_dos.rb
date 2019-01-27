@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckSymbolDoS < Brakeman::BaseCheck
-  Brakeman::Checks.add_optional self
+class Railroader::CheckSymbolDoS < Railroader::BaseCheck
+  Railroader::Checks.add_optional self
 
   UNSAFE_METHODS = [:to_sym, :literal_to_sym, :intern, :symbolize_keys, :symbolize_keys!]
 

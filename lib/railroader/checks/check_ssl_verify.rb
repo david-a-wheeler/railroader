@@ -1,9 +1,9 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 # Checks if verify_mode= is called with OpenSSL::SSL::VERIFY_NONE
 
-class Brakeman::CheckSSLVerify < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckSSLVerify < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   SSL_VERIFY_NONE = s(:colon2, s(:colon2, s(:const, :OpenSSL), :SSL), :VERIFY_NONE)
 

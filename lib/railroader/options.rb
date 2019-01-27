@@ -1,8 +1,8 @@
 require 'optparse'
 require 'set'
 
-#Parses command line arguments for Brakeman
-module Brakeman::Options
+#Parses command line arguments for Railroader
+module Railroader::Options
 
   class << self
 
@@ -37,7 +37,7 @@ module Brakeman::Options
 
     def create_option_parser options
       OptionParser.new do |opts|
-        opts.banner = "Usage: brakeman [options] rails/root/path"
+        opts.banner = "Usage: railroader [options] rails/root/path"
 
         opts.on "-n", "--no-threads", "Run checks sequentially" do
           options[:parallel_checks] = false
@@ -63,7 +63,7 @@ module Brakeman::Options
           options[:exit_on_error] = exit_on_error
         end
 
-        opts.on "--ensure-latest", "Fail when Brakeman is outdated" do
+        opts.on "--ensure-latest", "Fail when Railroader is outdated" do
           options[:ensure_latest] = true
         end
 
@@ -289,7 +289,7 @@ module Brakeman::Options
           options[:min_confidence] =  3 - level.to_i
         end
 
-        opts.on "--compare FILE", "Compare the results of a previous Brakeman scan (only JSON is supported)" do |file|
+        opts.on "--compare FILE", "Compare the results of a previous Railroader scan (only JSON is supported)" do |file|
           options[:previous_results_json] = File.expand_path(file)
         end
 
@@ -322,7 +322,7 @@ module Brakeman::Options
           options[:list_optional_checks] = true
         end
 
-        opts.on "-v", "--version", "Show Brakeman version" do
+        opts.on "-v", "--version", "Show Railroader version" do
           options[:show_version] = true
         end
 

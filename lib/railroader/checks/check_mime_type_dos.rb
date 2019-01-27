@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckMimeTypeDoS < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckMimeTypeDoS < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for mime type denial of service (CVE-2016-0751)"
 

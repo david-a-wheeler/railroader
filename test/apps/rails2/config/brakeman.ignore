@@ -7,7 +7,7 @@
       "message": "Unescaped model attribute",
       "file": "app/views/other/ignore_me.html.erb",
       "line": 2,
-      "link": "http://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "link": "http://railroaderscanner.org/docs/warning_types/cross_site_scripting",
       "code": "User.first(:conditions => (\"x = #{params[:x]}\")).bio",
       "render_path": null,
       "location": {
@@ -25,7 +25,7 @@
       "message": "Possible SQL injection",
       "file": "app/views/other/ignore_me.html.erb",
       "line": 2,
-      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "link": "http://railroaderscanner.org/docs/warning_types/sql_injection/",
       "code": "User.first(:conditions => (\"x = #{params[:x]}\"))",
       "render_path": null,
       "location": {
@@ -38,5 +38,5 @@
     }
   ],
   "updated": "2015-07-16 22:46:47 -0700",
-  "brakeman_version": "3.0.5"
+  "railroader_version": "3.0.5"
 }

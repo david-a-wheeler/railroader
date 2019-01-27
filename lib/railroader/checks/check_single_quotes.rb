@@ -1,9 +1,9 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #Checks for versions which do not escape single quotes.
 #https://groups.google.com/d/topic/rubyonrails-security/kKGNeMrnmiY/discussion
-class Brakeman::CheckSingleQuotes < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckSingleQuotes < Railroader::BaseCheck
+  Railroader::Checks.add self
   RACK_UTILS = Sexp.new(:colon2, Sexp.new(:const, :Rack), :Utils)
 
   @description = "Check for versions which do not escape single quotes (CVE-2012-3464)"

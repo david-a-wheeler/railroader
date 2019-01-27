@@ -1,4 +1,4 @@
-module Brakeman
+module Railroader
   ASTFile = Struct.new(:path, :ast)
 
   # This class handles reading and parsing files.
@@ -33,7 +33,7 @@ module Brakeman
 
     def parse_ruby input, path
       begin
-        Brakeman.debug "Parsing #{path}"
+        Railroader.debug "Parsing #{path}"
         RubyParser.new.parse input, path, @timeout
       rescue Racc::ParseError => e
         @tracker.error e, "Could not parse #{path}"

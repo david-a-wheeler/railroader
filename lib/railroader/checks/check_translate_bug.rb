@@ -1,8 +1,8 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #Check for vulnerability in translate() helper that allows cross-site scripting
-class Brakeman::CheckTranslateBug < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckTranslateBug < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Report XSS vulnerability in translate helper"
 
@@ -38,7 +38,7 @@ class Brakeman::CheckTranslateBug < Brakeman::BaseCheck
   end
 
   def uses_translate?
-    Brakeman.debug "Finding calls to translate() or t()"
+    Railroader.debug "Finding calls to translate() or t()"
 
     tracker.find_call(:target => nil, :methods => [:t, :translate]).any?
   end

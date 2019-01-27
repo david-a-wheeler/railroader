@@ -1,11 +1,11 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #Check for bypassing mass assignment protection
 #with without_protection => true
 #
 #Only for Rails 3.1
-class Brakeman::CheckWithoutProtection < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckWithoutProtection < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Check for mass assignment using without_protection"
 
@@ -16,7 +16,7 @@ class Brakeman::CheckWithoutProtection < Brakeman::BaseCheck
 
     return if active_record_models.empty?
 
-    Brakeman.debug "Finding all mass assignments"
+    Railroader.debug "Finding all mass assignments"
     calls = tracker.find_call :targets => active_record_models.keys, :methods => [:new,
       :attributes=, 
       :update_attributes, 
@@ -24,7 +24,7 @@ class Brakeman::CheckWithoutProtection < Brakeman::BaseCheck
       :create,
       :create!]
 
-    Brakeman.debug "Processing all mass assignments"
+    Railroader.debug "Processing all mass assignments"
     calls.each do |result|
       process_result result
     end

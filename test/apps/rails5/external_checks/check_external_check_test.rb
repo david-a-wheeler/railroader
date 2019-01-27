@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckExternalCheckConfigTest < Brakeman::BaseCheck
-  Brakeman::Checks.add_optional self
+class Railroader::CheckExternalCheckConfigTest < Railroader::BaseCheck
+  Railroader::Checks.add_optional self
 
   @description = "An external check for testing"
 

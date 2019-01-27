@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckModelSerialize < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckModelSerialize < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Report uses of serialize in versions vulnerable to CVE-2013-0277"
 

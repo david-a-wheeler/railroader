@@ -2,7 +2,7 @@ require 'set'
 require 'pathname'
 
 #This is a mixin containing utility methods.
-module Brakeman::Util
+module Railroader::Util
 
   QUERY_PARAMETERS = Sexp.new(:call, Sexp.new(:call, nil, :request), :query_parameters)
 
@@ -468,7 +468,7 @@ module Brakeman::Util
     @terminal_width ||= if @tracker.options[:table_width]
                           @tracker.options[:table_width]
                         elsif $stdin && $stdin.tty?
-                          Brakeman.load_brakeman_dependency 'highline'
+                          Railroader.load_railroader_dependency 'highline'
                           ::HighLine.new.terminal_size[0]
                         else
                           80
@@ -488,7 +488,7 @@ module Brakeman::Util
   def table_to_csv table
     return "" unless table
 
-    Brakeman.load_brakeman_dependency 'terminal-table'
+    Railroader.load_railroader_dependency 'terminal-table'
     headings = table.headings
     if headings.is_a? Array
       headings = headings.first

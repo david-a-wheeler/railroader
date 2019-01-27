@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckSecrets < Brakeman::BaseCheck
-  Brakeman::Checks.add_optional self
+class Railroader::CheckSecrets < Railroader::BaseCheck
+  Railroader::Checks.add_optional self
 
   @description = "Checks for secrets stored in source code"
 

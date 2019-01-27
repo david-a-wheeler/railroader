@@ -1,11 +1,11 @@
-require 'brakeman/processors/lib/basic_processor'
+require 'railroader/processors/lib/basic_processor'
 
 #Processes the Sexp from routes.rb. Stores results in tracker.routes.
 #
 #Note that it is only interested in determining what methods on which
 #controllers are used as routes, not the generated URLs for routes.
-class Brakeman::Rails3RoutesProcessor < Brakeman::BasicProcessor
-  include Brakeman::RouteHelper
+class Railroader::Rails3RoutesProcessor < Railroader::BasicProcessor
+  include Railroader::RouteHelper
 
   attr_reader :map, :nested, :current_controller
 
@@ -21,7 +21,7 @@ class Brakeman::Rails3RoutesProcessor < Brakeman::BasicProcessor
   end
 
   def process_routes exp
-    process Brakeman::AliasProcessor.new.process_safely(exp, nil, @file_name)
+    process Railroader::AliasProcessor.new.process_safely(exp, nil, @file_name)
   end
 
   def process_call exp

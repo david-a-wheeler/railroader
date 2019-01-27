@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckXMLDoS < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckXMLDoS < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for XML denial of service (CVE-2015-3227)"
 

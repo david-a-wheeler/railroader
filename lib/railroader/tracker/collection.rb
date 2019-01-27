@@ -1,8 +1,8 @@
-require 'brakeman/util'
+require 'railroader/util'
 
-module Brakeman
+module Railroader
   class Collection
-    include Brakeman::Util
+    include Railroader::Util
 
     attr_reader :collection, :files, :includes, :name, :options, :parent, :src, :tracker
 

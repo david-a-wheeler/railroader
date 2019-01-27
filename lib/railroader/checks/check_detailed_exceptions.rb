@@ -1,8 +1,8 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 # Check for detailed exceptions enabled for production
-class Brakeman::CheckDetailedExceptions < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckDetailedExceptions < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   LOCAL_REQUEST = s(:call, s(:call, nil, :request), :local?)
 

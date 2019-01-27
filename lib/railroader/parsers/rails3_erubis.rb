@@ -1,8 +1,8 @@
-Brakeman.load_brakeman_dependency 'erubis'
+Railroader.load_railroader_dependency 'erubis'
 
 # This is from Rails 5 version of the Erubis handler
 # https://github.com/rails/rails/blob/ec608107801b1e505db03ba76bae4a326a5804ca/actionview/lib/action_view/template/handlers/erb.rb#L7-L73
-class Brakeman::Rails3Erubis < ::Erubis::Eruby
+class Railroader::Rails3Erubis < ::Erubis::Eruby
 
   def add_preamble(src)
     @newline_pending = 0

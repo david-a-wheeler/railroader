@@ -1,4 +1,4 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #Check for uses of strip_tags in Rails versions before 3.0.17, 3.1.8, 3.2.8 (including 2.3.x):
 #https://groups.google.com/d/topic/rubyonrails-security/FgVEtBajcTY/discussion
@@ -8,8 +8,8 @@ require 'brakeman/checks/base_check'
 #
 #Check for user of strip_tags with rails-html-sanitizer 1.0.2:
 #https://groups.google.com/d/msg/rubyonrails-security/OU9ugTZcbjc/PjEP46pbFQAJ
-class Brakeman::CheckStripTags < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckStripTags < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Report strip_tags vulnerabilities"
 
@@ -82,7 +82,7 @@ class Brakeman::CheckStripTags < Brakeman::BaseCheck
   end
 
   def uses_strip_tags?
-    Brakeman.debug "Finding calls to strip_tags()"
+    Railroader.debug "Finding calls to strip_tags()"
 
     not tracker.find_call(:target => false, :method => :strip_tags, :nested => true).empty?
   end

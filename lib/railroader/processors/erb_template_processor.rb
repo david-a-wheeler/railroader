@@ -1,8 +1,8 @@
-require 'brakeman/processors/template_processor'
+require 'railroader/processors/template_processor'
 
 #Processes ERB templates
 #(those ending in .html.erb or .rthml).
-class Brakeman::ErbTemplateProcessor < Brakeman::TemplateProcessor
+class Railroader::ErbTemplateProcessor < Railroader::TemplateProcessor
   
   #s(:call, TARGET, :method, ARGS)
   def process_call exp

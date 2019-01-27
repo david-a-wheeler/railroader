@@ -1,17 +1,17 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #Reports any calls to +redirect_to+ which include parameters in the arguments.
 #
 #For example:
 #
 # redirect_to params.merge(:action => :elsewhere)
-class Brakeman::CheckRedirect < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckRedirect < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Looks for calls to redirect_to with user input as arguments"
 
   def run_check
-    Brakeman.debug "Finding calls to redirect_to()"
+    Railroader.debug "Finding calls to redirect_to()"
 
     @model_find_calls = Set[:all, :create, :create!, :find, :find_by_sql, :first, :last, :new]
 
@@ -64,7 +64,7 @@ class Brakeman::CheckRedirect < Brakeman::BaseCheck
   #which can be used to enable/disable reporting output of method calls which use
   #user input as arguments.
   def include_user_input? call, immediate = :immediate
-    Brakeman.debug "Checking if call includes user input"
+    Railroader.debug "Checking if call includes user input"
 
     arg = call.first_arg
 

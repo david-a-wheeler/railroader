@@ -1,9 +1,9 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #Check for versions with vulnerable html escape method
 #http://groups.google.com/group/rubyonrails-security/browse_thread/thread/56bffb5923ab1195
-class Brakeman::CheckEscapeFunction < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckEscapeFunction < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for versions before 2.3.14 which have a vulnerable escape method"
 

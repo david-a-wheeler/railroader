@@ -2,7 +2,7 @@ require "json"
 require "yaml"
 require "pathname"
 
-class Brakeman::Report::CodeClimate < Brakeman::Report::Base
+class Railroader::Report::CodeClimate < Railroader::Report::Base
   DOCUMENTATION_PATH = File.expand_path("../../../../docs/warning_types", __FILE__)
   REMEDIATION_POINTS_CONFIG_PATH = File.expand_path("../config/remediation.yml", __FILE__)
   REMEDIATION_POINTS_DEFAULT = 300_000
@@ -51,7 +51,7 @@ class Brakeman::Report::CodeClimate < Brakeman::Report::Base
   end
 
   def name_for(warning_code)
-    @warning_codes ||= Brakeman::WarningCodes::Codes.invert
+    @warning_codes ||= Railroader::WarningCodes::Codes.invert
     @warning_codes[warning_code].to_s
   end
 

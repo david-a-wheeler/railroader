@@ -1,12 +1,12 @@
-require 'brakeman/processors/lib/processor_helper'
-require 'brakeman/processors/lib/safe_call_helper'
-require 'brakeman/util'
+require 'railroader/processors/lib/processor_helper'
+require 'railroader/processors/lib/safe_call_helper'
+require 'railroader/util'
 
 #Base processor for most processors.
-class Brakeman::BaseProcessor < Brakeman::SexpProcessor
-  include Brakeman::ProcessorHelper
-  include Brakeman::SafeCallHelper
-  include Brakeman::Util
+class Railroader::BaseProcessor < Railroader::SexpProcessor
+  include Railroader::ProcessorHelper
+  include Railroader::SafeCallHelper
+  include Railroader::Util
 
   IGNORE = Sexp.new :ignore
 
@@ -274,7 +274,7 @@ class Brakeman::BaseProcessor < Brakeman::SexpProcessor
   end
 
   def make_inline_render value, options
-    require 'brakeman/parsers/template_parser'
+    require 'railroader/parsers/template_parser'
 
     class_or_module = (@current_class || @current_module)
 
@@ -285,7 +285,7 @@ class Brakeman::BaseProcessor < Brakeman::SexpProcessor
                       end
 
     template_name = "#@current_method/inline@#{value.line}:#{class_or_module}".to_sym
-    type, ast = Brakeman::TemplateParser.parse_inline_erb(@tracker, value.value)
+    type, ast = Railroader::TemplateParser.parse_inline_erb(@tracker, value.value)
     ast = ast.deep_clone(value.line)
     @tracker.processor.process_template(template_name, ast, type, nil, @file_name)
     @tracker.processor.process_template_alias(@tracker.templates[template_name])

@@ -1,7 +1,7 @@
 require 'digest/sha1'
 
 #Processes a call to render() in a controller or template
-module Brakeman::RenderHelper
+module Railroader::RenderHelper
 
   #Process s(:render, TYPE, OPTION?, OPTIONS)
   def process_render exp
@@ -14,7 +14,7 @@ module Brakeman::RenderHelper
       begin
         process_template template_name, exp[3], nil, exp.line
       rescue ArgumentError
-        Brakeman.debug "Problem processing render: #{exp}"
+        Railroader.debug "Problem processing render: #{exp}"
       end
     when :partial, :layout
       process_partial exp[2], exp[3], exp.line
@@ -56,12 +56,12 @@ module Brakeman::RenderHelper
   #to its environment.
   def process_template name, args, called_from = nil, *_
 
-    Brakeman.debug "Rendering #{name} (#{called_from})"
+    Railroader.debug "Rendering #{name} (#{called_from})"
     #Get scanned source for this template
     name = name.to_s.gsub(/^\//, "")
     template = @tracker.templates[name.to_sym]
     unless template
-      Brakeman.debug "[Notice] No such template: #{name}"
+      Railroader.debug "[Notice] No such template: #{name}"
       return
     end
 
@@ -110,7 +110,7 @@ module Brakeman::RenderHelper
           end
         end
 
-        collection = get_class_target(options[:collection]) || Brakeman::Tracker::UNKNOWN_MODEL
+        collection = get_class_target(options[:collection]) || Railroader::Tracker::UNKNOWN_MODEL
 
         template_env[Sexp.new(:call, nil, variable)] = Sexp.new(:call, Sexp.new(:const, collection), :new)
       end
@@ -128,7 +128,7 @@ module Brakeman::RenderHelper
       #Run source through AliasProcessor with instance variables from the
       #current environment.
       #TODO: Add in :locals => { ... } to environment
-      src = Brakeman::TemplateAliasProcessor.new(@tracker, template, called_from).process_safely(template.src, template_env)
+      src = Railroader::TemplateAliasProcessor.new(@tracker, template, called_from).process_safely(template.src, template_env)
 
       digest = Digest::SHA1.new.update(name + src.to_s).to_s.to_sym
 

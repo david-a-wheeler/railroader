@@ -1,4 +1,4 @@
-class Brakeman::Report::JSON < Brakeman::Report::Base
+class Railroader::Report::JSON < Railroader::Report::Base
   def generate_report
     errors = tracker.errors.map{|e| { :error => e[:error], :location => e[:backtrace][0] }}
 
@@ -21,7 +21,7 @@ class Brakeman::Report::JSON < Brakeman::Report::Base
       :number_of_models => tracker.models.length - 1,
       :number_of_templates => number_of_templates(@tracker),
       :ruby_version => RUBY_VERSION,
-      :brakeman_version => Brakeman::Version
+      :railroader_version => Railroader::Version
     }
 
     report_info = {

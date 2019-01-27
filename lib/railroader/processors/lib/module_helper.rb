@@ -1,4 +1,4 @@
-module Brakeman::ModuleHelper
+module Railroader::ModuleHelper
   def handle_module exp, tracker_class, parent = nil
     name = class_name(exp.module_name)
 

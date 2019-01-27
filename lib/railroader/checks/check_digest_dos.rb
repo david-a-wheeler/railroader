@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckDigestDoS < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckDigestDoS < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for digest authentication DoS vulnerability"
 

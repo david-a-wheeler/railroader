@@ -1,14 +1,14 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #Checks if user supplied data is passed to send
-class Brakeman::CheckSend < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckSend < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Check for unsafe use of Object#send"
 
   def run_check
     @send_methods = [:send, :try, :__send__, :public_send]
-    Brakeman.debug("Finding instances of #send")
+    Railroader.debug("Finding instances of #send")
     calls = tracker.find_call :methods => @send_methods, :nested => true
 
     calls.each do |call|

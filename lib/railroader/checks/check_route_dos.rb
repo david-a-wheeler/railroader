@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckRouteDoS < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckRouteDoS < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for route DoS (CVE-2015-7581)"
 

@@ -1,8 +1,8 @@
-require 'brakeman/processors/template_processor'
-require 'brakeman/processors/lib/render_helper'
+require 'railroader/processors/template_processor'
+require 'railroader/processors/lib/render_helper'
 
-class Brakeman::SlimTemplateProcessor < Brakeman::TemplateProcessor
-  include Brakeman::RenderHelper
+class Railroader::SlimTemplateProcessor < Railroader::TemplateProcessor
+  include Railroader::RenderHelper
 
   SAFE_BUFFER = s(:call, s(:colon2, s(:const, :ActiveSupport), :SafeBuffer), :new)
   OUTPUT_BUFFER = s(:ivar, :@output_buffer)

@@ -1,4 +1,4 @@
-module Brakeman::RouteHelper
+module Railroader::RouteHelper
   #Manage Controller prefixes
   #@prefix is an Array, but this method returns a string
   #suitable for prefixing onto a controller name.

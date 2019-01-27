@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckSQLCVEs < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckSQLCVEs < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for several SQL CVEs"
 

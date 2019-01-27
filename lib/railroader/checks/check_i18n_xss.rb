@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckI18nXSS < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckI18nXSS < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for i18n XSS (CVE-2013-4491)"
 

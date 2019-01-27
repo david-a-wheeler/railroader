@@ -7,7 +7,7 @@ class Sexp
   CALLS = [:call, :attrasgn, :safe_call, :safe_attrasgn]
 
   def method_missing name, *args
-    #Brakeman does not use this functionality,
+    #Railroader does not use this functionality,
     #so overriding it to raise a NoMethodError.
     #
     #The original functionality calls find_node and optionally
@@ -408,7 +408,7 @@ class Sexp
   #       s(:call, nil, :p, s(:arglist, s(:lvar, :y))))
   def block_args
     expect :iter
-    if self[2] == 0 # ?! See https://github.com/presidentbeef/brakeman/issues/331
+    if self[2] == 0 # ?! See https://github.com/presidentbeef/railroader/issues/331
       return Sexp.new(:args)
     else
       self[2]
@@ -611,7 +611,7 @@ end
 end
 
 #Methods used by RubyParser which would normally go through method_missing but
-#we don't want that to happen because it hides Brakeman errors
+#we don't want that to happen because it hides Railroader errors
 [:resbody, :lasgn, :iasgn, :splat].each do |method|
   Sexp.class_eval <<-RUBY
     def #{method} delete = false

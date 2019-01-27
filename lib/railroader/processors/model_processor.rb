@@ -1,10 +1,10 @@
-require 'brakeman/processors/base_processor'
-require 'brakeman/processors/lib/module_helper'
-require 'brakeman/tracker/model'
+require 'railroader/processors/base_processor'
+require 'railroader/processors/lib/module_helper'
+require 'railroader/tracker/model'
 
 #Processes models. Puts results in tracker.models
-class Brakeman::ModelProcessor < Brakeman::BaseProcessor
-  include Brakeman::ModuleHelper
+class Railroader::ModelProcessor < Railroader::BaseProcessor
+  include Railroader::ModuleHelper
 
   def initialize tracker
     super
@@ -28,16 +28,16 @@ class Brakeman::ModelProcessor < Brakeman::BaseProcessor
 
     #If inside an inner class we treat it as a library.
     if @current_class
-      Brakeman.debug "[Notice] Treating inner class as library: #{name}"
-      Brakeman::LibraryProcessor.new(@tracker).process_library exp, @file_name
+      Railroader.debug "[Notice] Treating inner class as library: #{name}"
+      Railroader::LibraryProcessor.new(@tracker).process_library exp, @file_name
       return exp
     end
 
-    handle_class exp, @tracker.models, Brakeman::Model
+    handle_class exp, @tracker.models, Railroader::Model
   end
 
   def process_module exp
-    handle_module exp, Brakeman::Model
+    handle_module exp, Railroader::Model
   end
 
   #Handle calls outside of methods,

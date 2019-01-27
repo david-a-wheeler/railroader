@@ -1,6 +1,6 @@
-require 'brakeman/processors/lib/basic_processor'
+require 'railroader/processors/lib/basic_processor'
 
-class Brakeman::FindAllCalls < Brakeman::BasicProcessor
+class Railroader::FindAllCalls < Railroader::BasicProcessor
   attr_reader :calls
 
   def initialize tracker
@@ -95,7 +95,7 @@ class Brakeman::FindAllCalls < Brakeman::BasicProcessor
   def process_dregx exp
     exp.each { |arg| process arg if sexp? arg }
 
-    add_simple_call :brakeman_regex_interp, exp
+    add_simple_call :railroader_regex_interp, exp
 
     exp
   end

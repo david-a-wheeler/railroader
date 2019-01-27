@@ -1,12 +1,12 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 # Author: Paul Deardorff (themetric)
 # Checks models to see if important foreign keys
 # or attributes are exposed as attr_accessible when
 # they probably shouldn't be.
 
-class Brakeman::CheckModelAttrAccessible < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckModelAttrAccessible < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Reports models which have dangerous attributes defined under the attr_accessible whitelist."
 

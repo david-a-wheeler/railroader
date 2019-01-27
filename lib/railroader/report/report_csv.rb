@@ -1,7 +1,7 @@
 require 'csv'
-require "brakeman/report/report_table"
+require "railroader/report/report_table"
 
-class Brakeman::Report::CSV < Brakeman::Report::Table
+class Railroader::Report::CSV < Railroader::Report::Table
   def generate_report
     output = csv_header
     output << "\nSUMMARY\n"

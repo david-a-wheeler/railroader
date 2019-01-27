@@ -1,11 +1,11 @@
-require 'brakeman/processors/lib/processor_helper'
-require 'brakeman/processors/lib/safe_call_helper'
-require 'brakeman/util'
+require 'railroader/processors/lib/processor_helper'
+require 'railroader/processors/lib/safe_call_helper'
+require 'railroader/util'
 
-class Brakeman::BasicProcessor < Brakeman::SexpProcessor
-  include Brakeman::ProcessorHelper
-  include Brakeman::SafeCallHelper
-  include Brakeman::Util
+class Railroader::BasicProcessor < Railroader::SexpProcessor
+  include Railroader::ProcessorHelper
+  include Railroader::SafeCallHelper
+  include Railroader::Util
 
   def initialize tracker
     super()

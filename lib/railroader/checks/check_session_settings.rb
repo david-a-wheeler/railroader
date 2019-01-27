@@ -1,8 +1,8 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #Checks for session key length and http_only settings
-class Brakeman::CheckSessionSettings < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckSessionSettings < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for session key length and http_only settings"
 
@@ -118,8 +118,8 @@ class Brakeman::CheckSessionSettings < Brakeman::BaseCheck
       begin
         secrets = SafeYAML.load yaml
       rescue Psych::SyntaxError, RuntimeError => e
-        Brakeman.notify "[Notice] #{self.class}: Unable to parse `#{secrets_file}`"
-        Brakeman.debug "Failed to parse #{secrets_file}: #{e.inspect}"
+        Railroader.notify "[Notice] #{self.class}: Unable to parse `#{secrets_file}`"
+        Railroader.debug "Failed to parse #{secrets_file}: #{e.inspect}"
         return
       end
 

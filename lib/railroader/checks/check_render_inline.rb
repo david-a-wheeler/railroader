@@ -1,5 +1,5 @@
-class Brakeman::CheckRenderInline < Brakeman::CheckCrossSiteScripting
-  Brakeman::Checks.add self
+class Railroader::CheckRenderInline < Railroader::CheckCrossSiteScripting
+  Railroader::Checks.add self
 
   @description = "Checks for cross-site scripting in render calls"
 

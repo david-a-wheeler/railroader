@@ -1,6 +1,6 @@
-require 'brakeman/tracker/collection'
+require 'railroader/tracker/collection'
 
-module Brakeman
+module Railroader
   module ModelMethods
     attr_reader :associations, :attr_accessible, :role_accessible
 
@@ -67,7 +67,7 @@ module Brakeman
     end
   end
 
-  class Model < Brakeman::Collection
+  class Model < Railroader::Collection
     include ModelMethods
 
     ASSOCIATIONS = Set[:belongs_to, :has_one, :has_many, :has_and_belongs_to_many]

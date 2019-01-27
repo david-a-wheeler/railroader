@@ -1,9 +1,9 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #Check for uses of quote_table_name in Rails versions before 2.3.13 and 3.0.10
 #http://groups.google.com/group/rubyonrails-security/browse_thread/thread/6a1e473744bc389b
-class Brakeman::CheckQuoteTableName < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckQuoteTableName < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for quote_table_name vulnerability in versions before 2.3.14 and 3.0.10"
 
@@ -33,7 +33,7 @@ class Brakeman::CheckQuoteTableName < Brakeman::BaseCheck
   end
 
   def uses_quote_table_name?
-    Brakeman.debug "Finding calls to quote_table_name()"
+    Railroader.debug "Finding calls to quote_table_name()"
 
     not tracker.find_call(:target => false, :method => :quote_table_name).empty?
   end

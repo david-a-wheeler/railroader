@@ -1,13 +1,13 @@
-require 'brakeman/processors/base_processor'
-require 'brakeman/tracker/template'
+require 'railroader/processors/base_processor'
+require 'railroader/tracker/template'
 
 #Base Processor for templates/views
-class Brakeman::TemplateProcessor < Brakeman::BaseProcessor
+class Railroader::TemplateProcessor < Railroader::BaseProcessor
 
   #Initializes template information.
   def initialize tracker, template_name, called_from = nil, file_name = nil
     super(tracker) 
-    @current_template = Brakeman::Template.new template_name, called_from, file_name, tracker
+    @current_template = Railroader::Template.new template_name, called_from, file_name, tracker
     @file_name = file_name
 
     if called_from

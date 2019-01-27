@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Brakeman Report</title>
+<title>Railroader Report</title>
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
   <script type="text/javascript">
@@ -31,13 +31,13 @@
 </head>
 <body>
 
-<h1>Brakeman Report</h1>
+<h1>Railroader Report</h1>
 <table>
   <thead>
     <tr>
       <th>Application Path</th>
       <th>Rails Version</th>
-      <th>Brakeman Version</th>
+      <th>Railroader Version</th>
       <th>Report Time</th>
       <th>Checks Performed</th>
     </tr>
@@ -46,7 +46,7 @@
     <tr>
       <td><%= tracker.app_path %></td>
       <td><%= rails_version %></td>
-      <td><%= brakeman_version %>
+      <td><%= railroader_version %>
       <td>
         <%= tracker.start_time %><br><br>
         <%= tracker.duration %> seconds

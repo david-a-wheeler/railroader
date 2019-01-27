@@ -1,6 +1,6 @@
-require 'brakeman/report/report_table'
+require 'railroader/report/report_table'
 
-class Brakeman::Report::Markdown < Brakeman::Report::Table
+class Railroader::Report::Markdown < Railroader::Report::Table
 
   class MarkdownTable < Terminal::Table
 
@@ -65,12 +65,12 @@ class Brakeman::Report::Markdown < Brakeman::Report::Table
   def generate_metadata
     MarkdownTable.new(
       :headings =>
-        ['Application path', 'Rails version', 'Brakeman version', 'Started at', 'Duration']
+        ['Application path', 'Rails version', 'Railroader version', 'Started at', 'Duration']
     ) do |t|
       t.add_row([
         tracker.app_path,
         rails_version,
-        Brakeman::Version,
+        Railroader::Version,
         tracker.start_time,
         "#{tracker.duration} seconds",
       ])

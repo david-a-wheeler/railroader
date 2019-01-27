@@ -1,5 +1,5 @@
 #Contains a couple shared methods for Processors.
-module Brakeman::ProcessorHelper
+module Railroader::ProcessorHelper
   def process_all exp
     exp.each_sexp do |e|
       process e
@@ -77,9 +77,9 @@ module Brakeman::ProcessorHelper
     case
     when @file_name
       @file_name
-    when @current_class.is_a?(Brakeman::Collection)
+    when @current_class.is_a?(Railroader::Collection)
       @current_class.file
-    when @current_module.is_a?(Brakeman::Collection)
+    when @current_module.is_a?(Railroader::Collection)
       @current_module.file
     else
       nil

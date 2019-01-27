@@ -1,11 +1,11 @@
-require 'brakeman/scanner'
-require 'brakeman/util'
-require 'brakeman/differ'
+require 'railroader/scanner'
+require 'railroader/util'
+require 'railroader/differ'
 
 #Class for rescanning changed files after an initial scan
-class Brakeman::Rescanner < Brakeman::Scanner
- include Brakeman::Util
-  KNOWN_TEMPLATE_EXTENSIONS = Brakeman::TemplateParser::KNOWN_TEMPLATE_EXTENSIONS
+class Railroader::Rescanner < Railroader::Scanner
+ include Railroader::Util
+  KNOWN_TEMPLATE_EXTENSIONS = Railroader::TemplateParser::KNOWN_TEMPLATE_EXTENSIONS
   SCAN_ORDER = [:config, :gemfile, :initializer, :lib, :routes, :template,
     :model, :controller]
 
@@ -26,7 +26,7 @@ class Brakeman::Rescanner < Brakeman::Scanner
 
     tracker.run_checks if @changes
 
-    Brakeman::RescanReport.new @old_results, tracker
+    Railroader::RescanReport.new @old_results, tracker
   end
 
   #Rescans changed files
@@ -48,7 +48,7 @@ class Brakeman::Rescanner < Brakeman::Scanner
 
     SCAN_ORDER.each do |type|
       paths_by_type[type].each do |path|
-        Brakeman.debug "Rescanning #{path} as #{type}"
+        Railroader.debug "Rescanning #{path} as #{type}"
 
         if rescan_file path, type
           @changes = true
@@ -132,8 +132,8 @@ class Brakeman::Rescanner < Brakeman::Scanner
     template_name = template_path_to_name(path)
 
     tracker.reset_template template_name
-    fp = Brakeman::FileParser.new(tracker, @app_tree)
-    template_parser = Brakeman::TemplateParser.new(tracker, fp)
+    fp = Railroader::FileParser.new(tracker, @app_tree)
+    template_parser = Railroader::TemplateParser.new(tracker, fp)
     template_parser.parse_template path, @app_tree.read_path(path)
     process_template fp.file_list[:templates].first
 
@@ -248,7 +248,7 @@ class Brakeman::Rescanner < Brakeman::Scanner
       if remove_deleted_file path
         return true
       else
-        Brakeman.notify "Ignoring deleted file: #{path}"
+        Railroader.notify "Ignoring deleted file: #{path}"
       end
     end
 
@@ -389,15 +389,15 @@ class Brakeman::Rescanner < Brakeman::Scanner
 
   def parse_ruby_files list
     paths = list.select { |path| @app_tree.path_exists? path }
-    file_parser = Brakeman::FileParser.new(tracker, @app_tree)
+    file_parser = Railroader::FileParser.new(tracker, @app_tree)
     file_parser.parse_files paths, :rescan
     file_parser.file_list[:rescan]
   end
 end
 
 #Class to make reporting of rescan results simpler to deal with
-class Brakeman::RescanReport
-  include Brakeman::Util
+class Railroader::RescanReport
+  include Railroader::Util
   attr_reader :old_results, :new_results
 
   def initialize old_results, tracker
@@ -436,7 +436,7 @@ class Brakeman::RescanReport
 
   #Returns a hash of arrays for :new and :fixed warnings
   def diff
-    @diff ||= Brakeman::Differ.new(all_warnings, @old_results).diff
+    @diff ||= Railroader::Differ.new(all_warnings, @old_results).diff
   end
 
   #Returns an array of warnings which were in the old report and the new report
@@ -448,7 +448,7 @@ class Brakeman::RescanReport
 
   #Output total, fixed, and new warnings
   def to_s(verbose = false)
-    Brakeman.load_brakeman_dependency 'terminal-table'
+    Railroader.load_railroader_dependency 'terminal-table'
 
     if !verbose
       <<-OUTPUT
@@ -468,7 +468,7 @@ New warnings: #{new_warnings.length}
             warnings.sort_by { |w| w.confidence}.each do |warning|
               w = warning.to_row
 
-              w["Confidence"] = Brakeman::Report::TEXT_CONFIDENCE[w["Confidence"]]
+              w["Confidence"] = Railroader::Report::TEXT_CONFIDENCE[w["Confidence"]]
 
               t << [w["Confidence"], w["Class"], w["Method"], w["Warning Type"], w["Message"]]
             end

@@ -1,17 +1,17 @@
 require 'set'
-require 'brakeman/util'
-require 'brakeman/version'
-require 'brakeman/report/renderer'
-require 'brakeman/processors/output_processor'
-require 'brakeman/warning'
+require 'railroader/util'
+require 'railroader/version'
+require 'railroader/report/renderer'
+require 'railroader/processors/output_processor'
+require 'railroader/warning'
 
 # Base class for report formats
-class Brakeman::Report::Base
-  include Brakeman::Util
+class Railroader::Report::Base
+  include Railroader::Util
 
   attr_reader :tracker, :checks
 
-  TEXT_CONFIDENCE = Brakeman::Warning::TEXT_CONFIDENCE
+  TEXT_CONFIDENCE = Railroader::Warning::TEXT_CONFIDENCE
 
   def initialize app_tree, tracker
     @app_tree = app_tree

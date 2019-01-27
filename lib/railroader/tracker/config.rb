@@ -1,6 +1,6 @@
-require 'brakeman/util'
+require 'railroader/util'
 
-module Brakeman
+module Railroader
   class Config
     include Util
 
@@ -87,23 +87,23 @@ module Brakeman
         if tracker.options[:rails3].nil? and tracker.options[:rails4].nil?
           if @rails_version.start_with? "3"
             tracker.options[:rails3] = true
-            Brakeman.notify "[Notice] Detected Rails 3 application"
+            Railroader.notify "[Notice] Detected Rails 3 application"
           elsif @rails_version.start_with? "4"
             tracker.options[:rails3] = true
             tracker.options[:rails4] = true
-            Brakeman.notify "[Notice] Detected Rails 4 application"
+            Railroader.notify "[Notice] Detected Rails 4 application"
           elsif @rails_version.start_with? "5"
             tracker.options[:rails3] = true
             tracker.options[:rails4] = true
             tracker.options[:rails5] = true
-            Brakeman.notify "[Notice] Detected Rails 5 application"
+            Railroader.notify "[Notice] Detected Rails 5 application"
           end
         end
       end
 
       if get_gem :rails_xss
         @escape_html = true
-        Brakeman.notify "[Notice] Escaping HTML by default"
+        Railroader.notify "[Notice] Escaping HTML by default"
       end
     end
 

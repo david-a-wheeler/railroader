@@ -1,6 +1,6 @@
-require 'brakeman/processors/output_processor'
+require 'railroader/processors/output_processor'
 
-module Brakeman
+module Railroader
   class Constant
     attr_reader :name, :name_array, :file, :value, :context
 
@@ -10,7 +10,7 @@ module Brakeman
       @context = context
 
       if @context
-        if @context[:class].is_a? Brakeman::Controller
+        if @context[:class].is_a? Railroader::Controller
           @context[:class] = @context[:class].name
         end
 
@@ -46,7 +46,7 @@ module Brakeman
   end
 
   class Constants
-    include Brakeman::Util
+    include Railroader::Util
 
     def initialize
       @constants = Hash.new { |h, k| h[k] = [] }

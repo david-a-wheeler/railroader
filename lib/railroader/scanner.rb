@@ -1,11 +1,11 @@
 begin
-  Brakeman.load_brakeman_dependency 'ruby_parser'
+  Railroader.load_railroader_dependency 'ruby_parser'
   require 'ruby_parser/bm_sexp.rb'
   require 'ruby_parser/bm_sexp_processor.rb'
-  require 'brakeman/processor'
-  require 'brakeman/app_tree'
-  require 'brakeman/file_parser'
-  require 'brakeman/parsers/template_parser'
+  require 'railroader/processor'
+  require 'railroader/app_tree'
+  require 'railroader/file_parser'
+  require 'railroader/parsers/template_parser'
 rescue LoadError => e
   $stderr.puts e.message
   $stderr.puts "Please install the appropriate dependency."
@@ -13,20 +13,20 @@ rescue LoadError => e
 end
 
 #Scans the Rails application.
-class Brakeman::Scanner
+class Railroader::Scanner
   attr_reader :options
   RUBY_1_9 = RUBY_VERSION >= "1.9.0"
 
   #Pass in path to the root of the Rails application
   def initialize options, processor = nil
     @options = options
-    @app_tree = Brakeman::AppTree.from_options(options)
+    @app_tree = Railroader::AppTree.from_options(options)
 
     if (!@app_tree.root || !@app_tree.exists?("app")) && !options[:force_scan]
-      raise Brakeman::NoApplication, "Please supply the path to a Rails application (looking in #{@app_tree.root})."
+      raise Railroader::NoApplication, "Please supply the path to a Rails application (looking in #{@app_tree.root})."
     end
 
-    @processor = processor || Brakeman::Processor.new(@app_tree, options)
+    @processor = processor || Railroader::Processor.new(@app_tree, options)
   end
 
   #Returns the Tracker generated from the scan
@@ -36,36 +36,36 @@ class Brakeman::Scanner
 
   #Process everything in the Rails application
   def process
-    Brakeman.notify "Processing gems..."
+    Railroader.notify "Processing gems..."
     process_gems
     guess_rails_version
-    Brakeman.notify "Processing configuration..."
+    Railroader.notify "Processing configuration..."
     process_config
-    Brakeman.notify "Parsing files..."
+    Railroader.notify "Parsing files..."
     parse_files
-    Brakeman.notify "Processing initializers..."
+    Railroader.notify "Processing initializers..."
     process_initializers
-    Brakeman.notify "Processing libs..."
+    Railroader.notify "Processing libs..."
     process_libs
-    Brakeman.notify "Processing routes...          "
+    Railroader.notify "Processing routes...          "
     process_routes
-    Brakeman.notify "Processing templates...       "
+    Railroader.notify "Processing templates...       "
     process_templates
-    Brakeman.notify "Processing data flow in templates..."
+    Railroader.notify "Processing data flow in templates..."
     process_template_data_flows
-    Brakeman.notify "Processing models...          "
+    Railroader.notify "Processing models...          "
     process_models
-    Brakeman.notify "Processing controllers...     "
+    Railroader.notify "Processing controllers...     "
     process_controllers
-    Brakeman.notify "Processing data flow in controllers..."
+    Railroader.notify "Processing data flow in controllers..."
     process_controller_data_flows
-    Brakeman.notify "Indexing call sites...        "
+    Railroader.notify "Indexing call sites...        "
     index_call_sites
     tracker
   end
 
   def parse_files
-    fp = Brakeman::FileParser.new tracker, @app_tree
+    fp = Railroader::FileParser.new tracker, @app_tree
 
     files = {
       :initializers => @app_tree.initializer_paths,
@@ -81,7 +81,7 @@ class Brakeman::Scanner
       fp.parse_files paths, name
     end
 
-    template_parser = Brakeman::TemplateParser.new(tracker, fp)
+    template_parser = Railroader::TemplateParser.new(tracker, fp)
 
     fp.read_files(@app_tree.template_paths, :templates) do |path, contents|
       template_parser.parse_template path, contents
@@ -106,7 +106,7 @@ class Brakeman::Scanner
       options[:rails3] or options[:escape_html]
 
       tracker.config.escape_html = true
-      Brakeman.notify "[Notice] Escaping HTML by default"
+      Railroader.notify "[Notice] Escaping HTML by default"
     end
 
     if @app_tree.exists? ".ruby-version"
@@ -122,7 +122,7 @@ class Brakeman::Scanner
     end
 
   rescue => e
-    Brakeman.notify "[Notice] Error while processing #{path}"
+    Railroader.notify "[Notice] Error while processing #{path}"
     tracker.error e.exception(e.message + "\nwhile processing #{path}"), e.backtrace
   end
 
@@ -147,7 +147,7 @@ class Brakeman::Scanner
       @processor.process_gems gem_files
     end
   rescue => e
-    Brakeman.notify "[Notice] Error while processing Gemfile."
+    Railroader.notify "[Notice] Error while processing Gemfile."
     tracker.error e.exception(e.message + "\nWhile processing Gemfile"), e.backtrace
   end
 
@@ -156,16 +156,16 @@ class Brakeman::Scanner
     unless tracker.options[:rails3] or tracker.options[:rails4]
       if @app_tree.exists?("script/rails")
         tracker.options[:rails3] = true
-        Brakeman.notify "[Notice] Detected Rails 3 application"
+        Railroader.notify "[Notice] Detected Rails 3 application"
       elsif @app_tree.exists?("app/channels")
         tracker.options[:rails3] = true
         tracker.options[:rails4] = true
         tracker.options[:rails5] = true
-        Brakeman.notify "[Notice] Detected Rails 5 application"
+        Railroader.notify "[Notice] Detected Rails 5 application"
       elsif not @app_tree.exists?("script")
         tracker.options[:rails3] = true
         tracker.options[:rails4] = true
-        Brakeman.notify "[Notice] Detected Rails 4 application"
+        Railroader.notify "[Notice] Detected Rails 4 application"
       end
     end
   end
@@ -175,7 +175,7 @@ class Brakeman::Scanner
   #Adds parsed information to tracker.initializers
   def process_initializers
     track_progress @file_list[:initializers] do |init|
-      Brakeman.debug "Processing #{init[:path]}"
+      Railroader.debug "Processing #{init[:path]}"
       process_initializer init
     end
   end
@@ -190,12 +190,12 @@ class Brakeman::Scanner
   #Adds parsed information to tracker.libs.
   def process_libs
     if options[:skip_libs]
-      Brakeman.notify '[Skipping]'
+      Railroader.notify '[Skipping]'
       return
     end
 
     track_progress @file_list[:libs] do |lib|
-      Brakeman.debug "Processing #{lib.path}"
+      Railroader.debug "Processing #{lib.path}"
       process_lib lib
     end
   end
@@ -214,11 +214,11 @@ class Brakeman::Scanner
         @processor.process_routes parse_ruby(@app_tree.read("config/routes.rb"))
       rescue => e
         tracker.error e.exception(e.message + "\nWhile processing routes.rb"), e.backtrace
-        Brakeman.notify "[Notice] Error while processing routes - assuming all public controller methods are actions."
+        Railroader.notify "[Notice] Error while processing routes - assuming all public controller methods are actions."
         options[:assume_all_routes] = true
       end
     else
-      Brakeman.notify "[Notice] No route information found"
+      Railroader.notify "[Notice] No route information found"
     end
   end
 
@@ -227,7 +227,7 @@ class Brakeman::Scanner
   #Adds processed controllers to tracker.controllers
   def process_controllers
     track_progress @file_list[:controllers] do |controller|
-      Brakeman.debug "Processing #{controller.path}"
+      Railroader.debug "Processing #{controller.path}"
       process_controller controller
     end
   end
@@ -236,7 +236,7 @@ class Brakeman::Scanner
     controllers = tracker.controllers.sort_by { |name, _| name.to_s }
 
     track_progress controllers, "controllers" do |name, controller|
-      Brakeman.debug "Processing #{name}"
+      Railroader.debug "Processing #{name}"
       controller.src.each do |file, src|
         @processor.process_controller_alias name, src, nil, file
       end
@@ -261,7 +261,7 @@ class Brakeman::Scanner
     templates = @file_list[:templates].sort_by { |t| t[:path] }
 
     track_progress templates, "templates" do |template|
-      Brakeman.debug "Processing #{template[:path]}"
+      Railroader.debug "Processing #{template[:path]}"
       process_template template
     end
   end
@@ -274,7 +274,7 @@ class Brakeman::Scanner
     templates = tracker.templates.sort_by { |name, _| name.to_s }
 
     track_progress templates, "templates" do |name, template|
-      Brakeman.debug "Processing #{name}"
+      Railroader.debug "Processing #{name}"
       @processor.process_template_alias template
     end
   end
@@ -284,7 +284,7 @@ class Brakeman::Scanner
   #Adds the processed models to tracker.models
   def process_models
     track_progress @file_list[:models] do |model|
-      Brakeman.debug "Processing #{model[:path]}"
+      Railroader.debug "Processing #{model[:path]}"
       process_model model[:path], model[:ast]
     end
   end

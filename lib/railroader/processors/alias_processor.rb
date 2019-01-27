@@ -1,17 +1,17 @@
-require 'brakeman/util'
+require 'railroader/util'
 require 'ruby_parser/bm_sexp_processor'
-require 'brakeman/processors/lib/processor_helper'
-require 'brakeman/processors/lib/safe_call_helper'
-require 'brakeman/processors/lib/call_conversion_helper'
+require 'railroader/processors/lib/processor_helper'
+require 'railroader/processors/lib/safe_call_helper'
+require 'railroader/processors/lib/call_conversion_helper'
 
 #Returns an s-expression with aliases replaced with their value.
 #This does not preserve semantics (due to side effects, etc.), but it makes
 #processing easier when searching for various things.
-class Brakeman::AliasProcessor < Brakeman::SexpProcessor
-  include Brakeman::ProcessorHelper
-  include Brakeman::SafeCallHelper
-  include Brakeman::Util
-  include Brakeman::CallConversionHelper
+class Railroader::AliasProcessor < Railroader::SexpProcessor
+  include Railroader::ProcessorHelper
+  include Railroader::SafeCallHelper
+  include Railroader::Util
+  include Railroader::CallConversionHelper
 
   attr_reader :result, :tracker
 
@@ -962,7 +962,7 @@ class Brakeman::AliasProcessor < Brakeman::SexpProcessor
 
   def process_helper_method method_exp, args
     method_name = method_exp.method_name
-    Brakeman.debug "Processing method #{method_name}"
+    Railroader.debug "Processing method #{method_name}"
 
     info = @helper_method_info[method_name]
 
@@ -1002,7 +1002,7 @@ class Brakeman::AliasProcessor < Brakeman::SexpProcessor
       values[:return_value]
     else
       #Find return value for method
-      frv = Brakeman::FindReturnValue.new
+      frv = Railroader::FindReturnValue.new
       value = frv.get_return_value(method_exp.body_list, meth_env)
 
       ivars = {}

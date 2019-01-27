@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckPermitAttributes < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckPermitAttributes < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Warn on potentially dangerous attributes whitelisted via permit"
 

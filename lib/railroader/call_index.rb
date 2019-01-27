@@ -1,7 +1,7 @@
 require 'set'
 
 #Stores call sites to look up later.
-class Brakeman::CallIndex
+class Railroader::CallIndex
 
   #Initialize index with calls from FindAllCalls
   def initialize calls

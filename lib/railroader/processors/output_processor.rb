@@ -1,12 +1,12 @@
-Brakeman.load_brakeman_dependency 'ruby2ruby'
-require 'brakeman/util'
+Railroader.load_railroader_dependency 'ruby2ruby'
+require 'railroader/util'
 
 #Produces formatted output strings from Sexps.
 #Recommended usage is
 #
 #  OutputProcessor.new.format(Sexp.new(:str, "hello"))
-class Brakeman::OutputProcessor < Ruby2Ruby
-  include Brakeman::Util
+class Railroader::OutputProcessor < Ruby2Ruby
+  include Railroader::Util
 
   #Copies +exp+ and then formats it.
   def format exp, user_input = nil, &block
@@ -25,7 +25,7 @@ class Brakeman::OutputProcessor < Ruby2Ruby
         super exp if sexp? exp and not exp.empty?
       end
     rescue => e
-      Brakeman.debug "While formatting #{exp}: #{e}\n#{e.backtrace.join("\n")}"
+      Railroader.debug "While formatting #{exp}: #{e}\n#{e.backtrace.join("\n")}"
     end
   end
 
@@ -123,7 +123,7 @@ class Brakeman::OutputProcessor < Ruby2Ruby
   end
 
   def process_const exp
-    if exp[1] == Brakeman::Tracker::UNKNOWN_MODEL
+    if exp[1] == Railroader::Tracker::UNKNOWN_MODEL
       "(Unresolved Model)"
     else
       out = exp[1].to_s

@@ -1,6 +1,6 @@
 require 'erb'
 
-class Brakeman::Report
+class Railroader::Report
   class Renderer
     def initialize(template_file, hash = {})
       hash[:locals] ||= {}

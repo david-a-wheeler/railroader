@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckJSONParsing < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckJSONParsing < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for JSON parsing vulnerabilities CVE-2013-0333 and CVE-2013-0269"
 

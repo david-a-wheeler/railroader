@@ -1,10 +1,10 @@
-require 'brakeman/processors/base_processor'
-require 'brakeman/processors/lib/module_helper'
-require 'brakeman/tracker/controller'
+require 'railroader/processors/base_processor'
+require 'railroader/processors/lib/module_helper'
+require 'railroader/tracker/controller'
 
 #Processes controller. Results are put in tracker.controllers
-class Brakeman::ControllerProcessor < Brakeman::BaseProcessor
-  include Brakeman::ModuleHelper
+class Railroader::ControllerProcessor < Railroader::BaseProcessor
+  include Railroader::ModuleHelper
 
   FORMAT_HTML = Sexp.new(:call, Sexp.new(:lvar, :format), :html)
 
@@ -34,13 +34,13 @@ class Brakeman::ControllerProcessor < Brakeman::BaseProcessor
     #But if not inside a controller already, then the class may include
     #a real controller, so we can't take this shortcut.
     if @current_class and @current_class.name.to_s.end_with? "Controller"
-      Brakeman.debug "[Notice] Treating inner class as library: #{name}"
-      Brakeman::LibraryProcessor.new(@tracker).process_library exp, @file_name
+      Railroader.debug "[Notice] Treating inner class as library: #{name}"
+      Railroader::LibraryProcessor.new(@tracker).process_library exp, @file_name
       return exp
     end
 
     if not name.to_s.end_with? "Controller"
-      Brakeman.debug "[Notice] Adding noncontroller as library: #{name}"
+      Railroader.debug "[Notice] Adding noncontroller as library: #{name}"
       #Set the class to be a module in order to get the right namespacing.
       #Add class to libraries, in case it is needed later (e.g. it's used
       #as a parent class for a controller.)
@@ -51,7 +51,7 @@ class Brakeman::ControllerProcessor < Brakeman::BaseProcessor
       return exp
     end
 
-    handle_class(exp, @tracker.controllers, Brakeman::Controller) do
+    handle_class(exp, @tracker.controllers, Railroader::Controller) do
       set_layout_name
     end
 
@@ -59,7 +59,7 @@ class Brakeman::ControllerProcessor < Brakeman::BaseProcessor
   end
 
   def process_module exp, parent = nil
-    handle_module exp, Brakeman::Controller, parent
+    handle_module exp, Railroader::Controller, parent
   end
 
   def process_concern concern_name
@@ -128,7 +128,7 @@ class Brakeman::ControllerProcessor < Brakeman::BaseProcessor
             if @app_tree.layout_exists?(name)
               @current_class.layout = "layouts/#{name}"
             else
-              Brakeman.debug "[Notice] Layout not found: #{name}"
+              Railroader.debug "[Notice] Layout not found: #{name}"
             end
           elsif node_type? last_arg, :nil, :false
             #layout :false or layout nil
@@ -190,7 +190,7 @@ class Brakeman::ControllerProcessor < Brakeman::BaseProcessor
   #methods and filters.
   def add_fake_filter exp
     unless @current_class
-      Brakeman.debug "Skipping before_filter outside controller: #{exp}"
+      Railroader.debug "Skipping before_filter outside controller: #{exp}"
       return exp
     end
 

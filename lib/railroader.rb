@@ -1,7 +1,7 @@
 require 'set'
-require 'brakeman/version'
+require 'railroader/version'
 
-module Brakeman
+module Railroader
 
   #This exit code is used when warnings are found and the --exit-on-warn
   #option is set
@@ -10,7 +10,7 @@ module Brakeman
   #Exit code returned when no Rails application is detected
   No_App_Found_Exit_Code = 4
 
-  #Exit code returned when brakeman was outdated
+  #Exit code returned when railroader was outdated
   Not_Latest_Version_Exit_Code = 5
 
   #Exit code returned when user requests non-existent checks
@@ -25,7 +25,7 @@ module Brakeman
   @loaded_dependencies = []
   @vendored_paths = false
 
-  #Run Brakeman scan. Returns Tracker object.
+  #Run Railroader scan. Returns Tracker object.
   #
   #Options:
   #
@@ -116,7 +116,7 @@ module Brakeman
     #Load configuration file
     if config = config_file(custom_location, app_path)
       require 'date' # https://github.com/dtao/safe_yaml/issues/80
-      self.load_brakeman_dependency 'safe_yaml/load'
+      self.load_railroader_dependency 'safe_yaml/load'
       options = SafeYAML.load_file config, :deserialize_symbols => true
 
       if options
@@ -146,12 +146,12 @@ module Brakeman
   end
 
   CONFIG_FILES = [
-    File.expand_path("~/.brakeman/config.yml"),
-    File.expand_path("/etc/brakeman/config.yml")
+    File.expand_path("~/.railroader/config.yml"),
+    File.expand_path("/etc/railroader/config.yml")
   ]
 
   def self.config_file custom_location, app_path
-    app_config = File.expand_path(File.join(app_path, "config", "brakeman.yml"))
+    app_config = File.expand_path(File.join(app_path, "config", "railroader.yml"))
     supported_locations = [File.expand_path(custom_location || ""), app_config] + CONFIG_FILES
     supported_locations.detect {|f| File.file?(f) }
   end
@@ -166,7 +166,7 @@ module Brakeman
       :exit_on_error => true,
       :exit_on_warn => true,
       :highlight_user_input => true,
-      :html_style => "#{File.expand_path(File.dirname(__FILE__))}/brakeman/format/style.css",
+      :html_style => "#{File.expand_path(File.dirname(__FILE__))}/railroader/format/style.css",
       :ignore_model_output => false,
       :ignore_redirect_to_model => true,
       :index_libs => true,
@@ -196,7 +196,7 @@ module Brakeman
       get_formats_from_output_files options[:output_files]
     else
       begin
-        self.load_brakeman_dependency 'terminal-table', :allow_fail
+        self.load_railroader_dependency 'terminal-table', :allow_fail
         return [:to_s]
       rescue LoadError
         return [:to_json]
@@ -276,7 +276,7 @@ module Brakeman
 
   #Output list of checks (for `-k` option)
   def self.list_checks options
-    require 'brakeman/scanner'
+    require 'railroader/scanner'
 
     add_external_checks options
 
@@ -324,22 +324,22 @@ module Brakeman
   end
 
   def self.ensure_latest
-    current = Brakeman::Version
-    latest = Gem.latest_version_for('brakeman').to_s
+    current = Railroader::Version
+    latest = Gem.latest_version_for('railroader').to_s
     if current != latest
-      "Brakeman #{current} is not the latest version #{latest}"
+      "Railroader #{current} is not the latest version #{latest}"
     end
   end
 
-  #Run a scan. Generally called from Brakeman.run instead of directly.
+  #Run a scan. Generally called from Railroader.run instead of directly.
   def self.scan options
     #Load scanner
     notify "Loading scanner..."
 
     begin
-      require 'brakeman/scanner'
+      require 'railroader/scanner'
     rescue LoadError
-      raise NoBrakemanError, "Cannot find lib/ directory."
+      raise NoRailroaderError, "Cannot find lib/ directory."
     end
 
     add_external_checks options
@@ -404,9 +404,9 @@ module Brakeman
         puts tracker.report.format(output_format)
       end
     else
-      require "brakeman/report/pager"
+      require "railroader/report/pager"
 
-      Brakeman::Pager.new(tracker).page_report(tracker.report, output_formats.first)
+      Railroader::Pager.new(tracker).page_report(tracker.report, output_formats.first)
     end
   end
   private_class_method :write_report_to_formats
@@ -414,16 +414,16 @@ module Brakeman
   #Rescan a subset of files in a Rails application.
   #
   #A full scan must have been run already to use this method.
-  #The returned Tracker object from Brakeman.run is used as a starting point
+  #The returned Tracker object from Railroader.run is used as a starting point
   #for the rescan.
   #
-  #Options may be given as a hash with the same values as Brakeman.run.
+  #Options may be given as a hash with the same values as Railroader.run.
   #Note that these options will be merged into the Tracker.
   #
   #This method returns a RescanReport object with information about the scan.
   #However, the Tracker object will also be modified as the scan is run.
   def self.rescan tracker, files, options = {}
-    require 'brakeman/rescanner'
+    require 'railroader/rescanner'
 
     tracker.options.merge! options
 
@@ -444,7 +444,7 @@ module Brakeman
   # Compare JSON ouptut from a previous scan and return the diff of the two scans
   def self.compare options
     require 'json'
-    require 'brakeman/differ'
+    require 'railroader/differ'
     raise ArgumentError.new("Comparison file doesn't exist") unless File.exist? options[:previous_results_json]
 
     begin
@@ -458,10 +458,10 @@ module Brakeman
 
     new_results = JSON.parse(tracker.report.to_json, :symbolize_names => true)[:warnings]
 
-    Brakeman::Differ.new(new_results, previous_results).diff
+    Railroader::Differ.new(new_results, previous_results).diff
   end
 
-  def self.load_brakeman_dependency name, allow_fail = false
+  def self.load_railroader_dependency name, allow_fail = false
     return if @loaded_dependencies.include? name
 
     unless @vendored_paths
@@ -488,14 +488,14 @@ module Brakeman
   end
 
   def self.filter_warnings tracker, options
-    require 'brakeman/report/ignore/config'
+    require 'railroader/report/ignore/config'
 
-    app_tree = Brakeman::AppTree.from_options(options)
+    app_tree = Railroader::AppTree.from_options(options)
 
     if options[:ignore_file]
       file = options[:ignore_file]
-    elsif app_tree.exists? "config/brakeman.ignore"
-      file = app_tree.expand_path("config/brakeman.ignore")
+    elsif app_tree.exists? "config/railroader.ignore"
+      file = app_tree.expand_path("config/railroader.ignore")
     elsif not options[:interactive_ignore]
       return
     end
@@ -503,7 +503,7 @@ module Brakeman
     notify "Filtering warnings..."
 
     if options[:interactive_ignore]
-      require 'brakeman/report/ignore/interactive'
+      require 'railroader/report/ignore/interactive'
       config = InteractiveIgnorer.new(file, tracker.warnings).start
     else
       notify "[Notice] Using '#{file}' to filter warnings"
@@ -517,12 +517,12 @@ module Brakeman
 
   def self.add_external_checks options
     options[:additional_checks_path].each do |path|
-      Brakeman::Checks.initialize_checks path
+      Railroader::Checks.initialize_checks path
     end if options[:additional_checks_path]
   end
 
   def self.check_for_missing_checks included_checks, excluded_checks
-    missing = Brakeman::Checks.missing_checks(included_checks || Set.new, excluded_checks || Set.new)
+    missing = Railroader::Checks.missing_checks(included_checks || Set.new, excluded_checks || Set.new)
 
     unless missing.empty?
       raise MissingChecksError, "Could not find specified check#{missing.length > 1 ? 's' : ''}: #{missing.map {|c| "`#{c}`"}.join(', ')}"
@@ -538,7 +538,7 @@ module Brakeman
   end
 
   class DependencyError < RuntimeError; end
-  class NoBrakemanError < RuntimeError; end
+  class NoRailroaderError < RuntimeError; end
   class NoApplication < RuntimeError; end
   class MissingChecksError < RuntimeError; end
 end

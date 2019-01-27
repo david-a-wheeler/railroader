@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckNumberToCurrency < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckNumberToCurrency < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for number helpers XSS vulnerabilities in certain versions"
 

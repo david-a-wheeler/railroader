@@ -1,4 +1,4 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #Reports any calls to +validates_format_of+ which do not use +\A+ and +\z+
 #as anchors in the given regular expression.
@@ -7,8 +7,8 @@ require 'brakeman/checks/base_check'
 #
 # #Allows anything after new line
 # validates_format_of :user_name, :with => /^\w+$/
-class Brakeman::CheckValidationRegex < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckValidationRegex < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Report uses of validates_format_of with improper anchors"
 

@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckJSONEncoding < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckJSONEncoding < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for missing JSON encoding (CVE-2015-3226)"
 

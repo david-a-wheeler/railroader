@@ -1,8 +1,8 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #https://groups.google.com/d/msg/rubyonrails-security/cawsWcQ6c8g/tegZtYdbFQAJ
-class Brakeman::CheckNestedAttributesBypass < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckNestedAttributesBypass < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for nested attributes vulnerability (CVE-2015-7577)"
 

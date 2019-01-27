@@ -1,6 +1,6 @@
-require 'brakeman/tracker/collection'
+require 'railroader/tracker/collection'
 
-module Brakeman
+module Railroader
   module ControllerMethods
     attr_accessor :layout
 
@@ -129,7 +129,7 @@ module Brakeman
         when :lit, :str
           filter[option] = value[1]
         else
-          Brakeman.debug "[Notice] Unknown before_filter value: #{option} => #{value}"
+          Railroader.debug "[Notice] Unknown before_filter value: #{option} => #{value}"
         end
       else
         filter[:all] = true
@@ -149,7 +149,7 @@ module Brakeman
     end
   end
 
-  class Controller < Brakeman::Collection
+  class Controller < Railroader::Collection
     include ControllerMethods
 
     def initialize name, parent, file_name, src, tracker

@@ -1,8 +1,8 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #Check calls to +render()+ for dangerous values
-class Brakeman::CheckRender < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckRender < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Finds calls to render that might allow file access or code execution"
 

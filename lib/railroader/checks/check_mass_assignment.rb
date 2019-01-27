@@ -1,11 +1,11 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 require 'set'
 
 #Checks for mass assignments to models.
 #
 #See http://guides.rubyonrails.org/security.html#mass-assignment for details
-class Brakeman::CheckMassAssignment < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckMassAssignment < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Finds instances of mass assignment"
 
@@ -34,7 +34,7 @@ class Brakeman::CheckMassAssignment < Brakeman::BaseCheck
 
     return [] if models.empty?
 
-    Brakeman.debug "Finding possible mass assignment calls on #{models.length} models"
+    Railroader.debug "Finding possible mass assignment calls on #{models.length} models"
     @mass_assign_calls = tracker.find_call :chained => true, :targets => models, :methods => [:new,
       :attributes=,
       :update_attributes,
@@ -53,7 +53,7 @@ class Brakeman::CheckMassAssignment < Brakeman::BaseCheck
   def check_mass_assignment
     return if mass_assign_disabled?
 
-    Brakeman.debug "Processing possible mass assignment calls"
+    Railroader.debug "Processing possible mass assignment calls"
     find_mass_assign_calls.each do |result|
       process_result result
     end

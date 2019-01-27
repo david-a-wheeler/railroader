@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckHeaderDoS < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckHeaderDoS < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for header DoS (CVE-2013-6414)"
 

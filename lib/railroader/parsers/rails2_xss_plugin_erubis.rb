@@ -1,7 +1,7 @@
-Brakeman.load_brakeman_dependency 'erubis'
+Railroader.load_railroader_dependency 'erubis'
 
 #This is from the rails_xss plugin for Rails 2
-class Brakeman::Rails2XSSPluginErubis < ::Erubis::Eruby
+class Railroader::Rails2XSSPluginErubis < ::Erubis::Eruby
   def add_preamble(src)
     #src << "@output_buffer = ActiveSupport::SafeBuffer.new;"
   end

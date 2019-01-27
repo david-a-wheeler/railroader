@@ -1,11 +1,11 @@
-require 'brakeman/processors/lib/basic_processor'
+require 'railroader/processors/lib/basic_processor'
 
 #Processes the Sexp from routes.rb. Stores results in tracker.routes.
 #
 #Note that it is only interested in determining what methods on which
 #controllers are used as routes, not the generated URLs for routes.
-class Brakeman::Rails2RoutesProcessor < Brakeman::BasicProcessor
-  include Brakeman::RouteHelper
+class Railroader::Rails2RoutesProcessor < Railroader::BasicProcessor
+  include Railroader::RouteHelper
 
   attr_reader :map, :nested, :current_controller
 
@@ -24,7 +24,7 @@ class Brakeman::Rails2RoutesProcessor < Brakeman::BasicProcessor
   #This method first calls RouteAliasProcessor#process_safely on the +exp+,
   #so it does not modify the +exp+.
   def process_routes exp
-    process Brakeman::RouteAliasProcessor.new.process_safely(exp, nil, @file_name)
+    process Railroader::RouteAliasProcessor.new.process_safely(exp, nil, @file_name)
   end
 
   #Looking for mapping of routes
@@ -131,7 +131,7 @@ class Brakeman::Rails2RoutesProcessor < Brakeman::BasicProcessor
       when :except
         process_option_except value
       else
-        Brakeman.notify "[Notice] Unhandled resource option, please report: #{option}"
+        Railroader.notify "[Notice] Unhandled resource option, please report: #{option}"
       end
     end
   end
@@ -282,7 +282,7 @@ end
 
 #This is for a really specific case where a hash is used as arguments
 #to one of the map methods.
-class Brakeman::RouteAliasProcessor < Brakeman::AliasProcessor
+class Railroader::RouteAliasProcessor < Railroader::AliasProcessor
 
   #This replaces
   # { :some => :hash }.keys

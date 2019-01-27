@@ -1,4 +1,4 @@
-module Brakeman
+module Railroader
   module CallConversionHelper
     def all_literals? exp, expected_type = :array
       node_type? exp, expected_type and

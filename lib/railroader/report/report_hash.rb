@@ -1,5 +1,5 @@
-# Generates a hash table for use in Brakeman tests
-class Brakeman::Report::Hash < Brakeman::Report::Base
+# Generates a hash table for use in Railroader tests
+class Railroader::Report::Hash < Railroader::Report::Base
   def generate_report
     report = { :errors => tracker.errors,
                :controllers => tracker.controllers,

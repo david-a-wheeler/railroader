@@ -1,4 +1,4 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
 #This check tests for find calls which do not use Rails' auto SQL escaping
 #
@@ -8,8 +8,8 @@ require 'brakeman/checks/base_check'
 # Project.find(:all, :conditions => "name = '#{params[:name]}'")
 #
 # User.find_by_sql("SELECT * FROM projects WHERE name = '#{params[:name]}'")
-class Brakeman::CheckSQL < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckSQL < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Check for SQL injection"
 
@@ -40,25 +40,25 @@ class Brakeman::CheckSQL < Brakeman::BaseCheck
 
     @expected_targets = active_record_models.keys + [:connection, :"ActiveRecord::Base", :Arel]
 
-    Brakeman.debug "Finding possible SQL calls on models"
+    Railroader.debug "Finding possible SQL calls on models"
     calls = tracker.find_call(:methods => @sql_targets, :nested => true)
 
     calls.concat tracker.find_call(:targets => active_record_models.keys, :methods => narrow_targets, :chained => true)
 
-    Brakeman.debug "Finding possible SQL calls with no target"
+    Railroader.debug "Finding possible SQL calls with no target"
     calls.concat tracker.find_call(:target => nil, :methods => @sql_targets)
 
-    Brakeman.debug "Finding possible SQL calls using constantized()"
+    Railroader.debug "Finding possible SQL calls using constantized()"
     calls.concat tracker.find_call(:methods => @sql_targets).select { |result| constantize_call? result }
 
     calls.concat tracker.find_call(:targets => @expected_targets, :methods => @connection_calls, :chained => true).select { |result| connect_call? result }
 
     calls.concat tracker.find_call(:target => :Arel, :method => :sql)
 
-    Brakeman.debug "Finding calls to named_scope or scope"
+    Railroader.debug "Finding calls to named_scope or scope"
     calls.concat find_scope_calls
 
-    Brakeman.debug "Processing possible SQL calls"
+    Railroader.debug "Processing possible SQL calls"
     calls.each { |call| process_result call }
   end
 
@@ -117,7 +117,7 @@ class Brakeman::CheckSQL < Brakeman::BaseCheck
 
     # Search lambda for calls to query methods
     if block.node_type == :block
-      find_calls = Brakeman::FindAllCalls.new(tracker)
+      find_calls = Railroader::FindAllCalls.new(tracker)
       find_calls.process_source(block, :class => model_name, :method => scope_name)
       find_calls.calls.each { |call| process_result(call) if @sql_targets.include?(call[:method]) }
     elsif call? block
@@ -203,7 +203,7 @@ class Brakeman::CheckSQL < Brakeman::BaseCheck
                       when *@connection_calls
                         check_by_sql_arguments call.first_arg
                       else
-                        Brakeman.debug "Unhandled SQL method: #{method}"
+                        Railroader.debug "Unhandled SQL method: #{method}"
                       end
 
     if dangerous_value

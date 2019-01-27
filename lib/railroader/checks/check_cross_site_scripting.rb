@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
-require 'brakeman/processors/lib/find_call'
-require 'brakeman/processors/lib/processor_helper'
-require 'brakeman/util'
+require 'railroader/checks/base_check'
+require 'railroader/processors/lib/find_call'
+require 'railroader/processors/lib/processor_helper'
+require 'railroader/util'
 require 'set'
 
 #This check looks for unescaped output in templates which contains
@@ -11,8 +11,8 @@ require 'set'
 #
 # <%= User.find(:id).name %>
 # <%= params[:id] %>
-class Brakeman::CheckCrossSiteScripting < Brakeman::BaseCheck
-  Brakeman::Checks.add self
+class Railroader::CheckCrossSiteScripting < Railroader::BaseCheck
+  Railroader::Checks.add self
 
   @description = "Checks for unescaped output in views"
 
@@ -38,7 +38,7 @@ class Brakeman::CheckCrossSiteScripting < Brakeman::BaseCheck
     setup
 
     tracker.each_template do |name, template|
-      Brakeman.debug "Checking #{name} for XSS"
+      Railroader.debug "Checking #{name} for XSS"
 
       @current_template = template
 
@@ -322,10 +322,10 @@ class Brakeman::CheckCrossSiteScripting < Brakeman::BaseCheck
 
     if !json_escape_on or version_between? "0.0.0", "2.0.99"
       @known_dangerous << :to_json
-      Brakeman.debug("Automatic to_json escaping not enabled, consider to_json dangerous")
+      Railroader.debug("Automatic to_json escaping not enabled, consider to_json dangerous")
     else
       @safe_input_attributes << :to_json
-      Brakeman.debug("Automatic to_json escaping is enabled.")
+      Railroader.debug("Automatic to_json escaping is enabled.")
     end
   end
 

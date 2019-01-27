@@ -1,7 +1,7 @@
-require 'brakeman/checks/base_check'
+require 'railroader/checks/base_check'
 
-class Brakeman::CheckWeakHash < Brakeman::BaseCheck
-  Brakeman::Checks.add_optional self
+class Railroader::CheckWeakHash < Railroader::BaseCheck
+  Railroader::Checks.add_optional self
 
   @description = "Checks for use of weak hashes like MD5"
 

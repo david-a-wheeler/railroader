@@ -1,4 +1,4 @@
-module Brakeman
+module Railroader
   class Pager
     def initialize tracker, pager = :less, output = $stdout
       @tracker = tracker
@@ -42,7 +42,7 @@ module Brakeman
     end
 
     def page_via_highline text
-      Brakeman.load_brakeman_dependency 'highline'
+      Railroader.load_railroader_dependency 'highline'
       h = ::HighLine.new($stdin, @output)
       h.page_at = :auto
       h.say text
