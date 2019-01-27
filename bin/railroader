@@ -2,7 +2,7 @@
 #Adjust path in case called directly and not through gem
 $:.unshift "#{File.expand_path(File.dirname(__FILE__))}/../lib"
 
-require 'brakeman'
-require 'brakeman/commandline'
+require 'railroader'
+require 'railroader/commandline'
 
-Brakeman::Commandline.start
+Railroader::Commandline.start
