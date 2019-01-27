@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gemspec :name => "brakeman"
+gemspec :name => "railroader"
 
 unless ENV['BM_PACKAGE']
   gem "rake", "< 10.2.0"

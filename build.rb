@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
-puts 'Packaging Brakeman gem...'
+puts 'Packaging Railroader gem...'
 
-system 'rm -rf bundle Gemfile.lock brakeman-*.gem' and
+system 'rm -rf bundle Gemfile.lock railroader-*.gem' and
 system 'BM_PACKAGE=true bundle install --standalone'
 
 abort "No bundle installed" unless Dir.exist? 'bundle'
@@ -17,4 +17,4 @@ File.open "bundle/load.rb", "w" do |f|
   end
 end
 
-system "BM_PACKAGE=true gem build brakeman.gemspec"
+system "BM_PACKAGE=true gem build railroader.gemspec"
