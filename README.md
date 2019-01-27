@@ -1,105 +1,108 @@
-[![Brakeman Logo](http://brakemanscanner.org/images/logo_medium.png)](http://brakemanscanner.org/)
-[![Brakeman Pro Logo](https://brakemanpro.com/images/bmp_square_white.png)](https://brakemanpro.com)
+[![Railroader Logo](http://railroader.org/images/logo_medium.png)](http://railroader.org/)
 
-[![Build Status](https://travis-ci.org/presidentbeef/brakeman.svg?branch=master)](https://travis-ci.org/presidentbeef/brakeman)
-[![Maintainability](https://api.codeclimate.com/v1/badges/1b08a5c74695cb0d11ec/maintainability)](https://codeclimate.com/github/presidentbeef/brakeman/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/1b08a5c74695cb0d11ec/test_coverage)](https://codeclimate.com/github/presidentbeef/brakeman/test_coverage)
-[![Gitter](https://badges.gitter.im/presidentbeef/brakeman.svg)](https://gitter.im/presidentbeef/brakeman)
+[![Build Status](https://travis-ci.org/david-a-wheeler/railroader.svg?branch=master)](https://travis-ci.org/david-a-wheeler/railroader)
+[![Maintainability](https://api.codeclimate.com/v1/badges/1b08a5c74695cb0d11ec/maintainability)](https://codeclimate.com/github/david-a-wheeler/railroader/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/1b08a5c74695cb0d11ec/test_coverage)](https://codeclimate.com/github/david-a-wheeler/railroader/test_coverage)
+[![Gitter](https://badges.gitter.im/david-a-wheeler/railroader.svg)](https://gitter.im/david-a-wheeler/railroader)
 
-# Brakeman
+# Railroader
 
-Brakeman is an open source static analysis tool which checks Ruby on Rails applications for security vulnerabilities.
+Railroader is an open source static analysis tool which checks Ruby on Rails applications for security vulnerabilities.
 
-Check out [Brakeman Pro](https://brakemanpro.com/) if you are looking for a commercially-supported version with a GUI and advanced features.
+Railroader is a fork of the Brakeman analysis tool version 4.3.1 (the last version of Brakeman that was open source software).  A key distinguishing feature is that Railroader is open source software (OSS), while Brakeman is not open source software any more.  Railroader is licensed under the [MIT-LICENSE](MIT-LICENSE). As a result, Railroader can be freely used for any purpose, including any commercial purposes.  In addition, contributors to Railroader (unlike Brakeman) retain their copyrights.
+
+If you are interested in Brakeman, please see the [Brakeman site instead](https://brakemanscanner.org/) instead!
+
+We are currently in a transition process, because we have just started creating Railroader as a fork of Brakeman.  Some names in the process of changing - help is wanted to complete it. We need to change the name, because we assume that Synopsys owns the trademarks and in any case we want to make sure there is *no* confusion by anyone that Railroader is Brakeman (they are now different projects).
 
 # Installation
 
 Using RubyGems:
 
-    gem install brakeman
+    gem install railroader
 
 Using Bundler:
 
     group :development do
-      gem 'brakeman', :require => false
+      gem 'railroader', :require => false
     end
 
 # Usage
 
 From a Rails application's root directory:
 
-    brakeman
+    railroader
 
 Outside of Rails root:
 
-    brakeman /path/to/rails/application
+    railroader /path/to/rails/application
 
 # Compatibility
 
-Brakeman should work with any version of Rails from 2.3.x to 5.x.
+Railroader should work with any version of Rails from 2.3.x to 5.x.
 
-Brakeman can analyze code written with Ruby 1.8 syntax and newer, but requires at least Ruby 1.9.3 to run.
+Railroader can analyze code written with Ruby 1.8 syntax and newer, but requires at least Ruby 1.9.3 to run.
 
 # Basic Options
 
-For a full list of options, use `brakeman --help` or see the [OPTIONS.md](OPTIONS.md) file.
+For a full list of options, use `railroader --help` or see the [OPTIONS.md](OPTIONS.md) file.
 
 To specify an output file for the results:
 
-    brakeman -o output_file
+    railroader -o output_file
 
 The output format is determined by the file extension or by using the `-f` option. Current options are: `text`, `html`, `tabs`, `json`, `markdown`, `csv`, and `codeclimate`.
 
 Multiple output files can be specified:
 
-    brakeman -o output.html -o output.json
+    railroader -o output.html -o output.json
 
 To suppress informational warnings and just output the report:
 
-    brakeman -q
+    railroader -q
 
-Note all Brakeman output except reports are sent to stderr, making it simple to redirect stdout to a file and just get the report.
+Note all Railroader output except reports are sent to stderr, making it simple to redirect stdout to a file and just get the report.
 
 To see all kinds of debugging information:
 
-    brakeman -d
+    railroader -d
 
 Specific checks can be skipped, if desired. The name needs to be the correct case. For example, to skip looking for default routes (`DefaultRoutes`):
 
-    brakeman -x DefaultRoutes
+    railroader -x DefaultRoutes
 
 Multiple checks should be separated by a comma:
 
-    brakeman -x DefaultRoutes,Redirect
+    railroader -x DefaultRoutes,Redirect
 
 To do the opposite and only run a certain set of tests:
 
-    brakeman -t SQL,ValidationRegex
+    railroader -t SQL,ValidationRegex
 
-If Brakeman is running a bit slow, try
+If Railroader is running a bit slow, try
 
-    brakeman --faster
+    railroader --faster
 
-This will disable some features, but will probably be much faster (currently it is the same as `--skip-libs --no-branching`). *WARNING*: This may cause Brakeman to miss some vulnerabilities.
+This will disable some features, but will probably be much faster (currently it is the same as `--skip-libs --no-branching`). *WARNING*: This may cause Railroader to miss some vulnerabilities.
 
-By default, Brakeman will return a non-zero exit code if any security warnings are found or scanning errors are encountered. To disable this:
+By default, Railroader will return a non-zero exit code if any security warnings are found or scanning errors are encountered. To disable this:
 
-    brakeman --no-exit-on-warn --no-exit-on-error
+    railroader --no-exit-on-warn --no-exit-on-error
 
-To skip certain files or directories that Brakeman may have trouble parsing, use:
+To skip certain files or directories that Railroader may have trouble parsing, use:
 
-    brakeman --skip-files file1,/path1/,path2/
+    railroader --skip-files file1,/path1/,path2/
 
 To compare results of a scan with a previous scan, use the JSON output option and then:
 
-    brakeman --compare old_report.json
+    railroader --compare old_report.json
 
 This will output JSON with two lists: one of fixed warnings and one of new warnings.
 
-Brakeman will ignore warnings if configured to do so. By default, it looks for a configuration file in `config/brakeman.ignore`.
+Railroader will ignore warnings if configured to do so. By default, it looks for a configuration file in `config/railroader.ignore`.
 To create and manage this file, use:
 
-    brakeman -I
+    railroader -I
 
 # Warning information
 
@@ -111,7 +114,7 @@ The HTML output format provides an excerpt from the original application source 
 
 # Confidence levels
 
-Brakeman assigns a confidence level to each warning. This provides a rough estimate of how certain the tool is that a given warning is actually a problem. Naturally, these ratings should not be taken as absolute truth.
+Railroader assigns a confidence level to each warning. This provides a rough estimate of how certain the tool is that a given warning is actually a problem. Naturally, these ratings should not be taken as absolute truth.
 
 There are three levels of confidence:
 
@@ -121,34 +124,34 @@ There are three levels of confidence:
 
 To only get warnings above a given confidence level:
 
-    brakeman -w3
+    railroader -w3
 
 The `-w` switch takes a number from 1 to 3, with 1 being low (all warnings) and 3 being high (only highest confidence warnings).
 
 # Configuration files
 
-Brakeman options can stored and read from YAML files. To simplify the process of writing a configuration file, the `-C` option will output the currently set options.
+Railroader options can stored and read from YAML files. To simplify the process of writing a configuration file, the `-C` option will output the currently set options.
 
 Options passed in on the commandline have priority over configuration files.
 
-The default config locations are `./config/brakeman.yml`, `~/.brakeman/config.yml`, and `/etc/brakeman/config.yml`
+The default config locations are `./config/railroader.yml`, `~/.railroader/config.yml`, and `/etc/railroader/config.yml`
 
 The `-c` option can be used to specify a configuration file to use.
 
 # Continuous Integration
 
-There is a [plugin available](http://brakemanscanner.org/docs/jenkins/) for Jenkins/Hudson.
+There is a [plugin available](http://railroaderscanner.org/docs/jenkins/) for Jenkins/Hudson.
 
-For even more continuous testing, try the [Guard plugin](https://github.com/guard/guard-brakeman).
+For even more continuous testing, try the [Guard plugin](https://github.com/guard/guard-railroader).
 
 # Building
 
-    git clone git://github.com/presidentbeef/brakeman.git
-    cd brakeman
-    gem build brakeman.gemspec
-    gem install brakeman*.gem
+    git clone git://github.com/david-a-wheeler/railroader.git
+    cd railroader
+    gem build railroader.gemspec
+    gem install railroader*.gem
 
-# Who is Using Brakeman?
+<!-- # Who is Using Railroader?
 
 * [Code Climate](https://codeclimate.com/)
 * [GitHub](https://github.com/)
@@ -156,16 +159,16 @@ For even more continuous testing, try the [Guard plugin](https://github.com/guar
 * [New Relic](http://newrelic.com)
 * [Twitter](https://twitter.com/)
 
-[..and more!](http://brakemanscanner.org/brakeman_users)
+[..and more!](http://railroaderscanner.org/railroader_users)
+
+-->
 
 # Homepage/News
 
-Website: http://brakemanscanner.org/
+Website: http://railroader.org/
 
-Twitter: https://twitter.com/brakeman
-
-Chat: https://gitter.im/presidentbeef/brakeman
+Twitter: https://twitter.com/railroader
 
 # License
 
-see [MIT-LICENSE](MIT-LICENSE)
+See [MIT-LICENSE](MIT-LICENSE).
