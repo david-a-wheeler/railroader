@@ -1,8 +1,8 @@
 require_relative '../test'
-require 'brakeman/rescanner'
+require 'railroader/rescanner'
 
 class RailsLTSTests < Minitest::Test
-  include BrakemanTester::RescanTestHelper
+  include RailroaderTester::RescanTestHelper
 
   def test_gemfile_lock_rails_lts
     gemfile = "Gemfile.lock"

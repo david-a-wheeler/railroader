@@ -1,8 +1,8 @@
 require_relative '../test'
 
 class OnlyFilesOptionTests < Minitest::Test
-  include BrakemanTester::FindWarning
-  include BrakemanTester::CheckExpected
+  include RailroaderTester::FindWarning
+  include RailroaderTester::CheckExpected
   parallelize_me!
 
   def expected
@@ -20,7 +20,7 @@ class OnlyFilesOptionTests < Minitest::Test
   end
 
   def report
-    @@report ||= BrakemanTester.run_scan "rails3.2", "Rails 3.2", { :only_files => ["app/views/users/", "exec_controller.rb", "/app/models/user/"], :skip_files => ["app/views/users/sanitized.html.erb"] }
+    @@report ||= RailroaderTester.run_scan "rails3.2", "Rails 3.2", { :only_files => ["app/views/users/", "exec_controller.rb", "/app/models/user/"], :skip_files => ["app/views/users/sanitized.html.erb"] }
   end
 
   def test_escaped_params_to_json

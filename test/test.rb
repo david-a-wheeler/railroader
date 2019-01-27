@@ -12,8 +12,8 @@ rescue LoadError
   $stderr.puts "Install simplecov for test coverage report"
 end
 
-require 'brakeman'
-require 'brakeman/scanner'
+require 'railroader'
+require 'railroader/scanner'
 require 'minitest/autorun'
 require 'minitest/pride'
 
@@ -24,20 +24,20 @@ class Minitest::Test
 end
 
 #Helper methods for running scans
-module BrakemanTester
+module RailroaderTester
   class << self
     #Run scan on app at the given path
     def run_scan path, name = nil, opts = {}
       opts.merge! :app_path => "#{TEST_PATH}/apps/#{path}",
         :url_safe_methods => [:ensure_valid_proto!]
 
-      Brakeman.run(opts).report.to_hash
+      Railroader.run(opts).report.to_hash
     end
   end
 end
 
 #Helpers for finding warnings in the report
-module BrakemanTester::FindWarning
+module RailroaderTester::FindWarning
   def assert_warning opts
     warnings = find opts
     refute_equal 0, warnings.length, "No warning found"
@@ -75,7 +75,7 @@ end
 
 #Check that the number of warnings reported are as expected.
 #This is mainly to look for new warnings that are not being tested.
-module BrakemanTester::CheckExpected
+module RailroaderTester::CheckExpected
   def test_number_of_warnings
     require 'pp'
 
@@ -95,7 +95,7 @@ module BrakemanTester::CheckExpected
   end
 end
 
-module BrakemanTester::RescanTestHelper
+module RailroaderTester::RescanTestHelper
   attr_reader :original, :rescan, :rescanner
 
   #Takes care of copying files to a temporary directory, scanning the files,
@@ -111,11 +111,11 @@ module BrakemanTester::RescanTestHelper
       options = {:app_path => dir, :debug => false}.merge(options)
 
       FileUtils.cp_r "#{TEST_PATH}/apps/#{app}/.", dir
-      @original = Brakeman.run options
+      @original = Railroader.run options
 
       yield dir if block_given?
 
-      @rescanner = Brakeman::Rescanner.new(@original.options, @original.processor, changed)
+      @rescanner = Railroader::Rescanner.new(@original.options, @original.processor, changed)
       @rescan = @rescanner.recheck
 
       assert_existing
@@ -198,7 +198,7 @@ module BrakemanTester::RescanTestHelper
     output = yield parsed
 
     File.open path, "w" do |f|
-      f.puts Brakeman::OutputProcessor.new.process output
+      f.puts Railroader::OutputProcessor.new.process output
     end
   end
 
@@ -252,7 +252,7 @@ module BrakemanTester::RescanTestHelper
   end
 end
 
-module BrakemanTester::DiffHelper
+module RailroaderTester::DiffHelper
   def assert_fixed expected, diff = @diff
     assert_equal expected, diff[:fixed].length, "Expected #{expected} fixed warnings, but found #{diff[:fixed].length}"
   end

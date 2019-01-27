@@ -1,8 +1,8 @@
 require_relative '../test'
-require 'brakeman/rescanner'
+require 'railroader/rescanner'
 
 class ParserTimeoutTests < Minitest::Test
-  include BrakemanTester::RescanTestHelper
+  include RailroaderTester::RescanTestHelper
 
   def test_timeout
     before_rescan_of "lib/large_file.rb", "rails5.2", { parser_timeout: 1 } do

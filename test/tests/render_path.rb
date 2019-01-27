@@ -2,7 +2,7 @@ require_relative '../test'
 
 class RenderPathTests < Minitest::Test
   def setup
-    @r = Brakeman::RenderPath.new
+    @r = Railroader::RenderPath.new
   end
 
   def test_include_controller

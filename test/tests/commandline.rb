@@ -1,5 +1,5 @@
 require_relative '../test'
-require 'brakeman/commandline'
+require 'railroader/commandline'
 
 class CLExit < StandardError
   attr_reader :exit_code
@@ -11,7 +11,7 @@ class CLExit < StandardError
   end
 end
 
-class TestCommandline < Brakeman::Commandline
+class TestCommandline < Railroader::Commandline
   def self.quit exit_code = 0, message = nil
     raise CLExit.new(exit_code, message)
   end
@@ -60,15 +60,15 @@ class CommandlineTests < Minitest::Test
   end
 
   def setup
-    Brakeman.debug = false
-    Brakeman.quiet = false
+    Railroader.debug = false
+    Railroader.quiet = false
   end
 
   # Tests
 
   def test_nonexistent_scan_path
-    assert_exit Brakeman::No_App_Found_Exit_Code do
-      cl_with_options "/fake_brakeman_test_path"
+    assert_exit Railroader::No_App_Found_Exit_Code do
+      cl_with_options "/fake_railroader_test_path"
     end
   end
 
@@ -87,13 +87,13 @@ class CommandlineTests < Minitest::Test
   end
 
   def test_bad_options
-    assert_stderr /\Ainvalid option: --not-a-real-option\nPlease see `brakeman --help`/, -1 do
+    assert_stderr /\Ainvalid option: --not-a-real-option\nPlease see `railroader --help`/, -1 do
       cl_with_options "--not-a-real-option"
     end
   end
 
   def test_version
-    assert_stdout "brakeman #{Brakeman::Version}\n" do
+    assert_stdout "railroader #{Railroader::Version}\n" do
       cl_with_options "-v"
     end
   end
@@ -107,7 +107,7 @@ class CommandlineTests < Minitest::Test
   end
 
   def test_show_help
-    assert_stdout /\AUsage: brakeman \[options\] rails\/root\/path/ do
+    assert_stdout /\AUsage: railroader \[options\] rails\/root\/path/ do
       assert_exit do
         cl_with_options "--help"
       end
@@ -115,7 +115,7 @@ class CommandlineTests < Minitest::Test
   end
 
   def test_exit_on_warn_default
-    assert_exit Brakeman::Warnings_Found_Exit_Code do
+    assert_exit Railroader::Warnings_Found_Exit_Code do
       scan_app
     end
   end

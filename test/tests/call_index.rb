@@ -1,5 +1,5 @@
 require_relative '../test'
-require 'brakeman/processors/lib/find_all_calls'
+require 'railroader/processors/lib/find_all_calls'
 
 class CallIndexTests < Minitest::Test
   def setup
@@ -14,7 +14,7 @@ class CallIndexTests < Minitest::Test
       {:method => :with_target, :target => :blah, :call => {}, :nested => false  },
     ]
 
-    meth_src = Brakeman::AliasProcessor.new.process RubyParser.new.parse <<-RUBY
+    meth_src = Railroader::AliasProcessor.new.process RubyParser.new.parse <<-RUBY
       def x
         x.y.z(1)
         params[:x].y.z(2)
@@ -22,7 +22,7 @@ class CallIndexTests < Minitest::Test
       end
     RUBY
 
-    class_src = Brakeman::AliasProcessor.new.process RubyParser.new.parse <<-RUBY
+    class_src = Railroader::AliasProcessor.new.process RubyParser.new.parse <<-RUBY
     class A
       do_a_thing
 
@@ -33,12 +33,12 @@ class CallIndexTests < Minitest::Test
       end
     end
     RUBY
-    all_calls = Brakeman::FindAllCalls.new(Object.new)
+    all_calls = Railroader::FindAllCalls.new(Object.new)
     all_calls.process_source(meth_src, method: :x)
     all_calls.process_source(class_src, class: :A)
     @calls += all_calls.calls
 
-    @call_index = Brakeman::CallIndex.new(@calls)
+    @call_index = Railroader::CallIndex.new(@calls)
   end
 
   def assert_found num, opts

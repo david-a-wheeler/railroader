@@ -1,26 +1,26 @@
 require 'tempfile'
 require_relative '../test'
 
-class BrakemanTests < Minitest::Test
+class RailroaderTests < Minitest::Test
   def test_exception_on_no_application
-    assert_raises Brakeman::NoApplication do
-      Brakeman.run "/tmp#{rand}" #better not exist
+    assert_raises Railroader::NoApplication do
+      Railroader.run "/tmp#{rand}" #better not exist
     end
   end
 
   def test_exception_no_on_no_application_if_forced
-    assert_nothing_raised Brakeman::NoApplication do
-      Brakeman.run :app_path => "/tmp#{rand}", :force_scan => true #better not exist
+    assert_nothing_raised Railroader::NoApplication do
+      Railroader.run :app_path => "/tmp#{rand}", :force_scan => true #better not exist
     end
   end
 
   def test_app_tree_root_is_absolute
-    require 'brakeman/options'
+    require 'railroader/options'
     relative_path = Pathname.new(File.dirname(__FILE__)).relative_path_from(Pathname.getwd)
     absolute_path = relative_path.realpath.to_s
     input = ["-p", relative_path.to_s]
-    options, _ = Brakeman::Options.parse input
-    at = Brakeman::AppTree.from_options options
+    options, _ = Railroader::Options.parse input
+    at = Railroader::AppTree.from_options options
 
     assert !options[:app_path].start_with?("/")
     assert_equal absolute_path, at.root
@@ -28,11 +28,11 @@ class BrakemanTests < Minitest::Test
   end
 
   def test_app_tree_flexible_file_paths
-    require 'brakeman/options'
+    require 'railroader/options'
     relative_path = File.expand_path(File.join(TEST_PATH, "/apps/rails4_non_standard_structure/"))
     input = ["-p", relative_path.to_s]
-    options, _ = Brakeman::Options.parse input
-    at = Brakeman::AppTree.from_options options
+    options, _ = Railroader::Options.parse input
+    at = Railroader::AppTree.from_options options
 
     contains_foo_controller = false
     at.controller_paths.each do |path|
@@ -64,12 +64,12 @@ class BrakemanTests < Minitest::Test
   end
 
   def test_engines_path
-    require 'brakeman/options'
+    require 'railroader/options'
     relative_path = File.expand_path(File.join(TEST_PATH, "/apps/rails4_with_engines"))
     input = ["-p", relative_path.to_s,
              "--add-engines-path", "engine/user_removal"]
-    options, _ = Brakeman::Options.parse input
-    at = Brakeman::AppTree.from_options options
+    options, _ = Railroader::Options.parse input
+    at = Railroader::AppTree.from_options options
 
     expected_controllers = %w{application_controller.rb removal_controller.rb users_controller.rb}
     basename = Proc.new { |path| File.basename path }
@@ -83,7 +83,7 @@ class UtilTests < Minitest::Test
   end
 
   def util
-    Class.new.extend Brakeman::Util
+    Class.new.extend Railroader::Util
   end
 
   def test_cookies?
@@ -101,9 +101,9 @@ class BaseCheckTests < Minitest::Test
 
   def setup
     @tracker = FakeTracker.new
-    @tracker.config = Brakeman::Config.new(@tracker)
+    @tracker.config = Railroader::Config.new(@tracker)
     app_tree = FakeAppTree.new
-    @check = Brakeman::BaseCheck.new app_tree, @tracker
+    @check = Railroader::BaseCheck.new app_tree, @tracker
   end
 
   def version_between? version, low, high
@@ -149,7 +149,7 @@ end
 class ConfigTests < Minitest::Test
 
   def setup
-    Brakeman.instance_variable_set(:@quiet, false)
+    Railroader.instance_variable_set(:@quiet, false)
   end
 
   def test_quiet_option_from_file
@@ -168,7 +168,7 @@ class ConfigTests < Minitest::Test
     }
 
     assert_output "" do
-      final_options = Brakeman.set_options(options)
+      final_options = Railroader.set_options(options)
 
       config.unlink
 
@@ -193,7 +193,7 @@ class ConfigTests < Minitest::Test
     }
 
     assert_output "" do
-      final_options = Brakeman.set_options(options)
+      final_options = Railroader.set_options(options)
     end
   end
 
@@ -202,7 +202,7 @@ class ConfigTests < Minitest::Test
       :app_path => "/tmp" #doesn't need to be real
     }
 
-    final_options = Brakeman.set_options(options)
+    final_options = Railroader.set_options(options)
 
     assert final_options[:quiet], "Expected quiet option to be true, but was #{final_options[:quiet]}"
   end
@@ -213,7 +213,7 @@ class ConfigTests < Minitest::Test
       :app_path => "/tmp" #doesn't need to be real
     }
 
-    final_options = Brakeman.set_options(options)
+    final_options = Railroader.set_options(options)
 
     assert_nil final_options[:quiet]
   end
@@ -236,13 +236,13 @@ class ConfigTests < Minitest::Test
     }
 
     assert_output "" do
-      Brakeman.run options
+      Railroader.run options
       config.unlink
     end
   end
 
   def output_format_tester options, expected_options
-    output_formats = Brakeman.get_output_formats(options)
+    output_formats = Railroader.get_output_formats(options)
 
     assert_equal expected_options, output_formats
   end
@@ -275,29 +275,29 @@ class ConfigTests < Minitest::Test
 
   def test_output_format_errors_raised
     options = {:output_format => :to_json, :output_files => ['xx.csv', 'xx.xxx']}
-    assert_raises(ArgumentError) { Brakeman.get_output_formats(options) }
+    assert_raises(ArgumentError) { Railroader.get_output_formats(options) }
   end
 
   def test_github_options_raises_error
     options = {:github_repo => 'www.test.com', :app_path => "/tmp"}
     assert_raises ArgumentError do
-      Brakeman.set_options(options)
+      Railroader.set_options(options)
     end
   end
 
   def test_github_options_returns_url
-    options = {:github_repo => 'presidentbeef/brakeman', :app_path => "/tmp"}
+    options = {:github_repo => 'presidentbeef/railroader', :app_path => "/tmp"}
 
-    final_options = Brakeman.set_options(options)
-    assert final_options[:github_url], "https://www.github.com/presidentbeef/brakeman"
+    final_options = Railroader.set_options(options)
+    assert final_options[:github_url], "https://www.github.com/presidentbeef/railroader"
   end
 
   def test_optional_check_options
     options = {:list_optional_checks => true}
     check_list = capture_io {
-      Brakeman.list_checks(options)
+      Railroader.list_checks(options)
     }[1]
-    Brakeman::Checks.optional_checks.each do |check|
+    Railroader::Checks.optional_checks.each do |check|
       assert check_list.include? check.to_s.split("::").last
       assert check_list.include? check.description
     end
@@ -306,9 +306,9 @@ class ConfigTests < Minitest::Test
   def test_default_check_options
     options = {}
     check_list = capture_io {
-      Brakeman.list_checks(options)
+      Railroader.list_checks(options)
     }[1]
-    Brakeman::Checks.checks.each do |check|
+    Railroader::Checks.checks.each do |check|
       assert check_list.include? check.to_s.split("::").last
       assert check_list.include? check.description
     end
@@ -318,7 +318,7 @@ class ConfigTests < Minitest::Test
     options = {:create_config => true, :test_option => "test"}
 
     assert_output nil, "---\n:test_option: test\n" do
-      Brakeman.dump_config(options)
+      Railroader.dump_config(options)
     end
   end
 
@@ -328,17 +328,17 @@ class ConfigTests < Minitest::Test
     options = {:create_config => true, :test_option => test_set}
 
     assert_output nil, "---\n:test_option:\n- test\n- test2\n" do
-      Brakeman.dump_config(options)
+      Railroader.dump_config(options)
     end
   end
 
   def test_ensure_latest
-    Gem.stub :latest_version_for, Brakeman::Version do
-      refute Brakeman.ensure_latest
+    Gem.stub :latest_version_for, Railroader::Version do
+      refute Railroader.ensure_latest
     end
 
     Gem.stub :latest_version_for, '0.1.2' do
-      assert_equal "Brakeman #{Brakeman::Version} is not the latest version 0.1.2", Brakeman.ensure_latest
+      assert_equal "Railroader #{Railroader::Version} is not the latest version 0.1.2", Railroader.ensure_latest
     end
   end
 
@@ -347,7 +347,7 @@ class ConfigTests < Minitest::Test
     options = {:create_config => test_file, :test_option => "test"}
 
     assert_output nil, "Output configuration to test.cfg\n" do
-      Brakeman.dump_config(options)
+      Railroader.dump_config(options)
     end
 
     file_text = File.read(test_file)
@@ -367,8 +367,8 @@ class GemProcessorTests < Minitest::Test
   def setup
     @tracker = FakeTracker.new
     @tracker.options = {}
-    @tracker.config = Brakeman::Config.new(@tracker)
-    @gem_processor = Brakeman::GemProcessor.new @tracker
+    @tracker.config = Railroader::Config.new(@tracker)
+    @gem_processor = Railroader::GemProcessor.new @tracker
     @eol_representations = ["\r\n", "\n"]
     @gem_locks = @eol_representations.inject({}) {|h, eol|
       h[eol] = "    paperclip (3.2.1)#    erubis (4.3.1)#     rails (3.2.1.rc2)#    simplecov (1.1)#".gsub('#', eol); h

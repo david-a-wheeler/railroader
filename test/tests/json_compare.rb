@@ -2,13 +2,13 @@ require_relative '../test'
 require 'json'
 
 class JSONCompareTests < Minitest::Test
-  include BrakemanTester::DiffHelper
+  include RailroaderTester::DiffHelper
 
   def setup
     @path = File.expand_path "#{TEST_PATH}/apps/rails3.2"
     @json_path = File.join @path, "doesnt_exist", "report.json"
     teardown # just to be sure
-    Brakeman.run :app_path => @path, :output_files => [@json_path]
+    Railroader.run :app_path => @path, :output_files => [@json_path]
     @report = JSON.parse File.read(@json_path)
   end
 
@@ -24,7 +24,7 @@ class JSONCompareTests < Minitest::Test
   end
 
   def diff
-    @diff = Brakeman.compare :app_path => @path, :previous_results_json => @json_path
+    @diff = Railroader.compare :app_path => @path, :previous_results_json => @json_path
   end
 
   def test_sanity

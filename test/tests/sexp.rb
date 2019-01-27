@@ -1,5 +1,5 @@
 require_relative '../test'
-require 'brakeman/processors/base_processor'
+require 'railroader/processors/base_processor'
 
 class SexpTests < Minitest::Test
   def setup
@@ -7,7 +7,7 @@ class SexpTests < Minitest::Test
   end
 
   def parse string
-    Brakeman::BaseProcessor.new(nil).process @ruby_parser.new.parse string
+    Railroader::BaseProcessor.new(nil).process @ruby_parser.new.parse string
   end
 
   def test_method_call_with_no_args
@@ -295,7 +295,7 @@ class SexpTests < Minitest::Test
 
   def test_resbody_block
     #Ruby2Ruby has calls like this which need to be supported
-    #for Brakeman::OutputProcessor
+    #for Railroader::OutputProcessor
     exp = parse "begin; rescue; end"
 
     assert_nil exp.resbody.block
@@ -303,7 +303,7 @@ class SexpTests < Minitest::Test
 
   def test_lasgn
     #Ruby2Ruby has calls like this which need to be supported
-    #for Brakeman::OutputProcessor
+    #for Railroader::OutputProcessor
     exp = parse "blah; x = 1"
 
     assert_equal s(:lasgn, :x, s(:lit, 1)), exp.lasgn(true)
@@ -312,7 +312,7 @@ class SexpTests < Minitest::Test
 
   def test_iasgn
     #Ruby2Ruby has calls like this which need to be supported
-    #for Brakeman::OutputProcessor
+    #for Railroader::OutputProcessor
     exp = parse "blah; @x = 1"
 
     assert_equal s(:iasgn, :@x, s(:lit, 1)), exp.iasgn(true)

@@ -2,14 +2,14 @@ require_relative '../test'
 
 class ConstantTests < Minitest::Test
   def setup
-    @constants = Brakeman::Constants.new
+    @constants = Railroader::Constants.new
   end
 
   def assert_alias expected, original, full = false
-    tracker = Brakeman::Tracker.new(nil)
-    original_sexp = Brakeman::BaseProcessor.new(tracker).process(RubyParser.new.parse original)
-    expected_sexp = Brakeman::BaseProcessor.new(tracker).process(RubyParser.new.parse expected)
-    processed_sexp = Brakeman::AliasProcessor.new(tracker).process_safely original_sexp
+    tracker = Railroader::Tracker.new(nil)
+    original_sexp = Railroader::BaseProcessor.new(tracker).process(RubyParser.new.parse original)
+    expected_sexp = Railroader::BaseProcessor.new(tracker).process(RubyParser.new.parse expected)
+    processed_sexp = Railroader::AliasProcessor.new(tracker).process_safely original_sexp
 
     if full
       assert_equal expected_sexp, processed_sexp

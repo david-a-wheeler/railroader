@@ -2,7 +2,7 @@ require_relative '../test'
 
 class OutputProcessorTests < Minitest::Test
   def assert_output expected, original
-    output = Brakeman::OutputProcessor.new.format original
+    output = Railroader::OutputProcessor.new.format original
 
     assert_equal expected, output
   end
@@ -90,7 +90,7 @@ class OutputProcessorTests < Minitest::Test
     s_input = RubyParser.new.parse(input)
 
     assert_output input,
-      Brakeman::BaseProcessor.new(nil).process(s_input)
+      Railroader::BaseProcessor.new(nil).process(s_input)
   end
 
   def test_output_format
@@ -123,7 +123,7 @@ class OutputProcessorTests < Minitest::Test
 
   def test_output_unknown_model
     assert_output "(Unresolved Model)", Sexp.new(:const,
-                                                 Brakeman::Tracker::UNKNOWN_MODEL)
+                                                 Railroader::Tracker::UNKNOWN_MODEL)
   end
 
   def test_output_render
@@ -189,7 +189,7 @@ class OutputProcessorTests < Minitest::Test
       s(:dxstr, "", s(:evstr, s(:call, nil, :x)))
 
 
-    input = Brakeman::BaseProcessor.new(nil).process(RubyParser.new.parse('`1#{x}2#{y}3`'))
+    input = Railroader::BaseProcessor.new(nil).process(RubyParser.new.parse('`1#{x}2#{y}3`'))
     assert_output '`1#{x}2#{y}3`', input
   end
 end

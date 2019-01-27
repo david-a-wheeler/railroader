@@ -1,16 +1,16 @@
 require_relative '../test'
-require 'brakeman/differ'
+require 'railroader/differ'
 
 class DifferTests < Minitest::Test
-  include BrakemanTester::DiffHelper
+  include RailroaderTester::DiffHelper
 
   def setup
-    @@diffrun ||= Brakeman.run :app_path => "#{TEST_PATH}/apps/rails2"
+    @@diffrun ||= Railroader.run :app_path => "#{TEST_PATH}/apps/rails2"
     @warnings ||= @@diffrun.warnings
   end
 
   def diff new, old
-    @diff = Brakeman::Differ.new(new, old).diff
+    @diff = Railroader::Differ.new(new, old).diff
   end
 
   def assert_fixed expected, diff = @diff

@@ -6,11 +6,11 @@
 require_relative '../test'
 
 class Rails2Tests < Minitest::Test
-  include BrakemanTester::FindWarning
-  include BrakemanTester::CheckExpected
+  include RailroaderTester::FindWarning
+  include RailroaderTester::CheckExpected
 
   def expected
-    if Brakeman::Scanner::RUBY_1_9
+    if Railroader::Scanner::RUBY_1_9
       @expected ||= {
         :controller => 1,
         :model => 3,
@@ -26,7 +26,7 @@ class Rails2Tests < Minitest::Test
   end
 
   def report
-    @@report ||= BrakemanTester.run_scan "rails2", "Rails 2", :run_all_checks => true, :collapse_mass_assignment => true
+    @@report ||= RailroaderTester.run_scan "rails2", "Rails 2", :run_all_checks => true, :collapse_mass_assignment => true
   end
 
   def test_no_errors
@@ -209,7 +209,7 @@ class Rails2Tests < Minitest::Test
   end
 
   def test_rails_cve_2011_2932
-    unless Brakeman::Scanner::RUBY_1_9
+    unless Railroader::Scanner::RUBY_1_9
       assert_warning :type => :warning,
         :warning_code => 83,
         :fingerprint => "19e0b7ab34bebe1c887bc388a195a8619136abe5875d62010628958f0792479c",
@@ -364,7 +364,7 @@ class Rails2Tests < Minitest::Test
   def test_attribute_restriction
     assert_warning :type => :model,
       :warning_type => "Attribute Restriction",
-      :warning_code => Brakeman::WarningCodes::Codes[:no_attr_accessible],
+      :warning_code => Railroader::WarningCodes::Codes[:no_attr_accessible],
       :message => /^Mass assignment is not restricted using /,
       :confidence => 0,
       :file => /account, user\.rb/,
@@ -1478,11 +1478,11 @@ class Rails2Tests < Minitest::Test
 end
 
 class Rails2WithOptionsTests < Minitest::Test
-  include BrakemanTester::FindWarning
-  include BrakemanTester::CheckExpected
+  include RailroaderTester::FindWarning
+  include RailroaderTester::CheckExpected
 
   def expected
-    if Brakeman::Scanner::RUBY_1_9
+    if Railroader::Scanner::RUBY_1_9
       @expected ||= {
         :controller => 1,
         :model => 4,
@@ -1498,7 +1498,7 @@ class Rails2WithOptionsTests < Minitest::Test
   end
 
   def report
-    @@report ||= BrakemanTester.run_scan "rails2", "Rails 2", :run_all_checks => true
+    @@report ||= RailroaderTester.run_scan "rails2", "Rails 2", :run_all_checks => true
   end
 
   def test_no_errors
@@ -1508,13 +1508,13 @@ class Rails2WithOptionsTests < Minitest::Test
   def test_attribute_restriction
     assert_warning :type => :model,
       :warning_type => "Attribute Restriction",
-      :warning_code => Brakeman::WarningCodes::Codes[:no_attr_accessible],
+      :warning_code => Railroader::WarningCodes::Codes[:no_attr_accessible],
       :message => /^Mass assignment is not restricted using /,
       :confidence => 0,
       :file => /account\.rb/
     assert_warning :type => :model,
       :warning_type => "Attribute Restriction",
-      :warning_code => Brakeman::WarningCodes::Codes[:no_attr_accessible],
+      :warning_code => Railroader::WarningCodes::Codes[:no_attr_accessible],
       :message => /^Mass assignment is not restricted using /,
       :confidence => 0,
       :file => /user\.rb/

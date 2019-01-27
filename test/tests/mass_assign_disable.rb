@@ -1,7 +1,7 @@
 require_relative '../test'
 
 class MassAssignDisableTest < Minitest::Test
-  include BrakemanTester::RescanTestHelper
+  include RailroaderTester::RescanTestHelper
 
   def mass_assign_disable content
     init = "config/initializers/mass_assign.rb"

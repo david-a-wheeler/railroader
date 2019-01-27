@@ -2,7 +2,7 @@
 
 Run `bundle` then `rake` or if you want to avoid bundler `ruby test/test.rb`.
 
-This runs Brakeman against full apps in the `apps` directory and checks the results against what is expected.
+This runs Railroader against full apps in the `apps` directory and checks the results against what is expected.
 
 ## Test Generation
 

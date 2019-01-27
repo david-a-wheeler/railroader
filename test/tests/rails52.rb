@@ -1,11 +1,11 @@
 require_relative '../test'
 
 class Rails52Tests < Minitest::Test
-  include BrakemanTester::FindWarning
-  include BrakemanTester::CheckExpected
+  include RailroaderTester::FindWarning
+  include RailroaderTester::CheckExpected
 
   def report
-    @@report ||= BrakemanTester.run_scan "rails5.2", "Rails 5.2", run_all_checks: true
+    @@report ||= RailroaderTester.run_scan "rails5.2", "Rails 5.2", run_all_checks: true
   end
 
   def expected

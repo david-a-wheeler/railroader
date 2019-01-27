@@ -1,5 +1,5 @@
 require_relative '../test'
-require "brakeman/report/pager"
+require "railroader/report/pager"
 
 class ReportPagerTests < Minitest::Test
   def setup
@@ -8,7 +8,7 @@ class ReportPagerTests < Minitest::Test
 
   def test_no_pager
     out = StringIO.new
-    pager = Brakeman::Pager.new(nil, :none, out)
+    pager = Railroader::Pager.new(nil, :none, out)
 
     pager.page_output(@@text)
 
@@ -17,7 +17,7 @@ class ReportPagerTests < Minitest::Test
 
   def test_unknown_pager
     out = StringIO.new
-    pager = Brakeman::Pager.new(nil, :unknown, out)
+    pager = Railroader::Pager.new(nil, :unknown, out)
 
     pager.page_output(@@text)
 
@@ -26,7 +26,7 @@ class ReportPagerTests < Minitest::Test
 
   def test_less_sort_of
     out = StringIO.new
-    pager = Brakeman::Pager.new(nil, :less, out)
+    pager = Railroader::Pager.new(nil, :less, out)
 
     pager.page_output(".")
   end
@@ -34,7 +34,7 @@ class ReportPagerTests < Minitest::Test
   def test_highline
     out = StringIO.new
     $stdin = StringIO.new("\r\r\r\r\r\r\r")
-    pager = Brakeman::Pager.new(nil, :highline, out)
+    pager = Railroader::Pager.new(nil, :highline, out)
 
     pager.page_output(@@text)
 
@@ -45,7 +45,7 @@ class ReportPagerTests < Minitest::Test
   end
 
   def test_in_ci_test
-    pager = Brakeman::Pager.new(Brakeman::Tracker.new(nil))
+    pager = Railroader::Pager.new(Railroader::Tracker.new(nil))
 
     if ENV["CI"]
       assert pager.in_ci?
@@ -55,15 +55,15 @@ class ReportPagerTests < Minitest::Test
   end
 
   def test_set_color
-    pager = Brakeman::Pager.new(Brakeman::Tracker.new(nil))
+    pager = Railroader::Pager.new(Railroader::Tracker.new(nil))
     pager.set_color
   end
 
   def test_output_report
     out = $stdout = StringIO.new
     app_path = File.expand_path "#{TEST_PATH}/apps/rails5"
-    tracker = Brakeman.run app_path: app_path, run_checks: [], quiet: true, summary_only: :no_summary
-    pager = Brakeman::Pager.new(tracker)
+    tracker = Railroader.run app_path: app_path, run_checks: [], quiet: true, summary_only: :no_summary
+    pager = Railroader::Pager.new(tracker)
 
     pager.page_report(tracker.report, :to_text)
   ensure

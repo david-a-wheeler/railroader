@@ -3,7 +3,7 @@ require_relative '../test'
 
 class TestReportGeneration < Minitest::Test
   def setup
-    @@tracker||= Brakeman.run(:app_path => "#{TEST_PATH}/apps/rails4", :quiet => true, :report_routes => true)
+    @@tracker||= Railroader.run(:app_path => "#{TEST_PATH}/apps/rails4", :quiet => true, :report_routes => true)
     @@report ||= @@tracker.report
   end
 
@@ -46,7 +46,7 @@ class TestReportGeneration < Minitest::Test
 
   def test_csv_report_no_warnings
     assert_nothing_raised do
-      Brakeman.run(:app_path => "#{TEST_PATH}/apps/rails4_non_standard_structure", :quiet => true, :report_routes => true).report.to_csv
+      Railroader.run(:app_path => "#{TEST_PATH}/apps/rails4_non_standard_structure", :quiet => true, :report_routes => true).report.to_csv
     end
   end
 

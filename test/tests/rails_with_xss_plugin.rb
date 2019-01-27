@@ -1,8 +1,8 @@
 require_relative '../test'
 
 class RailsWithXssPluginTests < Minitest::Test
-  include BrakemanTester::FindWarning
-  include BrakemanTester::CheckExpected
+  include RailroaderTester::FindWarning
+  include RailroaderTester::CheckExpected
 
   def expected
     @expected ||= {
@@ -13,7 +13,7 @@ class RailsWithXssPluginTests < Minitest::Test
   end
 
   def report
-    @@report ||= BrakemanTester.run_scan(
+    @@report ||= RailroaderTester.run_scan(
       "rails_with_xss_plugin",
       "RailsWithXssPlugin",
       :absolute_paths => true,

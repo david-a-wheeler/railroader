@@ -1,11 +1,11 @@
 require_relative '../test'
 
 class Rails31Tests < Minitest::Test
-  include BrakemanTester::FindWarning
-  include BrakemanTester::CheckExpected
+  include RailroaderTester::FindWarning
+  include RailroaderTester::CheckExpected
 
   def report
-    @@report ||= BrakemanTester.run_scan "rails3.1", "Rails 3.1", :rails3 => true, :parallel_checks => false, :interprocedural => true
+    @@report ||= RailroaderTester.run_scan "rails3.1", "Rails 3.1", :rails3 => true, :parallel_checks => false, :interprocedural => true
   end
 
   def expected

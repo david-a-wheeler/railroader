@@ -1,12 +1,12 @@
 require_relative '../test'
 
 class Rails3Tests < Minitest::Test
-  include BrakemanTester::FindWarning
-  include BrakemanTester::CheckExpected
+  include RailroaderTester::FindWarning
+  include RailroaderTester::CheckExpected
 
   def report
-    @@report ||= BrakemanTester.run_scan "rails3", "Rails 3", :rails3 => true,
-      :config_file => File.join(TEST_PATH, "apps", "rails3", "config", "brakeman.yml")
+    @@report ||= RailroaderTester.run_scan "rails3", "Rails 3", :rails3 => true,
+      :config_file => File.join(TEST_PATH, "apps", "rails3", "config", "railroader.yml")
   end
 
   def expected
@@ -580,7 +580,7 @@ class Rails3Tests < Minitest::Test
   end
 
   def test_newlines_in_template
-    # Brakeman previously handled multiple newlines between nested ruby
+    # Railroader previously handled multiple newlines between nested ruby
     # expressions incorrectly. This test verifies that multiple newlines between
     # ruby expressions does not lead to incorrect line numbers in warnings.
     assert_warning :type => :template,
@@ -590,7 +590,7 @@ class Rails3Tests < Minitest::Test
       :confidence => 0,
       :file => /test_newlines\.html\.erb/
 
-    # Brakeman previously handled multiple newlines between HTML markup and ruby
+    # Railroader previously handled multiple newlines between HTML markup and ruby
     # expressions incorrectly. This test verifies that multiple newlines between
     # HTML and ruby expressions does not lead to incorrect line numbers in
     # warnings.

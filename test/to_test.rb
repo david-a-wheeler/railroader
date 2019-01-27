@@ -10,26 +10,26 @@
 # Set paths
 $LOAD_PATH.unshift "#{File.expand_path(File.dirname(__FILE__))}/../lib"
 
-require 'brakeman'
+require 'railroader'
 require 'ruby_parser'
 require 'ruby_parser/bm_sexp'
-require 'brakeman/options'
-require 'brakeman/report/report_base'
+require 'railroader/options'
+require 'railroader/report/report_base'
 
-class Brakeman::Report::Tests < Brakeman::Report::Base
+class Railroader::Report::Tests < Railroader::Report::Base
   def generate_report
     counter = 0
 
     name = camelize File.basename(tracker.app_path)
 
     output = <<-RUBY
-abort "Please run using test/test.rb" unless defined? BrakemanTester
+abort "Please run using test/test.rb" unless defined? RailroaderTester
 
-#{name} = BrakemanTester.run_scan "#{File.basename tracker.app_path}", "#{name}"
+#{name} = RailroaderTester.run_scan "#{File.basename tracker.app_path}", "#{name}"
 
 class #{name}Tests < Test::Unit::TestCase
-  include BrakemanTester::FindWarning
-  include BrakemanTester::CheckExpected
+  include RailroaderTester::FindWarning
+  include RailroaderTester::CheckExpected
 
   def expected
     @expected ||= {
@@ -68,7 +68,7 @@ class #{name}Tests < Test::Unit::TestCase
   end
 end
 
-options, _ = Brakeman::Options.parse!(ARGV)
+options, _ = Railroader::Options.parse!(ARGV)
 
 unless options[:app_path]
   if ARGV[-1].nil?
@@ -78,6 +78,6 @@ unless options[:app_path]
   end
 end
 
-tracker = Brakeman.run options
+tracker = Railroader.run options
 
-puts Brakeman::Report::Tests.new(nil, tracker).generate_report
+puts Railroader::Report::Tests.new(nil, tracker).generate_report

@@ -3,7 +3,7 @@ require 'json'
 
 class JSONOutputTests < Minitest::Test
   def setup
-    @@json ||= JSON.parse(Brakeman.run("#{TEST_PATH}/apps/rails4").report.to_json)
+    @@json ||= JSON.parse(Railroader.run("#{TEST_PATH}/apps/rails4").report.to_json)
   end
 
   def test_for_render_path
@@ -20,7 +20,7 @@ class JSONOutputTests < Minitest::Test
   def test_for_scan_info_keys
     info_keys = ["app_path", "rails_version", "security_warnings", "start_time", "end_time", "duration",
                  "checks_performed", "number_of_controllers", "number_of_models", "number_of_templates",
-                 "ruby_version", "brakeman_version"]
+                 "ruby_version", "railroader_version"]
 
     assert (@@json["scan_info"].keys - info_keys).empty?
   end

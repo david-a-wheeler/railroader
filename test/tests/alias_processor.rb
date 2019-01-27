@@ -4,7 +4,7 @@ class AliasProcessorTests < Minitest::Test
   def assert_alias expected, original, full = false
     original_sexp = RubyParser.new.parse original
     expected_sexp = RubyParser.new.parse expected
-    processed_sexp = Brakeman::AliasProcessor.new.process_safely original_sexp
+    processed_sexp = Railroader::AliasProcessor.new.process_safely original_sexp
 
     if full
       assert_equal expected_sexp, processed_sexp
@@ -44,7 +44,7 @@ class AliasProcessorTests < Minitest::Test
 
   def test_infinity
     e = RubyParser.new.parse "x = 1.0 / 0; x"
-    a = Brakeman::AliasProcessor.new.process_safely e
+    a = Railroader::AliasProcessor.new.process_safely e
 
     assert_equal Sexp.new(:lit, 1.0 / 0), a.last
   end
@@ -504,11 +504,11 @@ class AliasProcessorTests < Minitest::Test
     [x, y]
     RUBY
 
-    tracker = Brakeman::Tracker.new(nil, nil, :branch_limit => 4)
+    tracker = Railroader::Tracker.new(nil, nil, :branch_limit => 4)
 
     assert_equal 4, tracker.options[:branch_limit]
 
-    processed_sexp = Brakeman::AliasProcessor.new(tracker).process_safely original_sexp
+    processed_sexp = Railroader::AliasProcessor.new(tracker).process_safely original_sexp
     result = processed_sexp.last
 
     assert_equal expected_x, result[1]

@@ -1,8 +1,8 @@
 require_relative '../test'
 
 class Rails4WithEnginesTests < Minitest::Test
-  include BrakemanTester::FindWarning
-  include BrakemanTester::CheckExpected
+  include RailroaderTester::FindWarning
+  include RailroaderTester::CheckExpected
 
   def expected
     @expected ||= {
@@ -13,7 +13,7 @@ class Rails4WithEnginesTests < Minitest::Test
   end
 
   def report
-   @@report ||= BrakemanTester.run_scan "rails4_with_engines", "Rails4WithEngines"
+   @@report ||= RailroaderTester.run_scan "rails4_with_engines", "Rails4WithEngines"
   end
 
   def test_dangerous_send_in_engine

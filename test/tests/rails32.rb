@@ -6,8 +6,8 @@
 require_relative '../test'
 
 class Rails32Tests < Minitest::Test
-  include BrakemanTester::FindWarning
-  include BrakemanTester::CheckExpected
+  include RailroaderTester::FindWarning
+  include RailroaderTester::CheckExpected
 
   def expected
     @expected ||= {
@@ -24,7 +24,7 @@ class Rails32Tests < Minitest::Test
   end
 
   def report
-    @@report ||= BrakemanTester.run_scan "rails3.2", "Rails 3.2"
+    @@report ||= RailroaderTester.run_scan "rails3.2", "Rails 3.2"
   end
 
   def test_rc_version_number

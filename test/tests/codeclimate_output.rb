@@ -2,7 +2,7 @@ require_relative '../test'
 
 class TestCodeClimateOutput < Minitest::Test
   def setup
-    @@report ||= Brakeman.run("#{TEST_PATH}/apps/rails2").report.to_codeclimate
+    @@report ||= Railroader.run("#{TEST_PATH}/apps/rails2").report.to_codeclimate
     @@issues ||= @@report.split("\0").map { |json| JSON.parse(json) }
   end
 
@@ -30,7 +30,7 @@ class TestCodeClimateOutput < Minitest::Test
   end
 
   def test_file_path_with_prefix
-    report = Brakeman.run({app_path: "#{TEST_PATH}/apps/rails2", path_prefix: "apps/rails2"}).report.to_codeclimate
+    report = Railroader.run({app_path: "#{TEST_PATH}/apps/rails2", path_prefix: "apps/rails2"}).report.to_codeclimate
     issues ||= report.split("\0").map { |json| JSON.parse(json) }
     assert issues.first["location"]["path"].start_with?("apps/rails2")
   end

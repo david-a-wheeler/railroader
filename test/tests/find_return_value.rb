@@ -1,11 +1,11 @@
 require_relative '../test'
-require 'brakeman/processors/lib/find_return_value'
+require 'railroader/processors/lib/find_return_value'
 
 class FindReturnValueTests < Minitest::Test
   def assert_returns expected, original, env = nil
     expected = RubyParser.new.parse(expected) if expected.is_a? String
     original = RubyParser.new.parse(original) if original.is_a? String
-    return_value = Brakeman::FindReturnValue.return_value original, env
+    return_value = Railroader::FindReturnValue.return_value original, env
 
     assert_equal expected, return_value
   end

@@ -1,14 +1,14 @@
 require_relative '../test'
 require 'tmpdir'
-require 'brakeman/rescanner'
+require 'railroader/rescanner'
 
-class Brakeman::Rescanner
+class Railroader::Rescanner
   #For access to internals
   attr_reader :changes, :reindex
 end
 
 class RescannerTests < Minitest::Test
-  include BrakemanTester::RescanTestHelper
+  include RailroaderTester::RescanTestHelper
 
   def test_no_change_no_warnings
     before_rescan_of []

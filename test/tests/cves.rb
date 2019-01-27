@@ -1,9 +1,9 @@
 require_relative '../test'
-require 'brakeman/rescanner'
+require 'railroader/rescanner'
 
 class CVETests < Minitest::Test
-  include BrakemanTester::RescanTestHelper
-  include BrakemanTester::FindWarning
+  include RailroaderTester::RescanTestHelper
+  include RailroaderTester::FindWarning
 
   def report
     @rescanner.tracker.report.to_hash

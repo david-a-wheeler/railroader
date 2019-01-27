@@ -1,13 +1,13 @@
 require_relative '../test'
 
 class Rails4Tests < Minitest::Test
-  include BrakemanTester::FindWarning
-  include BrakemanTester::CheckExpected
+  include RailroaderTester::FindWarning
+  include RailroaderTester::CheckExpected
 
   def report
     external_checks_path = File.expand_path(File.join(File.dirname(__FILE__), "..", "/apps/rails4/external_checks"))
-    # There are additional options in config/brakeman.yml
-    @@report ||= BrakemanTester.run_scan "rails4", "Rails 4", {:additional_checks_path => [external_checks_path]}
+    # There are additional options in config/railroader.yml
+    @@report ||= RailroaderTester.run_scan "rails4", "Rails 4", {:additional_checks_path => [external_checks_path]}
   end
 
   def expected
@@ -1600,9 +1600,9 @@ class Rails4Tests < Minitest::Test
       :user_input => nil
   end
 
-  #Verify checks external to Brakeman are loaded
+  #Verify checks external to Railroader are loaded
   def test_external_checks
-    assert defined? Brakeman::CheckExternalCheckTest
+    assert defined? Railroader::CheckExternalCheckTest
     #Initial "Check" removed from check names
     assert report[:checks_run].include? "ExternalCheckTest"
   end

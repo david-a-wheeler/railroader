@@ -1,5 +1,5 @@
 require_relative '../test'
-require 'brakeman/codeclimate/engine_configuration'
+require 'railroader/codeclimate/engine_configuration'
 
 class EngineConfigurationTests < Minitest::Test
   def test_for_expected_keys
@@ -8,7 +8,7 @@ class EngineConfigurationTests < Minitest::Test
     }
 
     expected = [:app_path, :only_files, :output_files, :output_format, :pager, :quiet]
-    actual = Brakeman::Codeclimate::EngineConfiguration.new(config).options.keys.sort
+    actual = Railroader::Codeclimate::EngineConfiguration.new(config).options.keys.sort
     assert_equal expected, actual
   end
 
@@ -18,8 +18,8 @@ class EngineConfigurationTests < Minitest::Test
         "debug" => "true"
       }
     }
-    assert Brakeman::Codeclimate::EngineConfiguration.new(config).options[:debug]
-    assert !Brakeman::Codeclimate::EngineConfiguration.new(config).options[:report_progress]
+    assert Railroader::Codeclimate::EngineConfiguration.new(config).options[:debug]
+    assert !Railroader::Codeclimate::EngineConfiguration.new(config).options[:report_progress]
   end
 
   def test_include_paths
@@ -27,17 +27,17 @@ class EngineConfigurationTests < Minitest::Test
       "include_paths" => ["/foo/bar", nil, "/fizz/buzz"]
     }
     assert_equal ["/foo/bar", "/fizz/buzz"],
-      Brakeman::Codeclimate::EngineConfiguration.new(config).options[:only_files]
+      Railroader::Codeclimate::EngineConfiguration.new(config).options[:only_files]
   end
 
   def test_output_format
     assert_equal :codeclimate,
-      Brakeman::Codeclimate::EngineConfiguration.new.options[:output_format]
+      Railroader::Codeclimate::EngineConfiguration.new.options[:output_format]
   end
 
   def test_default_app_path
     assert_equal Dir.pwd,
-      Brakeman::Codeclimate::EngineConfiguration.new.options[:app_path]
+      Railroader::Codeclimate::EngineConfiguration.new.options[:app_path]
   end
 
   def test_custom_app_path
@@ -47,7 +47,7 @@ class EngineConfigurationTests < Minitest::Test
       }
     }
     assert_equal File.join(Dir.pwd, "foo/bar"),
-      Brakeman::Codeclimate::EngineConfiguration.new(config).options[:app_path]
+      Railroader::Codeclimate::EngineConfiguration.new(config).options[:app_path]
   end
 
   def test_custom_app_path_include_paths
@@ -58,7 +58,7 @@ class EngineConfigurationTests < Minitest::Test
       }
     }
     assert_equal ["/bar", "/42.rb", "/blub/neat"],
-      Brakeman::Codeclimate::EngineConfiguration.new(config).options[:only_files]
+      Railroader::Codeclimate::EngineConfiguration.new(config).options[:only_files]
   end
 
   def test_custom_app_path_include_paths_exact_match
@@ -69,7 +69,7 @@ class EngineConfigurationTests < Minitest::Test
       }
     }
     assert_equal ["/"],
-      Brakeman::Codeclimate::EngineConfiguration.new(config).options[:only_files]
+      Railroader::Codeclimate::EngineConfiguration.new(config).options[:only_files]
   end
 
   def test_custom_nested_app_path_include_paths
@@ -80,7 +80,7 @@ class EngineConfigurationTests < Minitest::Test
       }
     }
     assert_equal ["/"],
-      Brakeman::Codeclimate::EngineConfiguration.new(config).options[:only_files]
+      Railroader::Codeclimate::EngineConfiguration.new(config).options[:only_files]
   end
 
   def test_custom_nested_app_path_include_paths_no_trailing_slash
@@ -91,7 +91,7 @@ class EngineConfigurationTests < Minitest::Test
       }
     }
     assert_equal ["/"],
-      Brakeman::Codeclimate::EngineConfiguration.new(config).options[:only_files]
+      Railroader::Codeclimate::EngineConfiguration.new(config).options[:only_files]
   end
 
   def test_custom_nested_app_path_include_paths_not_a_parent
@@ -102,6 +102,6 @@ class EngineConfigurationTests < Minitest::Test
       }
     }
     assert_equal [],
-      Brakeman::Codeclimate::EngineConfiguration.new(config).options[:only_files]
+      Railroader::Codeclimate::EngineConfiguration.new(config).options[:only_files]
   end
 end

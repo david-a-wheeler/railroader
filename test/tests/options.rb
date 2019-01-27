@@ -1,7 +1,7 @@
 require_relative '../test'
-require 'brakeman/options'
+require 'railroader/options'
 
-class BrakemanOptionsTest < Minitest::Test
+class RailroaderOptionsTest < Minitest::Test
   EASY_OPTION_INPUTS = {
     :exit_on_warn           => "-z",
     :exit_on_error          => "--exit-on-error",
@@ -287,8 +287,8 @@ class BrakemanOptionsTest < Minitest::Test
   end
 
   def test_github_repo_option
-    options = setup_options_from_input("--github-repo", "presidentbeef/brakeman")
-    assert_equal "presidentbeef/brakeman", options[:github_repo]
+    options = setup_options_from_input("--github-repo", "presidentbeef/railroader")
+    assert_equal "presidentbeef/railroader", options[:github_repo]
   end
 
   def test_min_confidence_option
@@ -339,7 +339,7 @@ class BrakemanOptionsTest < Minitest::Test
   private
 
   def setup_options_from_input(*args)
-    options, _ = Brakeman::Options.parse(args)
+    options, _ = Railroader::Options.parse(args)
     options
   end
 end
