@@ -1,3 +1,9 @@
+# 4.3.2
+
+* Project fork.  Begin changing name to "Railroader".
+* This version is not expected to work, it is simply a stub to
+  begin the transition to the new name.
+
 # 4.3.1
 
 * Ignore `Object#freeze`, use the target instead
