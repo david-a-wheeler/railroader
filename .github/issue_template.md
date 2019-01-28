@@ -6,7 +6,7 @@
 
 ### Background
 
-Brakeman version: ?
+Railroader version: ?
 Rails version: ?
 Ruby version: ?
 
@@ -18,7 +18,7 @@ Link to Rails application code: ?
 
 #### False Positive
 
-*Full* warning from Brakeman: `?`
+*Full* warning from Railroader: `?`
 
 Relevant code:
 
@@ -30,8 +30,8 @@ _Why might this be a false positive?_
 
 #### Parse Error
 
-// Consult https://brakemanscanner.org/docs/troubleshooting/parse_errors/ first
-// Note that (most) parsing errors are from the ruby_parser library, not Brakeman itself
+// Consult https://railroaderscanner.org/docs/troubleshooting/parse_errors/ first
+// Note that (most) parsing errors are from the ruby_parser library, not Railroader itself
 
 Minimal example that does not parse:
 
@@ -41,7 +41,7 @@ Minimal example that does not parse:
 
 #### Other Error
 
-// Please run Brakeman with `--debug` to see the full stack trace.
+// Please run Railroader with `--debug` to see the full stack trace.
 
 Stack trace:
 
@@ -51,9 +51,9 @@ Stack trace:
 
 #### Hanging or Slowness
 
-// Consult https://brakemanscanner.org/docs/troubleshooting/hanging/ first
+// Consult https://railroaderscanner.org/docs/troubleshooting/hanging/ first
 
-// Please run Brakeman with `--debug` to see the file that is causing the issue.
+// Please run Railroader with `--debug` to see the file that is causing the issue.
 
 Link to relevant code: ?
 
