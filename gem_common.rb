@@ -1,4 +1,4 @@
-module Brakeman
+module Railroader
   module GemDependencies
     def self.dev_dependencies spec
       spec.add_development_dependency "minitest"
