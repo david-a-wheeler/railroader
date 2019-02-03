@@ -4,4 +4,4 @@ For example, this will popup an alert box:
 
     link_to "<script>alert(1)</script>", "http://google.com"
 
-Brakeman warns on cases where the first parameter contains user input.
+Railroader warns on cases where the first parameter contains user input.

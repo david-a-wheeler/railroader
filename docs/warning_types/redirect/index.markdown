@@ -2,7 +2,7 @@ Unvalidated redirects and forwards are #10 on the [OWASP Top Ten](https://www.ow
 
 Redirects which rely on user-supplied values can be used to "spoof" websites or hide malicious links in otherwise harmless-looking URLs. They can also allow access to restricted areas of a site if the destination is not validated.
 
-Brakeman will raise warnings whenever `redirect_to` appears to be used with a user-supplied value that may allow them to change the `:host` option.
+Railroader will raise warnings whenever `redirect_to` appears to be used with a user-supplied value that may allow them to change the `:host` option.
 
 For example,
 

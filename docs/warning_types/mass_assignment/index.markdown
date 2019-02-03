@@ -6,7 +6,7 @@ Example:
 
 Unfortunately, if there is a user field called `admin` which controls administrator access, now any user can make themselves an administrator.
 
-`attr_accessible` and `attr_protected` can be used to limit mass assignment. However, Brakeman will warn unless `attr_accessible` is used, or mass assignment is completely disabled. 
+`attr_accessible` and `attr_protected` can be used to limit mass assignment. However, Railroader will warn unless `attr_accessible` is used, or mass assignment is completely disabled. 
 
 There are two different mass assignment warnings which can arise. The first is when mass assignment actually occurs, such as the example above. This results in a warning like
 
@@ -26,4 +26,4 @@ Unfortunately, it can also easily be bypassed:
 
     User.new(params[:user], :without_protection => true)
 
-Brakeman will warn on uses of `without_protection`.
+Railroader will warn on uses of `without_protection`.

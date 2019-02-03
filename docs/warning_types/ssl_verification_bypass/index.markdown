@@ -16,7 +16,7 @@ In Ruby, this happens when the OpenSSL verification mode is set to `VERIFY_NONE`
 
 In this case, if an invalid certificate was presented, no verification would occur, providing an opportunity for attack. When successful, the data transmitted (cookies, request parameters, POST bodies, etc.) would all be able to be intercepted by the MITM.
 
-Brakeman would produce a warning like this:
+Railroader would produce a warning like this:
 
     SSL certificate verification was bypassed near line 24: http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 

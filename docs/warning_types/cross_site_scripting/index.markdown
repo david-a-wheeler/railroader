@@ -12,11 +12,11 @@ ERB example:
 
     <%= params[:query].html_safe %>
 
-Brakeman looks for several situations that can allow XSS. The simplest is like the example above: a value from the `params` or `cookies` is being directly output to a view. In such cases, it will issue a warning like:
+Railroader looks for several situations that can allow XSS. The simplest is like the example above: a value from the `params` or `cookies` is being directly output to a view. In such cases, it will issue a warning like:
 
     Unescaped parameter value near line 3: params[:query]
 
-By default, Brakeman will also warn when a parameter or cookie value is used as an argument to a method, the result of which is output unescaped to a view.
+By default, Railroader will also warn when a parameter or cookie value is used as an argument to a method, the result of which is output unescaped to a view.
 
 For example:
 
@@ -28,11 +28,11 @@ This raises a warning like:
 
 However, the confidence level for this warning will be weak, because it is not directly outputting the cookie value.
 
-Some methods are known to Brakeman to either be dangerous (`link_to` is one) or safe (`escape_once`). Users can specify safe methods using the `--safe-methods` option. Alternatively, Brakeman can be set to _only_ warn when values are used directly with the `--report-direct` option.
+Some methods are known to Railroader to either be dangerous (`link_to` is one) or safe (`escape_once`). Users can specify safe methods using the `--safe-methods` option. Alternatively, Railroader can be set to _only_ warn when values are used directly with the `--report-direct` option.
 
 ### Model Attributes
 
-Because (many) models come from database values, Brakeman mistrusts them by default.
+Because (many) models come from database values, Railroader mistrusts them by default.
 
 For example, if `@user` is an instance of a model set in an action like
 
@@ -44,7 +44,7 @@ and there is a view with
 
     <%= @user.name.html_safe %>
 
-Brakeman will raise a warning like
+Railroader will raise a warning like
 
     Unescaped model attribute near line 3: User.first.name
 

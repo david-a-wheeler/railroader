@@ -1,7 +1,7 @@
 "Authentication" is the act of verifying that a user or client is who they say they are.
 
-Right now, the only Brakeman warning in the authentication category is regarding hardcoded passwords.
-Brakeman will warn about constants with literal string values that appear to be passwords.
+Right now, the only Railroader warning in the authentication category is regarding hardcoded passwords.
+Railroader will warn about constants with literal string values that appear to be passwords.
 
 Hardcoded passwords are security issues since they imply a single password and that password is stored in the source code.
 Typically source code is available to a wide number of people inside an organization, and there have been many instances of source
