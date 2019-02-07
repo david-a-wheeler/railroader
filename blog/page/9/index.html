@@ -7,14 +7,14 @@
   <meta charset="utf-8">
   <title>Railroader - Rails Security Scanner</title>
   <meta name="author" content="David A. Wheeler (with previous work by Justin Collins)">
-  <meta name="description" content="Brakeman is a static analysis security vulnerability scanner for Ruby on Rails applications."/>
+  <meta name="description" content="Railroader is a static analysis security vulnerability scanner for Ruby on Rails applications."/>
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta name="keywords" content="brakeman,ruby on rails,security,scanner,vulnerabilities,static analysis"/>
+  <meta name="keywords" content="railroader,ruby on rails,security,scanner,vulnerabilities,static analysis"/>
 
   <link rel="canonical" href="https://railroader.org/blog/page/9/index.html"/>
   <link href="/favicon.png" rel="shortcut icon" />
@@ -59,11 +59,11 @@
 <ul role=main-navigation>
   <li><a href="/">Home</a></li>
   <li><a href="/docs">Documentation</a></li>
-  <li><a href="https://github.com/presidentbeef/brakeman">Source</a></li>
+  <li><a href="https://github.com/presidentbeef/railroader">Source</a></li>
   <li><a href="/docs/contributing">Contributing</a></li>
-  <li><a href="/brakeman_users">Users</a></li>
+  <li><a href="/railroader_users">Users</a></li>
   <li><a href="/contact">Contact</a></li>
-  <li><a href="/brakeman_pro">Support</a></li>
+  <li><a href="/railroader_pro">Support</a></li>
 </ul>
 
 </nav>
@@ -78,7 +78,7 @@
   <header>
     <div class="articlelogo">&nbsp;</div>
     
-    <h1 class="entry-title"><a href="/blog/2011/11/18/brakeman-0-dot-9-1-released/">Brakeman 0.9.1 Released</a></h1>
+    <h1 class="entry-title"><a href="/blog/2011/11/18/brakeman-0-dot-9-1-released/">Railroader 0.9.1 Released</a></h1>
     
     
       <p class="meta">
@@ -112,7 +112,7 @@
   <header>
     <div class="articlelogo">&nbsp;</div>
     
-    <h1 class="entry-title"><a href="/blog/2011/11/16/brakeman-0-dot-9-0-released/">Brakeman 0.9.0 Released</a></h1>
+    <h1 class="entry-title"><a href="/blog/2011/11/16/brakeman-0-dot-9-0-released/">Railroader 0.9.0 Released</a></h1>
     
     
       <p class="meta">
@@ -146,7 +146,7 @@
 
 <h3>Check for Disabled Mass Assignment</h3>
 
-<p>A new option was added in Rails 3.1 to globally disable mass assignment using <code>config.active_record.whitelist_attributes = true</code>. Brakeman will now turn off mass assignment warnings if this configuration setting is detected.</p>
+<p>A new option was added in Rails 3.1 to globally disable mass assignment using <code>config.active_record.whitelist_attributes = true</code>. Railroader will now turn off mass assignment warnings if this configuration setting is detected.</p>
 
 <h3>Always Warn on without_protection</h3>
 
@@ -157,11 +157,11 @@
 <pre><code>User.new(params, :without_protection =&gt; true)
 </code></pre>
 
-<p>Brakeman will now <em>always</em> warn when <code>without_protection</code> is used, even if mass assignment is disabled or attributes are protected on that model.</p>
+<p>Railroader will now <em>always</em> warn when <code>without_protection</code> is used, even if mass assignment is disabled or attributes are protected on that model.</p>
 
 <h3>Fix CSV Output</h3>
 
-<p>Brakeman reports using the CSV format should work once again.</p>
+<p>Railroader reports using the CSV format should work once again.</p>
 
 <p>There is a bug in Ruport when using Ruby 1.9.2 and CSV output. A temporary patch has been added until this is resolved.</p>
 </div>
@@ -177,7 +177,7 @@
   <header>
     <div class="articlelogo">&nbsp;</div>
     
-    <h1 class="entry-title"><a href="/blog/2011/11/04/brakeman-0-dot-8-4-released/">Brakeman 0.8.4 Released</a></h1>
+    <h1 class="entry-title"><a href="/blog/2011/11/04/brakeman-0-dot-8-4-released/">Railroader 0.8.4 Released</a></h1>
     
     
       <p class="meta">
@@ -225,15 +225,15 @@
 
 <h3>hash_insert() Fixed</h3>
 
-<p><code>hash_insert</code> was broken and would cause some spurious warnings. For example, sometimes <code>only_path =&gt; true</code> would be set in <code>params</code>, but Brakeman would mess up the <code>params</code> hash and a redirect warning would still be created.</p>
+<p><code>hash_insert</code> was broken and would cause some spurious warnings. For example, sometimes <code>only_path =&gt; true</code> would be set in <code>params</code>, but Railroader would mess up the <code>params</code> hash and a redirect warning would still be created.</p>
 
 <h3>Threaded Checks No Longer Use Queue</h3>
 
 <p>When using threaded checks, the resulting warnings were stored in a thread-safe Queue. This has been removed, and the resulting value from each thread will be used instead. This should avoid some (small) locking overhead and is just simpler.</p>
 
-<h3>&#8220;Like&#8221; Brakeman on Ruby Toolbox</h3>
+<h3>&#8220;Like&#8221; Railroader on Ruby Toolbox</h3>
 
-<p>Please consider &#8216;liking&#8217; Brakeman on the <a href="https://www.ruby-toolbox.com/projects/brakeman">Ruby Toolbox</a>!</p>
+<p>Please consider &#8216;liking&#8217; Railroader on the <a href="https://www.ruby-toolbox.com/projects/railroader">Ruby Toolbox</a>!</p>
 </div>
   
   
@@ -247,7 +247,7 @@
   <header>
     <div class="articlelogo">&nbsp;</div>
     
-    <h1 class="entry-title"><a href="/blog/2011/10/25/brakeman-0-dot-8-3-released/">Brakeman 0.8.3 Released</a></h1>
+    <h1 class="entry-title"><a href="/blog/2011/10/25/brakeman-0-dot-8-3-released/">Railroader 0.8.3 Released</a></h1>
     
     
       <p class="meta">
@@ -284,7 +284,7 @@
 
 <h3>Fix for .tabs Format</h3>
 
-<p>Brakeman will now pay attention to the <code>-w</code> flag (setting minimum confidence levels) when using the <code>.tabs</code> format.</p>
+<p>Railroader will now pay attention to the <code>-w</code> flag (setting minimum confidence levels) when using the <code>.tabs</code> format.</p>
 
 <h3>Escape Error Messages in HTML</h3>
 
@@ -292,7 +292,7 @@
 
 <h3>&#8211;skip-libs Option</h3>
 
-<p>The <code>--skip-libs</code> option will cause Brakeman to not process the files in the <code>lib</code> directory. At the moment, the results from this directory are only used in a couple places, so it is unlikely that skipping them will cause any problems.</p>
+<p>The <code>--skip-libs</code> option will cause Railroader to not process the files in the <code>lib</code> directory. At the moment, the results from this directory are only used in a couple places, so it is unlikely that skipping them will cause any problems.</p>
 
 <h3>Parallel Checks</h3>
 
@@ -304,7 +304,7 @@
 
 <h3>Route Processing</h3>
 
-<p>Brakeman will no longer crash if there are problems parsing <code>routes.rb</code>. Instead, it will assume all public methods on controllers are actions. The <code>-a</code> option will also turn this behavior on.</p>
+<p>Railroader will no longer crash if there are problems parsing <code>routes.rb</code>. Instead, it will assume all public methods on controllers are actions. The <code>-a</code> option will also turn this behavior on.</p>
 
 <p>Rails 3.1 route parsing is still a work in progress, so this should at least allow analysis of 3.1 apps, even if it means slightly reduced accuracy.</p>
 </div>
@@ -320,7 +320,7 @@
   <header>
     <div class="articlelogo">&nbsp;</div>
     
-    <h1 class="entry-title"><a href="/blog/2011/10/21/brakeman-plugin-officially-available-for-jenkins/">Brakeman Plugin &#8216;Officially&#8217; Available for Jenkins</a></h1>
+    <h1 class="entry-title"><a href="/blog/2011/10/21/brakeman-plugin-officially-available-for-jenkins/">Railroader Plugin &#8216;Officially&#8217; Available for Jenkins</a></h1>
     
     
       <p class="meta">
@@ -336,15 +336,15 @@
   </header>
 
 
-  <div class="entry-content"><p>While a Brakeman plugin for the <a href="http://jenkins-ci.org">Jenkins</a>/<a href="http://hudson-ci.org">Hudson</a> continuous integration tool has been available since January, thanks to <a href="https://github.com/presidentbeef/brakeman-jenkins-plugin/issues/1">some prodding</a> the plugin is now available through the official Jenkins plugin manager.</p>
+  <div class="entry-content"><p>While a Railroader plugin for the <a href="http://jenkins-ci.org">Jenkins</a>/<a href="http://hudson-ci.org">Hudson</a> continuous integration tool has been available since January, thanks to <a href="https://github.com/presidentbeef/railroader-jenkins-plugin/issues/1">some prodding</a> the plugin is now available through the official Jenkins plugin manager.</p>
 
-<p><img src="/images/brakeman_trend_graph.png" title="Example Plugin Graph" alt="Example Plugin Graph" /></p>
+<p><img src="/images/railroader_trend_graph.png" title="Example Plugin Graph" alt="Example Plugin Graph" /></p>
 
-<p>Installation of the plugin is no longer an arduous manual process. Just go to <code>Manage Jenkins -&gt; Manage Plugins -&gt; Available</code> and search for &#8220;Brakeman&#8221;. Check the box and then click the &#8220;Install&#8221; button down at the bottom of the page.</p>
+<p>Installation of the plugin is no longer an arduous manual process. Just go to <code>Manage Jenkins -&gt; Manage Plugins -&gt; Available</code> and search for &#8220;Railroader&#8221;. Check the box and then click the &#8220;Install&#8221; button down at the bottom of the page.</p>
 
-<p>Some more information about the plugin can be found on the <a href="https://wiki.jenkins-ci.org/display/JENKINS/Brakeman+Plugin">Jenkins wiki</a>.</p>
+<p>Some more information about the plugin can be found on the <a href="https://wiki.jenkins-ci.org/display/JENKINS/Railroader+Plugin">Jenkins wiki</a>.</p>
 
-<p>See the <a href="docs/jenkins/setup">instructions</a> for how to set up a job to use the Brakeman plugin.</p>
+<p>See the <a href="docs/jenkins/setup">instructions</a> for how to set up a job to use the Railroader plugin.</p>
 </div>
   
   
@@ -358,7 +358,7 @@
   <header>
     <div class="articlelogo">&nbsp;</div>
     
-    <h1 class="entry-title"><a href="/blog/2011/09/15/brakeman-0-dot-8-0-released/">Brakeman 0.8.0 Released</a></h1>
+    <h1 class="entry-title"><a href="/blog/2011/09/15/brakeman-0-dot-8-0-released/">Railroader 0.8.0 Released</a></h1>
     
     
       <p class="meta">
@@ -374,7 +374,7 @@
   </header>
 
 
-  <div class="entry-content"><p>Change list for Brakeman 0.8.0:</p>
+  <div class="entry-content"><p>Change list for Railroader 0.8.0:</p>
 
 <ul>
 <li>Add check for mass assignment using without_protection</li>
@@ -388,7 +388,7 @@
 </ul>
 
 
-<p>As always, please <a href="https://github.com/presidentbeef/brakeman/issues">report any issues</a>.</p>
+<p>As always, please <a href="https://github.com/presidentbeef/railroader/issues">report any issues</a>.</p>
 
 <h2>New Checks</h2>
 
@@ -428,17 +428,17 @@ end
 
 <h2>Support for Ruby 1.9 Hash Syntax</h2>
 
-<p><a href="https://github.com/seattlerb/ruby_parser">RubyParser</a>, used by Brakeman for all its Ruby parsing needs, <a href="http://blog.zenspider.com/2010/12/bounty-ruby-parser-needs-19-lo.html">does not support the new Ruby 1.9 syntax</a>. After coming across an application which uses the <a href="http://blog.peepcode.com/tutorials/2011/rip-ruby-hash-rocket-syntax">1.9 hash syntax</a> <em>extremely</em> liberally, a temporary hack has been added that should allow Brakeman to parse it correctly.</p>
+<p><a href="https://github.com/seattlerb/ruby_parser">RubyParser</a>, used by Railroader for all its Ruby parsing needs, <a href="http://blog.zenspider.com/2010/12/bounty-ruby-parser-needs-19-lo.html">does not support the new Ruby 1.9 syntax</a>. After coming across an application which uses the <a href="http://blog.peepcode.com/tutorials/2011/rip-ruby-hash-rocket-syntax">1.9 hash syntax</a> <em>extremely</em> liberally, a temporary hack has been added that should allow Railroader to parse it correctly.</p>
 
-<p>This does mean that Brakeman is overriding RubyParser&#8217;s code to add in this functionality. That is why it is a <em>temporary hack</em>.</p>
+<p>This does mean that Railroader is overriding RubyParser&#8217;s code to add in this functionality. That is why it is a <em>temporary hack</em>.</p>
 
 <h2>New Tests</h2>
 
-<p>Work has begun on a test application using Rails 3.1. There do not seem to be any huge changes in 3.1 that would prevent Brakeman from working, though.</p>
+<p>Work has begun on a test application using Rails 3.1. There do not seem to be any huge changes in 3.1 that would prevent Railroader from working, though.</p>
 
 <h2>Next Version</h2>
 
-<p>The main area of focus for the next (major) release will be Rails 3.x routing. Brakeman is currently quite limited in what kinds of routes in understands.</p>
+<p>The main area of focus for the next (major) release will be Rails 3.x routing. Railroader is currently quite limited in what kinds of routes in understands.</p>
 </div>
   
   
@@ -468,15 +468,15 @@ end
   </header>
 
 
-  <div class="entry-content"><p>One year ago, Brakeman 0.0.1 was released as a gem. Then it was promptly yanked and replaced with <a href="http://rubygems.org/gems/brakeman/versions/0.0.2">Brakeman 0.0.2</a>.</p>
+  <div class="entry-content"><p>One year ago, Railroader 0.0.1 was released as a gem. Then it was promptly yanked and replaced with <a href="http://rubygems.org/gems/railroader/versions/0.0.2">Railroader 0.0.2</a>.</p>
 
 <p>In celebration of this grand anniversary, there have been several new releases today.</p>
 
-<p>The first is <a href="http://rubygems.org/gems/brakeman/versions/0.7.2">Brakeman 0.7.2</a>, a minor release adding CVE numbers for the <a href="http://groups.google.com/group/rubyonrails-security/browse_thread/thread/f878a33159ac9967">latest vulnerabilities</a> and fixing how nested params/cookie accesses are handled (e.g., <code>params[:user][:name]</code> is now considered a direct use of a parameter).</p>
+<p>The first is <a href="http://rubygems.org/gems/railroader/versions/0.7.2">Railroader 0.7.2</a>, a minor release adding CVE numbers for the <a href="http://groups.google.com/group/rubyonrails-security/browse_thread/thread/f878a33159ac9967">latest vulnerabilities</a> and fixing how nested params/cookie accesses are handled (e.g., <code>params[:user][:name]</code> is now considered a direct use of a parameter).</p>
 
-<p>Next up, Brakeman has its own Twitter feed <a href="https://twitter.com/brakemanscanner">@BrakemanScanner</a>.</p>
+<p>Next up, Railroader has its own Twitter feed <a href="https://twitter.com/railroaderscanner">@RailroaderScanner</a>.</p>
 
-<p>Lastly, there is this new website. Look forward to tutorials and more in-depth information about how to use Brakeman effectively.</p>
+<p>Lastly, there is this new website. Look forward to tutorials and more in-depth information about how to use Railroader effectively.</p>
 </div>
   
   
@@ -509,9 +509,9 @@ end
   
     <section>
   <p></p>
-  <p>Brakeman is an open source vulnerability scanner specifically designed for Ruby on Rails applications. It statically analyzes Rails application code to find security issues at any stage of development.</p>
-  <p><a href="https://brakemanpro.com"><img src="/images/brakemanpro.png"></a></p>
-  <p><a href="https://brakemanpro.com">Brakeman Pro</a> is the commercial version of Brakeman which offers a GUI, test integration, deeper analysis, and more.</p>
+  <p>Railroader is an open source vulnerability scanner specifically designed for Ruby on Rails applications. It statically analyzes Rails application code to find security issues at any stage of development.</p>
+  <p><a href="https://railroaderpro.com"><img src="/images/railroaderpro.png"></a></p>
+  <p><a href="https://railroaderpro.com">Railroader Pro</a> is the commercial version of Railroader which offers a GUI, test integration, deeper analysis, and more.</p>
 </section>
 <section>
 <script type='text/javascript'>
@@ -519,7 +519,7 @@ end
         $("#github").GitHubBadge({
           login: "presidentbeef",
           kind: "project",
-          repo_name: "brakeman",
+          repo_name: "railroader",
           include_github_logo: false,
           image_path: "",
           commit_count: "1",
@@ -529,30 +529,30 @@ end
     });
 </script>
 <div id="github"></div>
-<a href="https://travis-ci.org/#!/presidentbeef/brakeman"><img src="https://secure.travis-ci.org/presidentbeef/brakeman.png" /></a>
+<a href="https://travis-ci.org/#!/presidentbeef/railroader"><img src="https://secure.travis-ci.org/presidentbeef/railroader.png" /></a>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2018/06/06/brakeman-4-dot-3-1-released/">Brakeman 4.3.1 Released</a>
+        <a href="/blog/2018/06/06/brakeman-4-dot-3-1-released/">Railroader 4.3.1 Released</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2018/05/10/brakeman-4-dot-3-0-released/">Brakeman 4.3.0 Released</a>
+        <a href="/blog/2018/05/10/brakeman-4-dot-3-0-released/">Railroader 4.3.0 Released</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2018/03/23/brakeman-4-dot-2-1-released/">Brakeman 4.2.1 Released</a>
+        <a href="/blog/2018/03/23/brakeman-4-dot-2-1-released/">Railroader 4.2.1 Released</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2018/02/21/brakeman-4-dot-2-0-released/">Brakeman 4.2.0 Released</a>
+        <a href="/blog/2018/02/21/brakeman-4-dot-2-0-released/">Railroader 4.2.0 Released</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2017/12/18/brakeman-4-dot-1-1-released/">Brakeman 4.1.1 Released</a>
+        <a href="/blog/2017/12/18/brakeman-4-dot-1-1-released/">Railroader 4.1.1 Released</a>
       </li>
     
   </ul>
@@ -560,7 +560,7 @@ end
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <a class="twitter-timeline" data-dnt=true href="https://twitter.com/brakeman" data-widget-id="258654953097273345">Tweets by @brakeman</a>
+    <a class="twitter-timeline" data-dnt=true href="https://twitter.com/railroader" data-widget-id="258654953097273345">Tweets by @railroader</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
   </ul>
 </section>

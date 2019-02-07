@@ -5,16 +5,16 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Railroader - Rails Security Scanner: Brakeman 1.2.1 Released</title>
+  <title>Railroader - Rails Security Scanner: Railroader 1.2.1 Released</title>
   <meta name="author" content="David A. Wheeler (with previous work by Justin Collins)">
-  <meta name="description" content="Brakeman is a static analysis security vulnerability scanner for Ruby on Rails applications."/>
+  <meta name="description" content="Railroader is a static analysis security vulnerability scanner for Ruby on Rails applications."/>
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta name="keywords" content="brakeman,ruby on rails,security,scanner,vulnerabilities,static analysis"/>
+  <meta name="keywords" content="railroader,ruby on rails,security,scanner,vulnerabilities,static analysis"/>
 
   <link rel="canonical" href="https://railroader.org/blog/2012/01/20/brakeman-1-dot-2-1-released/"/>
   <link href="/favicon.png" rel="shortcut icon" />
@@ -59,11 +59,11 @@
 <ul role=main-navigation>
   <li><a href="/">Home</a></li>
   <li><a href="/docs">Documentation</a></li>
-  <li><a href="https://github.com/presidentbeef/brakeman">Source</a></li>
+  <li><a href="https://github.com/presidentbeef/railroader">Source</a></li>
   <li><a href="/docs/contributing">Contributing</a></li>
-  <li><a href="/brakeman_users">Users</a></li>
+  <li><a href="/railroader_users">Users</a></li>
   <li><a href="/contact">Contact</a></li>
-  <li><a href="/brakeman_pro">Support</a></li>
+  <li><a href="/railroader_pro">Support</a></li>
 </ul>
 
 </nav>
@@ -75,7 +75,7 @@
   <header>
     <div class="articlelogo">&nbsp;</div>
     
-      <h1 class="entry-title">Brakeman 1.2.1 Released</h1>
+      <h1 class="entry-title">Railroader 1.2.1 Released</h1>
     
     
       <p class="meta">
@@ -101,52 +101,52 @@
 <li>Detect usage of attr_accessible with no arguments</li>
 <li>Fix error when rendering a partial from a view but not through a controller</li>
 <li>Fix some issues with rails_xss, CheckCrossSiteScripting, and CheckTranslateBug</li>
-<li>Simplify Brakeman Rake task</li>
+<li>Simplify Railroader Rake task</li>
 <li>Avoid modifying $VERBOSE</li>
-<li>Add Brakeman::RescanReport#to_s</li>
-<li>Add Brakeman::Warning#to_s</li>
+<li>Add Railroader::RescanReport#to_s</li>
+<li>Add Railroader::Warning#to_s</li>
 </ul>
 
 
 <h3>link_to Changes</h3>
 
-<p>Prior to Rails 3.0, there <a href="https://rails.lighthouseapp.com/projects/8994/tickets/3518-link_to-doesnt-escape-its-input">was a bug</a> in <code>link_to</code> that caused the body of the link tag to be output without escaping. While this was fixed in Rails 3.0, Brakeman has still been warning on it. This was also fixed in the <a href="https://github.com/rails/rails_xss/commit/afc1610fe4b94150faee98c16f15a24290d20900">rails_xss</a>, so Brakeman should no longer warn on <code>link_to</code> for Rails 2.x when using the rails_xss plugin.</p>
+<p>Prior to Rails 3.0, there <a href="https://rails.lighthouseapp.com/projects/8994/tickets/3518-link_to-doesnt-escape-its-input">was a bug</a> in <code>link_to</code> that caused the body of the link tag to be output without escaping. While this was fixed in Rails 3.0, Railroader has still been warning on it. This was also fixed in the <a href="https://github.com/rails/rails_xss/commit/afc1610fe4b94150faee98c16f15a24290d20900">rails_xss</a>, so Railroader should no longer warn on <code>link_to</code> for Rails 2.x when using the rails_xss plugin.</p>
 
-<p>Brakeman was also warning on <code>link_to</code> even if the body argument was manually escaped. This should be resolved now.</p>
+<p>Railroader was also warning on <code>link_to</code> even if the body argument was manually escaped. This should be resolved now.</p>
 
-<p>One other related issue was a silly bug causing Brakeman to sometimes ignore <code>--escape-html</code> or the rails_xss plugin, leading to some confusing output. This is fixed.</p>
+<p>One other related issue was a silly bug causing Railroader to sometimes ignore <code>--escape-html</code> or the rails_xss plugin, leading to some confusing output. This is fixed.</p>
 
-<p>Thanks to <a href="https://github.com/presidentbeef/brakeman/issues/32">Neil Matatall</a> for reporting the <code>link_to</code> issue and <a href="https://github.com/a5sk4s">Andreas</a> for reporting the rails_xss problems.</p>
+<p>Thanks to <a href="https://github.com/presidentbeef/railroader/issues/32">Neil Matatall</a> for reporting the <code>link_to</code> issue and <a href="https://github.com/a5sk4s">Andreas</a> for reporting the rails_xss problems.</p>
 
 <h3>attr_accessible with No Arguments</h3>
 
-<p>Brakeman was not detecting the case where <code>attr_accessible</code> is called with zero arguments, causing spurious mass assignment warnings.</p>
+<p>Railroader was not detecting the case where <code>attr_accessible</code> is called with zero arguments, causing spurious mass assignment warnings.</p>
 
-<p>Thanks to <a href="https://github.com/presidentbeef/brakeman/issues/31">Justin Wiley</a> for reporting this.</p>
+<p>Thanks to <a href="https://github.com/presidentbeef/railroader/issues/31">Justin Wiley</a> for reporting this.</p>
 
-<h3>Brakeman Rake Task</h3>
+<h3>Railroader Rake Task</h3>
 
-<p>The Brakeman Rake task (installed via <code>--rake</code>) is even <a href="/docs/rake">simpler now</a>.</p>
+<p>The Railroader Rake task (installed via <code>--rake</code>) is even <a href="/docs/rake">simpler now</a>.</p>
 
 <h3>$VERBOSE</h3>
 
-<p>Brakeman was using <code>$VERBOSE</code> and <code>Kernel.warn</code> for controlling debug output. This has changed and <code>$VERBOSE</code> will no longer be modified when using Brakeman.</p>
+<p>Railroader was using <code>$VERBOSE</code> and <code>Kernel.warn</code> for controlling debug output. This has changed and <code>$VERBOSE</code> will no longer be modified when using Railroader.</p>
 
 <h3>Rails 3.2 Support</h3>
 
-<p>So far, there have not been any issues with Brakeman and Rails 3.2. Please <a href="https://github.com/presidentbeef/brakeman/issues">report</a> any that come up!</p>
+<p>So far, there have not been any issues with Railroader and Rails 3.2. Please <a href="https://github.com/presidentbeef/railroader/issues">report</a> any that come up!</p>
 
 <h3>JRuby Performance</h3>
 
-<p>Prior to Brakeman 1.2, <a href="http://jruby.org/">JRuby</a> was very slow when running Brakeman. This has changed, and now JRuby is probably the fastest option for scanning large applications. Give it a try, especially if you are using Ruby 1.8.7!</p>
+<p>Prior to Railroader 1.2, <a href="http://jruby.org/">JRuby</a> was very slow when running Railroader. This has changed, and now JRuby is probably the fastest option for scanning large applications. Give it a try, especially if you are using Ruby 1.8.7!</p>
 
 <h3>Mailing List</h3>
 
-<p>There is now a Brakeman mailing list on <a href="http://librelist.com/browser/brakeman/">librelist</a>.</p>
+<p>There is now a Railroader mailing list on <a href="http://librelist.com/browser/railroader/">librelist</a>.</p>
 
-<p>To subscribe, send any email to <a href='&#109;ailto&#58;b&#114;%&#54;1k&#37;65m&#37;&#54;1n&#64;&#37;6Ci&#98;%&#55;2&#101;l%&#54;&#57;st&#46;com'>brakeman&#64;libr&#101;&#108;ist&#46;com</a>. You will be asked to confirm your subscription.</p>
+<p>To subscribe, send any email to <a href='&#109;ailto&#58;b&#114;%&#54;1k&#37;65m&#37;&#54;1n&#64;&#37;6Ci&#98;%&#55;2&#101;l%&#54;&#57;st&#46;com'>railroader&#64;libr&#101;&#108;ist&#46;com</a>. You will be asked to confirm your subscription.</p>
 
-<p>Archives are available for browsing on <a href="http://www.mail-archive.com/brakeman@librelist.com/maillist.html">The Mail Archive</a>.</p>
+<p>Archives are available for browsing on <a href="http://www.mail-archive.com/railroader@librelist.com/maillist.html">The Mail Archive</a>.</p>
 </div>
 
 
@@ -204,9 +204,9 @@
   
     <section>
   <p></p>
-  <p>Brakeman is an open source vulnerability scanner specifically designed for Ruby on Rails applications. It statically analyzes Rails application code to find security issues at any stage of development.</p>
-  <p><a href="https://brakemanpro.com"><img src="/images/brakemanpro.png"></a></p>
-  <p><a href="https://brakemanpro.com">Brakeman Pro</a> is the commercial version of Brakeman which offers a GUI, test integration, deeper analysis, and more.</p>
+  <p>Railroader is an open source vulnerability scanner specifically designed for Ruby on Rails applications. It statically analyzes Rails application code to find security issues at any stage of development.</p>
+  <p><a href="https://railroaderpro.com"><img src="/images/railroaderpro.png"></a></p>
+  <p><a href="https://railroaderpro.com">Railroader Pro</a> is the commercial version of Railroader which offers a GUI, test integration, deeper analysis, and more.</p>
 </section>
 <section>
 <script type='text/javascript'>
@@ -214,7 +214,7 @@
         $("#github").GitHubBadge({
           login: "presidentbeef",
           kind: "project",
-          repo_name: "brakeman",
+          repo_name: "railroader",
           include_github_logo: false,
           image_path: "",
           commit_count: "1",
@@ -224,30 +224,30 @@
     });
 </script>
 <div id="github"></div>
-<a href="https://travis-ci.org/#!/presidentbeef/brakeman"><img src="https://secure.travis-ci.org/presidentbeef/brakeman.png" /></a>
+<a href="https://travis-ci.org/#!/presidentbeef/railroader"><img src="https://secure.travis-ci.org/presidentbeef/railroader.png" /></a>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2018/06/06/brakeman-4-dot-3-1-released/">Brakeman 4.3.1 Released</a>
+        <a href="/blog/2018/06/06/brakeman-4-dot-3-1-released/">Railroader 4.3.1 Released</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2018/05/10/brakeman-4-dot-3-0-released/">Brakeman 4.3.0 Released</a>
+        <a href="/blog/2018/05/10/brakeman-4-dot-3-0-released/">Railroader 4.3.0 Released</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2018/03/23/brakeman-4-dot-2-1-released/">Brakeman 4.2.1 Released</a>
+        <a href="/blog/2018/03/23/brakeman-4-dot-2-1-released/">Railroader 4.2.1 Released</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2018/02/21/brakeman-4-dot-2-0-released/">Brakeman 4.2.0 Released</a>
+        <a href="/blog/2018/02/21/brakeman-4-dot-2-0-released/">Railroader 4.2.0 Released</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2017/12/18/brakeman-4-dot-1-1-released/">Brakeman 4.1.1 Released</a>
+        <a href="/blog/2017/12/18/brakeman-4-dot-1-1-released/">Railroader 4.1.1 Released</a>
       </li>
     
   </ul>
@@ -255,7 +255,7 @@
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <a class="twitter-timeline" data-dnt=true href="https://twitter.com/brakeman" data-widget-id="258654953097273345">Tweets by @brakeman</a>
+    <a class="twitter-timeline" data-dnt=true href="https://twitter.com/railroader" data-widget-id="258654953097273345">Tweets by @railroader</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
   </ul>
 </section>

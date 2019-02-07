@@ -7,14 +7,14 @@
   <meta charset="utf-8">
   <title>Railroader - Rails Security Scanner</title>
   <meta name="author" content="David A. Wheeler (with previous work by Justin Collins)">
-  <meta name="description" content="Brakeman is a static analysis security vulnerability scanner for Ruby on Rails applications."/>
+  <meta name="description" content="Railroader is a static analysis security vulnerability scanner for Ruby on Rails applications."/>
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta name="keywords" content="brakeman,ruby on rails,security,scanner,vulnerabilities,static analysis"/>
+  <meta name="keywords" content="railroader,ruby on rails,security,scanner,vulnerabilities,static analysis"/>
 
   <link rel="canonical" href="https://railroader.org/blog/page/4/index.html"/>
   <link href="/favicon.png" rel="shortcut icon" />
@@ -59,11 +59,11 @@
 <ul role=main-navigation>
   <li><a href="/">Home</a></li>
   <li><a href="/docs">Documentation</a></li>
-  <li><a href="https://github.com/presidentbeef/brakeman">Source</a></li>
+  <li><a href="https://github.com/presidentbeef/railroader">Source</a></li>
   <li><a href="/docs/contributing">Contributing</a></li>
-  <li><a href="/brakeman_users">Users</a></li>
+  <li><a href="/railroader_users">Users</a></li>
   <li><a href="/contact">Contact</a></li>
-  <li><a href="/brakeman_pro">Support</a></li>
+  <li><a href="/railroader_pro">Support</a></li>
 </ul>
 
 </nav>
@@ -78,7 +78,7 @@
   <header>
     <div class="articlelogo">&nbsp;</div>
     
-    <h1 class="entry-title"><a href="/blog/2015/04/30/brakeman-3-dot-0-3-released/">Brakeman 3.0.3 Released</a></h1>
+    <h1 class="entry-title"><a href="/blog/2015/04/30/brakeman-3-dot-0-3-released/">Railroader 3.0.3 Released</a></h1>
     
     
       <p class="meta">
@@ -102,11 +102,11 @@
 <li>Warn about <code>protect_from_forgery</code> without exceptions (<a href="https://github.com/oreoshake">Neil Matatall</a>)</li>
 <li>Add Rake task to exit with error code on warnings (<a href="https://github.com/masarakki">masarakki</a>)</li>
 <li>Ignore <code>quoted_table_name</code> in SQL (<a href="https://github.com/sobrinho">Gabriel Sobhrinho</a>)</li>
-<li>Ignore more Arel methods in SQL (<a href="https://github.com/presidentbeef/brakeman/issues/604">#604</a>)</li>
+<li>Ignore more Arel methods in SQL (<a href="https://github.com/presidentbeef/railroader/issues/604">#604</a>)</li>
 <li>Warn about RCE and file access with <code>open</code></li>
-<li>Handle <code>Array#include?</code> guard conditionals (<a href="https://github.com/presidentbeef/brakeman/issues/604">#604</a>)</li>
+<li>Handle <code>Array#include?</code> guard conditionals (<a href="https://github.com/presidentbeef/railroader/issues/604">#604</a>)</li>
 <li>Handle lambdas as filters</li>
-<li>Do not ignore targets of <code>to_s</code> in SQL (<a href="https://github.com/presidentbeef/brakeman/issues/638">#638</a>)</li>
+<li>Do not ignore targets of <code>to_s</code> in SQL (<a href="https://github.com/presidentbeef/railroader/issues/638">#638</a>)</li>
 </ul>
 
 
@@ -114,70 +114,70 @@
 
 <p><a href="https://github.com/oreoshake">Neil Matatall</a> has added a warning for Rails 4 applications that do not pass the <code>with: :exception</code> option to <code>protect_from_forgery</code>. The default behavior of clearing out the session (but still processing the request) has lead to vulnerabilities in some applications. GitHub <a href="https://bounty.github.com/researchers/LukasReschke.html">recently awarded a bug bounty</a> for a vulnerability caused by this behavior.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/648">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/648">changes</a>)</p>
 
 <h3>Additional Rake Task</h3>
 
-<p><a href="https://github.com/masarakki">Masarakki</a> added a Rake task that will exit with an error code if any warnings are found (like <code>brakeman -z</code>). The task can be run with <code>rake brakeman:check</code>.</p>
+<p><a href="https://github.com/masarakki">Masarakki</a> added a Rake task that will exit with an error code if any warnings are found (like <code>railroader -z</code>). The task can be run with <code>rake railroader:check</code>.</p>
 
-<p>However, please note the use of Rake tasks to run Brakeman is discouraged, since it loads the entire Rails application which is unnecessary and may cause conflicts with Brakeman dependencies.</p>
+<p>However, please note the use of Rake tasks to run Railroader is discouraged, since it loads the entire Rails application which is unnecessary and may cause conflicts with Railroader dependencies.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/637">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/637">changes</a>)</p>
 
 <h3>Reduce SQL Injection False Positives</h3>
 
 <p>A patch from <a href="https://github.com/sobrinho">Gabriel Sobhrinho</a> removes warnings about <code>quoted_table_name</code> in SQL queries.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/647">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/647">changes</a>)</p>
 
 <p>An additional change was made to ignore more Arel methods nested inside of other queries. This should reduce many of the false positives seen with combining Arel and ActiveRecord queries.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/653">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/653">changes</a>)</p>
 
 <h3>Remote Code Execution in open()</h3>
 
-<p>As noted in <a href="http://sakurity.com/blog/2015/02/28/openuri.html">Egor Homakov&#8217;s blog post</a>, <code>open</code> can actually be used to spawn new processes by starting the argument with a pipe <code>|</code>. Brakeman will now warn about remote code execution via <code>open</code>.</p>
+<p>As noted in <a href="http://sakurity.com/blog/2015/02/28/openuri.html">Egor Homakov&#8217;s blog post</a>, <code>open</code> can actually be used to spawn new processes by starting the argument with a pipe <code>|</code>. Railroader will now warn about remote code execution via <code>open</code>.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/643">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/643">changes</a>)</p>
 
 <h3>Simple Guard Conditions</h3>
 
-<p>Brakeman should now recognize guard conditions that look exactly like this:</p>
+<p>Railroader should now recognize guard conditions that look exactly like this:</p>
 
 <pre><code>if [1, 2, "a", "b"].include? x
   do_something_dangerous_with x
 end
 </code></pre>
 
-<p>This may resolve some false positives. If you have code similar to this, please consider <a href="https://github.com/presidentbeef/brakeman/issues">opening an issue</a> and perhaps it can be handled similarly.</p>
+<p>This may resolve some false positives. If you have code similar to this, please consider <a href="https://github.com/presidentbeef/railroader/issues">opening an issue</a> and perhaps it can be handled similarly.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/640">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/640">changes</a>)</p>
 
 <h3>Lambda Filters</h3>
 
 <p>Filters that use lambdas instead of blocks should now be handled correctly.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/649">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/649">changes</a>)</p>
 
 <h3>Handle to_s in SQL</h3>
 
 <p>Values with <code>to_s</code> called on them were being ignored when checking for SQL injection. This has been fixed.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/639">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/639">changes</a>)</p>
 
 <h3>SHAs</h3>
 
 <p>The SHA1 sums for this release are</p>
 
-<pre><code>170c3dd6925373b7da2e27fd1decf2957b35dc43  brakeman-3.0.3.gem
-f126e305404a61e99f9ddb848996d87325d1485a  brakeman-min-3.0.3.gem
+<pre><code>170c3dd6925373b7da2e27fd1decf2957b35dc43  railroader-3.0.3.gem
+f126e305404a61e99f9ddb848996d87325d1485a  railroader-min-3.0.3.gem
 </code></pre>
 
 <h3>Reporting Issues</h3>
 
-<p>Please report any <a href="https://github.com/presidentbeef/brakeman/issues">issues</a> with this release! Take a look at <a href="https://github.com/presidentbeef/brakeman/wiki/How-to-Report-a-Brakeman-Issue">this guide</a> to reporting Brakeman problems.</p>
+<p>Please report any <a href="https://github.com/presidentbeef/railroader/issues">issues</a> with this release! Take a look at <a href="https://github.com/presidentbeef/railroader/wiki/How-to-Report-a-Railroader-Issue">this guide</a> to reporting Railroader problems.</p>
 
-<p>Also consider following <a href="https://twitter.com/brakeman">@brakeman</a> on Twitter and joining the <a href="http://brakemanscanner.org/contact/">mailing list</a>.</p>
+<p>Also consider following <a href="https://twitter.com/railroader">@railroader</a> on Twitter and joining the <a href="http://railroaderscanner.org/contact/">mailing list</a>.</p>
 </div>
   
   
@@ -191,7 +191,7 @@ f126e305404a61e99f9ddb848996d87325d1485a  brakeman-min-3.0.3.gem
   <header>
     <div class="articlelogo">&nbsp;</div>
     
-    <h1 class="entry-title"><a href="/blog/2015/03/09/brakeman-3-dot-0-2-released/">Brakeman 3.0.2 Released</a></h1>
+    <h1 class="entry-title"><a href="/blog/2015/03/09/brakeman-3-dot-0-2-released/">Railroader 3.0.2 Released</a></h1>
     
     
       <p class="meta">
@@ -212,9 +212,9 @@ f126e305404a61e99f9ddb848996d87325d1485a  brakeman-min-3.0.3.gem
 <p><em>Changes since 3.0.1</em>:</p>
 
 <ul>
-<li>Fix HTML reports with GitHub repos (<a href="https://github.com/presidentbeef/brakeman/issues/624">#624</a>)</li>
-<li>Handle processing of explictly shadowed block arguments (<a href="https://github.com/presidentbeef/brakeman/issues/612">#612</a>)</li>
-<li>Fix CSV output when there are no warnings (<a href="https://github.com/presidentbeef/brakeman/issues/615">#615</a>)</li>
+<li>Fix HTML reports with GitHub repos (<a href="https://github.com/presidentbeef/railroader/issues/624">#624</a>)</li>
+<li>Handle processing of explictly shadowed block arguments (<a href="https://github.com/presidentbeef/railroader/issues/612">#612</a>)</li>
+<li>Fix CSV output when there are no warnings (<a href="https://github.com/presidentbeef/railroader/issues/615">#615</a>)</li>
 <li>Update <code>ruby_parser</code> to ~> 3.6.2</li>
 <li>Treat <code>primary_key</code>, <code>table_name_prefix</code>, <code>table_name_suffix</code> as safe in SQL</li>
 <li>Fix using <code>--compare</code> and <code>--add-checks-path</code> together</li>
@@ -230,7 +230,7 @@ f126e305404a61e99f9ddb848996d87325d1485a  brakeman-min-3.0.3.gem
 
 <p>HTML reports were sometimes causing an error when linking to a GitHub repo.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/625">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/625">changes</a>)</p>
 
 <h3>Shadowed Block Arguments</h3>
 
@@ -241,77 +241,77 @@ f126e305404a61e99f9ddb848996d87325d1485a  brakeman-min-3.0.3.gem
 end
 </code></pre>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/613">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/613">changes</a>)</p>
 
 <h3>CSV Output</h3>
 
 <p>Empty tables caused the CSV report to fail.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/616">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/616">changes</a>)</p>
 
 <h3>RubyParser Update</h3>
 
-<p>Brakeman has been very behind on RubyParser versions due to a line number issue which is nearly always present in HAML templates. As a workaround, Brakeman now strips newline literals from HAML templates. While this does cause some line numbers to be off, but typically newline literals are caused by HAML formatting. Removing them allows Brakeman to use the latest RubyParser.</p>
+<p>Railroader has been very behind on RubyParser versions due to a line number issue which is nearly always present in HAML templates. As a workaround, Railroader now strips newline literals from HAML templates. While this does cause some line numbers to be off, but typically newline literals are caused by HAML formatting. Removing them allows Railroader to use the latest RubyParser.</p>
 
-<p>Brakeman now requires RubyParser 3.6.2 as a minimum.</p>
+<p>Railroader now requires RubyParser 3.6.2 as a minimum.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/620">HAML changes</a>, <a href="https://github.com/presidentbeef/brakeman/pull/621">dependency change</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/620">HAML changes</a>, <a href="https://github.com/presidentbeef/railroader/pull/621">dependency change</a>)</p>
 
 <h3>More SQL-safe Methods</h3>
 
-<p>Brakeman will no longer warn about <code>primary_key</code>, <code>table_name_prefix</code>, and <code>table_name_suffix</code> in SQL.</p>
+<p>Railroader will no longer warn about <code>primary_key</code>, <code>table_name_prefix</code>, and <code>table_name_suffix</code> in SQL.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/635">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/635">changes</a>)</p>
 
 <h3>Compare with External Checks</h3>
 
 <p>Fix an issue when using <code>--compare</code> and <code>--add-checks-path</code> together.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/635">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/635">changes</a>)</p>
 
 <h3>Process Class-Scope Method Calls</h3>
 
-<p>Previously, Brakeman would process method calls at the class scope (e.g., <code>belongs_to</code>) in models and then throw away the call. This meant the call never received data flow analysis. This was particularly noticeable when those calls involved blocks. This has been fixed and has improved results, especially where constants are used.</p>
+<p>Previously, Railroader would process method calls at the class scope (e.g., <code>belongs_to</code>) in models and then throw away the call. This meant the call never received data flow analysis. This was particularly noticeable when those calls involved blocks. This has been fixed and has improved results, especially where constants are used.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/634">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/634">changes</a>)</p>
 
 <h3>Mass Assignment with Literals</h3>
 
-<p>Brakeman no longer warns about mass assignment if the arguments are a string or symbol. In those cases it probably isn&#8217;t an ActiveRecord subclass in any case.</p>
+<p>Railroader no longer warns about mass assignment if the arguments are a string or symbol. In those cases it probably isn&#8217;t an ActiveRecord subclass in any case.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/631">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/631">changes</a>)</p>
 
 <h3>Reduce Regex DoS Duplicates</h3>
 
 <p>Duplicate regular expression denial of service warnings were being reported due to data flow analysis.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/627">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/627">changes</a>)</p>
 
 <h3>File for simple_format CVE</h3>
 
 <p>Warnings regarding the old <code>simple_format</code> CVE will now point to the file where <code>simple_format</code> was called, not the Gemfile.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/623/files">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/623/files">changes</a>)</p>
 
 <h3>Ignore Case Value</h3>
 
 <p>Do not report about XSS regarding the value used in <code>case</code> expressions.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/619">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/619">changes</a>)</p>
 
 <h3>SHAs</h3>
 
 <p>The SHA1 sums for this release are</p>
 
-<pre><code>87413b544b5eae0cac9f037e2b62b1fe3f0fee5e  brakeman-3.0.2.gem
-cfcf3080a992ca173c64dd98fe239e8bd9bb0eaa  brakeman-min-3.0.2.gem
+<pre><code>87413b544b5eae0cac9f037e2b62b1fe3f0fee5e  railroader-3.0.2.gem
+cfcf3080a992ca173c64dd98fe239e8bd9bb0eaa  railroader-min-3.0.2.gem
 </code></pre>
 
 <h3>Reporting Issues</h3>
 
-<p>Please report any <a href="https://github.com/presidentbeef/brakeman/issues">issues</a> with this release! Take a look at <a href="https://github.com/presidentbeef/brakeman/wiki/How-to-Report-a-Brakeman-Issue">this guide</a> to reporting Brakeman problems.</p>
+<p>Please report any <a href="https://github.com/presidentbeef/railroader/issues">issues</a> with this release! Take a look at <a href="https://github.com/presidentbeef/railroader/wiki/How-to-Report-a-Railroader-Issue">this guide</a> to reporting Railroader problems.</p>
 
-<p>Also consider following <a href="https://twitter.com/brakeman">@brakeman</a> on Twitter and joining the <a href="http://brakemanscanner.org/contact/">mailing list</a>.</p>
+<p>Also consider following <a href="https://twitter.com/railroader">@railroader</a> on Twitter and joining the <a href="http://railroaderscanner.org/contact/">mailing list</a>.</p>
 </div>
   
   
@@ -325,7 +325,7 @@ cfcf3080a992ca173c64dd98fe239e8bd9bb0eaa  brakeman-min-3.0.2.gem
   <header>
     <div class="articlelogo">&nbsp;</div>
     
-    <h1 class="entry-title"><a href="/blog/2015/01/22/brakeman-3-dot-0-1-released/">Brakeman 3.0.1 Released</a></h1>
+    <h1 class="entry-title"><a href="/blog/2015/01/22/brakeman-3-dot-0-1-released/">Railroader 3.0.1 Released</a></h1>
     
     
       <p class="meta">
@@ -348,20 +348,20 @@ cfcf3080a992ca173c64dd98fe239e8bd9bb0eaa  brakeman-min-3.0.2.gem
 <li>Properly process libraries (<a href="https://github.com/ptoomey3">Patrick Toomey</a>)</li>
 <li>Add <code>--add-libs-path</code> for additional libraries (<a href="https://github.com/ptoomey3">Patrick Toomey</a>)</li>
 <li>Allow for controllers/models/templates in directories under <code>app/</code> (<a href="https://github.com/nealharris">Neal Harris</a>)</li>
-<li>Avoid <code>protect_from_forgery</code> warning unless <code>ApplicationController</code> inherits from <code>ActionController::Base</code> (<a href="https://github.com/presidentbeef/brakeman/issues/573">#573</a>)</li>
+<li>Avoid <code>protect_from_forgery</code> warning unless <code>ApplicationController</code> inherits from <code>ActionController::Base</code> (<a href="https://github.com/presidentbeef/railroader/issues/573">#573</a>)</li>
 <li>Properly format command interpolation (again)</li>
 </ul>
 
 
 <h3>Slim Gem Dependency Removed</h3>
 
-<p>Since <a href="https://github.com/slim-template/slim-rails/releases/tag/3.0.1">Rails 4.2 requires Slim 3.0.1</a> and <a href="https://github.com/slim-template/slim/blob/bb7ca78c1ea9629d8b57a06fcb99c938c9d7640e/CHANGES#L8">Slim 3.0 dropped support for Ruby 1.8.7</a>, there is no way to satisfy dependencies for Slim, Rails 4.2, and retain support for Ruby 1.8.7 when Brakeman is added as a dependency in a <code>Gemfile</code>.</p>
+<p>Since <a href="https://github.com/slim-template/slim-rails/releases/tag/3.0.1">Rails 4.2 requires Slim 3.0.1</a> and <a href="https://github.com/slim-template/slim/blob/bb7ca78c1ea9629d8b57a06fcb99c938c9d7640e/CHANGES#L8">Slim 3.0 dropped support for Ruby 1.8.7</a>, there is no way to satisfy dependencies for Slim, Rails 4.2, and retain support for Ruby 1.8.7 when Railroader is added as a dependency in a <code>Gemfile</code>.</p>
 
-<p>The only acceptable solution is to not include Slim as a dependency at all and let users sort it out for themselves. Sorry for the unfortunate situation, but there is no way to add Brakeman to a <code>Gemfile</code> and avoid Bundler attempting to resolve Brakeman&#8217;s dependencies against the application&#8217;s dependencies, despite there being no relation.</p>
+<p>The only acceptable solution is to not include Slim as a dependency at all and let users sort it out for themselves. Sorry for the unfortunate situation, but there is no way to add Railroader to a <code>Gemfile</code> and avoid Bundler attempting to resolve Railroader&#8217;s dependencies against the application&#8217;s dependencies, despite there being no relation.</p>
 
 <p>Thanks to <a href="https://github.com/cwest">Casey West</a> for working through solutions for this issue.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/602">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/602">changes</a>)</p>
 
 <h3>Library Processing</h3>
 
@@ -369,37 +369,37 @@ cfcf3080a992ca173c64dd98fe239e8bd9bb0eaa  brakeman-min-3.0.2.gem
 
 <p>This change may affect existing warning fingerprints for warnings in libraries. Apologies for the inconvenience.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/605">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/605">changes</a>)</p>
 
 <h3>Allow Additional Library Paths</h3>
 
 <p><a href="https://github.com/ptoomey3">Patrick Toomey</a> also added a new option <code>--add-libs-path</code> to treat more paths as if they were in <code>lib/</code>.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/606">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/606">changes</a>)</p>
 
 <h3>Scan Application Subdirectories</h3>
 
 <p><a href="https://github.com/nealharris">Neal Harris</a> contributed a change to support applications with multiple applications under <code>app/</code>, such as <code>app/cool_team/controllers/</code>.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/607">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/607">changes</a>)</p>
 
 <h3>Avoid CSRF Warning for APIs</h3>
 
-<p>Brakeman will no longer warn about missing <code>protect_from_forgery</code> if <code>ApplicationController</code> does not inherit from <code>ActionController::Base</code>.</p>
+<p>Railroader will no longer warn about missing <code>protect_from_forgery</code> if <code>ApplicationController</code> does not inherit from <code>ActionController::Base</code>.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/issues/573">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/issues/573">changes</a>)</p>
 
 <h3>Command Interpolation Format Fix</h3>
 
 <p>Previous release had an incomplete fix for this. There should be no impact to warning fingerprints.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/608">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/608">changes</a>)</p>
 
 <h3>Reporting Issues</h3>
 
-<p>Please report any <a href="https://github.com/presidentbeef/brakeman/issues">issues</a> with this release! Take a look at <a href="https://github.com/presidentbeef/brakeman/wiki/How-to-Report-a-Brakeman-Issue">this guide</a> to reporting Brakeman problems.</p>
+<p>Please report any <a href="https://github.com/presidentbeef/railroader/issues">issues</a> with this release! Take a look at <a href="https://github.com/presidentbeef/railroader/wiki/How-to-Report-a-Railroader-Issue">this guide</a> to reporting Railroader problems.</p>
 
-<p>Also consider following <a href="https://twitter.com/brakeman">@brakeman</a> on Twitter and joining the <a href="http://brakemanscanner.org/contact/">mailing list</a>.</p>
+<p>Also consider following <a href="https://twitter.com/railroader">@railroader</a> on Twitter and joining the <a href="http://railroaderscanner.org/contact/">mailing list</a>.</p>
 </div>
   
   
@@ -413,7 +413,7 @@ cfcf3080a992ca173c64dd98fe239e8bd9bb0eaa  brakeman-min-3.0.2.gem
   <header>
     <div class="articlelogo">&nbsp;</div>
     
-    <h1 class="entry-title"><a href="/blog/2015/01/02/brakeman-3-dot-0-0-released/">Brakeman 3.0.0 Released</a></h1>
+    <h1 class="entry-title"><a href="/blog/2015/01/02/brakeman-3-dot-0-0-released/">Railroader 3.0.0 Released</a></h1>
     
     
       <p class="meta">
@@ -429,7 +429,7 @@ cfcf3080a992ca173c64dd98fe239e8bd9bb0eaa  brakeman-min-3.0.2.gem
   </header>
 
 
-  <div class="entry-content"><p>This is a major version release of Brakeman which introduces some backwards-incompatible changes. Very likely this release will cause many changes in reports, including fingerprints on existing warnings.</p>
+  <div class="entry-content"><p>This is a major version release of Railroader which introduces some backwards-incompatible changes. Very likely this release will cause many changes in reports, including fingerprints on existing warnings.</p>
 
 <p><em>Changes since 2.6.3</em>:</p>
 
@@ -443,7 +443,7 @@ cfcf3080a992ca173c64dd98fe239e8bd9bb0eaa  brakeman-min-3.0.2.gem
 <li>Remove &#8220;fake filters&#8221; from warning fingerpints</li>
 <li>Index calls in <code>lib/</code> files</li>
 <li>Handle symmetric multiple assignment</li>
-<li>Do not branch for self attribute assignment <code>x = x.y</code> (<a href="https://github.com/presidentbeef/brakeman/issues/552">#552</a>)</li>
+<li>Do not branch for self attribute assignment <code>x = x.y</code> (<a href="https://github.com/presidentbeef/railroader/issues/552">#552</a>)</li>
 <li>Move Symbol DoS to optional checks</li>
 <li>Add check for cross site scripting via inline renders</li>
 <li>Add check for CVE-2014-7829</li>
@@ -455,91 +455,91 @@ cfcf3080a992ca173c64dd98fe239e8bd9bb0eaa  brakeman-min-3.0.2.gem
 
 <h3>Exit Code When Comparing</h3>
 
-<p>When using <code>--exit-on-warn --compare</code>, Brakeman will only return a non-zero exit code when there are new warnings. Previous behavior was to return non-zero exit code if there were any differences between reports (including fixed warnings).</p>
+<p>When using <code>--exit-on-warn --compare</code>, Railroader will only return a non-zero exit code when there are new warnings. Previous behavior was to return non-zero exit code if there were any differences between reports (including fixed warnings).</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/588">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/588">changes</a>)</p>
 
 <h3>Sort Warnings in JSON Report</h3>
 
 <p>Warnings are now sorted by their fingerprint in the JSON report to provide more stable output.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/587">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/587">changes</a>)</p>
 
 <h3>Report Line Numbers for CVEs</h3>
 
 <p>Previously, CVE warnings typically pointed to <code>Gemfile</code> with no line number information. Now CVEs should point to <code>Gemfile</code> or <code>Gemfile.lock</code> as appropriate and include the line number for the vulnerable gem dependency.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/557">changes</a> and <a href="https://github.com/presidentbeef/brakeman/pull/569">more changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/557">changes</a> and <a href="https://github.com/presidentbeef/railroader/pull/569">more changes</a>)</p>
 
 <h3>Mass Assignment Warnings Default to per Model</h3>
 
 <p>The <code>--separate-models</code> option is now on by default. This means warnings about missing <code>attr_accessible</code> will be reported for each model instead of rolling them into a single warning.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/586">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/586">changes</a>)</p>
 
 <h3>Local Variable Format</h3>
 
 <p>Local variables are no longer formatted as <code>(local var)</code> in warning output.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/594">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/594">changes</a>)</p>
 
 <h3>Skip Skipped Filters</h3>
 
 <p>Before filters which are skipped are now actually skipped during data flow analysis.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/592">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/592">changes</a>)</p>
 
 <h3>Fake Filter Change</h3>
 
 <p>Before filters defined as blocks (instead of methods) are internally represented as methods with random names prepended by <code>fake_filter</code>. Since the method names were not stable, any warnings inside the filters would have inconsistent fingerprints. Now warnings inside of before filters will always be reported with <code>before_filter</code> as the method name.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/572">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/572">changes</a>)</p>
 
 <h3>Index Calls in Libraries</h3>
 
 <p>Classes defined in <code>lib/</code> files will now be included in the method call index and searched for vulnerabilities. As these files were already being processed, this has not added any significant overhead in testing.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/571">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/571">changes</a>)</p>
 
 <h3>Handle Multiple Assignment</h3>
 
 <p>Simple symmetric multiple assignments (also called &#8220;parallel assignment&#8221;) like <code>x, y = 1, 2</code> are now handled like normal assignments.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/577">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/577">changes</a>)</p>
 
 <h3>Avoid Branching on Self Assignment</h3>
 
-<p>Brakeman no longer creates new union values for self assignment of attributes.</p>
+<p>Railroader no longer creates new union values for self assignment of attributes.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/578">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/578">changes</a>)</p>
 
 <h3>Symbol DoS is an Optional Check</h3>
 
 <p>In this release the check for denial of service via symbol creation has been changed to an optional check. Memory exhaustion by creating lots of new symbols is an unlikely attack and easily mitigated by having at least two web servers. Additionally</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/570">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/570">changes</a>)</p>
 
 <h3>Warn on Inline XSS</h3>
 
 <p>Unescaped user input in <code>render :text</code> or <code>render :inline</code> should now generate warnings.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/598">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/598">changes</a>)</p>
 
 <h3>CVE-2014-7829</h3>
 
-<p>Brakeman will warn about <a href="https://groups.google.com/d/msg/rubyonrails-security/23fiuwb1NBA/MQVM1-5GkPMJ">CVE-2014-7829</a> (file existence disclosure) for applications using affected versions of Rails and setting <code>config.serve_static_assets = true</code>.</p>
+<p>Railroader will warn about <a href="https://groups.google.com/d/msg/rubyonrails-security/23fiuwb1NBA/MQVM1-5GkPMJ">CVE-2014-7829</a> (file existence disclosure) for applications using affected versions of Rails and setting <code>config.serve_static_assets = true</code>.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/600">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/600">changes</a>)</p>
 
 <h3>ERB Parsing Fix</h3>
 
 <p>Parsing <code>&lt;%==</code> in ERB templates no longer causes errors.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/589">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/589">changes</a>)</p>
 
 <h3>Command Interpolation Format Fix</h3>
 
-<p>Brakeman was formatting</p>
+<p>Railroader was formatting</p>
 
 <pre><code>`#{x}`
 </code></pre>
@@ -551,36 +551,36 @@ cfcf3080a992ca173c64dd98fe239e8bd9bb0eaa  brakeman-min-3.0.2.gem
 
 <p>This has been fixed.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/596">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/596">changes</a>)</p>
 
 <h3>CVE-2011-2932</h3>
 
 <p>The ancient CVE-2011-2932 was being mis-reported as CVE-2011-2931. Hopefully this affects no one.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/575">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/575">changes</a>)</p>
 
 <h3>Certificate Update</h3>
 
-<p>The certificate used to sign the Brakeman gem expired in December. A new certificate is available <a href="https://raw.githubusercontent.com/presidentbeef/brakeman/master/brakeman-public_cert.pem">here</a>.</p>
+<p>The certificate used to sign the Railroader gem expired in December. A new certificate is available <a href="https://raw.githubusercontent.com/presidentbeef/railroader/master/railroader-public_cert.pem">here</a>.</p>
 
 <p>This command can be used to add the new certificate:</p>
 
-<pre><code>gem cert --add &lt;(curl -Ls https://raw.github.com/presidentbeef/brakeman/master/brakeman-public_cert.pem)
+<pre><code>gem cert --add &lt;(curl -Ls https://raw.github.com/presidentbeef/railroader/master/railroader-public_cert.pem)
 </code></pre>
 
 <h3>SHAs</h3>
 
 <p>The SHA1 sums for this release are</p>
 
-<pre><code>4180238f8de503e7ad0f2ca952ea38ccc1c6530b  brakeman-3.0.0.gem
-b5cefd6f14edb57f12d1fe9fcc0fb24e05a05aaf  brakeman-min-3.0.0.gem
+<pre><code>4180238f8de503e7ad0f2ca952ea38ccc1c6530b  railroader-3.0.0.gem
+b5cefd6f14edb57f12d1fe9fcc0fb24e05a05aaf  railroader-min-3.0.0.gem
 </code></pre>
 
 <h3>Reporting Issues</h3>
 
-<p>Please report any <a href="https://github.com/presidentbeef/brakeman/issues">issues</a> with this release! Take a look at <a href="https://github.com/presidentbeef/brakeman/wiki/How-to-Report-a-Brakeman-Issue">this guide</a> to reporting Brakeman problems.</p>
+<p>Please report any <a href="https://github.com/presidentbeef/railroader/issues">issues</a> with this release! Take a look at <a href="https://github.com/presidentbeef/railroader/wiki/How-to-Report-a-Railroader-Issue">this guide</a> to reporting Railroader problems.</p>
 
-<p>Also consider following <a href="https://twitter.com/brakeman">@brakeman</a> on Twitter and joining the <a href="http://brakemanscanner.org/contact/">mailing list</a>.</p>
+<p>Also consider following <a href="https://twitter.com/railroader">@railroader</a> on Twitter and joining the <a href="http://railroaderscanner.org/contact/">mailing list</a>.</p>
 </div>
   
   
@@ -594,7 +594,7 @@ b5cefd6f14edb57f12d1fe9fcc0fb24e05a05aaf  brakeman-min-3.0.0.gem
   <header>
     <div class="articlelogo">&nbsp;</div>
     
-    <h1 class="entry-title"><a href="/blog/2014/10/13/brakeman-2-dot-6-3-released/">Brakeman 2.6.3 Released</a></h1>
+    <h1 class="entry-title"><a href="/blog/2014/10/13/brakeman-2-dot-6-3-released/">Railroader 2.6.3 Released</a></h1>
     
     
       <p class="meta">
@@ -618,7 +618,7 @@ b5cefd6f14edb57f12d1fe9fcc0fb24e05a05aaf  brakeman-min-3.0.0.gem
 <li>Add framework for optional checks</li>
 <li>Add optional check for unscoped find queries (<a href="https://github.com/mastahyeti">Ben Toews</a>)</li>
 <li>Fix stack overflow for cycles in class ancestors (<a href="https://github.com/jeffrafter">Jeff Rafter</a>)</li>
-<li>Fix stack overflow in <code>ProcessHelper#class_name</code> (<a href="https://github.com/presidentbeef/brakeman/issues/553">#553</a>)</li>
+<li>Fix stack overflow in <code>ProcessHelper#class_name</code> (<a href="https://github.com/presidentbeef/railroader/issues/553">#553</a>)</li>
 <li>Whitelist <code>exists</code> arel method from SQL injection check</li>
 <li>Avoid warning about Symbol DoS on safe parameters as method targets</li>
 </ul>
@@ -626,59 +626,59 @@ b5cefd6f14edb57f12d1fe9fcc0fb24e05a05aaf  brakeman-min-3.0.0.gem
 
 <h3>Optional Checks</h3>
 
-<p>Brakeman now supports loading checks that are not run by default. These &#8220;nondefault&#8221; checks may have high false positive rates or introduce significant slowdowns. Optional checks should be treated as experimental and may experience more breaking changes than default checks.</p>
+<p>Railroader now supports loading checks that are not run by default. These &#8220;nondefault&#8221; checks may have high false positive rates or introduce significant slowdowns. Optional checks should be treated as experimental and may experience more breaking changes than default checks.</p>
 
 <p>To run <em>all</em> checks, use <code>-A</code>. To list only the optional checks, try <code>--optional-checks</code>. Optional checks are also listed in <code>--checks</code>. As usual, checks may be specified using <code>-t</code> or <code>--test</code>. At this time there is no way to easily run the default checks plus some optional checks.</p>
 
-<p>On the code side, optional checks are the same except <code>Brakeman::Checks.add self</code> becomes <code>Brakeman::Checks.add_optional self</code>.</p>
+<p>On the code side, optional checks are the same except <code>Railroader::Checks.add self</code> becomes <code>Railroader::Checks.add_optional self</code>.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/555">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/555">changes</a>)</p>
 
 <h3>Unscoped Queries</h3>
 
-<p>The first optional check to be added to Brakeman comes from <a href="https://github.com/mastahyeti">Ben Toews</a>. This check looks for calls to <code>find</code> (or similar methods) directly on models that have a <code>belongs_to</code> relationship.</p>
+<p>The first optional check to be added to Railroader comes from <a href="https://github.com/mastahyeti">Ben Toews</a>. This check looks for calls to <code>find</code> (or similar methods) directly on models that have a <code>belongs_to</code> relationship.</p>
 
 <p>As this is an optional check, use <code>-A</code> to include it in a scan or <code>-t UnscopedFind</code> to run it by itself.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/469">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/469">changes</a>)</p>
 
 <h3>Fix Loops in Class Ancestors</h3>
 
 <p><a href="https://github.com/jeffrafter">Jeff Rafter</a> added a fix for stack overflows (infinite loops) when a class has (or appears to have) a cycle in its superclasses.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/543">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/543">changes</a>)</p>
 
 <h3>Fix Stack Overflow</h3>
 
 <p>This release fixes an issue with another infinite loop when looking up the class name in a self-referential variable name, which comes up in some situations. Fixing this bug also fixed some XSS false positives for safe model attribute methods (like <code>id</code>) but unfortunately also revealed some dynamic render false positives.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/560">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/560">changes</a>)</p>
 
 <h3>Whitelist Arel Method</h3>
 
-<p>Brakeman does not warn on most uses of Arel, but was warning about SQL injection from the <code>exists</code> method.</p>
+<p>Railroader does not warn on most uses of Arel, but was warning about SQL injection from the <code>exists</code> method.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/566">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/566">changes</a>)</p>
 
 <h3>Less Symbol DoS</h3>
 
-<p>Brakeman should no longer warn about Symbol DoS when symbolizing <code>params[:controller]</code> and <code>params[:action]</code> even when there are intermediate method calls, like <code>params[:action].to_s.to_sym</code>.</p>
+<p>Railroader should no longer warn about Symbol DoS when symbolizing <code>params[:controller]</code> and <code>params[:action]</code> even when there are intermediate method calls, like <code>params[:action].to_s.to_sym</code>.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/564">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/564">changes</a>)</p>
 
 <h3>SHAs</h3>
 
 <p>The SHA1 sums for this release are</p>
 
-<pre><code>ceb689e3a6efd7e28483828de3441ec1fad501c1  brakeman-2.6.3.gem
-334a7820c05bfeb31e0e9d8123f45daef64eb102  brakeman-min-2.6.3.gem
+<pre><code>ceb689e3a6efd7e28483828de3441ec1fad501c1  railroader-2.6.3.gem
+334a7820c05bfeb31e0e9d8123f45daef64eb102  railroader-min-2.6.3.gem
 </code></pre>
 
 <h3>Reporting Issues</h3>
 
-<p>Please report any <a href="https://github.com/presidentbeef/brakeman/issues">issues</a> with this release! Take a look at <a href="https://github.com/presidentbeef/brakeman/wiki/How-to-Report-a-Brakeman-Issue">this guide</a> to reporting Brakeman problems.</p>
+<p>Please report any <a href="https://github.com/presidentbeef/railroader/issues">issues</a> with this release! Take a look at <a href="https://github.com/presidentbeef/railroader/wiki/How-to-Report-a-Railroader-Issue">this guide</a> to reporting Railroader problems.</p>
 
-<p>Also consider following <a href="https://twitter.com/brakeman">@brakeman</a> on Twitter and joining the <a href="http://brakemanscanner.org/contact/">mailing list</a>.</p>
+<p>Also consider following <a href="https://twitter.com/railroader">@railroader</a> on Twitter and joining the <a href="http://railroaderscanner.org/contact/">mailing list</a>.</p>
 </div>
   
   
@@ -692,7 +692,7 @@ b5cefd6f14edb57f12d1fe9fcc0fb24e05a05aaf  brakeman-min-3.0.0.gem
   <header>
     <div class="articlelogo">&nbsp;</div>
     
-    <h1 class="entry-title"><a href="/blog/2014/08/27/brakeman-is-four-years-old/">Brakeman Is Four Years Old!</a></h1>
+    <h1 class="entry-title"><a href="/blog/2014/08/27/brakeman-is-four-years-old/">Railroader Is Four Years Old!</a></h1>
     
     
       <p class="meta">
@@ -708,19 +708,11 @@ b5cefd6f14edb57f12d1fe9fcc0fb24e05a05aaf  brakeman-min-3.0.0.gem
   </header>
 
 
-  <div class="entry-content"><p>Brakeman was first <a href="https://github.com/presidentbeef/brakeman/commit/cd1663fb22bbe2e1097bac8f9ee96fcdadc07fd2">publicly released</a> four years ago today!</p>
+  <div class="entry-content"><p>Railroader was first <a href="https://github.com/presidentbeef/railroader/commit/cd1663fb22bbe2e1097bac8f9ee96fcdadc07fd2">publicly released</a> four years ago today!</p>
 
-<p>In those four years, Brakeman has gradually become a widely-used static analysis security tool for Ruby on Rails, leaving other web frameworks jealous.</p>
+<p>In those four years, Railroader has gradually become a widely-used static analysis security tool for Ruby on Rails, leaving other web frameworks jealous.</p>
 
-<blockquote class="twitter-tweet" lang="en"><p>Is there something like Rails’ brakeman gem (automated security checks) for Django?</p>&mdash; Fabio Akita (@AkitaOnRails) <a href="https://twitter.com/AkitaOnRails/statuses/409037162987155457">December 6, 2013</a></blockquote>
-
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-
-
-<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/nodesecurity">@nodesecurity</a> do you know of an equivalent module in <a href="https://twitter.com/hashtag/nodejs?src=hash">#nodejs</a> to the <a href="https://twitter.com/brakeman">@brakeman</a> gem?</p>&mdash; Erik Isaksen (@eisaksen) <a href="https://twitter.com/eisaksen/statuses/423965742883950592">January 16, 2014</a></blockquote>
+<blockquote class="twitter-tweet" lang="en"><p>Is there something like Rails’ railroader gem (automated security checks) for Django?</p>&mdash; Fabio Akita (@AkitaOnRails) <a href="https://twitter.com/AkitaOnRails/statuses/409037162987155457">December 6, 2013</a></blockquote>
 
 
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -728,29 +720,37 @@ b5cefd6f14edb57f12d1fe9fcc0fb24e05a05aaf  brakeman-min-3.0.0.gem
 
 
 
-<blockquote class="twitter-tweet" lang="en"><p>Is there something like <a href="https://twitter.com/brakeman">@brakeman</a> that would check security of an Ubuntu server? /cc <a href="https://twitter.com/roidrage">@roidrage</a> <a href="https://twitter.com/zuzur">@zuzur</a> <a href="https://twitter.com/envygeeks">@envygeeks</a> <a href="https://twitter.com/postmodern_mod3">@postmodern_mod3</a> <a href="https://twitter.com/gcouprie">@gcouprie</a></p>&mdash; Thibaut Barrère (@thibaut_barrere) <a href="https://twitter.com/thibaut_barrere/statuses/302394306277285889">February 15, 2013</a></blockquote>
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/nodesecurity">@nodesecurity</a> do you know of an equivalent module in <a href="https://twitter.com/hashtag/nodejs?src=hash">#nodejs</a> to the <a href="https://twitter.com/railroader">@railroader</a> gem?</p>&mdash; Erik Isaksen (@eisaksen) <a href="https://twitter.com/eisaksen/statuses/423965742883950592">January 16, 2014</a></blockquote>
 
 
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
-<p>Brakeman is used in all kinds of organizations, from hobby projects to open source applications to start-ups to large corporations. If your organization uses Brakeman, <a href="http://brakemanscanner.org/brakeman_users/">please consider being listed</a>!</p>
-
-<blockquote class="twitter-tweet" lang="en"><p>congrats to the @brakemanscanner project on their 1.0 release today, we appreciate your work within <a href="https://twitter.com/twitter">@twitter</a> <a href="http://t.co/SHjQM5k2">http://t.co/SHjQM5k2</a></p>&mdash; Twitter Open Source (@TwitterOSS) <a href="https://twitter.com/TwitterOSS/statuses/144865822941265920">December 8, 2011</a></blockquote>
 
 
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-<p>Brakeman also helps power <a href="https://github.com/presidentbeef/brakeman/wiki/Brakeman-as-a-Service">several SaaS offerings</a>!</p>
-
-<blockquote class="twitter-tweet" lang="en"><p>Rails Security Monitor is powered by <a href="https://twitter.com/brakeman">@brakeman</a> which we &lt;3 and contribute to. We hope fans Brakeman fans will like it: <a href="http://t.co/2yI8S20l">http://t.co/2yI8S20l</a></p>&mdash; Bryan Helmkamp (@brynary) <a href="https://twitter.com/brynary/statuses/301070119176642560">February 11, 2013</a></blockquote>
+<blockquote class="twitter-tweet" lang="en"><p>Is there something like <a href="https://twitter.com/railroader">@railroader</a> that would check security of an Ubuntu server? /cc <a href="https://twitter.com/roidrage">@roidrage</a> <a href="https://twitter.com/zuzur">@zuzur</a> <a href="https://twitter.com/envygeeks">@envygeeks</a> <a href="https://twitter.com/postmodern_mod3">@postmodern_mod3</a> <a href="https://twitter.com/gcouprie">@gcouprie</a></p>&mdash; Thibaut Barrère (@thibaut_barrere) <a href="https://twitter.com/thibaut_barrere/statuses/302394306277285889">February 15, 2013</a></blockquote>
 
 
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
-<p>Did you know Brakeman even won a Ruby award?</p>
+<p>Railroader is used in all kinds of organizations, from hobby projects to open source applications to start-ups to large corporations. If your organization uses Railroader, <a href="http://railroaderscanner.org/railroader_users/">please consider being listed</a>!</p>
+
+<blockquote class="twitter-tweet" lang="en"><p>congrats to the @railroaderscanner project on their 1.0 release today, we appreciate your work within <a href="https://twitter.com/twitter">@twitter</a> <a href="http://t.co/SHjQM5k2">http://t.co/SHjQM5k2</a></p>&mdash; Twitter Open Source (@TwitterOSS) <a href="https://twitter.com/TwitterOSS/statuses/144865822941265920">December 8, 2011</a></blockquote>
+
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p>Railroader also helps power <a href="https://github.com/presidentbeef/railroader/wiki/Railroader-as-a-Service">several SaaS offerings</a>!</p>
+
+<blockquote class="twitter-tweet" lang="en"><p>Rails Security Monitor is powered by <a href="https://twitter.com/railroader">@railroader</a> which we &lt;3 and contribute to. We hope fans Railroader fans will like it: <a href="http://t.co/2yI8S20l">http://t.co/2yI8S20l</a></p>&mdash; Bryan Helmkamp (@brynary) <a href="https://twitter.com/brynary/statuses/301070119176642560">February 11, 2013</a></blockquote>
+
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p>Did you know Railroader even won a Ruby award?</p>
 
 <blockquote class="twitter-tweet" lang="en"><p>Thanks <a href="https://twitter.com/yukihiro_matz">@yukihiro_matz</a> and other judges! This is an awesome trophy and I&#39;m honored to receive it. <a href="http://t.co/Dz1W8b1qof">pic.twitter.com/Dz1W8b1qof</a></p>&mdash; Justin Collins (@presidentbeef) <a href="https://twitter.com/presidentbeef/statuses/321756142449598464">April 9, 2013</a></blockquote>
 
@@ -758,9 +758,9 @@ b5cefd6f14edb57f12d1fe9fcc0fb24e05a05aaf  brakeman-min-3.0.0.gem
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
-<p>Because Brakeman is so old, it still supports Rails 2.3 (2009!) and Ruby 1.8.7 (2008!) while usually adding support for new releases fairly quickly, making it useful for nearly any Rails application. If it doesn&#8217;t work for you - <a href="https://github.com/presidentbeef/brakeman/issues">please file an issue</a>!</p>
+<p>Because Railroader is so old, it still supports Rails 2.3 (2009!) and Ruby 1.8.7 (2008!) while usually adding support for new releases fairly quickly, making it useful for nearly any Rails application. If it doesn&#8217;t work for you - <a href="https://github.com/presidentbeef/railroader/issues">please file an issue</a>!</p>
 
-<p>Many thanks to the many people who have contributed to Brakeman. All contributions - patches, bug reports, documentation updates, promoting Brakeman, or even just asking questions - are sincerely appreciated. Lots of gratitude to the open source projects underlying Brakeman and their maintainers, especially <a href="https://twitter.com/the_zenspider">Ryan Davis</a>. And a big thank you to the companies who have funded Brakeman&#8217;s development!</p>
+<p>Many thanks to the many people who have contributed to Railroader. All contributions - patches, bug reports, documentation updates, promoting Railroader, or even just asking questions - are sincerely appreciated. Lots of gratitude to the open source projects underlying Railroader and their maintainers, especially <a href="https://twitter.com/the_zenspider">Ryan Davis</a>. And a big thank you to the companies who have funded Railroader&#8217;s development!</p>
 
 <ul>
 <li>4 years</li>
@@ -774,7 +774,7 @@ b5cefd6f14edb57f12d1fe9fcc0fb24e05a05aaf  brakeman-min-3.0.0.gem
 
 <p>Here’s to four more years?</p>
 
-<p><em>By the way - stickers have returned! Send your name and address (yes, international is fine) to <a href='mail&#116;o&#58;st%69&#99;&#107;%65&#37;72s&#64;bra&#107;&#101;&#109;&#97;&#37;&#54;&#69;&#46;or&#103;'>stic&#107;ers&#64;brakeman&#46;org</a>.</em></p>
+<p><em>By the way - stickers have returned! Send your name and address (yes, international is fine) to <a href='mail&#116;o&#58;st%69&#99;&#107;%65&#37;72s&#64;bra&#107;&#101;&#109;&#97;&#37;&#54;&#69;&#46;or&#103;'>stic&#107;ers&#64;railroader&#46;org</a>.</em></p>
 </div>
   
   
@@ -788,7 +788,7 @@ b5cefd6f14edb57f12d1fe9fcc0fb24e05a05aaf  brakeman-min-3.0.0.gem
   <header>
     <div class="articlelogo">&nbsp;</div>
     
-    <h1 class="entry-title"><a href="/blog/2014/08/18/brakeman-2-dot-6-2-released/">Brakeman 2.6.2 Released</a></h1>
+    <h1 class="entry-title"><a href="/blog/2014/08/18/brakeman-2-dot-6-2-released/">Railroader 2.6.2 Released</a></h1>
     
     
       <p class="meta">
@@ -813,10 +813,10 @@ b5cefd6f14edb57f12d1fe9fcc0fb24e05a05aaf  brakeman-min-3.0.0.gem
 <li>Add <code>--add-checks-path</code> option for external checks (Clint Gibler)</li>
 <li>Add <code>-4</code> option to force Rails 4 mode</li>
 <li>Fix SQL injection detection in deep nested string building</li>
-<li>Check entire call for <code>send</code> (<a href="https://github.com/presidentbeef/brakeman/issues/523">#523</a>)</li>
-<li>Check for .gitignore of secrets in subdirectories (<a href="https://github.com/presidentbeef/brakeman/issues/519">#519</a>)</li>
-<li>Avoid warning about symbolizing safe parameters (<a href="https://github.com/presidentbeef/brakeman/issues/536">#536</a>)</li>
-<li>Fix block statment endings in Erubis (<a href="https://github.com/presidentbeef/brakeman/issues/518">#518</a>)</li>
+<li>Check entire call for <code>send</code> (<a href="https://github.com/presidentbeef/railroader/issues/523">#523</a>)</li>
+<li>Check for .gitignore of secrets in subdirectories (<a href="https://github.com/presidentbeef/railroader/issues/519">#519</a>)</li>
+<li>Avoid warning about symbolizing safe parameters (<a href="https://github.com/presidentbeef/railroader/issues/536">#536</a>)</li>
+<li>Fix block statment endings in Erubis (<a href="https://github.com/presidentbeef/railroader/issues/518">#518</a>)</li>
 <li>Update ruby2ruby dependency to 2.1.1</li>
 <li>Expand app path in one place instead of all over (Jeff Rafter)</li>
 <li>Fix undefined variable in controller processing error (Jason Barnabe)</li>
@@ -825,85 +825,85 @@ b5cefd6f14edb57f12d1fe9fcc0fb24e05a05aaf  brakeman-min-3.0.0.gem
 
 <h3>Mass Assignment Bypass (CVE-2014-3514)</h3>
 
-<p><a href="https://groups.google.com/d/msg/rubyonrails-security/M4chq5Sb540/CC1Fh0Y_NWwJ">CVE-2014-3514</a> describes an issue where  <code>create_with</code> does not implement strong parameters, allowing mass assignment in Rails 4.x. For vulnerable versions, Brakeman warns about instances of <code>create_with</code> or a generic warning if no uses are found.</p>
+<p><a href="https://groups.google.com/d/msg/rubyonrails-security/M4chq5Sb540/CC1Fh0Y_NWwJ">CVE-2014-3514</a> describes an issue where  <code>create_with</code> does not implement strong parameters, allowing mass assignment in Rails 4.x. For vulnerable versions, Railroader warns about instances of <code>create_with</code> or a generic warning if no uses are found.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/540">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/540">changes</a>)</p>
 
 <h3>External Check Option</h3>
 
-<p><a href="https://github.com/clintgibler">Clint Gibler</a> has added the <code>--add-checks-path</code> option to provide an path to search for additional checks. This is useful if you wish to write your own custom rules for Brakeman to run.</p>
+<p><a href="https://github.com/clintgibler">Clint Gibler</a> has added the <code>--add-checks-path</code> option to provide an path to search for additional checks. This is useful if you wish to write your own custom rules for Railroader to run.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/532">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/532">changes</a>)</p>
 
 <h3>Option to Force Rails 4</h3>
 
-<p>If the Rails version for an application cannot be determined automatically for some reason, the <code>-4</code> option will force Brakeman to treat it like a Rails 4 application.</p>
+<p>If the Rails version for an application cannot be determined automatically for some reason, the <code>-4</code> option will force Railroader to treat it like a Rails 4 application.</p>
 
 <p>Included with this change are some fixes when a Rails 4 app is detected but the exact version number cannot be determined. This may change the output for some scans.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/527">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/527">changes</a>)</p>
 
 <h3>SQL Injection in Nested Strings</h3>
 
-<p>This release fixes some SQL injection detection when there is lots of string building mixing concatenation and interpolation. These changes may also affect which value Brakeman warns about within the string.</p>
+<p>This release fixes some SQL injection detection when there is lots of string building mixing concatenation and interpolation. These changes may also affect which value Railroader warns about within the string.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/528">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/528">changes</a>)</p>
 
 <h3>Better Send Call Detection</h3>
 
-<p>Previously, Brakeman was ignored calls to <code>send</code> when they were nested inside a chain of calls. This has been fixed.</p>
+<p>Previously, Railroader was ignored calls to <code>send</code> when they were nested inside a chain of calls. This has been fixed.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/524">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/524">changes</a>)</p>
 
 <h3>Ignored Secrets</h3>
 
-<p>Brakeman now checks subdirectories for <code>.gitignore</code> files which determing if the secrets configuration is being ignored.</p>
+<p>Railroader now checks subdirectories for <code>.gitignore</code> files which determing if the secrets configuration is being ignored.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/521">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/521">changes</a>)</p>
 
 <h3>Symbolizing Safe Paramaters</h3>
 
-<p>Since <code>params[:controller]</code> and <code>params[:action]</code> are quite difficult (possibly impossible) to DoS, Brakeman will not warn about symbolizing them.</p>
+<p>Since <code>params[:controller]</code> and <code>params[:action]</code> are quite difficult (possibly impossible) to DoS, Railroader will not warn about symbolizing them.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/538">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/538">changes</a>)</p>
 
 <h3>Erubis Fixes</h3>
 
-<p>Some ERB templates were not parsing correctly due to how Brakeman was handling the end of blocks. This should be resolved now.</p>
+<p>Some ERB templates were not parsing correctly due to how Railroader was handling the end of blocks. This should be resolved now.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/520">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/520">changes</a>)</p>
 
 <h3>Ruby2Ruby Dependency Updated</h3>
 
-<p>Brakeman now depends on the latest version of Ruby2Ruby due to the <a href="https://github.com/seattlerb/ruby2ruby/commit/a1576d12cb1e5e379875548abfd441c6e3095f4a">fix here</a>.</p>
+<p>Railroader now depends on the latest version of Ruby2Ruby due to the <a href="https://github.com/seattlerb/ruby2ruby/commit/a1576d12cb1e5e379875548abfd441c6e3095f4a">fix here</a>.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/537">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/537">changes</a>)</p>
 
 <h3>Expand App Path Once</h3>
 
 <p><a href="">Jeff Rafter</a> refactored a bunch of code which was converting the application path to an absolute path and instead moved it to one (okay, maybe two) spots. This should not affect any reports.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/534">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/534">changes</a>)</p>
 
 <h3>Error in Controller Processing</h3>
 
 <p><a href="https://github.com/JasonBarnabe">Jason Barnabe</a> fixed an error&#8230;in the error handling when processing controllers.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/517">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/517">changes</a>)</p>
 
 <h3>SHAs</h3>
 
 <p>The SHA1 sums for this release are</p>
 
-<pre><code>f225541559d2fbe5374d481b6105b66053f9710a  brakeman-2.6.2.gem
-67882d467b6a8fc6e504b6dcb9605f79a0c6a22c  brakeman-min-2.6.2.gem
+<pre><code>f225541559d2fbe5374d481b6105b66053f9710a  railroader-2.6.2.gem
+67882d467b6a8fc6e504b6dcb9605f79a0c6a22c  railroader-min-2.6.2.gem
 </code></pre>
 
 <h3>Reporting Issues</h3>
 
-<p>Please report any <a href="https://github.com/presidentbeef/brakeman/issues">issues</a> with this release! Take a look at <a href="https://github.com/presidentbeef/brakeman/wiki/How-to-Report-a-Brakeman-Issue">this guide</a> to reporting Brakeman problems.</p>
+<p>Please report any <a href="https://github.com/presidentbeef/railroader/issues">issues</a> with this release! Take a look at <a href="https://github.com/presidentbeef/railroader/wiki/How-to-Report-a-Railroader-Issue">this guide</a> to reporting Railroader problems.</p>
 
-<p>Also consider following <a href="https://twitter.com/brakeman">@brakeman</a> on Twitter and joining the <a href="http://brakemanscanner.org/contact/">mailing list</a>.</p>
+<p>Also consider following <a href="https://twitter.com/railroader">@railroader</a> on Twitter and joining the <a href="http://railroaderscanner.org/contact/">mailing list</a>.</p>
 </div>
   
   
@@ -917,7 +917,7 @@ b5cefd6f14edb57f12d1fe9fcc0fb24e05a05aaf  brakeman-min-3.0.0.gem
   <header>
     <div class="articlelogo">&nbsp;</div>
     
-    <h1 class="entry-title"><a href="/blog/2014/07/02/brakeman-2-dot-6-1-released/">Brakeman 2.6.1 Released</a></h1>
+    <h1 class="entry-title"><a href="/blog/2014/07/02/brakeman-2-dot-6-1-released/">Railroader 2.6.1 Released</a></h1>
     
     
       <p class="meta">
@@ -939,42 +939,42 @@ b5cefd6f14edb57f12d1fe9fcc0fb24e05a05aaf  brakeman-min-3.0.0.gem
 
 <ul>
 <li>Add check for CVE-2014-3482 and CVE-2014-3483</li>
-<li>Add support for keyword arguments in blocks (<a href="https://github.com/presidentbeef/brakeman/issues/511">#511</a>)</li>
+<li>Add support for keyword arguments in blocks (<a href="https://github.com/presidentbeef/railroader/issues/511">#511</a>)</li>
 <li>Remove unused warning codes (<a href="https://github.com/bfish510">Bill Fischer</a>)</li>
 </ul>
 
 
 <h3>Check for PostgresSQL Injection CVEs</h3>
 
-<p><a href="https://groups.google.com/forum/#!msg/rubyonrails-security/wDxePLJGZdI/WP7EasCJTA4J">CVE-2014-3482 and CVE-2014-3483</a> are SQL injection issues when using the PostgresSQL backend with bitstring and range data types. Brakeman will warn about affected versions of Rails which include the &#8220;pg&#8221; gem in the Gemfile.</p>
+<p><a href="https://groups.google.com/forum/#!msg/rubyonrails-security/wDxePLJGZdI/WP7EasCJTA4J">CVE-2014-3482 and CVE-2014-3483</a> are SQL injection issues when using the PostgresSQL backend with bitstring and range data types. Railroader will warn about affected versions of Rails which include the &#8220;pg&#8221; gem in the Gemfile.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/515">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/515">changes</a>)</p>
 
 <h3>Support Keyword Arguments to Blocks</h3>
 
-<p>Brakeman now handles keyword arguments to blocks as local variables in the block scope instead of throwing an error.</p>
+<p>Railroader now handles keyword arguments to blocks as local variables in the block scope instead of throwing an error.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/513">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/513">changes</a>)</p>
 
 <h3>Removal of Warning Codes</h3>
 
 <p>Warnings codes for <code>CVE_2013_6415</code> and <code>CVE_2013_6415_call</code> have been removed, as they are unused. This should not affect anyone.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/514">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/514">changes</a>)</p>
 
 <h3>SHAs</h3>
 
 <p>The SHA1 sums for this release are</p>
 
-<pre><code>5b7b5572efe769cfa38178e94952be05670e6fd4  brakeman-2.6.1.gem
-fecdb07a5e1a83af02843fbd554472f980e04f91  brakeman-min-2.6.1.gem
+<pre><code>5b7b5572efe769cfa38178e94952be05670e6fd4  railroader-2.6.1.gem
+fecdb07a5e1a83af02843fbd554472f980e04f91  railroader-min-2.6.1.gem
 </code></pre>
 
 <h3>Reporting Issues</h3>
 
-<p>Please report any <a href="https://github.com/presidentbeef/brakeman/issues">issues</a> with this release! Take a look at <a href="https://github.com/presidentbeef/brakeman/wiki/How-to-Report-a-Brakeman-Issue">this guide</a> to reporting Brakeman problems.</p>
+<p>Please report any <a href="https://github.com/presidentbeef/railroader/issues">issues</a> with this release! Take a look at <a href="https://github.com/presidentbeef/railroader/wiki/How-to-Report-a-Railroader-Issue">this guide</a> to reporting Railroader problems.</p>
 
-<p>Also consider following <a href="https://twitter.com/brakeman">@brakeman</a> on Twitter and joining the <a href="http://brakemanscanner.org/contact/">mailing list</a>.</p>
+<p>Also consider following <a href="https://twitter.com/railroader">@railroader</a> on Twitter and joining the <a href="http://railroaderscanner.org/contact/">mailing list</a>.</p>
 </div>
   
   
@@ -988,7 +988,7 @@ fecdb07a5e1a83af02843fbd554472f980e04f91  brakeman-min-2.6.1.gem
   <header>
     <div class="articlelogo">&nbsp;</div>
     
-    <h1 class="entry-title"><a href="/blog/2014/06/06/brakeman-2-dot-6-0-released/">Brakeman 2.6.0 Released</a></h1>
+    <h1 class="entry-title"><a href="/blog/2014/06/06/brakeman-2-dot-6-0-released/">Railroader 2.6.0 Released</a></h1>
     
     
       <p class="meta">
@@ -1016,8 +1016,8 @@ fecdb07a5e1a83af02843fbd554472f980e04f91  brakeman-min-2.6.1.gem
 <li>Add <code>find_by</code>/<code>find_by!</code> to SQLi check for Rails 4</li>
 <li>Do not branch values for <code>+=</code></li>
 <li>Parse most files upfront instead of on demand</li>
-<li>Fix CheckRender with nested render calls (<a href="https://github.com/presidentbeef/brakeman/issues/484">#484</a>)</li>
-<li>Fix detection of <code>:host</code> setting in redirects (<a href="https://github.com/presidentbeef/brakeman/issues/506">#506</a>)</li>
+<li>Fix CheckRender with nested render calls (<a href="https://github.com/presidentbeef/railroader/issues/484">#484</a>)</li>
+<li>Fix detection of <code>:host</code> setting in redirects (<a href="https://github.com/presidentbeef/railroader/issues/506">#506</a>)</li>
 <li>Ignore more model methods in redirects</li>
 <li>Update to use RubyParser 3.5.0 (<a href="https://github.com/ptoomey3">Patrick Toomey</a>)</li>
 </ul>
@@ -1027,83 +1027,83 @@ fecdb07a5e1a83af02843fbd554472f980e04f91  brakeman-min-2.6.1.gem
 
 <p>In addition to Jeff Jarmoc&#8217;s <a href="http://matasano.com/research/AnatomyOfRailsVuln-CVE-2014-0130.pdf">awesome research</a> on CVE-2014-0130, he contributed much-needed improvements to detecting use of <code>:action</code> and <code>*action</code> in routes for Rails 3/4. This may result in more default routes warnings.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/493">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/493">changes</a>)</p>
 
 <h3>Multiple Files for Controllers and Models</h3>
 
-<p>(<a href="https://github.com/ptoomey3">Patrick Toomey</a>) contributed improvements which allow Brakeman to process controllers and models which may be defined in multiple files. The changes also improve how Brakeman handles controllers and models inside modules. This may alter some warnings and how some files are processed. Also, controllers and models may be associated with multiple files instead of just one.</p>
+<p>(<a href="https://github.com/ptoomey3">Patrick Toomey</a>) contributed improvements which allow Railroader to process controllers and models which may be defined in multiple files. The changes also improve how Railroader handles controllers and models inside modules. This may alter some warnings and how some files are processed. Also, controllers and models may be associated with multiple files instead of just one.</p>
 
-<p>(changes <a href="https://github.com/presidentbeef/brakeman/pull/492">here</a> and <a href="https://github.com/presidentbeef/brakeman/pull/482">here</a>)</p>
+<p>(changes <a href="https://github.com/presidentbeef/railroader/pull/492">here</a> and <a href="https://github.com/presidentbeef/railroader/pull/482">here</a>)</p>
 
 <h3>Protected Attributes Gem</h3>
 
-<p>Thanks to (<a href="https://github.com/phene">Geoffrey Hichborn</a>), Brakeman will now treat Rails 4 apps which use the <a href="https://github.com/rails/protected_attributes">protected_attributes gem</a> like a Rails 3 app in regards to mass assignment.</p>
+<p>Thanks to (<a href="https://github.com/phene">Geoffrey Hichborn</a>), Railroader will now treat Rails 4 apps which use the <a href="https://github.com/rails/protected_attributes">protected_attributes gem</a> like a Rails 3 app in regards to mass assignment.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/491">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/491">changes</a>)</p>
 
 <h3>Check for CVE-2014-0130</h3>
 
-<p>Besides warning about more types of default routes in this release, Brakeman will also warn about <a href="https://groups.google.com/d/msg/rubyonrails-security/NkKc7vTW70o/NxW_PDBSG3AJ">CVE-2014-0130</a> explicitly. If the application uses default routes, the warning will be high confidence, otherwise medium. Note Brakeman will categorize this issue as &#8220;Remote Code Execution&#8221;, since <a href="(http://matasano.com/research/AnatomyOfRailsVuln-CVE-2014-0130.pdf">Jeff Jarmoc demonstrated</a> rendering arbitrary files can lead to interpreting those files as ERB.</p>
+<p>Besides warning about more types of default routes in this release, Railroader will also warn about <a href="https://groups.google.com/d/msg/rubyonrails-security/NkKc7vTW70o/NxW_PDBSG3AJ">CVE-2014-0130</a> explicitly. If the application uses default routes, the warning will be high confidence, otherwise medium. Note Railroader will categorize this issue as &#8220;Remote Code Execution&#8221;, since <a href="(http://matasano.com/research/AnatomyOfRailsVuln-CVE-2014-0130.pdf">Jeff Jarmoc demonstrated</a> rendering arbitrary files can lead to interpreting those files as ERB.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/502">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/502">changes</a>)</p>
 
 <h3>SQL Injection in Find By</h3>
 
 <p>Rails 4 added the <code>find_by</code>/<code>find_by!</code> methods which just call <code>where(*args).take</code> and are therefore vulnerable to the same issues as <code>where</code>. This release will check these methods for SQL injection now.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/504">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/504">changes</a>)</p>
 
 <h3>No Branching for +=</h3>
 
-<p>Code which used <code>+=</code> heavily in combination with many branches lead to very poor performance. The resulting information from the branches was rarely useful. However, since <code>+=</code> is buidling up a value (as opposed to replacing it), simply ignoring branches does not lose any of the values involved. Thus, the same vulnerabilities should be able to be detected even when losing flow sensitivity for <code>+=</code> assignments. For details, <a href="https://github.com/presidentbeef/brakeman/pull/499">see the changes</a>.</p>
+<p>Code which used <code>+=</code> heavily in combination with many branches lead to very poor performance. The resulting information from the branches was rarely useful. However, since <code>+=</code> is buidling up a value (as opposed to replacing it), simply ignoring branches does not lose any of the values involved. Thus, the same vulnerabilities should be able to be detected even when losing flow sensitivity for <code>+=</code> assignments. For details, <a href="https://github.com/presidentbeef/railroader/pull/499">see the changes</a>.</p>
 
 <p>This change has improved processing on some files from over 30 minutes to under 1 second. If some files were processing slowly or had to be ignored previously, consider trying again with this release.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/499">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/499">changes</a>)</p>
 
 <h3>Parsing Files Upfront</h3>
 
 <p>This release changes when files are parsed. Previously, files were read and parsed as they were processed. Now most files are read and parsed near the beginning of the scan instead. This has allowed for some internal cleanup and easier future changes. However, some bugs were fixed regarding sorting files which may cause warnings to change.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/501/">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/501/">changes</a>)</p>
 
 <h3>Nested Renders</h3>
 
 <p><code>CheckRender</code> had a bug when processing a <code>render</code> call which contained another call to <code>render</code>. This has been fixed.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/485">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/485">changes</a>)</p>
 
 <h3>Redirects with Chained Calls</h3>
 
-<p>The last release added support for checking if a <code>redirect_to</code> argument was setting the <code>:host</code> option. However, it did not work with chained calls like the <a href="https://github.com/presidentbeef/brakeman/issues/506">one reported here</a>. Now it should.</p>
+<p>The last release added support for checking if a <code>redirect_to</code> argument was setting the <code>:host</code> option. However, it did not work with chained calls like the <a href="https://github.com/presidentbeef/railroader/issues/506">one reported here</a>. Now it should.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/507">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/507">changes</a>)</p>
 
 <h3>Redirects to Models</h3>
 
 <p>More Rails 4 methods have been added and support for chained methods has been improved to prevent false positives when redirecting to a model instance.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/489">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/489">changes</a>)</p>
 
 <h3>RubyParser Upgrade</h3>
 
 <p>The RubyParser dependency has been upgraded to 3.5.0 for Ruby 2.1 support. There are some issues with newlines and line number accuracy in newer versions (it is better for some code and worse for others) which has prevented further upgrades at the moment.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/497">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/497">changes</a>)</p>
 
 <h3>SHAs</h3>
 
 <p>The SHA1 sums for this release are</p>
 
-<pre><code>0aae141108d92040f3553557a31ad117ac1c2ea6  brakeman-2.6.0.gem
-70c2353f31d4d04ba8d95c871062db31d5c6e981  brakeman-min-2.6.0.gem
+<pre><code>0aae141108d92040f3553557a31ad117ac1c2ea6  railroader-2.6.0.gem
+70c2353f31d4d04ba8d95c871062db31d5c6e981  railroader-min-2.6.0.gem
 </code></pre>
 
 <h3>Reporting Issues</h3>
 
-<p>Please report any <a href="https://github.com/presidentbeef/brakeman/issues">issues</a> with this release! Take a look at <a href="https://github.com/presidentbeef/brakeman/wiki/How-to-Report-a-Brakeman-Issue">this guide</a> to reporting Brakeman problems.</p>
+<p>Please report any <a href="https://github.com/presidentbeef/railroader/issues">issues</a> with this release! Take a look at <a href="https://github.com/presidentbeef/railroader/wiki/How-to-Report-a-Railroader-Issue">this guide</a> to reporting Railroader problems.</p>
 
-<p>Also consider following <a href="https://twitter.com/brakeman">@brakeman</a> on Twitter and joining the <a href="http://brakemanscanner.org/contact/">mailing list</a>.</p>
+<p>Also consider following <a href="https://twitter.com/railroader">@railroader</a> on Twitter and joining the <a href="http://railroaderscanner.org/contact/">mailing list</a>.</p>
 </div>
   
   
@@ -1117,7 +1117,7 @@ fecdb07a5e1a83af02843fbd554472f980e04f91  brakeman-min-2.6.1.gem
   <header>
     <div class="articlelogo">&nbsp;</div>
     
-    <h1 class="entry-title"><a href="/blog/2014/04/30/brakeman-2-dot-5-0-released/">Brakeman 2.5.0 Released</a></h1>
+    <h1 class="entry-title"><a href="/blog/2014/04/30/brakeman-2-dot-5-0-released/">Railroader 2.5.0 Released</a></h1>
     
     
       <p class="meta">
@@ -1144,20 +1144,20 @@ fecdb07a5e1a83af02843fbd554472f980e04f91  brakeman-min-2.6.1.gem
 <li>Add <code>String#intern</code> and <code>Hash#symbolize_keys</code> DoS check (<a href="https://github.com/jrusnack">Jan Rusnacko</a>)</li>
 <li>Add support for Rails 4 <code>before_actions</code> and friends</li>
 <li>Add support for RailsLTS 2.3.18.7 and 2.3.18.8</li>
-<li>Check for <code>protected_attributes</code> gem (<a href="https://github.com/presidentbeef/brakeman/issues/475">#475</a>)</li>
-<li>Fix SQLi detection in chain calls in scopes (<a href="https://github.com/presidentbeef/brakeman/issues/471">#471</a>)</li>
-<li>Fix false positive when <code>:host</code> is specified in redirect (<a href="https://github.com/presidentbeef/brakeman/issues/464">#464</a>)</li>
+<li>Check for <code>protected_attributes</code> gem (<a href="https://github.com/presidentbeef/railroader/issues/475">#475</a>)</li>
+<li>Fix SQLi detection in chain calls in scopes (<a href="https://github.com/presidentbeef/railroader/issues/471">#471</a>)</li>
+<li>Fix false positive when <code>:host</code> is specified in redirect (<a href="https://github.com/presidentbeef/railroader/issues/464">#464</a>)</li>
 <li>Check all arguments in <code>Model.select</code> for SQLi</li>
 <li>Move SQLi CVE checks to <code>CheckSQLCVEs</code></li>
-<li>Handle more non-literals in routes (<a href="https://github.com/presidentbeef/brakeman/issues/461">#461</a>)</li>
+<li>Handle more non-literals in routes (<a href="https://github.com/presidentbeef/railroader/issues/461">#461</a>)</li>
 </ul>
 
 
 <h3>Markdown Output Format</h3>
 
-<p><a href="https://github.com/gregose">Greg Ose</a> added the option to output to GitHub-flavored markdown (<code>-f markdown</code> or <code>-o report.md</code>). Additionally, the <code>--github-repo</code> option can be used to link the files in the report to a specific GitHub repository. <a href="https://github.com/presidentbeef/brakeman/pull/463">See here for details</a>.</p>
+<p><a href="https://github.com/gregose">Greg Ose</a> added the option to output to GitHub-flavored markdown (<code>-f markdown</code> or <code>-o report.md</code>). Additionally, the <code>--github-repo</code> option can be used to link the files in the report to a specific GitHub repository. <a href="https://github.com/presidentbeef/railroader/pull/463">See here for details</a>.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/463">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/463">changes</a>)</p>
 
 <h3>Regex Denial of Service</h3>
 
@@ -1168,81 +1168,81 @@ fecdb07a5e1a83af02843fbd554472f980e04f91  brakeman-min-2.6.1.gem
 <pre><code>/#{params[:name]}/
 </code></pre>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/454">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/454">changes</a>)</p>
 
 <h3>Avoid Warning on Sanitized SQL</h3>
 
-<p>Brakeman should no longer warn about SQL values wrapped in <code>sanitize</code>.</p>
+<p>Railroader should no longer warn about SQL values wrapped in <code>sanitize</code>.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/commit/cd9093d890b7a16f117d11a0ae6af281ecbb648d">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/commit/cd9093d890b7a16f117d11a0ae6af281ecbb648d">changes</a>)</p>
 
 <h3>More Symbol Denial of Service Methods</h3>
 
 <p><code>String#intern</code> and <code>Hash#symbolize_key</code> were added to the symbol denial of service check by <a href="https://github.com/jrusnack">Jan Rusnacko</a>.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/470">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/470">changes</a>)</p>
 
 <h3>Rails 4 Before Actions</h3>
 
-<p>Rails 4 added a bunch of aliases for <code>before_filter</code> and related methods, and Brakeman now recognizes these methods for adding and skipping filters.</p>
+<p>Rails 4 added a bunch of aliases for <code>before_filter</code> and related methods, and Railroader now recognizes these methods for adding and skipping filters.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/480">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/480">changes</a>)</p>
 
 <h3>Latest RailsLTS Version</h3>
 
 <p>This release adds support for the latest RailsLTS 2.3.18.x versions and will not warn on <a href="https://groups.google.com/d/msg/rubyonrails-security/CdoMUVpsRmQ/iFRwR1xPym8J">CVE-2012-1099</a> and <a href="https://groups.google.com/d/msg/rubyonrails-security/tfp6gZCtzr4/j8LUHmu7fIEJ">CVE-2014-0081</a> for applications using the appropriate RailsLTS versions.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/481">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/481">changes</a>)</p>
 
 <h3>Protected Attributes Gem</h3>
 
-<p>Brakeman now treats applications using the <code>protected_attributes</code> gem as if mass assignment is enabled by default and <code>attr_accessible</code> is necessary to protect models.</p>
+<p>Railroader now treats applications using the <code>protected_attributes</code> gem as if mass assignment is enabled by default and <code>attr_accessible</code> is necessary to protect models.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/477">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/477">changes</a>)</p>
 
 <h3>SQL Injection in Scopes</h3>
 
-<p>There was a bug which caused Brakeman not warn about SQL injection in chained calls inside scope blocks (<a href="https://github.com/presidentbeef/brakeman/issues/471">example here</a>). Additionally, scope calls were not being handled for Rails 4.</p>
+<p>There was a bug which caused Railroader not warn about SQL injection in chained calls inside scope blocks (<a href="https://github.com/presidentbeef/railroader/issues/471">example here</a>). Additionally, scope calls were not being handled for Rails 4.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/472">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/472">changes</a>)</p>
 
 <h3>Hosts in Redirects</h3>
 
-<p>Brakeman should no longer warn about instances of <code>redirect_to</code> when <code>:host</code> is explicitly specified.</p>
+<p>Railroader should no longer warn about instances of <code>redirect_to</code> when <code>:host</code> is explicitly specified.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/465">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/465">changes</a>)</p>
 
 <h3>SQL Injection in All Select Arguments</h3>
 
-<p>Brakeman was only checking the first argument to <code>Model.select</code> for SQL injection, but the method can take multiple arguments. This release corrects this to check all of the arguments.</p>
+<p>Railroader was only checking the first argument to <code>Model.select</code> for SQL injection, but the method can take multiple arguments. This release corrects this to check all of the arguments.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/468">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/468">changes</a>)</p>
 
 <h3>SQL Injection CVEs Moved to Separate Check</h3>
 
 <p>All the checks for SQL injection CVEs have been moved from <code>CheckSQL</code> to <code>CheckSQLCVEs</code>. This should only have an effect for users explicitly specifying to run or skip <code>CheckSQL</code>.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/478">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/478">changes</a>)</p>
 
 <h3>More Routing Fixes</h3>
 
 <p>More instances of non-literals in routes will be ignored instead of raising exceptions. In general, information from <code>routes.rb</code> is not used except to warn about default routes (unless <code>--no-assume-routes</code> is used).</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/462">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/462">changes</a>)</p>
 
 <h3>SHAs</h3>
 
 <p>The SHA1 sums for this release are</p>
 
-<pre><code>fc8a7991e9351f8d5e26a59acf54422a638f4866  brakeman-2.5.0.gem
-48f974aaf40957a325ee778d3d700fd29aa526bf  brakeman-min-2.5.0.gem
+<pre><code>fc8a7991e9351f8d5e26a59acf54422a638f4866  railroader-2.5.0.gem
+48f974aaf40957a325ee778d3d700fd29aa526bf  railroader-min-2.5.0.gem
 </code></pre>
 
 <h3>Reporting Issues</h3>
 
-<p>Please report any <a href="https://github.com/presidentbeef/brakeman/issues">issues</a> with this release! Take a look at <a href="https://github.com/presidentbeef/brakeman/wiki/How-to-Report-a-Brakeman-Issue">this guide</a> to reporting Brakeman problems.</p>
+<p>Please report any <a href="https://github.com/presidentbeef/railroader/issues">issues</a> with this release! Take a look at <a href="https://github.com/presidentbeef/railroader/wiki/How-to-Report-a-Railroader-Issue">this guide</a> to reporting Railroader problems.</p>
 
-<p>Also consider following <a href="https://twitter.com/brakeman">@brakeman</a> on Twitter and joining the <a href="http://brakemanscanner.org/contact/">mailing list</a>.</p>
+<p>Also consider following <a href="https://twitter.com/railroader">@railroader</a> on Twitter and joining the <a href="http://railroaderscanner.org/contact/">mailing list</a>.</p>
 </div>
   
   
@@ -1277,9 +1277,9 @@ fecdb07a5e1a83af02843fbd554472f980e04f91  brakeman-min-2.6.1.gem
   
     <section>
   <p></p>
-  <p>Brakeman is an open source vulnerability scanner specifically designed for Ruby on Rails applications. It statically analyzes Rails application code to find security issues at any stage of development.</p>
-  <p><a href="https://brakemanpro.com"><img src="/images/brakemanpro.png"></a></p>
-  <p><a href="https://brakemanpro.com">Brakeman Pro</a> is the commercial version of Brakeman which offers a GUI, test integration, deeper analysis, and more.</p>
+  <p>Railroader is an open source vulnerability scanner specifically designed for Ruby on Rails applications. It statically analyzes Rails application code to find security issues at any stage of development.</p>
+  <p><a href="https://railroaderpro.com"><img src="/images/railroaderpro.png"></a></p>
+  <p><a href="https://railroaderpro.com">Railroader Pro</a> is the commercial version of Railroader which offers a GUI, test integration, deeper analysis, and more.</p>
 </section>
 <section>
 <script type='text/javascript'>
@@ -1287,7 +1287,7 @@ fecdb07a5e1a83af02843fbd554472f980e04f91  brakeman-min-2.6.1.gem
         $("#github").GitHubBadge({
           login: "presidentbeef",
           kind: "project",
-          repo_name: "brakeman",
+          repo_name: "railroader",
           include_github_logo: false,
           image_path: "",
           commit_count: "1",
@@ -1297,30 +1297,30 @@ fecdb07a5e1a83af02843fbd554472f980e04f91  brakeman-min-2.6.1.gem
     });
 </script>
 <div id="github"></div>
-<a href="https://travis-ci.org/#!/presidentbeef/brakeman"><img src="https://secure.travis-ci.org/presidentbeef/brakeman.png" /></a>
+<a href="https://travis-ci.org/#!/presidentbeef/railroader"><img src="https://secure.travis-ci.org/presidentbeef/railroader.png" /></a>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2018/06/06/brakeman-4-dot-3-1-released/">Brakeman 4.3.1 Released</a>
+        <a href="/blog/2018/06/06/brakeman-4-dot-3-1-released/">Railroader 4.3.1 Released</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2018/05/10/brakeman-4-dot-3-0-released/">Brakeman 4.3.0 Released</a>
+        <a href="/blog/2018/05/10/brakeman-4-dot-3-0-released/">Railroader 4.3.0 Released</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2018/03/23/brakeman-4-dot-2-1-released/">Brakeman 4.2.1 Released</a>
+        <a href="/blog/2018/03/23/brakeman-4-dot-2-1-released/">Railroader 4.2.1 Released</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2018/02/21/brakeman-4-dot-2-0-released/">Brakeman 4.2.0 Released</a>
+        <a href="/blog/2018/02/21/brakeman-4-dot-2-0-released/">Railroader 4.2.0 Released</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2017/12/18/brakeman-4-dot-1-1-released/">Brakeman 4.1.1 Released</a>
+        <a href="/blog/2017/12/18/brakeman-4-dot-1-1-released/">Railroader 4.1.1 Released</a>
       </li>
     
   </ul>
@@ -1328,7 +1328,7 @@ fecdb07a5e1a83af02843fbd554472f980e04f91  brakeman-min-2.6.1.gem
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <a class="twitter-timeline" data-dnt=true href="https://twitter.com/brakeman" data-widget-id="258654953097273345">Tweets by @brakeman</a>
+    <a class="twitter-timeline" data-dnt=true href="https://twitter.com/railroader" data-widget-id="258654953097273345">Tweets by @railroader</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
   </ul>
 </section>

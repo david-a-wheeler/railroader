@@ -5,16 +5,16 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Railroader - Rails Security Scanner: Brakeman 4.0 Released!</title>
+  <title>Railroader - Rails Security Scanner: Railroader 4.0 Released!</title>
   <meta name="author" content="David A. Wheeler (with previous work by Justin Collins)">
-  <meta name="description" content="Brakeman is a static analysis security vulnerability scanner for Ruby on Rails applications."/>
+  <meta name="description" content="Railroader is a static analysis security vulnerability scanner for Ruby on Rails applications."/>
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta name="keywords" content="brakeman,ruby on rails,security,scanner,vulnerabilities,static analysis"/>
+  <meta name="keywords" content="railroader,ruby on rails,security,scanner,vulnerabilities,static analysis"/>
 
   <link rel="canonical" href="https://railroader.org/blog/2017/09/25/brakeman-4-dot-0-released/"/>
   <link href="/favicon.png" rel="shortcut icon" />
@@ -59,11 +59,11 @@
 <ul role=main-navigation>
   <li><a href="/">Home</a></li>
   <li><a href="/docs">Documentation</a></li>
-  <li><a href="https://github.com/presidentbeef/brakeman">Source</a></li>
+  <li><a href="https://github.com/presidentbeef/railroader">Source</a></li>
   <li><a href="/docs/contributing">Contributing</a></li>
-  <li><a href="/brakeman_users">Users</a></li>
+  <li><a href="/railroader_users">Users</a></li>
   <li><a href="/contact">Contact</a></li>
-  <li><a href="/brakeman_pro">Support</a></li>
+  <li><a href="/railroader_pro">Support</a></li>
 </ul>
 
 </nav>
@@ -75,7 +75,7 @@
   <header>
     <div class="articlelogo">&nbsp;</div>
     
-      <h1 class="entry-title">Brakeman 4.0 Released!</h1>
+      <h1 class="entry-title">Railroader 4.0 Released!</h1>
     
     
       <p class="meta">
@@ -93,40 +93,40 @@
 
 <div class="entry-content"><p><strong>This release has breaking changes!</strong></p>
 
-<p>This is the 101st official release of Brakeman! It has been seven years and one month since the first release of Brakeman.
+<p>This is the 101st official release of Railroader! It has been seven years and one month since the first release of Railroader.
 To put that into historical context, Rails 3.0 was released a few days later!</p>
 
 <p>How about some more numbers?</p>
 
 <ul>
-<li><a href="https://rubygems.org/gems/brakeman">7.6 million gem downloads</a></li>
+<li><a href="https://rubygems.org/gems/railroader">7.6 million gem downloads</a></li>
 <li>14,093 lines of Ruby code (excluding tests)</li>
-<li><a href="https://github.com/presidentbeef/brakeman/graphs/contributors">2,937 commits from 74 contributors</a></li>
-<li><a href="https://github.com/presidentbeef/brakeman/issues?q=is%3Aissue+is%3Aclosed">385 issues closed</a></li>
+<li><a href="https://github.com/presidentbeef/railroader/graphs/contributors">2,937 commits from 74 contributors</a></li>
+<li><a href="https://github.com/presidentbeef/railroader/issues?q=is%3Aissue+is%3Aclosed">385 issues closed</a></li>
 </ul>
 
 
-<p>Thank you so much to everyone who has used, contributed to, or promoted Brakeman over the past seven years!</p>
+<p>Thank you so much to everyone who has used, contributed to, or promoted Railroader over the past seven years!</p>
 
-<p>As a token of our appreciation, we have a limited edition 2017 Brakeman sticker:</p>
+<p>As a token of our appreciation, we have a limited edition 2017 Railroader sticker:</p>
 
-<p><img src="/images/brakeman_anniversary_sticker.png" alt="Brakeman Sticker" /></p>
+<p><img src="/images/railroader_anniversary_sticker.png" alt="Railroader Sticker" /></p>
 
-<p>Just email stickers@brakeman.org with your name and address (anywhere in the world) and we&#8217;ll send you one. While supplies last!</p>
+<p>Just email stickers@railroader.org with your name and address (anywhere in the world) and we&#8217;ll send you one. While supplies last!</p>
 
-<p><small>If you have benefited from Brakeman, please consider supporting continued development via <a href="https://brakemanpro.com">Brakeman Pro</a>.</small></p>
+<p><small>If you have benefited from Railroader, please consider supporting continued development via <a href="https://railroaderpro.com">Railroader Pro</a>.</small></p>
 
 <p><em>Changes since 3.7.2</em>:</p>
 
 <ul>
-<li><code>--exit-on-warn</code> is now the default (<a href="https://github.com/presidentbeef/brakeman/issues/852">#852</a>)</li>
-<li><code>--exit-on-error</code> is now the default (<a href="https://github.com/presidentbeef/brakeman/issues/1083">#1083</a>)</li>
+<li><code>--exit-on-warn</code> is now the default (<a href="https://github.com/presidentbeef/railroader/issues/852">#852</a>)</li>
+<li><code>--exit-on-error</code> is now the default (<a href="https://github.com/presidentbeef/railroader/issues/1083">#1083</a>)</li>
 <li>&#8220;Plain&#8221; report output is now the default</li>
 <li>Add simple pager for reports output to terminal</li>
 <li>Remove low confidence mass assignment warnings</li>
 <li>Reduce warnings about XSS in <code>link_to</code></li>
-<li>Treat <code>request.cookies</code> like <code>cookies</code> (<a href="https://github.com/presidentbeef/brakeman/issues/1090">#1090</a>)</li>
-<li>Treat <code>fail</code>/<code>raise</code> like early returns (<a href="https://github.com/presidentbeef/brakeman/issues/754">#754</a>)</li>
+<li>Treat <code>request.cookies</code> like <code>cookies</code> (<a href="https://github.com/presidentbeef/railroader/issues/1090">#1090</a>)</li>
+<li>Treat <code>fail</code>/<code>raise</code> like early returns (<a href="https://github.com/presidentbeef/railroader/issues/754">#754</a>)</li>
 <li>Rename &#8220;Cross Site Scripting&#8221; to &#8220;Cross-Site Scripting&#8221; (<a href="https://github.com/paultetreau">Paul Tetreau</a>)</li>
 <li>Remove reliance on <code>CONFIDENCE</code> constant in checks</li>
 <li>Fix <code>--exit-on-error</code> and <code>--exit-on-warn</code> in config files</li>
@@ -144,11 +144,11 @@ To put that into historical context, Rails 3.0 was released a few days later!</p
 
 <p><code>--exit-on-warn</code> and <code>--exit-on-error</code> are now default behavior.</p>
 
-<p>If any warnings are found or errors are raised during the scan, Brakeman&#8217;s exit code will be non-zero. This may break things! In particular, CI jobs or scripts that assume Brakeman will exit normally.</p>
+<p>If any warnings are found or errors are raised during the scan, Railroader&#8217;s exit code will be non-zero. This may break things! In particular, CI jobs or scripts that assume Railroader will exit normally.</p>
 
 <p>You may use <code>--no-exit-on-warn</code> and <code>--no-exit-on-error</code> to revert back to previous behavior and always exit with error code 0.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/1085">changes</a> and <a href="https://github.com/presidentbeef/brakeman/pull/1086">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/1085">changes</a> and <a href="https://github.com/presidentbeef/railroader/pull/1086">changes</a>)</p>
 
 <h3>New Default Report Format</h3>
 
@@ -156,7 +156,7 @@ To put that into historical context, Rails 3.0 was released a few days later!</p
 
 <p>To revert back to the table format, use <code>-f tables</code> or <code>-o report.tables</code>.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/1084">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/1084">changes</a>)</p>
 
 <h3>Paged Output</h3>
 
@@ -164,72 +164,72 @@ To put that into historical context, Rails 3.0 was released a few days later!</p
 
 <p>To disable, use <code>--no-pager</code>.</p>
 
-<p>In 4.0.1 Brakeman will automatically disable the pager when the <code>CI</code> environment variable is set to <code>true</code>. This should be compatible with Travis CI, Circle CI, Codeship, and Bitbucket Pipelines.</p>
+<p>In 4.0.1 Railroader will automatically disable the pager when the <code>CI</code> environment variable is set to <code>true</code>. This should be compatible with Travis CI, Circle CI, Codeship, and Bitbucket Pipelines.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/1098">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/1098">changes</a>)</p>
 
 <h3>Fewer Mass Assignment Warnings</h3>
 
-<p>Low confidence mass assignment warnings have been removed in this release. Brakeman should now only warn when user input is used directly in the instantiation or update of a model.</p>
+<p>Low confidence mass assignment warnings have been removed in this release. Railroader should now only warn when user input is used directly in the instantiation or update of a model.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/1087">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/1087">changes</a>)</p>
 
 <h3>Fewer <code>link_to</code> Warnings</h3>
 
 <p>Warnings about XSS in <code>link_to</code> have confused quite a few people over the years. The danger is that links may have <code>javascript:</code> or <code>data:</code> values with XSS payloads.</p>
 
-<p>Brakeman should now only warn when directly using user input or when using what looks like a URL from the database.</p>
+<p>Railroader should now only warn when directly using user input or when using what looks like a URL from the database.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/1093">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/1093">changes</a>)</p>
 
 <h3>More Cookies</h3>
 
 <p><code>request.cookies</code> will now be treated like cookies in general.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/1094">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/1094">changes</a>)</p>
 
 <h3>More Early Returns</h3>
 
 <p>Calls to <code>raise</code> or <code>fail</code> will be treated like early returns when considering simple guard expressions.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/1089">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/1089">changes</a>)</p>
 
 <h3>Cross-Site Scripting</h3>
 
 <p>Messages about &#8220;Cross Site Scripting&#8221; will now include a hyphen. This does not affect warning fingerprints.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/936">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/936">changes</a>)</p>
 
 <h3>CONFIDENCE</h3>
 
-<p>Brakeman checks previously used the <code>CONFIDENCE</code> hash when creating warnings, e.g. <code>:confidence =&gt; CONFIDENCE[:high]</code>. Now it&#8217;s possible to use <code>:confidence =&gt; :high</code> instead.</p>
+<p>Railroader checks previously used the <code>CONFIDENCE</code> hash when creating warnings, e.g. <code>:confidence =&gt; CONFIDENCE[:high]</code>. Now it&#8217;s possible to use <code>:confidence =&gt; :high</code> instead.</p>
 
 <p>For those with custom checks, the <code>CONFIDENCE</code> hash is still available and nothing should break.</p>
 
-<p>(<a href="https://github.com/presidentbeef/brakeman/pull/1088">changes</a>)</p>
+<p>(<a href="https://github.com/presidentbeef/railroader/pull/1088">changes</a>)</p>
 
 <h3>Checksums</h3>
 
 <p>The SHA256 sums for these releases are:</p>
 
-<pre><code>0038932b43dcf2bf698ad6637500f69b5e4226b10c011a4a6bcce93a77a5e045  brakeman-4.0.0.gem
-3688303859a7c9b452ddcef00f00f97789ce103774446d42851a763ecbf8df87  brakeman-lib-4.0.0.gem
-559196c6e41e5b180448564d9aca84fb775a39b77dd7d8d880a0ce0e77df8ae2  brakeman-min-4.0.0.gem
+<pre><code>0038932b43dcf2bf698ad6637500f69b5e4226b10c011a4a6bcce93a77a5e045  railroader-4.0.0.gem
+3688303859a7c9b452ddcef00f00f97789ce103774446d42851a763ecbf8df87  railroader-lib-4.0.0.gem
+559196c6e41e5b180448564d9aca84fb775a39b77dd7d8d880a0ce0e77df8ae2  railroader-min-4.0.0.gem
 
-d93d6f8e9c2655520153fe0512b338753cc36fac56b80947f652fd33e9f80dfb  brakeman-4.0.1.gem
-82ab1e51f712ad10109a4fe080f6389b28bbbef83e0ecd6c33defa90319b4bc5  brakeman-lib-4.0.1.gem
-579f240cb8e5357fe5e45c09eb43f3512481f7086052337437e5c436c617da8b  brakeman-min-4.0.1.gem
+d93d6f8e9c2655520153fe0512b338753cc36fac56b80947f652fd33e9f80dfb  railroader-4.0.1.gem
+82ab1e51f712ad10109a4fe080f6389b28bbbef83e0ecd6c33defa90319b4bc5  railroader-lib-4.0.1.gem
+579f240cb8e5357fe5e45c09eb43f3512481f7086052337437e5c436c617da8b  railroader-min-4.0.1.gem
 </code></pre>
 
 <h3>Reporting Issues</h3>
 
 <p>Thank you to everyone who reported bugs and contributed to this release.</p>
 
-<p>Please report any <a href="https://github.com/presidentbeef/brakeman/issues">issues</a> with this release! Take a look at <a href="https://github.com/presidentbeef/brakeman/wiki/How-to-Report-a-Brakeman-Issue">this guide</a> to reporting Brakeman problems.</p>
+<p>Please report any <a href="https://github.com/presidentbeef/railroader/issues">issues</a> with this release! Take a look at <a href="https://github.com/presidentbeef/railroader/wiki/How-to-Report-a-Railroader-Issue">this guide</a> to reporting Railroader problems.</p>
 
-<p>Follow <a href="https://twitter.com/brakeman">@brakeman</a> on Twitter and hang out <a href="https://gitter.im/presidentbeef/brakeman">on Gitter</a> for questions and discussion.</p>
+<p>Follow <a href="https://twitter.com/railroader">@railroader</a> on Twitter and hang out <a href="https://gitter.im/presidentbeef/railroader">on Gitter</a> for questions and discussion.</p>
 
-<p>If you find Brakeman valuable and want to support its development, check out <a href="https://brakemanpro.com/">Brakeman Pro</a>.</p>
+<p>If you find Railroader valuable and want to support its development, check out <a href="https://railroaderpro.com/">Railroader Pro</a>.</p>
 </div>
 
 
@@ -287,9 +287,9 @@ d93d6f8e9c2655520153fe0512b338753cc36fac56b80947f652fd33e9f80dfb  brakeman-4.0.1
   
     <section>
   <p></p>
-  <p>Brakeman is an open source vulnerability scanner specifically designed for Ruby on Rails applications. It statically analyzes Rails application code to find security issues at any stage of development.</p>
-  <p><a href="https://brakemanpro.com"><img src="/images/brakemanpro.png"></a></p>
-  <p><a href="https://brakemanpro.com">Brakeman Pro</a> is the commercial version of Brakeman which offers a GUI, test integration, deeper analysis, and more.</p>
+  <p>Railroader is an open source vulnerability scanner specifically designed for Ruby on Rails applications. It statically analyzes Rails application code to find security issues at any stage of development.</p>
+  <p><a href="https://railroaderpro.com"><img src="/images/railroaderpro.png"></a></p>
+  <p><a href="https://railroaderpro.com">Railroader Pro</a> is the commercial version of Railroader which offers a GUI, test integration, deeper analysis, and more.</p>
 </section>
 <section>
 <script type='text/javascript'>
@@ -297,7 +297,7 @@ d93d6f8e9c2655520153fe0512b338753cc36fac56b80947f652fd33e9f80dfb  brakeman-4.0.1
         $("#github").GitHubBadge({
           login: "presidentbeef",
           kind: "project",
-          repo_name: "brakeman",
+          repo_name: "railroader",
           include_github_logo: false,
           image_path: "",
           commit_count: "1",
@@ -307,30 +307,30 @@ d93d6f8e9c2655520153fe0512b338753cc36fac56b80947f652fd33e9f80dfb  brakeman-4.0.1
     });
 </script>
 <div id="github"></div>
-<a href="https://travis-ci.org/#!/presidentbeef/brakeman"><img src="https://secure.travis-ci.org/presidentbeef/brakeman.png" /></a>
+<a href="https://travis-ci.org/#!/presidentbeef/railroader"><img src="https://secure.travis-ci.org/presidentbeef/railroader.png" /></a>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2018/06/06/brakeman-4-dot-3-1-released/">Brakeman 4.3.1 Released</a>
+        <a href="/blog/2018/06/06/brakeman-4-dot-3-1-released/">Railroader 4.3.1 Released</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2018/05/10/brakeman-4-dot-3-0-released/">Brakeman 4.3.0 Released</a>
+        <a href="/blog/2018/05/10/brakeman-4-dot-3-0-released/">Railroader 4.3.0 Released</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2018/03/23/brakeman-4-dot-2-1-released/">Brakeman 4.2.1 Released</a>
+        <a href="/blog/2018/03/23/brakeman-4-dot-2-1-released/">Railroader 4.2.1 Released</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2018/02/21/brakeman-4-dot-2-0-released/">Brakeman 4.2.0 Released</a>
+        <a href="/blog/2018/02/21/brakeman-4-dot-2-0-released/">Railroader 4.2.0 Released</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2017/12/18/brakeman-4-dot-1-1-released/">Brakeman 4.1.1 Released</a>
+        <a href="/blog/2017/12/18/brakeman-4-dot-1-1-released/">Railroader 4.1.1 Released</a>
       </li>
     
   </ul>
@@ -338,7 +338,7 @@ d93d6f8e9c2655520153fe0512b338753cc36fac56b80947f652fd33e9f80dfb  brakeman-4.0.1
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <a class="twitter-timeline" data-dnt=true href="https://twitter.com/brakeman" data-widget-id="258654953097273345">Tweets by @brakeman</a>
+    <a class="twitter-timeline" data-dnt=true href="https://twitter.com/railroader" data-widget-id="258654953097273345">Tweets by @railroader</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
   </ul>
 </section>
