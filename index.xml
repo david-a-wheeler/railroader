@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Railroader</title>
+    <link>https://railroader.org/</link>
+    <description>Recent content on Railroader</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 07 Feb 2019 12:01:40 -0500</lastBuildDate>
+    
+	<atom:link href="https://railroader.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Welcome to Railroader!</title>
+      <link>https://railroader.org/post/first-post/</link>
+      <pubDate>Thu, 07 Feb 2019 12:01:40 -0500</pubDate>
+      
+      <guid>https://railroader.org/post/first-post/</guid>
+      <description>Welcome to Railroader!
+Railroader is a security static analysis tool for analyzing applications that use Ruby on Rails. It is open source software (OSS) using the MIT license.
+It&amp;rsquo;s easy to install and use.
+Railroader is a fork of the Brakeman tool, which was once OSS but is no longer. If you want Brakeman, go to the Brakeman website instead.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://railroader.org/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/about/</guid>
+      <description>Railroader is security static analysis tool for applications written using Ruby on Rails.
+Railroader will examine your program to look for potential problems, and warn you about them. Railroader can&amp;rsquo;t find every vulnerability, but it&amp;rsquo;s a great tool to help you find problems before they hurt anyone. It is a static analysis tool - that means it does not try to run the application you are analyzing.
+Railroader is open source software (OSS) released under the MIT license.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://railroader.org/install/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/install/</guid>
+      <description>Railroader is easy to use if you have any familiarity with Ruby on Rails.
+In your Ruby on Rails application, just modify its Gemfile to include railroader, like this:
+group :development, :test do gem &#39;railroader&#39; end  Then install it the usual way using bundle:
+bundle install  That&amp;rsquo;s it! You are ready to use Railroader.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://railroader.org/use/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/use/</guid>
+      <description>Once you have installed Railroader, you can then analyze your software any time.
+Using the command line, make sure your current directory is at the top of your application. Then just run railroader, like this:
+railroader  It will analyze the software and report any warnings.
+Since it&amp;rsquo;s easy to run, it&amp;rsquo;s easy to integrate into your continuous integration (CI) pipeline. Railroader returns failure (nonzero) if there&amp;rsquo;s a problem, so just add it to the set of commands that should normally succeed.</description>
+    </item>
+    
+  </channel>
+</rss>
