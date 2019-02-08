@@ -36,6 +36,17 @@ Railroader is open source software (OSS) released under the MIT license.</descri
     
     <item>
       <title></title>
+      <link>https://railroader.org/contribute/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/contribute/</guid>
+      <description>Railroader is open source software (OSS) released under the MIT license.
+We would love to have more contributions. Please post issues (bug reports and suggestions), as well as pull requests of proposed changes, through our railroader GitHub repository.
+If you want to make specific code/documentation changes to railroader, we generally expect those via pull requests on GitHub. Contributions must be under the same license (the MIT license). In your pull requests, please add Signed-off-by: YOURNAME &amp;lt;EMAIL&amp;gt; to show that you have the legal right to submit the change as described in the Developer&amp;rsquo;s Certificate of Origin.</description>
+    </item>
+    
+    <item>
+      <title></title>
       <link>https://railroader.org/install/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
