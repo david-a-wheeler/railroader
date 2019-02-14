@@ -140,7 +140,7 @@ The `-c` option can be used to specify a configuration file to use.
 
 # Continuous Integration
 
-There is a [plugin available](http://railroaderscanner.org/docs/jenkins/) for Jenkins/Hudson.
+There is a [plugin available](http://railroader.org/docs/jenkins/) for Jenkins/Hudson.
 
 For even more continuous testing, try the [Guard plugin](https://github.com/guard/guard-railroader).
 
@@ -159,7 +159,7 @@ For even more continuous testing, try the [Guard plugin](https://github.com/guar
 * [New Relic](http://newrelic.com)
 * [Twitter](https://twitter.com/)
 
-[..and more!](http://railroaderscanner.org/railroader_users)
+[..and more!](http://railroader.org)
 
 -->
 

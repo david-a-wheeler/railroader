@@ -5,11 +5,11 @@ gem_priv_key = File.expand_path("~/.ssh/gem-private_key.pem")
 Gem::Specification.new do |s|
   s.name = %q{railroader}
   s.version = Railroader::Version
-  s.authors = ["Justin Collins"]
+  s.authors = ["David A. Wheeler and Justin Collins"]
   s.email = "gem@railroader.org"
   s.summary = "Security vulnerability scanner for Ruby on Rails."
   s.description = "Railroader detects security vulnerabilities in Ruby on Rails applications via static analysis."
-  s.homepage = "http://railroaderscanner.org"
+  s.homepage = "https://railroader.org"
   s.files = ["bin/railroader", "CHANGES.md", "FEATURES", "README.md"] + Dir["lib/**/*"]
   s.executables = ["railroader"]
   s.license = "MIT"

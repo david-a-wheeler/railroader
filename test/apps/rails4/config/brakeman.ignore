@@ -7,7 +7,7 @@
       "message": "Potentially dangerous attribute available for mass assignment",
       "file": "app/models/account.rb",
       "line": null,
-      "link": "http://railroaderscanner.org/docs/warning_types/mass_assignment/",
+      "link": "https://railroader.org/docs/warning_types/mass_assignment/",
       "code": ":admin",
       "render_path": null,
       "location": {
@@ -25,7 +25,7 @@
       "message": "Potentially dangerous attribute available for mass assignment",
       "file": "app/models/account.rb",
       "line": null,
-      "link": "http://railroaderscanner.org/docs/warning_types/mass_assignment/",
+      "link": "https://railroader.org/docs/warning_types/mass_assignment/",
       "code": ":admin",
       "render_path": null,
       "location": {
