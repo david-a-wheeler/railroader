@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Railroader  | Options</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Options" />
+<meta property="og:description" content="This page may or may not be entirely up-to-date. For best results but less information, run railroader --help.
+Please note some options below are shown as the short (-) or long (--) forms, but all options have long forms.
+Scanning Options There are some checks which are not run by default. To run all checks, use:
+railroader -A  Each check will be run in a separate thread by default." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://railroader.org/docs/options/" />
+
+
+<meta itemprop="name" content="Options">
+<meta itemprop="description" content="This page may or may not be entirely up-to-date. For best results but less information, run railroader --help.
+Please note some options below are shown as the short (-) or long (--) forms, but all options have long forms.
+Scanning Options There are some checks which are not run by default. To run all checks, use:
+railroader -A  Each check will be run in a separate thread by default.">
+
+
+
+<meta itemprop="wordCount" content="1277">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Options"/>
+<meta name="twitter:description" content="This page may or may not be entirely up-to-date. For best results but less information, run railroader --help.
+Please note some options below are shown as the short (-) or long (--) forms, but all options have long forms.
+Scanning Options There are some checks which are not run by default. To run all checks, use:
+railroader -A  Each check will be run in a separate thread by default."/>
+
+      
+    
+  </head>
+
+  <body class="ma0 avenir bg-near-white production">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://railroader.org/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Railroader
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/about/" title="About page">
+              About
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/contribute/" title="Contribute page">
+              Contribute
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/docs/" title="Documentation page">
+              Documentation
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/install/" title="Install page">
+              Install
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/use/" title="Use page">
+              Use
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        DOCUMENTATION
+      </p>
+      <h1 class="f1 athelas mb1">Options</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>This page may or may not be entirely up-to-date. For best results but less information, run <code>railroader --help</code>.</p>
+
+<p>Please note some options below are shown as the short (<code>-</code>) or long (<code>--</code>) forms, but all options have long forms.</p>
+
+<h2 id="scanning-options">Scanning Options</h2>
+
+<p>There are some checks which are not run by default. To run all checks, use:</p>
+
+<pre><code>railroader -A
+</code></pre>
+
+<p>Each check will be run in a separate thread by default. To disable this behavior:</p>
+
+<pre><code>railroader -n
+</code></pre>
+
+<p>By default, Railroader scans the current directory. A path can also be specified as a bare argument, like:</p>
+
+<pre><code>railroader some/path/to/app
+</code></pre>
+
+<p>But to be even more specific, the <code>-p</code> or <code>--path</code> option may be used:</p>
+
+<pre><code>railroader -p path/to/app
+</code></pre>
+
+<p>To suppress informational warnings and just output the report:</p>
+
+<pre><code>railroader -q
+</code></pre>
+
+<p>Note all Railroader output except reports are sent to stderr, making it simple to redirect stdout to a file and just get the report.</p>
+
+<p>By default, Railroader will return a non-zero exit code if any security warnings are found or scanning errors are encountered. To disable this:</p>
+
+<pre><code>railroader --no-exit-on-warn --no-exit-on-error
+</code></pre>
+
+<p>To force Railroader into Rails 3 mode:</p>
+
+<pre><code>railroader -3
+</code></pre>
+
+<p>Or to force Railroader into Rails 4 mode:</p>
+
+<pre><code>railroader -4
+</code></pre>
+
+<p>Beware some behavior and checks rely on knowing the exact version name. This shouldn&rsquo;t be a problem with any modern Rails app using a <code>Gemfile.lock</code> though.</p>
+
+<p>Railroader used to parse <code>routes.rb</code> and attempt to infer which controller methods are used as actions. However, this is not perfect (especially for Rails <sup>3</sup>&frasl;<sub>4</sub>), so now it assumes all controller methods are actions. To disable this behavior:</p>
+
+<pre><code>railroader --no-assume-routes
+</code></pre>
+
+<p>While this shouldn&rsquo;t be necessary, it is possible to force Railroader to assume output is escaped by default:</p>
+
+<pre><code>railroader --escape-html
+</code></pre>
+
+<p>If Railroader is running a bit slow, try</p>
+
+<pre><code>railroader --faster
+</code></pre>
+
+<p>This will disable some features, but will probably be much faster (currently it is the same as <code>--skip-libs --no-branching</code>). <em>WARNING</em>: This may cause Railroader to miss some vulnerabilities.</p>
+
+<p>To disable flow sensitivity in <code>if</code> expressions:</p>
+
+<pre><code>railroader --no-branching
+</code></pre>
+
+<p>To instead limit the number of branches tracked for a given value:</p>
+
+<pre><code>railroader --branch-limit LIMIT
+</code></pre>
+
+<p><code>LIMIT</code> should be an integer value. <code>0</code> is almost the same as <code>--no-branching</code> but <code>--no-branching</code> is preferred. The default value is <code>5</code>. Lower values generally make Railroader go faster. <code>-1</code> is the same as unlimited.</p>
+
+<p>To skip certain files use:</p>
+
+<pre><code>railroader --skip-files file1,file2,etc
+</code></pre>
+
+<p>Note Railroader does &ldquo;whole program&rdquo; analysis, therefore skipping a file may affect warning results from more than just that one file.</p>
+
+<p>The inverse but even more dangerous option is to specific which files to scan:</p>
+
+<pre><code>railroader --only-files some_file,some_dir
+</code></pre>
+
+<p>Again, since Railroader looks at the whole program, it is very likely not going to behave as expected when scanning a subset of files. Also, if certain files are excluded Railroader may not function at all.</p>
+
+<p>To skip processing of the <code>lib/</code> directory:</p>
+
+<pre><code>railroader --skip-libs
+</code></pre>
+
+<p>To run a subset of checks:</p>
+
+<pre><code>railroader --test Check1,Check2,etc
+</code></pre>
+
+<p>To exclude certain checks:</p>
+
+<pre><code>railroader --except Check1,Check2,etc
+</code></pre>
+
+<p>Note it is not necessary to include the <code>Check</code> part of the check. For example, these are equivalent:</p>
+
+<pre><code>railroader --test CheckSQL
+railroader --test SQL
+</code></pre>
+
+<h2 id="output-options">Output Options</h2>
+
+<p>To see all kinds of debugging information:</p>
+
+<pre><code>railroader -d
+</code></pre>
+
+<p>To specify an output file for the results:</p>
+
+<pre><code>railroader -o output_file
+</code></pre>
+
+<p>The output format is determined by the file extension or by using the <code>-f</code> option. Current options are: <code>text</code>, <code>html</code>, <code>tabs</code>, <code>json</code>, <code>markdown</code> and <code>csv</code>.</p>
+
+<p>Multiple output files can be specified:</p>
+
+<pre><code>railroader -o output.html -o output.json
+</code></pre>
+
+<p>To specify a CSS stylesheet to use with the HTML report:</p>
+
+<pre><code>railroader --css-file my_cool_styling
+</code></pre>
+
+<p>By default, Railroader will only report a single warning of a given type for the same line of code. This can be disabled using</p>
+
+<pre><code>railroader --no-combine-locations
+</code></pre>
+
+<p>To disable highlighting of &ldquo;dangerous&rdquo; or &ldquo;user input&rdquo; values in warnings:</p>
+
+<pre><code>railroader --no-highlights
+</code></pre>
+
+<p>To report controller and route information:</p>
+
+<pre><code>railroader --routes
+</code></pre>
+
+<p>However, if you really want to know what routes an app has, use</p>
+
+<pre><code>rake routes
+</code></pre>
+
+<p>To set the limit on message length in HTML reports, use</p>
+
+<pre><code>railroader --message-limit LIMIT
+</code></pre>
+
+<p>The default LIMIT is 100.</p>
+
+<p>To limit width of the tables output in text reports, use</p>
+
+<pre><code>railroader --table-width LIMIT
+</code></pre>
+
+<p>If no option is provided, Railroader will attempt to guess the width of the terminal, otherwise it will limit the table width to 80 characters.</p>
+
+<p>Railroader will bundle all warnings about models without <code>attr_accessible</code> into one warning. This was problem a mistake. It&rsquo;s more useful to get one warning per model with</p>
+
+<pre><code>railroader --separate-models
+</code></pre>
+
+<p>Sometimes you don&rsquo;t need a big report, just the summary:</p>
+
+<pre><code>railroader --summary
+</code></pre>
+
+<p>Reports show relative paths by default. To use absolute paths instead:</p>
+
+<pre><code>railroader --absolute-paths
+</code></pre>
+
+<p>This does not affect HTML or tab-separated reports.</p>
+
+<p>To output Markdown with nice links to files on Github, use</p>
+
+<pre><code>railroader --github-repo USER/REPO[/PATH][@REF]
+</code></pre>
+
+<p>For example,</p>
+
+<pre><code>railroader --github-repo presidentbeef/inject-some-sql
+</code></pre>
+
+<p>To compare results of a scan with a previous scan, use the JSON output option and then:</p>
+
+<pre><code>railroader --compare old_report.json
+</code></pre>
+
+<p>This will output JSON with two lists: one of fixed warnings and one of new warnings.</p>
+
+<p>By default, Railroader pages output to the terminal with the <code>less</code> pager. To have Railroader output directly to terminal, use</p>
+
+<pre><code>railroader --no-pager
+</code></pre>
+
+<h2 id="ignoring-stuff">Ignoring Stuff</h2>
+
+<p>Railroader will ignore warnings if configured to do so. By default, it looks for a configuration file in <code>config/railroader.ignore</code>.</p>
+
+<p>To specify a file to use:</p>
+
+<pre><code>railroader -i path/to/config.ignore
+</code></pre>
+
+<p>To create and manage this file, use:</p>
+
+<pre><code>railroader -I
+</code></pre>
+
+<p>To ignore possible XSS from model attributes:</p>
+
+<pre><code>railroader --ignore-model-output
+</code></pre>
+
+<p>Railroader will raise warnings on models that use <code>attr_protected</code>. To suppress these warnings:</p>
+
+<pre><code>railroader --ignore-protected
+</code></pre>
+
+<p>Railroader will assume that unknown methods involving untrusted data are dangerous. For example, this would cause a warning (Rails 2):</p>
+
+<pre><code>&lt;%= some_method(:option =&gt; params[:input]) %&gt;
+</code></pre>
+
+<p>To only raise warnings only when untrusted data is being directly used:</p>
+
+<pre><code>railroader --report-direct
+</code></pre>
+
+<p>This option is not supported very consistently, though.</p>
+
+<p>To indicate certain methods return properly escaped output and should not be warned about in XSS checks:</p>
+
+<pre><code>railroader --safe-methods benign_method_escapes_output,totally_safe_from_xss
+</code></pre>
+
+<p>Railroader warns about use of user input in URLs generated with <code>link_to</code>. Since Rails does not provide anyway of making these URLs really safe (e.g. limiting protocols to HTTP(S)), safe methods can be ignored with</p>
+
+<pre><code>railroader --url-safe-methods ensure_safe_protocol_or_something
+</code></pre>
+
+<h2 id="confidence-levels">Confidence Levels</h2>
+
+<p>Railroader assigns a confidence level to each warning. This provides a rough estimate of how certain the tool is that a given warning is actually a problem. Naturally, these ratings should not be taken as absolute truth.</p>
+
+<p>There are three levels of confidence:</p>
+
+<ul>
+<li>High - Either this is a simple warning (boolean value) or user input is very likely being used in unsafe ways.</li>
+<li>Medium - This generally indicates an unsafe use of a variable, but the variable may or may not be user input.</li>
+<li>Weak - Typically means user input was indirectly used in a potentially unsafe manner.</li>
+</ul>
+
+<p>To only get warnings above a given confidence level:</p>
+
+<pre><code>railroader -w3
+</code></pre>
+
+<p>The <code>-w</code> switch takes a number from 1 to 3, with 1 being low (all warnings) and 3 being high (only highest confidence warnings).</p>
+
+<h2 id="configuration-files">Configuration Files</h2>
+
+<p>Railroader options can stored and read from YAML files. To simplify the process of writing a configuration file, the <code>-C</code> option will output the currently set options.</p>
+
+<p>Options passed in on the commandline have priority over configuration files.</p>
+
+<p>The default config locations are <code>./config/railroader.yml</code>, <code>~/.railroader/config.yml</code>, and <code>/etc/railroader/config.yml</code></p>
+
+<p>The <code>-c</code> option can be used to specify a configuration file to use.</p>
+
+<h2 id="miscellaneous">Miscellaneous</h2>
+
+<p>To list available checks with short descriptions:</p>
+
+<pre><code>railroader --checks
+</code></pre>
+
+<p>To show checks which are optional (not run by default):</p>
+
+<pre><code>railroader --optional-checks
+</code></pre>
+
+<p>To generate a Rake task to run Railroader:</p>
+
+<pre><code>railroader --rake
+</code></pre>
+
+<p>Note this is not recommended, since Rake will load your entire Rails app, which is not necessary for Railroader and may cause library conflicts.</p>
+
+<p>To see Railroader&rsquo;s version:</p>
+
+<pre><code>railroader --version
+</code></pre>
+
+<p>To see the real list of options:</p>
+
+<pre><code>railroader --help
+</code></pre>
+
+<hr />
+
+<p><a href="/docs">More documentation</a></p>
+
+<p><a href="/docs/options/ja">日本語</a></p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://railroader.org/" >
+    &copy; 2019 Railroader
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

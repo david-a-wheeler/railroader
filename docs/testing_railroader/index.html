@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Railroader  | Testing Railroader</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Testing Railroader" />
+<meta property="og:description" content="Tests for Railroader are written using the standard library&rsquo;s test/unit.
+The main test file is in test/test.rb. It can be run using ruby test/test.rb (or from any directory).
+Structure Railroader is tested by running it against full Rails applications and then checking the reported warnings.
+test/test.rb #Main test runner test/apps/ #Apps to check against test/tests/ #Actual tests  There are several Rails applications, including:
+test/apps/rails2 #Rails 2.3.11 test/apps/rails3 #Rails 3." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://railroader.org/docs/testing_railroader/" />
+
+
+<meta itemprop="name" content="Testing Railroader">
+<meta itemprop="description" content="Tests for Railroader are written using the standard library&rsquo;s test/unit.
+The main test file is in test/test.rb. It can be run using ruby test/test.rb (or from any directory).
+Structure Railroader is tested by running it against full Rails applications and then checking the reported warnings.
+test/test.rb #Main test runner test/apps/ #Apps to check against test/tests/ #Actual tests  There are several Rails applications, including:
+test/apps/rails2 #Rails 2.3.11 test/apps/rails3 #Rails 3.">
+
+
+
+<meta itemprop="wordCount" content="469">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Testing Railroader"/>
+<meta name="twitter:description" content="Tests for Railroader are written using the standard library&rsquo;s test/unit.
+The main test file is in test/test.rb. It can be run using ruby test/test.rb (or from any directory).
+Structure Railroader is tested by running it against full Rails applications and then checking the reported warnings.
+test/test.rb #Main test runner test/apps/ #Apps to check against test/tests/ #Actual tests  There are several Rails applications, including:
+test/apps/rails2 #Rails 2.3.11 test/apps/rails3 #Rails 3."/>
+
+      
+    
+  </head>
+
+  <body class="ma0 avenir bg-near-white production">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://railroader.org/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Railroader
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/about/" title="About page">
+              About
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/contribute/" title="Contribute page">
+              Contribute
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/docs/" title="Documentation page">
+              Documentation
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/install/" title="Install page">
+              Install
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/use/" title="Use page">
+              Use
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        DOCUMENTATION
+      </p>
+      <h1 class="f1 athelas mb1">Testing Railroader</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>Tests for Railroader are written using the standard library&rsquo;s <a href="http://rubydoc.info/stdlib/test/1.8.7/Test/Unit">test/unit</a>.</p>
+
+<p>The main test file is in <code>test/test.rb</code>. It can be run using <code>ruby test/test.rb</code> (or from any directory).</p>
+
+<h3 id="structure">Structure</h3>
+
+<p>Railroader is tested by running it against full Rails applications and then checking the reported warnings.</p>
+
+<pre><code>test/test.rb #Main test runner
+test/apps/   #Apps to check against
+test/tests/  #Actual tests
+</code></pre>
+
+<p>There are several Rails applications, including:</p>
+
+<pre><code>test/apps/rails2    #Rails 2.3.11
+test/apps/rails3    #Rails 3.0.5
+test/apps/rails3.1  #Rails 3.1.0
+</code></pre>
+
+<p>There are corresponding sets of tests for each application:</p>
+
+<pre><code>test/tests/rails2.rb
+test/tests/rails3.rb
+test/tests/rails31.rb
+</code></pre>
+
+<h3 id="test-setup">Test Setup</h3>
+
+<p>Each of the test files starts off like this:</p>
+
+<pre><code>class Rails3Tests &lt; Test::Unit::TestCase
+  include RailroaderTester::FindWarning
+  include RailroaderTester::CheckExpected
+
+  def report
+    @@report ||= RailroaderTester.run_scan &quot;rails3&quot;, &quot;Rails 3&quot;
+  end
+
+  def expected
+    @expected ||= {
+      :controller =&gt; 1,
+      :model =&gt; 5,
+      :template =&gt; 18,
+      :warning =&gt; 22
+    }
+  end
+</code></pre>
+
+<p>The <code>report</code> method runs the scan once. The first argument is the directory of the application, assumed to be under <code>test/apps/</code>. The second argument is just a name for the application. After that, any options that would normally be given to <code>Railroader.run</code> can be provided.</p>
+
+<p>The result of <code>RailroaderTester.run_scan</code> is a big hash of the warnings found during the scan. This is generated using <code>Railroader::Report#to_test</code>.</p>
+
+<p>Two modules are included in the test suite. <code>FindWarning</code> provides a search capability for finding warnings in the report. <code>CheckExpected</code> calls <code>expected</code> and checks the numbers there against the actual report.</p>
+
+<h3 id="testing-a-warning">Testing a Warning</h3>
+
+<p>To test for the presence of a warning, use the <code>assert_warning</code> method. This method takes a hash of options describing the warning:</p>
+
+<pre><code>def test_eval_params
+  assert_warning :type =&gt; :warning,
+    :warning_code =&gt; 13,
+    :fingerprint =&gt; &quot;4efdd73fb759135f5980b5da1d9804aa4eb5c7475eabfd0f0cf41299d1d7ec42&quot;,
+    :warning_type =&gt; &quot;Dangerous Eval&quot;,
+    :line =&gt; 41,
+    :message =&gt; /^User input in eval near line 41: eval\(pa/,
+    :confidence =&gt; 0,
+    :file =&gt; /home_controller\.rb/
+end
+</code></pre>
+
+<p>Each key in the hash is a method on <code>Railroader::Warning</code>, except <code>:type</code>. The value will be tested using <code>===</code> against the result of calling the method. This means regular expressions can be used to match against strings.</p>
+
+<p>It is best to be as specific as possible, because <code>assert_warning</code> expects <em>exactly</em> one warning to match.</p>
+
+<p>Options:</p>
+
+<ul>
+<li><code>:type</code> - This determines which category of warnings to search (controller, model, template, or just &lsquo;warning&rsquo;)</li>
+<li><code>:fingerprint</code> - The warning fingerprint</li>
+<li><code>:warning_code</code> - Integer representing the warning type</li>
+<li><code>:warning_type</code> - This matches against the category of warning</li>
+<li><code>:line</code> - The line number reported in the warning</li>
+<li><code>:message</code> - The text of the warning message</li>
+<li><code>:confidence</code> - Confidence level (0 - high, 1 - medium, 3 - weak)</li>
+<li><code>:file</code> - File where warning was found</li>
+</ul>
+
+<p>For the message matching, it is generally enough to just include the first part of the message, instead of trying for an exact match.</p>
+
+<p>For the file name, generally just the name of the file (without the path) is used, although it is matched against the full path.</p>
+
+<hr />
+
+<p><a href="/docs">More documentation</a></p>
+
+<p><a href="/docs/contributing/adding_tests">Adding tests</a></p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://railroader.org/" >
+    &copy; 2019 Railroader
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

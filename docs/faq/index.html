@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Railroader  | Frequently Asked Questions</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Frequently Asked Questions" />
+<meta property="og:description" content="Railroader hangs while processing my app. What do I do? Sorry about that! Please follow these instructions.
+Railroader is reporting parsing errors, but my app runs fine. What&rsquo;s going on? Railroader relies on ruby_parser for parsing Ruby code. Support for Ruby 1.9 syntax is still in development, so Railroader cannot handle all the new 1.9 syntax changes. Unfortunately, the next version of ruby_parser (3.0) makes some large, incompatible changes which will also require major changes in Railroader." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://railroader.org/docs/faq/" />
+
+
+<meta itemprop="name" content="Frequently Asked Questions">
+<meta itemprop="description" content="Railroader hangs while processing my app. What do I do? Sorry about that! Please follow these instructions.
+Railroader is reporting parsing errors, but my app runs fine. What&rsquo;s going on? Railroader relies on ruby_parser for parsing Ruby code. Support for Ruby 1.9 syntax is still in development, so Railroader cannot handle all the new 1.9 syntax changes. Unfortunately, the next version of ruby_parser (3.0) makes some large, incompatible changes which will also require major changes in Railroader.">
+
+
+
+<meta itemprop="wordCount" content="417">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Frequently Asked Questions"/>
+<meta name="twitter:description" content="Railroader hangs while processing my app. What do I do? Sorry about that! Please follow these instructions.
+Railroader is reporting parsing errors, but my app runs fine. What&rsquo;s going on? Railroader relies on ruby_parser for parsing Ruby code. Support for Ruby 1.9 syntax is still in development, so Railroader cannot handle all the new 1.9 syntax changes. Unfortunately, the next version of ruby_parser (3.0) makes some large, incompatible changes which will also require major changes in Railroader."/>
+
+      
+    
+  </head>
+
+  <body class="ma0 avenir bg-near-white production">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://railroader.org/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Railroader
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/about/" title="About page">
+              About
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/contribute/" title="Contribute page">
+              Contribute
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/docs/" title="Documentation page">
+              Documentation
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/install/" title="Install page">
+              Install
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/use/" title="Use page">
+              Use
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        DOCUMENTATION
+      </p>
+      <h1 class="f1 athelas mb1">Frequently Asked Questions</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<h3 id="railroader-hangs-while-processing-my-app-what-do-i-do">Railroader hangs while processing my app. What do I do?</h3>
+
+<p>Sorry about that! Please follow <a href="/docs/troubleshooting/hanging">these instructions</a>.</p>
+
+<h3 id="railroader-is-reporting-parsing-errors-but-my-app-runs-fine-what-s-going-on">Railroader is reporting parsing errors, but my app runs fine. What&rsquo;s going on?</h3>
+
+<p>Railroader relies on <a href="https://github.com/seattlerb/ruby_parser">ruby_parser</a> for parsing Ruby code. Support for Ruby 1.9 syntax is still in development, so Railroader cannot handle all the new 1.9 syntax changes. Unfortunately, the next version of ruby_parser (3.0) makes some large, incompatible changes which will also require major changes in Railroader.</p>
+
+<p>By the way, sometimes there are actual syntax errors! This can happen in code which is no longer used by the application.</p>
+
+<p>Please follow <a href="/docs/troubleshooting/syntax_errors">these instructions</a> to find out what went wrong.</p>
+
+<h3 id="what-is-the-number-in-parentheses-red-in-html-in-the-report-summary">What is the number in parentheses (red in HTML) in the report summary?</h3>
+
+<p>That number indicates how many high confidence warnings were found.</p>
+
+<h3 id="why-are-line-numbers-reported-wrong">Why are line numbers reported wrong?</h3>
+
+<p>Line numbers are sometimes off. This can be due to the <a href="http://rubyforge.org/tracker/index.php?func=detail&amp;aid=26435&amp;group_id=439&amp;atid=1778">parser</a> reporting the wrong line number, or occasionally there is a bug in Railroader.</p>
+
+<p>However, it is important to note that the line number reported is where the vulnerability was found, not necessarily where it was introduced. For example, if a SQL query uses string interpolation which was assigned to a variable, the line with the query will be reported, not where the string is constructed.</p>
+
+<h3 id="why-is-the-context-so-different-from-the-code-shown-in-the-warning">Why is the context so different from the code shown in the warning?</h3>
+
+<p>The code in the warning is what is seen by Railroader, while the code in the context is pulled directly from the original file. These can be different, as Railroader propagates variables and performs other transformations on the code.</p>
+
+<h3 id="what-is-an-unresolved-model">What is an &ldquo;Unresolved Model&rdquo;?</h3>
+
+<p>&ldquo;Unresolved Model&rdquo; is a placeholder used when it is clear that a model is being used at that location, but there is no way to know which model it is.</p>
+
+<h3 id="why-is-a-variable-shown-as-somemodel-new-when-it-clearly-is-not">Why is a variable shown as &ldquo;SomeModel.new&rdquo; when it clearly is not?</h3>
+
+<p>Records from a model will be sometimes displayed this way.</p>
+
+<p>For example, if <code>User</code> is a model and there is an action like</p>
+
+<pre><code>class UsersController
+
+  def list
+    @users = User.all
+  end
+
+end
+</code></pre>
+
+<p>and a corresponding view containing</p>
+
+<pre><code>&lt;% @users.each do |user| %&gt;
+  &lt;%= user.name %&gt;
+&lt;% end %&gt;
+</code></pre>
+
+<p>This will produce a warning (in Rails 2.x) that looks like</p>
+
+<pre><code>Unescaped model attribute near line 3: User.new.name
+</code></pre>
+
+<h3 id="railroader-reports-0-warnings-am-i-safe">Railroader reports 0 warnings. Am I safe?</h3>
+
+<p><strong>No</strong>. It just means Railroader didn&rsquo;t find any problems. There may be vulnerabilities Railroader does not test for or did not discover. No security tool has 100% coverage.</p>
+
+<hr />
+
+<p><a href="/docs">More documentation</a></p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://railroader.org/" >
+    &copy; 2019 Railroader
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

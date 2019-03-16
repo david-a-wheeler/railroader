@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Railroader  | Documentation</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+      <link href="https://railroader.org/docs/index.xml" rel="alternate" type="application/rss+xml" title="Railroader" />
+      <link href="https://railroader.org/docs/index.xml" rel="feed" type="application/rss+xml" title="Railroader" />
+    
+
+    <meta property="og:title" content="Documentation" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://railroader.org/docs/" />
+
+
+<meta itemprop="name" content="Documentation">
+<meta itemprop="description" content="">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Documentation"/>
+<meta name="twitter:description" content=""/>
+
+      
+    
+  </head>
+
+  <body class="ma0 avenir bg-near-white production">
+
+    
+
+  <header>
+    <div class="pb3-m pb6-l bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://railroader.org/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Railroader
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/about/" title="About page">
+              About
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/contribute/" title="Contribute page">
+              Contribute
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/docs/" title="Documentation page">
+              Documentation
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/install/" title="Install page">
+              Install
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/use/" title="Use page">
+              Use
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv3 ph3 ph4-ns">
+        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
+          Documentation
+        </h1>
+        
+      </div>
+    </div>
+  </header>
+
+
+    <main class="pb7" role="main">
+      
+  <article class="pa3 pa4-ns nested-copy-line-height nested-img">
+    <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy mid-gray">
+
+<h2 id="getting-started">Getting Started</h2>
+
+<ul>
+<li><a href="introduction">Introduction</a></li>
+<li><a href="/docs/install">Installation</a></li>
+<li><a href="/docs/running">Running Railroader</a></li>
+<li><a href="/docs/options">Railroader Options</a></li>
+</ul>
+
+<h2 id="next-steps">Next Steps</h2>
+
+<ul>
+<li><a href="/docs/confidence">Confidence Levels</a></li>
+<li><a href="/docs/warning_types">Warning Types</a></li>
+<li><a href="/docs/reducing_false_positives">Reducing False Positives</a></li>
+<li><a href="/docs/ignoring_false_positives">Ignoring False Positives</a></li>
+<li><a href="/docs/railroader_as_a_library">Using Railroader as a Library</a></li>
+<li><a href="/docs/rake">Railroader and Rake</a></li>
+</ul>
+
+<h2 id="more-information">More Information</h2>
+
+<ul>
+<li><a href="/docs/faq">FAQ</a></li>
+<li><a href="/docs/troubleshooting">Troubleshooting</a></li>
+<li><a href="/docs/testing_railroader">Testing Railroader</a></li>
+<li><a href="/docs/contributing">Contributing</a></li>
+</ul>
+
+<h2 id="hudson-jenkins-integration">Hudson/Jenkins Integration</h2>
+
+<ul>
+<li><a href="/docs/jenkins">Introduction</a></li>
+<li><a href="/docs/jenkins/installation">Installation</a></li>
+<li><a href="/docs/jenkins/setup">Job Setup</a></li>
+</ul>
+</section>
+    <section class="flex-ns flex-wrap justify-around mt5">
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Docs</span>
+    <h1 class="f3 near-black">
+      <a href="/docs/confidence/" class="link black dim">
+        Confidence Levels
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Railroader assigns each warning a confidence level. This rating is intended to indicate how certain Railroader is that the given warning is a real problem.
+The following guidelines are used:
+ High - Either this is a simple warning or user input is very likely being used in unsafe ways. Medium - This generally indicates an unsafe use of a variable, but the variable may or may not be user input.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Docs</span>
+    <h1 class="f3 near-black">
+      <a href="/docs/contributing/" class="link black dim">
+        Contributing to Railroader
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      The simplest way to contribute to the improvement of Railroader is to run it against your own applications and then report any issues here.
+Suggestions are welcome, too!
+See contributing for the basics on contributing.
+Testing on Different Platforms Railroader should work on most platforms without a problem. It is typically tested against MRI 1.8.7 and 1.9.3, so any problems outside those two should definitely be reported.
+Contributing Features New feature implementations should be submitted as a pull request on GitHub.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Docs</span>
+    <h1 class="f3 near-black">
+      <a href="/docs/faq/" class="link black dim">
+        Frequently Asked Questions
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Railroader hangs while processing my app. What do I do? Sorry about that! Please follow these instructions.
+Railroader is reporting parsing errors, but my app runs fine. What&rsquo;s going on? Railroader relies on ruby_parser for parsing Ruby code. Support for Ruby 1.9 syntax is still in development, so Railroader cannot handle all the new 1.9 syntax changes. Unfortunately, the next version of ruby_parser (3.0) makes some large, incompatible changes which will also require major changes in Railroader.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Docs</span>
+    <h1 class="f3 near-black">
+      <a href="/docs/ignoring_false_positives/" class="link black dim">
+        Ignoring False Positives
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      False positives (warnings about potential vulnerabilities which are not actual vulnerabilities) are present in any security tool. Before ignoring a false positive, be certain it is actually a false positive and also consider reporting it in case changes can be made to Railroader to prevent the false positive in the future.
+The ignore configuration is a JSON file containing a list of warnings. This is essentially the same as the JSON report, except the warnings can also have a note field.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Docs</span>
+    <h1 class="f3 near-black">
+      <a href="/docs/install/" class="link black dim">
+        Installing Railroader
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      gem install Railroader is best installed via RubyGems:
+gem install railroader  This will provide the railroader executable.
+bundler Railroader can be added to a Gemfile:
+gem &quot;railroader&quot;  It is recommended to always use the latest version of Railroader.
+git clone If you must have the latest and greatest, then you can build the gem yourself:
+git clone git://github.com/presidentbeef/railroader.git cd railroader gem build railroader.gemspec gem install railroader-*.gem  Running Railroader
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Docs</span>
+    <h1 class="f3 near-black">
+      <a href="/docs/introduction/" class="link black dim">
+        Introduction to Railroader
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Railroader is a security scanner for Ruby on Rails applications.
+Unlike many web security scanners, Railroader looks at the source code of your application. This means you do not need to set up your whole application stack to use it.
+Once Railroader scans the application code, it produces a report of all security issues it has found.
+Advantages No Configuration Necessary Railroader requires zero setup or configuration once it is installed.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Docs</span>
+    <h1 class="f3 near-black">
+      <a href="/docs/options/" class="link black dim">
+        Options
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      This page may or may not be entirely up-to-date. For best results but less information, run railroader --help.
+Please note some options below are shown as the short (-) or long (--) forms, but all options have long forms.
+Scanning Options There are some checks which are not run by default. To run all checks, use:
+railroader -A  Each check will be run in a separate thread by default.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Docs</span>
+    <h1 class="f3 near-black">
+      <a href="/docs/railroader_as_a_library/" class="link black dim">
+        Railroader as a Library
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Railroader was initially designed to be used a command-line application. Recently, there have been some changes to allow it to be used as a library as well. Future releases will likely make it even easier to use.
+Simple Example Here is a simple example:
+require 'railroader' tracker = Railroader.run &quot;my/app&quot; puts tracker.report  This runs Railroader against the Rails application in my/app and prints out the report. This is essentially equivalent to running Railroader with no options.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Docs</span>
+    <h1 class="f3 near-black">
+      <a href="/docs/rake/" class="link black dim">
+        Railroader with Rake
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Running Railroader via Rake is discouraged because it loads the entire Rails application
+Railroader can generate and install a basic Rake task for a Rails application.
+To do so, just run this at the root directory of the Rails application:
+railroader --rake  This will create a task in lib/tasks/railroader.rake that looks like this:
+namespace :railroader do desc &quot;Run Railroader&quot; task :run, :output_files do |t, args| require 'railroader' files = args[:output_files].
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Docs</span>
+    <h1 class="f3 near-black">
+      <a href="/docs/reducing_false_positives/" class="link black dim">
+        Reducing False Positives
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      By default, Railroader reports as much as possible. Because there is no way for Railroader to know if certain items are actually safe or not, it errs on the side of reporting too much rather than possibly not reporting a real problem. Sometimes, though, these false positives can become overwhelming. Railroader does provides many options for customizing reports. It is also possible to ignore specific warnings.
+It is recommended to always run Railroader with the default settings first (and then periodically after that), but it is possible to narrow down the results to make them less annoying.
+    </div>
+  </div>
+</div>
+</div>
+      
+    </section>
+
+<ul class="pagination">
+    
+    <li class="page-item">
+        <a href="/docs/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+    </li>
+    
+    <li class="page-item disabled">
+    <a href="" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    </li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item active"><a class="page-link" href="/docs/">1</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/docs/page/2/">2</a></li>
+    
+    
+    <li class="page-item">
+    <a href="/docs/page/2/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    </li>
+    
+    <li class="page-item">
+        <a href="/docs/page/2/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+    </li>
+    
+</ul>
+</article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://railroader.org/" >
+    &copy; 2019 Railroader
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

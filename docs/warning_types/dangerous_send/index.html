@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Railroader  | Dangerous Send</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Dangerous Send" />
+<meta property="og:description" content="Using unfiltered user data to select a Class or Method to be dynamically sent is dangerous.
+It is much safer to whitelist the desired target or method.
+Unsafe use of method:
+method = params[:method] @result = User.send(method.to_sym)  Safe:
+method = params[:method] == 1 ? :method_a : :method_b @result = User.send(method, *args)  Unsafe use of target:
+table = params[:table] model = table.classify.constantize @result = model.send(:method)  Safe:
+target = params[:target] == 1 ?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://railroader.org/docs/warning_types/dangerous_send/" />
+
+
+<meta itemprop="name" content="Dangerous Send">
+<meta itemprop="description" content="Using unfiltered user data to select a Class or Method to be dynamically sent is dangerous.
+It is much safer to whitelist the desired target or method.
+Unsafe use of method:
+method = params[:method] @result = User.send(method.to_sym)  Safe:
+method = params[:method] == 1 ? :method_a : :method_b @result = User.send(method, *args)  Unsafe use of target:
+table = params[:table] model = table.classify.constantize @result = model.send(:method)  Safe:
+target = params[:target] == 1 ?">
+
+
+
+<meta itemprop="wordCount" content="115">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Dangerous Send"/>
+<meta name="twitter:description" content="Using unfiltered user data to select a Class or Method to be dynamically sent is dangerous.
+It is much safer to whitelist the desired target or method.
+Unsafe use of method:
+method = params[:method] @result = User.send(method.to_sym)  Safe:
+method = params[:method] == 1 ? :method_a : :method_b @result = User.send(method, *args)  Unsafe use of target:
+table = params[:table] model = table.classify.constantize @result = model.send(:method)  Safe:
+target = params[:target] == 1 ?"/>
+
+      
+    
+  </head>
+
+  <body class="ma0 avenir bg-near-white production">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://railroader.org/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Railroader
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/about/" title="About page">
+              About
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/contribute/" title="Contribute page">
+              Contribute
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/docs/" title="Documentation page">
+              Documentation
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/install/" title="Install page">
+              Install
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/use/" title="Use page">
+              Use
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        WARNING TYPES
+      </p>
+      <h1 class="f1 athelas mb1">Dangerous Send</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Using unfiltered user data to select a Class or Method to be dynamically sent is dangerous.</p>
+
+<p>It is much safer to whitelist the desired target or method.</p>
+
+<p>Unsafe use of method:</p>
+
+<pre><code>method = params[:method]
+@result = User.send(method.to_sym)
+</code></pre>
+
+<p>Safe:</p>
+
+<pre><code>method = params[:method] == 1 ? :method_a : :method_b
+@result = User.send(method, *args)
+</code></pre>
+
+<p>Unsafe use of target:</p>
+
+<pre><code>table = params[:table]
+model = table.classify.constantize
+@result = model.send(:method)
+</code></pre>
+
+<p>Safe:</p>
+
+<pre><code>target = params[:target] == 1 ? Account : User
+@result = target.send(:method, *args)
+</code></pre>
+
+<p>Including user data in the arguments passed to an Object#send is safe, as long as the method can properly handle potentially bad data.</p>
+
+<p>Safe:</p>
+
+<pre><code>args = params[&quot;args&quot;] || []
+@result = User.send(:method, *args)
+</code></pre>
+
+<hr />
+
+<p>Back to <a href="/docs/warning_types">Warning Types</a></p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://railroader.org/" >
+    &copy; 2019 Railroader
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Railroader  | Reducing False Positives</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Reducing False Positives" />
+<meta property="og:description" content="By default, Railroader reports as much as possible. Because there is no way for Railroader to know if certain items are actually safe or not, it errs on the side of reporting too much rather than possibly not reporting a real problem. Sometimes, though, these false positives can become overwhelming. Railroader does provides many options for customizing reports. It is also possible to ignore specific warnings.
+It is recommended to always run Railroader with the default settings first (and then periodically after that), but it is possible to narrow down the results to make them less annoying." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://railroader.org/docs/reducing_false_positives/" />
+
+
+<meta itemprop="name" content="Reducing False Positives">
+<meta itemprop="description" content="By default, Railroader reports as much as possible. Because there is no way for Railroader to know if certain items are actually safe or not, it errs on the side of reporting too much rather than possibly not reporting a real problem. Sometimes, though, these false positives can become overwhelming. Railroader does provides many options for customizing reports. It is also possible to ignore specific warnings.
+It is recommended to always run Railroader with the default settings first (and then periodically after that), but it is possible to narrow down the results to make them less annoying.">
+
+
+
+<meta itemprop="wordCount" content="368">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Reducing False Positives"/>
+<meta name="twitter:description" content="By default, Railroader reports as much as possible. Because there is no way for Railroader to know if certain items are actually safe or not, it errs on the side of reporting too much rather than possibly not reporting a real problem. Sometimes, though, these false positives can become overwhelming. Railroader does provides many options for customizing reports. It is also possible to ignore specific warnings.
+It is recommended to always run Railroader with the default settings first (and then periodically after that), but it is possible to narrow down the results to make them less annoying."/>
+
+      
+    
+  </head>
+
+  <body class="ma0 avenir bg-near-white production">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://railroader.org/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Railroader
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/about/" title="About page">
+              About
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/contribute/" title="Contribute page">
+              Contribute
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/docs/" title="Documentation page">
+              Documentation
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/install/" title="Install page">
+              Install
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/use/" title="Use page">
+              Use
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        DOCUMENTATION
+      </p>
+      <h1 class="f1 athelas mb1">Reducing False Positives</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>By default, Railroader reports as much as possible. Because there is no way for Railroader to know if certain items are actually safe or not, it errs on the side of reporting <em>too much</em> rather than possibly not reporting a real problem. Sometimes, though, these false positives can become overwhelming. Railroader does provides many options for customizing reports. It is also possible <a href="/docs/ignoring_false_positives">to ignore specific warnings</a>.</p>
+
+<p>It is recommended to always run Railroader with the default settings first (and then periodically after that), but it is possible to narrow down the results to make them less annoying.</p>
+
+<h3 id="specify-checks-to-run">Specify Checks to Run</h3>
+
+<p>When running Railroader, one can specify a set of checks to run or a set to exclude using the <code>--test</code> or <code>--except</code>, respectively. These options take a comma-separated list of check names, which are case-sensitive. Use <code>railroader --checks</code> to get a list of the exact check names.</p>
+
+<p>For example, to only check for SQL injection and cross-site scripting:</p>
+
+<pre><code>railroader --test CheckSQL,CheckCrossSiteScripting
+</code></pre>
+
+<p><em>(&lsquo;Check&rsquo; can actually be omitted from the names.)</em></p>
+
+<p>To exclude checks for dynamic render paths:</p>
+
+<pre><code>railroader --except CheckRender
+</code></pre>
+
+<h3 id="set-confidence-threshold">Set Confidence Threshold</h3>
+
+<p>Getting a ton of weak confidence warnings? Use <code>-w3</code> to only report high confidence warnings or <code>-w2</code> to only report high and medium confidence warnings.</p>
+
+<p>(Use of <code>-w3</code> is not recommended, however.)</p>
+
+<h3 id="mark-methods-as-safe">Mark Methods as Safe</h3>
+
+<p>If an applications has custome sanitizing methods or just methods which are known to be safe, then the <code>--safe-methods</code> option can be used to ignore those methods. Specify the methods as a comma-separated list.</p>
+
+<p>For example:</p>
+
+<pre><code>railroader --safe-methods this_one,that_one,totally_safe,my_sanitizer
+</code></pre>
+
+<h3 id="only-reporting-direct-vulnerabilities">Only Reporting Direct Vulnerabilities</h3>
+
+<p>With the default settings, Railroader will report cross-site scripting vulnerabilities if the return value of a method where user input is a <em>parameter</em> is output.</p>
+
+<p>For example, this will raise a warning unless <code>some_method</code> is marked as safe like above:</p>
+
+<pre><code>&lt;%= some_method(params[:blah]) %&gt;
+</code></pre>
+
+<p>To ignore this kind of output, use the <code>--report-direct</code> option. This also applies to some other situations, such as checking calls to <code>redirect_to</code>.</p>
+
+<h3 id="ignoring-model-attributes">Ignoring Model Attributes</h3>
+
+<p>Railroader assumes database values are suspect (and so should you). But for some applications this does not make sense. Use the <code>--ignore-model-output</code> option to suppress reporting model attributes as cross-site scripting vulnerabilities.</p>
+
+<hr />
+
+<p><a href="/docs/ignoring_false_positives">Ignoring false positives</a></p>
+
+<p><a href="/docs">More documentation</a></p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://railroader.org/" >
+    &copy; 2019 Railroader
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Documentation on Railroader</title>
+    <link>https://railroader.org/docs/</link>
+    <description>Recent content in Documentation on Railroader</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://railroader.org/docs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Confidence Levels</title>
+      <link>https://railroader.org/docs/confidence/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/confidence/</guid>
+      <description>Railroader assigns each warning a confidence level. This rating is intended to indicate how certain Railroader is that the given warning is a real problem.
+The following guidelines are used:
+ High - Either this is a simple warning or user input is very likely being used in unsafe ways. Medium - This generally indicates an unsafe use of a variable, but the variable may or may not be user input.</description>
+    </item>
+    
+    <item>
+      <title>Contributing to Railroader</title>
+      <link>https://railroader.org/docs/contributing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/contributing/</guid>
+      <description>The simplest way to contribute to the improvement of Railroader is to run it against your own applications and then report any issues here.
+Suggestions are welcome, too!
+See contributing for the basics on contributing.
+Testing on Different Platforms Railroader should work on most platforms without a problem. It is typically tested against MRI 1.8.7 and 1.9.3, so any problems outside those two should definitely be reported.
+Contributing Features New feature implementations should be submitted as a pull request on GitHub.</description>
+    </item>
+    
+    <item>
+      <title>Frequently Asked Questions</title>
+      <link>https://railroader.org/docs/faq/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/faq/</guid>
+      <description>Railroader hangs while processing my app. What do I do? Sorry about that! Please follow these instructions.
+Railroader is reporting parsing errors, but my app runs fine. What&amp;rsquo;s going on? Railroader relies on ruby_parser for parsing Ruby code. Support for Ruby 1.9 syntax is still in development, so Railroader cannot handle all the new 1.9 syntax changes. Unfortunately, the next version of ruby_parser (3.0) makes some large, incompatible changes which will also require major changes in Railroader.</description>
+    </item>
+    
+    <item>
+      <title>Ignoring False Positives</title>
+      <link>https://railroader.org/docs/ignoring_false_positives/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/ignoring_false_positives/</guid>
+      <description>False positives (warnings about potential vulnerabilities which are not actual vulnerabilities) are present in any security tool. Before ignoring a false positive, be certain it is actually a false positive and also consider reporting it in case changes can be made to Railroader to prevent the false positive in the future.
+The ignore configuration is a JSON file containing a list of warnings. This is essentially the same as the JSON report, except the warnings can also have a note field.</description>
+    </item>
+    
+    <item>
+      <title>Installing Railroader</title>
+      <link>https://railroader.org/docs/install/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/install/</guid>
+      <description>gem install Railroader is best installed via RubyGems:
+gem install railroader  This will provide the railroader executable.
+bundler Railroader can be added to a Gemfile:
+gem &amp;quot;railroader&amp;quot;  It is recommended to always use the latest version of Railroader.
+git clone If you must have the latest and greatest, then you can build the gem yourself:
+git clone git://github.com/presidentbeef/railroader.git cd railroader gem build railroader.gemspec gem install railroader-*.gem  Running Railroader</description>
+    </item>
+    
+    <item>
+      <title>Introduction to Railroader</title>
+      <link>https://railroader.org/docs/introduction/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/introduction/</guid>
+      <description>Railroader is a security scanner for Ruby on Rails applications.
+Unlike many web security scanners, Railroader looks at the source code of your application. This means you do not need to set up your whole application stack to use it.
+Once Railroader scans the application code, it produces a report of all security issues it has found.
+Advantages No Configuration Necessary Railroader requires zero setup or configuration once it is installed.</description>
+    </item>
+    
+    <item>
+      <title>Options</title>
+      <link>https://railroader.org/docs/options/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/options/</guid>
+      <description>This page may or may not be entirely up-to-date. For best results but less information, run railroader --help.
+Please note some options below are shown as the short (-) or long (--) forms, but all options have long forms.
+Scanning Options There are some checks which are not run by default. To run all checks, use:
+railroader -A  Each check will be run in a separate thread by default.</description>
+    </item>
+    
+    <item>
+      <title>Railroader as a Library</title>
+      <link>https://railroader.org/docs/railroader_as_a_library/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/railroader_as_a_library/</guid>
+      <description>Railroader was initially designed to be used a command-line application. Recently, there have been some changes to allow it to be used as a library as well. Future releases will likely make it even easier to use.
+Simple Example Here is a simple example:
+require &#39;railroader&#39; tracker = Railroader.run &amp;quot;my/app&amp;quot; puts tracker.report  This runs Railroader against the Rails application in my/app and prints out the report. This is essentially equivalent to running Railroader with no options.</description>
+    </item>
+    
+    <item>
+      <title>Railroader with Rake</title>
+      <link>https://railroader.org/docs/rake/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/rake/</guid>
+      <description>Running Railroader via Rake is discouraged because it loads the entire Rails application
+Railroader can generate and install a basic Rake task for a Rails application.
+To do so, just run this at the root directory of the Rails application:
+railroader --rake  This will create a task in lib/tasks/railroader.rake that looks like this:
+namespace :railroader do desc &amp;quot;Run Railroader&amp;quot; task :run, :output_files do |t, args| require &#39;railroader&#39; files = args[:output_files].</description>
+    </item>
+    
+    <item>
+      <title>Reducing False Positives</title>
+      <link>https://railroader.org/docs/reducing_false_positives/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/reducing_false_positives/</guid>
+      <description>By default, Railroader reports as much as possible. Because there is no way for Railroader to know if certain items are actually safe or not, it errs on the side of reporting too much rather than possibly not reporting a real problem. Sometimes, though, these false positives can become overwhelming. Railroader does provides many options for customizing reports. It is also possible to ignore specific warnings.
+It is recommended to always run Railroader with the default settings first (and then periodically after that), but it is possible to narrow down the results to make them less annoying.</description>
+    </item>
+    
+    <item>
+      <title>Running Railroader</title>
+      <link>https://railroader.org/docs/running/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/running/</guid>
+      <description>The simplest way to get started with Railroader is to just run it with no options in the root directory of your Rails application:
+cd your_rails_app/ railroader  This will scan the application in the current directory and output a report to the command line.
+Alternatively, you can supply a path as an option to Railroader:
+railroader your_rails_app  Even more specifically:
+railroader -p your_rails_app  Railroader Options
+More documentation</description>
+    </item>
+    
+    <item>
+      <title>Testing Railroader</title>
+      <link>https://railroader.org/docs/testing_railroader/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/testing_railroader/</guid>
+      <description>Tests for Railroader are written using the standard library&amp;rsquo;s test/unit.
+The main test file is in test/test.rb. It can be run using ruby test/test.rb (or from any directory).
+Structure Railroader is tested by running it against full Rails applications and then checking the reported warnings.
+test/test.rb #Main test runner test/apps/ #Apps to check against test/tests/ #Actual tests  There are several Rails applications, including:
+test/apps/rails2 #Rails 2.3.11 test/apps/rails3 #Rails 3.</description>
+    </item>
+    
+    <item>
+      <title>Troubleshooting</title>
+      <link>https://railroader.org/docs/troubleshooting/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/troubleshooting/</guid>
+      <description>Rails applications tend to be complex and processing all possible scenarios is nearly impossible. Railroader is built with reliability in mind and always attempts to at least generate a report. Unfortunately, that can some times hide problems.
+Hopefully the information on this page can help when things go awry. Remember, you can always open an issue or ask on Gitter to get help.
+Problems  Parsing Errors Railroader &amp;ldquo;Hangs&amp;rdquo;  More documentation</description>
+    </item>
+    
+  </channel>
+</rss>

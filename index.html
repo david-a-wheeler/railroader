@@ -81,6 +81,12 @@
           </li>
           
           <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/docs/" title="Documentation page">
+              Documentation
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
             <a class="hover-white no-underline white-90" href="/install/" title="Install page">
               Install
             </a>
@@ -131,7 +137,8 @@ in applications that use Ruby on Rails.
 It&rsquo;s easy to <a href="/install">install</a> and <a href="/use">use</a>.
 It is open source software (OSS) using the MIT license; we
 <a href="https://github.com/david-a-wheeler/railroader">love bug reports and contributions</a>!
-You can <a href="/about">learn more about Railroader</a>.</p>
+More <a href="/docs">documentation</a> is available.
+You can <a href="/about">learn the basics about Railroader</a>.</p>
 
   </article>
   
@@ -148,7 +155,7 @@ You can <a href="/about">learn more about Railroader</a>.</p>
       
        
           <h1 class="flex-none">
-            Recent Posts
+            Recent Documentation
           </h1>
         
 
@@ -165,17 +172,67 @@ You can <a href="/about">learn more about Railroader</a>.</p>
       
       <div class="blah w-100">
         <h1 class="f3 fw1 athelas mt0 lh-title">
-          <a href="/post/first-post/" class="color-inherit dim link">
-            Welcome to Railroader!
+          <a href="/docs/warning_types/attribute_restriction/" class="color-inherit dim link">
+            Attribute Restriction
             </a>
         </h1>
         <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
-          Welcome to Railroader!
-Railroader is a security static analysis tool for analyzing applications that use Ruby on Rails. It is open source software (OSS) using the MIT license.
-It&rsquo;s easy to install and use.
-Railroader is a fork of the Brakeman tool, which was once OSS but is no longer. If you want Brakeman, go to the Brakeman website instead.
+          This warning comes up if a model does not limit what attributes can be set through mass assignment.
+In particular, this check looks for attr_accessible inside model definitions. If it is not found, this warning will be issued.
+Railroader also warns on use of attr_protected - especially since it was found to be vulnerable to bypass. Warnings for mass assignment on models using attr_protected will be reported, but at a lower confidence level.
         </div>
-          <a href="/post/first-post/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+          <a href="/docs/warning_types/attribute_restriction/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+          </div>
+        
+          <div class="relative w-100 mb4">
+            
+<article class="bb b--black-10">
+  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
+    <div class="flex flex-column flex-row-ns">
+      
+      <div class="blah w-100">
+        <h1 class="f3 fw1 athelas mt0 lh-title">
+          <a href="/docs/warning_types/authentication/" class="color-inherit dim link">
+            Authentication
+            </a>
+        </h1>
+        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
+          &ldquo;Authentication&rdquo; is the act of verifying that a user or client is who they say they are.
+Right now, the only Railroader warning in the authentication category is regarding hardcoded passwords. Railroader will warn about constants with literal string values that appear to be passwords.
+Hardcoded passwords are security issues since they imply a single password and that password is stored in the source code. Typically source code is available to a wide number of people inside an organization, and there have been many instances of source code leaking to the public.
+        </div>
+          <a href="/docs/warning_types/authentication/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+          </div>
+        
+          <div class="relative w-100 mb4">
+            
+<article class="bb b--black-10">
+  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
+    <div class="flex flex-column flex-row-ns">
+      
+      <div class="blah w-100">
+        <h1 class="f3 fw1 athelas mt0 lh-title">
+          <a href="/docs/warning_types/authentication_whitelist/" class="color-inherit dim link">
+            Authentication Whitelist
+            </a>
+        </h1>
+        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
+          When skipping before_filters with security implications, a &ldquo;whitelist&rdquo; approach using only should be used instead of except. This ensures actions are protected by default, and unprotected only by exception.
+Back to Warning Types
+        </div>
+          <a href="/docs/warning_types/authentication_whitelist/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
         
       </div>
     </div>
@@ -186,6 +243,41 @@ Railroader is a fork of the Brakeman tool, which was once OSS but is no longer. 
         
       </section>
 
+      
+      <section class="w-100">
+        <h1 class="f3">More</h1>
+        
+        
+          <h2 class="f5 fw4 mb4 dib mr3">
+            <a href="/docs/warning_types/basic_auth/" class="link black dim">
+              Basic Authentication
+            </a>
+          </h2>
+        
+          <h2 class="f5 fw4 mb4 dib mr3">
+            <a href="/docs/warning_types/basic_authentication/" class="link black dim">
+              Basic Authentication
+            </a>
+          </h2>
+        
+          <h2 class="f5 fw4 mb4 dib mr3">
+            <a href="/docs/warning_types/command_injection/" class="link black dim">
+              Command Injection
+            </a>
+          </h2>
+        
+          <h2 class="f5 fw4 mb4 dib mr3">
+            <a href="/docs/confidence/" class="link black dim">
+              Confidence Levels
+            </a>
+          </h2>
+        
+
+        
+        
+          <a href="/docs/" class="link db f6 pa2 br3 bg-mid-gray white dim w4 tc">All Documentation</a>
+        
+        </section>
       
 
       </div>

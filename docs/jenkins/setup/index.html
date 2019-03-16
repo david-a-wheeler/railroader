@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Railroader  | Jenkins Job Setup</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Jenkins Job Setup" />
+<meta property="og:description" content="The main goal when setting up a job is to have Jenkins run Railroader, and then the plugin will read the results.
+Ruby must be installed on the Jenkins server.
+Enable the plugin On the job configuration page, check the box next to &ldquo;Publish Railroader warnings&rdquo;. On newer builds of Jenkins, you&rsquo;ll find this under the &ldquo;Add post-build action&rdquo; dropdown at the bottom of the page.
+The plugin will look for an output file from Railroader in the work directory." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://railroader.org/docs/jenkins/setup/" />
+
+
+<meta itemprop="name" content="Jenkins Job Setup">
+<meta itemprop="description" content="The main goal when setting up a job is to have Jenkins run Railroader, and then the plugin will read the results.
+Ruby must be installed on the Jenkins server.
+Enable the plugin On the job configuration page, check the box next to &ldquo;Publish Railroader warnings&rdquo;. On newer builds of Jenkins, you&rsquo;ll find this under the &ldquo;Add post-build action&rdquo; dropdown at the bottom of the page.
+The plugin will look for an output file from Railroader in the work directory.">
+
+
+
+<meta itemprop="wordCount" content="218">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Jenkins Job Setup"/>
+<meta name="twitter:description" content="The main goal when setting up a job is to have Jenkins run Railroader, and then the plugin will read the results.
+Ruby must be installed on the Jenkins server.
+Enable the plugin On the job configuration page, check the box next to &ldquo;Publish Railroader warnings&rdquo;. On newer builds of Jenkins, you&rsquo;ll find this under the &ldquo;Add post-build action&rdquo; dropdown at the bottom of the page.
+The plugin will look for an output file from Railroader in the work directory."/>
+
+      
+    
+  </head>
+
+  <body class="ma0 avenir bg-near-white production">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://railroader.org/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Railroader
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/about/" title="About page">
+              About
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/contribute/" title="Contribute page">
+              Contribute
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/docs/" title="Documentation page">
+              Documentation
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/install/" title="Install page">
+              Install
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/use/" title="Use page">
+              Use
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        JENKINS/HUDSON PLUGIN
+      </p>
+      <h1 class="f1 athelas mb1">Jenkins Job Setup</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>The main goal when setting up a job is to have Jenkins run Railroader, and then the plugin will read the results.</p>
+
+<p>Ruby must be installed on the Jenkins server.</p>
+
+<h2 id="enable-the-plugin">Enable the plugin</h2>
+
+<p>On the job configuration page, check the box next to &ldquo;Publish Railroader warnings&rdquo;. On newer builds of Jenkins, you&rsquo;ll find this under the &ldquo;Add post-build action&rdquo; dropdown at the bottom of the page.</p>
+
+<p>The plugin will look for an output file from Railroader in the work directory. The name of the output file can be specified here, but the default should be fine.</p>
+
+<h2 id="set-job-to-run-railroader">Set Job to Run Railroader</h2>
+
+<p>Click &ldquo;Add Build Step&rdquo; and then &ldquo;Execute shell&rdquo;.</p>
+
+<p>This is the tricky part, and it depends on how Ruby is set up on the server. The important part is that the output from Railroader needs to be in the <code>tabs</code> format.</p>
+
+<h3 id="without-rvm">Without RVM</h3>
+
+<p>If Ruby is installed globally, then this should work:</p>
+
+<pre><code>gem install railroader --no-ri --no-rdoc &amp;&amp;    
+railroader -o railroader-output.tabs
+</code></pre>
+
+<h3 id="with-rvm">With RVM</h3>
+
+<p>If <a href="http://beginrescueend.com/">RVM</a> is installed on the server:</p>
+
+<pre><code>bash -l -c '
+gem install railroader --no-ri --no-rdoc &amp;&amp;
+railroader -o railroader-output.tabs'
+</code></pre>
+
+<p>It might make sense to also set up a separate gemset:</p>
+
+<pre><code>bash -l -c '
+rvm gemset create my-railroader-job &amp;&amp;
+rvm gemset use my-railroader-job &amp;&amp;
+gem install railroader --no-ri --no-rdoc &amp;&amp;
+railroader -o railroader-output.tabs'
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://railroader.org/" >
+    &copy; 2019 Railroader
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

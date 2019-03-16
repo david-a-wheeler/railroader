@@ -69,5 +69,637 @@ railroader  It will analyze the software and report any warnings.
 Since it&amp;rsquo;s easy to run, it&amp;rsquo;s easy to integrate into your continuous integration (CI) pipeline. Railroader returns failure (nonzero) if there&amp;rsquo;s a problem, so just add it to the set of commands that should normally succeed.</description>
     </item>
     
+    <item>
+      <title>Attribute Restriction</title>
+      <link>https://railroader.org/docs/warning_types/attribute_restriction/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/attribute_restriction/</guid>
+      <description>This warning comes up if a model does not limit what attributes can be set through mass assignment.
+In particular, this check looks for attr_accessible inside model definitions. If it is not found, this warning will be issued.
+Railroader also warns on use of attr_protected - especially since it was found to be vulnerable to bypass. Warnings for mass assignment on models using attr_protected will be reported, but at a lower confidence level.</description>
+    </item>
+    
+    <item>
+      <title>Authentication</title>
+      <link>https://railroader.org/docs/warning_types/authentication/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/authentication/</guid>
+      <description>&amp;ldquo;Authentication&amp;rdquo; is the act of verifying that a user or client is who they say they are.
+Right now, the only Railroader warning in the authentication category is regarding hardcoded passwords. Railroader will warn about constants with literal string values that appear to be passwords.
+Hardcoded passwords are security issues since they imply a single password and that password is stored in the source code. Typically source code is available to a wide number of people inside an organization, and there have been many instances of source code leaking to the public.</description>
+    </item>
+    
+    <item>
+      <title>Authentication Whitelist</title>
+      <link>https://railroader.org/docs/warning_types/authentication_whitelist/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/authentication_whitelist/</guid>
+      <description>When skipping before_filters with security implications, a &amp;ldquo;whitelist&amp;rdquo; approach using only should be used instead of except. This ensures actions are protected by default, and unprotected only by exception.
+Back to Warning Types</description>
+    </item>
+    
+    <item>
+      <title>Basic Authentication</title>
+      <link>https://railroader.org/docs/warning_types/basic_auth/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/basic_auth/</guid>
+      <description>window.location.replace(&#34;http://railroaderscanner.org/docs/warning_types/basic_authentication/&#34;);  Content moved to Basic Authentication.</description>
+    </item>
+    
+    <item>
+      <title>Basic Authentication</title>
+      <link>https://railroader.org/docs/warning_types/basic_authentication/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/basic_authentication/</guid>
+      <description>In Rails 3.1, a new feature was added to simplify basic authentication.
+The example provided in the official Rails Guide looks like this:
+class PostsController &amp;lt; ApplicationController http_basic_authenticate_with :name =&amp;gt; &amp;quot;dhh&amp;quot;, :password =&amp;gt; &amp;quot;secret&amp;quot;, :except =&amp;gt; :index #... end  This warning will be raised if http_basic_authenticate_with is used and the password is found to be a string (i.e., stored somewhere in the code).
+Back to Warning Types</description>
+    </item>
+    
+    <item>
+      <title>Command Injection</title>
+      <link>https://railroader.org/docs/warning_types/command_injection/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/command_injection/</guid>
+      <description>Injection is #1 on the 2010 OWASP Top Ten web security risks. Command injection occurs when shell commands unsafely include user-manipulatable values.
+There are many ways to run commands in Ruby:
+`ls #{params[:file]}` system(&amp;quot;ls #{params[:dir]}&amp;quot;) exec(&amp;quot;md5sum #{params[:input]}&amp;quot;)  Railroader will warn on any method like these that uses user input or unsafely interpolates variables.
+See the Ruby Security Guide for details.
+Back to Warning Types</description>
+    </item>
+    
+    <item>
+      <title>Confidence Levels</title>
+      <link>https://railroader.org/docs/confidence/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/confidence/</guid>
+      <description>Railroader assigns each warning a confidence level. This rating is intended to indicate how certain Railroader is that the given warning is a real problem.
+The following guidelines are used:
+ High - Either this is a simple warning or user input is very likely being used in unsafe ways. Medium - This generally indicates an unsafe use of a variable, but the variable may or may not be user input.</description>
+    </item>
+    
+    <item>
+      <title>Contributing to Railroader</title>
+      <link>https://railroader.org/docs/contributing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/contributing/</guid>
+      <description>The simplest way to contribute to the improvement of Railroader is to run it against your own applications and then report any issues here.
+Suggestions are welcome, too!
+See contributing for the basics on contributing.
+Testing on Different Platforms Railroader should work on most platforms without a problem. It is typically tested against MRI 1.8.7 and 1.9.3, so any problems outside those two should definitely be reported.
+Contributing Features New feature implementations should be submitted as a pull request on GitHub.</description>
+    </item>
+    
+    <item>
+      <title>Cross Site Request Forgery</title>
+      <link>https://railroader.org/docs/warning_types/cross-site_request_forgery/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/cross-site_request_forgery/</guid>
+      <description>Cross-site request forgery is #5 on the OWASP Top Ten. CSRF allows an attacker to perform actions on a website as if they are an authenticated user.
+This warning is raised when no call to protect_from_forgery is found in ApplicationController. This method prevents CSRF.
+For Rails 4 applications, it is recommended that you use protect_from_forgery :with =&amp;gt; :exception. This code is inserted into newly generated applications. The default is to nil out the session object, which has been a source of many CSRF bypasses due to session memoization.</description>
+    </item>
+    
+    <item>
+      <title>Cross Site Scripting</title>
+      <link>https://railroader.org/docs/warning_types/cross_site_scripting/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/cross_site_scripting/</guid>
+      <description>Cross site scripting (or XSS) is #2 on the 2010 OWASP Top Ten web security risks and it pops up nearly everywhere.
+XSS occurs when a user-manipulatable value is displayed on a web page without escaping it, allowing someone to inject Javascript or HTML into the page.
+In Rails 2.x, values need to be explicitly escaped (e.g., by using the h method). In Rails 3.x, auto-escaping in views is enabled by default.</description>
+    </item>
+    
+    <item>
+      <title>Cross Site Scripting (Content Tag)</title>
+      <link>https://railroader.org/docs/warning_types/content_tag/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/content_tag/</guid>
+      <description>Cross site scripting (or XSS) is #2 on the 2010 OWASP Top Ten web security risks and it pops up nearly everywhere. XSS occurs when a user-manipulatable value is displayed on a web page without escaping it, allowing someone to inject Javascript or HTML into the page.
+content_tag is a view helper which generates an HTML tag with some content:
+&amp;gt;&amp;gt; content_tag :p, &amp;quot;Hi!&amp;quot; =&amp;gt; &amp;quot;&amp;lt;p&amp;gt;Hi!&amp;lt;/p&amp;gt;&amp;quot;  In Rails 2, this content is unescaped (although attribute values are escaped):</description>
+    </item>
+    
+    <item>
+      <title>Cross Site Scripting (JSON)</title>
+      <link>https://railroader.org/docs/warning_types/cross_site_scripting_to_json/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/cross_site_scripting_to_json/</guid>
+      <description>Cross site scripting (or XSS) is #2 on the 2010 OWASP Top Ten web security risks and it pops up nearly everywhere.
+XSS occurs when a user-manipulatable value is displayed on a web page without escaping it, allowing someone to inject Javascript or HTML into the page. Calls to Hash#to_json can be used to trigger XSS. Railroader will check to see if there are any calls to Hash#to_json with ActiveSupport#escape_html_entities_in_json set to false (or if you are running Rails &amp;lt; 2.</description>
+    </item>
+    
+    <item>
+      <title>Cross Site Scripting: link to</title>
+      <link>https://railroader.org/docs/warning_types/link_to/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/link_to/</guid>
+      <description>In the 2.x versions of Rails, link_to would not escape the body of the HREF.
+For example, this will popup an alert box:
+link_to &amp;quot;&amp;lt;script&amp;gt;alert(1)&amp;lt;/script&amp;gt;&amp;quot;, &amp;quot;http://google.com&amp;quot;  Railroader warns on cases where the first parameter contains user input.
+Back to Warning Types</description>
+    </item>
+    
+    <item>
+      <title>Cross Site Scripting: link to HREF</title>
+      <link>https://railroader.org/docs/warning_types/link_to_href/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/link_to_href/</guid>
+      <description>Even though Rails will escape the link provided to link_to, values starting with &amp;ldquo;javascript:&amp;rdquo; or &amp;ldquo;data:&amp;rdquo; are unescaped and dangerous.
+Railroader will warn on if user values are used to provide the HREF value in link_to or if they are interpolated at the beginning of a string.
+The --url-safe-methods option can be used to specify methods which make URLs safe.
+See here for more details.
+Back to Warning Types</description>
+    </item>
+    
+    <item>
+      <title>Cross-Site Request Forgery</title>
+      <link>https://railroader.org/docs/warning_types/cross_site_request_forgery/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/cross_site_request_forgery/</guid>
+      <description>window.location.replace(&#34;http://railroaderscanner.org/docs/warning_types/cross-site_request_forgery/&#34;);  Content has moved to Cross-Site Request Forgery
+Back to Warning Types</description>
+    </item>
+    
+    <item>
+      <title>Cross-Site Scripting</title>
+      <link>https://railroader.org/docs/warning_types/cross-site_scripting/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/cross-site_scripting/</guid>
+      <description>window.location.replace(&#34;http://railroaderscanner.org/docs/warning_types/cross_site_scripting/&#34;);  Content has moved to Cross-Site Scripting
+Back to Warning Types</description>
+    </item>
+    
+    <item>
+      <title>Cross-Site Scripting</title>
+      <link>https://railroader.org/docs/warning_types/cross-site_scripting_to_json/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/cross-site_scripting_to_json/</guid>
+      <description>window.location.replace(&#34;http://railroaderscanner.org/docs/warning_types/cross_site_scripting_to_json/&#34;);  Content has moved to Cross-Site Scripting
+Back to Warning Types</description>
+    </item>
+    
+    <item>
+      <title>Dangerous Evaluation</title>
+      <link>https://railroader.org/docs/warning_types/dangerous_eval/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/dangerous_eval/</guid>
+      <description>User input in an eval statement is VERY dangerous, so this will always raise a warning. Railroader looks for calls to eval, instance_eval, class_eval, and module_eval.
+Back to Warning Types</description>
+    </item>
+    
+    <item>
+      <title>Dangerous Evaluation</title>
+      <link>https://railroader.org/docs/warning_types/dangerous_evaluation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/dangerous_evaluation/</guid>
+      <description>window.location.replace(&#34;http://railroaderscanner.org/docs/warning_types/dangerous_eval/&#34;);  Content moved to Dangerous Eval.</description>
+    </item>
+    
+    <item>
+      <title>Dangerous Evaluation</title>
+      <link>https://railroader.org/docs/warning_types/evaluation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/evaluation/</guid>
+      <description>window.location.replace(&#34;http://railroaderscanner.org/docs/warning_types/dangerous_eval/&#34;);  Content moved to Dangerous Eval.</description>
+    </item>
+    
+    <item>
+      <title>Dangerous Send</title>
+      <link>https://railroader.org/docs/warning_types/dangerous_send/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/dangerous_send/</guid>
+      <description>Using unfiltered user data to select a Class or Method to be dynamically sent is dangerous.
+It is much safer to whitelist the desired target or method.
+Unsafe use of method:
+method = params[:method] @result = User.send(method.to_sym)  Safe:
+method = params[:method] == 1 ? :method_a : :method_b @result = User.send(method, *args)  Unsafe use of target:
+table = params[:table] model = table.classify.constantize @result = model.send(:method)  Safe:
+target = params[:target] == 1 ?</description>
+    </item>
+    
+    <item>
+      <title>Default Routes</title>
+      <link>https://railroader.org/docs/warning_types/default_routes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/default_routes/</guid>
+      <description>The general default routes warning means there is a call to
+#Rails 2.x map.connect &amp;quot;:controller/:action/:id&amp;quot;  or
+Rails 3.x match &#39;:controller(/:action(/:id(.:format)))&#39;  in config/routes.rb. This allows any public method on any controller to be called as an action.
+If this warning is reported for a particular controller, it means there is a route to that controller containing :action.
+Default routes can be dangerous if methods are made public which are not intended to be used as URLs or actions.</description>
+    </item>
+    
+    <item>
+      <title>Denial of Service</title>
+      <link>https://railroader.org/docs/warning_types/denial_of_service/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/denial_of_service/</guid>
+      <description>Denial of Service (DoS) is any attack which causes a service to become unavailable for legitimate clients.
+For issues that Railroader detects, this typically arises in the form of memory leaks. In particular, since Symbols are not garbage collected, creation of large numbers of Symbols could lead to a server running out of memory.
+Railroader checks for instances of user input which is converted to a Symbol. When this is not restricted, an attacker could create an unlimited number of Symbols.</description>
+    </item>
+    
+    <item>
+      <title>Dynamic Render Path</title>
+      <link>https://railroader.org/docs/warning_types/dynamic_render_path/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/dynamic_render_path/</guid>
+      <description>window.location.replace(&#34;http://railroaderscanner.org/docs/warning_types/dynamic_render_paths/&#34;);  Content has moved to Dynamic Render Paths</description>
+    </item>
+    
+    <item>
+      <title>Dynamic Render Path</title>
+      <link>https://railroader.org/docs/warning_types/dynamic_render_paths/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/dynamic_render_paths/</guid>
+      <description>When a call to render uses a dynamically generated path, template name, file name, or action, there is the possibility that a user can access templates that should be restricted. The issue may be worse if those templates execute code or modify the database.
+This warning is shown whenever the path to be rendered is not a static string or symbol.
+These warnings are often false positives, however, because it can be difficult to manipulate Rails&amp;rsquo; assumptions about paths to perform malicious behavior.</description>
+    </item>
+    
+    <item>
+      <title>File Access</title>
+      <link>https://railroader.org/docs/warning_types/file_access/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/file_access/</guid>
+      <description>Using user input when accessing files (local or remote) will raise a warning in Railroader.
+For example
+File.open(&amp;quot;/tmp/#{cookie[:file]}&amp;quot;)  will raise an error like
+Cookie value used in file name near line 4: File.open(&amp;quot;/tmp/#{cookie[:file]}&amp;quot;)  This type of vulnerability can be used to access arbitrary files on a server (including /etc/passwd.
+Back to Warning Types</description>
+    </item>
+    
+    <item>
+      <title>Format Validation</title>
+      <link>https://railroader.org/docs/warning_types/format_validation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/format_validation/</guid>
+      <description>Calls to validates_format_of ..., :with =&amp;gt; // which do not use \A and \z as anchors will cause this warning. Using ^ and $ is not sufficient, as they will only match up to a new line. This allows an attacker to put whatever malicious input they would like before or after a new line character.
+See the Ruby Security Guide for details.
+Back to Warning Types</description>
+    </item>
+    
+    <item>
+      <title>Format Validation</title>
+      <link>https://railroader.org/docs/warning_types/model_validation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/model_validation/</guid>
+      <description>window.location.replace(&#34;http://railroaderscanner.org/docs/warning_types/format_validation/&#34;);  Content moved to Format Validation.</description>
+    </item>
+    
+    <item>
+      <title>Frequently Asked Questions</title>
+      <link>https://railroader.org/docs/faq/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/faq/</guid>
+      <description>Railroader hangs while processing my app. What do I do? Sorry about that! Please follow these instructions.
+Railroader is reporting parsing errors, but my app runs fine. What&amp;rsquo;s going on? Railroader relies on ruby_parser for parsing Ruby code. Support for Ruby 1.9 syntax is still in development, so Railroader cannot handle all the new 1.9 syntax changes. Unfortunately, the next version of ruby_parser (3.0) makes some large, incompatible changes which will also require major changes in Railroader.</description>
+    </item>
+    
+    <item>
+      <title>Ignoring False Positives</title>
+      <link>https://railroader.org/docs/ignoring_false_positives/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/ignoring_false_positives/</guid>
+      <description>False positives (warnings about potential vulnerabilities which are not actual vulnerabilities) are present in any security tool. Before ignoring a false positive, be certain it is actually a false positive and also consider reporting it in case changes can be made to Railroader to prevent the false positive in the future.
+The ignore configuration is a JSON file containing a list of warnings. This is essentially the same as the JSON report, except the warnings can also have a note field.</description>
+    </item>
+    
+    <item>
+      <title>Information Disclosure</title>
+      <link>https://railroader.org/docs/warning_types/information_disclosure/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/information_disclosure/</guid>
+      <description>Also known as information leakage or information exposure, this vulnerability refers to system or internal information (such as debugging output, stack traces, error messages, etc.) which is displayed to an end user.
+For example, Rails provides detailed exception reports by default in the development environment, but it is turned off by default in production:
+# Full error reports are disabled config.consider_all_requests_local = false  Railroader warns if this setting is true in production or there is a show_detailed_exceptions?</description>
+    </item>
+    
+    <item>
+      <title>Installing Railroader</title>
+      <link>https://railroader.org/docs/install/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/install/</guid>
+      <description>gem install Railroader is best installed via RubyGems:
+gem install railroader  This will provide the railroader executable.
+bundler Railroader can be added to a Gemfile:
+gem &amp;quot;railroader&amp;quot;  It is recommended to always use the latest version of Railroader.
+git clone If you must have the latest and greatest, then you can build the gem yourself:
+git clone git://github.com/presidentbeef/railroader.git cd railroader gem build railroader.gemspec gem install railroader-*.gem  Running Railroader</description>
+    </item>
+    
+    <item>
+      <title>Installing the Railroader Plugin</title>
+      <link>https://railroader.org/docs/jenkins/installation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/jenkins/installation/</guid>
+      <description>Note: This plugin does not contain Railroader, it only imports and aggregates Railroader results.
+Installion Through Plugin Manager Navigate to Manage Jenkins -&amp;gt; Manage Plugins -&amp;gt; Available.
+Check the box next to &amp;ldquo;Railroader&amp;rdquo; and click the &amp;ldquo;Install&amp;rdquo; button at the bottom of the page.
+When installation is complete, restart Jenkins.
+Manual Installion Install the Static Analysis Core Plugin First, install the Static Analysis Core Plugin.
+To do so, navigate through Jenkins to the list of available plugins: Manage Jenkins -&amp;gt; Manage Plugins -&amp;gt; Available.</description>
+    </item>
+    
+    <item>
+      <title>Introduction to Railroader</title>
+      <link>https://railroader.org/docs/introduction/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/introduction/</guid>
+      <description>Railroader is a security scanner for Ruby on Rails applications.
+Unlike many web security scanners, Railroader looks at the source code of your application. This means you do not need to set up your whole application stack to use it.
+Once Railroader scans the application code, it produces a report of all security issues it has found.
+Advantages No Configuration Necessary Railroader requires zero setup or configuration once it is installed.</description>
+    </item>
+    
+    <item>
+      <title>Jenkins Job Setup</title>
+      <link>https://railroader.org/docs/jenkins/setup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/jenkins/setup/</guid>
+      <description>The main goal when setting up a job is to have Jenkins run Railroader, and then the plugin will read the results.
+Ruby must be installed on the Jenkins server.
+Enable the plugin On the job configuration page, check the box next to &amp;ldquo;Publish Railroader warnings&amp;rdquo;. On newer builds of Jenkins, you&amp;rsquo;ll find this under the &amp;ldquo;Add post-build action&amp;rdquo; dropdown at the bottom of the page.
+The plugin will look for an output file from Railroader in the work directory.</description>
+    </item>
+    
+    <item>
+      <title>Mail Link (CVE-2011-0446)</title>
+      <link>https://railroader.org/docs/warning_types/cve-2011-0446/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/cve-2011-0446/</guid>
+      <description>Certain versions of Rails were vulnerable to a cross-site scripting vulnerability mail_to.
+Versions of Rails after 2.3.10 or 3.0.3 are not affected. Updating or removing the mail_to links is advised.
+For more details see CVE-2011-0446.
+Back to Warning Types</description>
+    </item>
+    
+    <item>
+      <title>Mass Assignment</title>
+      <link>https://railroader.org/docs/warning_types/mass_assignment/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/mass_assignment/</guid>
+      <description>Mass assignment is a feature of Rails which allows an application to create a record from the values of a hash.
+Example:
+User.new(params[:user])  Unfortunately, if there is a user field called admin which controls administrator access, now any user can make themselves an administrator with a query like
+?user[admin]=true  Rails With Strong Parameters In Rails 4 and newer, protection for mass assignment is on by default.
+Query parameters must be explicitly whitelisted via permit in order to be used in mass assignment:</description>
+    </item>
+    
+    <item>
+      <title>Nested Attributes (CVE-2010-3933)</title>
+      <link>https://railroader.org/docs/warning_types/cve-2010-3933/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/cve-2010-3933/</guid>
+      <description>Rails 2.3.9 and 3.0.0 are vulnerable to an attack on nested attributes wherein a malicious user could alter data in any record in the system.
+It is recommended to upgrade to at least 2.3.10 or 3.0.1.
+For more details see CVE-2011-0446.
+Back to Warning Types</description>
+    </item>
+    
+    <item>
+      <title>Options</title>
+      <link>https://railroader.org/docs/options/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/options/</guid>
+      <description>This page may or may not be entirely up-to-date. For best results but less information, run railroader --help.
+Please note some options below are shown as the short (-) or long (--) forms, but all options have long forms.
+Scanning Options There are some checks which are not run by default. To run all checks, use:
+railroader -A  Each check will be run in a separate thread by default.</description>
+    </item>
+    
+    <item>
+      <title>Railroader as a Library</title>
+      <link>https://railroader.org/docs/railroader_as_a_library/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/railroader_as_a_library/</guid>
+      <description>Railroader was initially designed to be used a command-line application. Recently, there have been some changes to allow it to be used as a library as well. Future releases will likely make it even easier to use.
+Simple Example Here is a simple example:
+require &#39;railroader&#39; tracker = Railroader.run &amp;quot;my/app&amp;quot; puts tracker.report  This runs Railroader against the Rails application in my/app and prints out the report. This is essentially equivalent to running Railroader with no options.</description>
+    </item>
+    
+    <item>
+      <title>Railroader with Rake</title>
+      <link>https://railroader.org/docs/rake/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/rake/</guid>
+      <description>Running Railroader via Rake is discouraged because it loads the entire Rails application
+Railroader can generate and install a basic Rake task for a Rails application.
+To do so, just run this at the root directory of the Rails application:
+railroader --rake  This will create a task in lib/tasks/railroader.rake that looks like this:
+namespace :railroader do desc &amp;quot;Run Railroader&amp;quot; task :run, :output_files do |t, args| require &#39;railroader&#39; files = args[:output_files].</description>
+    </item>
+    
+    <item>
+      <title>Redirect</title>
+      <link>https://railroader.org/docs/warning_types/redirect/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/redirect/</guid>
+      <description>Unvalidated redirects and forwards are #10 on the OWASP Top Ten.
+Redirects which rely on user-supplied values can be used to &amp;ldquo;spoof&amp;rdquo; websites or hide malicious links in otherwise harmless-looking URLs. They can also allow access to restricted areas of a site if the destination is not validated.
+Railroader will raise warnings whenever redirect_to appears to be used with a user-supplied value that may allow them to change the :host option.</description>
+    </item>
+    
+    <item>
+      <title>Reducing False Positives</title>
+      <link>https://railroader.org/docs/reducing_false_positives/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/reducing_false_positives/</guid>
+      <description>By default, Railroader reports as much as possible. Because there is no way for Railroader to know if certain items are actually safe or not, it errs on the side of reporting too much rather than possibly not reporting a real problem. Sometimes, though, these false positives can become overwhelming. Railroader does provides many options for customizing reports. It is also possible to ignore specific warnings.
+It is recommended to always run Railroader with the default settings first (and then periodically after that), but it is possible to narrow down the results to make them less annoying.</description>
+    </item>
+    
+    <item>
+      <title>Remote Code Execution</title>
+      <link>https://railroader.org/docs/warning_types/remote_code_execution/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/remote_code_execution/</guid>
+      <description>Railroader reports on several cases of remote code execution, in which a user is able to control and execute code in ways unintended by application authors.
+The obvious form of this is the use of eval with user input.
+However, Railroader also reports on dangerous uses of send, constantize, and other methods which allow creation of arbitrary objects or calling of arbitrary methods.
+Back to Warning Types</description>
+    </item>
+    
+    <item>
+      <title>Remote Code Execution in YAML.Load</title>
+      <link>https://railroader.org/docs/warning_types/remote_code_execution_yaml_load/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/remote_code_execution_yaml_load/</guid>
+      <description>As seen in CVE-2013-0156, calling YAML.load with user input can lead to remote execution of arbitrary code. (To see a real point-and-fire exploit, see the Metasploit payload). While upgrading Rails, disabling XML parsing, or disabling YAML types in XML request parsing will fix the Rails vulnerability, manually passing user input to YAML.load remains unsafe.
+For example:
+#Do not do this! YAML.load(params[:file])  Back to Warning Types</description>
+    </item>
+    
+    <item>
+      <title>Response Splitting (CVE-2011-3186)</title>
+      <link>https://railroader.org/docs/warning_types/cve-2011-3186/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/cve-2011-3186/</guid>
+      <description>Response splitting is a simple attack that can be used as part or a larger exploit chain. A malicious user sends data that causes the HTTP response header to include unintended newline characters which are interpreted as the end of the header. The attacker may then forge their own response body and an entirely false HTTP response, essentailly hijacking the entire page load.
+Versions of Rails 2 previous to 2.3.13 were vulnerable to this type of attack.</description>
+    </item>
+    
+    <item>
+      <title>Running Railroader</title>
+      <link>https://railroader.org/docs/running/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/running/</guid>
+      <description>The simplest way to get started with Railroader is to just run it with no options in the root directory of your Rails application:
+cd your_rails_app/ railroader  This will scan the application in the current directory and output a report to the command line.
+Alternatively, you can supply a path as an option to Railroader:
+railroader your_rails_app  Even more specifically:
+railroader -p your_rails_app  Railroader Options
+More documentation</description>
+    </item>
+    
+    <item>
+      <title>SQL Injection</title>
+      <link>https://railroader.org/docs/warning_types/sql_injection/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/sql_injection/</guid>
+      <description>Injection is #1 on the 2010 OWASP Top Ten web security risks. SQL injection is when a user is able to manipulate a value which is used unsafely inside a SQL query. This can lead to data leaks, data loss, elevation of privilege, and other unpleasant outcomes.
+Railroader focuses on ActiveRecord methods dealing with building SQL statements.
+A basic (Rails 2.x) example looks like this:
+User.first(:conditions =&amp;gt; &amp;quot;username = &#39;#{params[:username]}&#39;&amp;quot;)  Railroader would produce a warning like this:</description>
+    </item>
+    
+    <item>
+      <title>SSL Verification Bypass</title>
+      <link>https://railroader.org/docs/warning_types/ssl_verification_bypass/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/ssl_verification_bypass/</guid>
+      <description>Simply using SSL isn&amp;rsquo;t enough to ensure the data you are sending is secure. Man in the middle (MITM) attacks are well known and widely used. In some cases, these attacks rely on the client to establish a connection that doesn&amp;rsquo;t check the validity of the SSL certificate presented by the server. In this case, the attacker can present their own certificate and act as a man in the middle.</description>
+    </item>
+    
+    <item>
+      <title>Session Manipulation</title>
+      <link>https://railroader.org/docs/warning_types/session_manipulation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/session_manipulation/</guid>
+      <description>Session manipulation can occur when an application allows user-input in session keys. Since sessions are typically considered a source of truth (e.g. to check the logged-in user or to match CSRF tokens), allowing an attacker to manipulate the session may lead to unintended behavior.
+For example:
+user_id = session[params[:name]] current_user = User.find(user_id)  In this scenario, the attacker can point the name parameter to some other session value (for example, _csrf_token) that will be interpreted as a user ID.</description>
+    </item>
+    
+    <item>
+      <title>Session Settings</title>
+      <link>https://railroader.org/docs/warning_types/session_setting/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/session_setting/</guid>
+      <description>HTTP Only It is recommended that session cookies be set to &amp;ldquo;http-only&amp;rdquo;. This helps prevent stealing of cookies via cross site scripting.
+Secret Length Railroader will warn if the key length for the session cookies is less than 30 characters.
+Version control inclusion Railroader will warn if the config/initializers/secret_token.rb is included in the version control. It is recommended that secret_token.rb is excluded from version control, and included in .gitignore</description>
+    </item>
+    
+    <item>
+      <title>Session Settings</title>
+      <link>https://railroader.org/docs/warning_types/session_settings/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/session_settings/</guid>
+      <description>window.location.replace(&#34;http://railroaderscanner.org/docs/warning_types/session_setting/&#34;);  Content has moved to Session Setting
+Back to Warning Types</description>
+    </item>
+    
+    <item>
+      <title>Testing Railroader</title>
+      <link>https://railroader.org/docs/testing_railroader/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/testing_railroader/</guid>
+      <description>Tests for Railroader are written using the standard library&amp;rsquo;s test/unit.
+The main test file is in test/test.rb. It can be run using ruby test/test.rb (or from any directory).
+Structure Railroader is tested by running it against full Rails applications and then checking the reported warnings.
+test/test.rb #Main test runner test/apps/ #Apps to check against test/tests/ #Actual tests  There are several Rails applications, including:
+test/apps/rails2 #Rails 2.3.11 test/apps/rails3 #Rails 3.</description>
+    </item>
+    
+    <item>
+      <title>Troubleshooting</title>
+      <link>https://railroader.org/docs/troubleshooting/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/troubleshooting/</guid>
+      <description>Rails applications tend to be complex and processing all possible scenarios is nearly impossible. Railroader is built with reliability in mind and always attempts to at least generate a report. Unfortunately, that can some times hide problems.
+Hopefully the information on this page can help when things go awry. Remember, you can always open an issue or ask on Gitter to get help.
+Problems  Parsing Errors Railroader &amp;ldquo;Hangs&amp;rdquo;  More documentation</description>
+    </item>
+    
+    <item>
+      <title>Unsafe Deserialization</title>
+      <link>https://railroader.org/docs/warning_types/unsafe_deserialization/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/unsafe_deserialization/</guid>
+      <description>Objects in Ruby may be serialized to strings. The main method for doing so is the built-in Marshal class. The YAML, JSON, and CSV libraries also have methods for dumping Ruby objects into strings, and then creating objects from those strings.
+Deserialization of arbitrary objects can lead to remote code execution, as was demonstrated with CVE-2013-0156.
+Railroader warns when loading user input with Marshal, YAML, or CSV. JSON is covered by the checks for CVE-2013-0333</description>
+    </item>
+    
+    <item>
+      <title>Unscoped Find</title>
+      <link>https://railroader.org/docs/warning_types/unscoped_find/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/warning_types/unscoped_find/</guid>
+      <description>Unscoped find (and related methods) are a form of Direct Object Reference. Models which belong to another model should typically be accessed via a scoped query.
+For example, if an Account belongs to a User, then this may be an unsafe unscoped find:
+Account.find(params[:id])  Depending on the action, this could allow an attacker to access any account they wish.
+Instead, it should be scoped to the currently logged-in user:</description>
+    </item>
+    
   </channel>
 </rss>

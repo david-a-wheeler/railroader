@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jenkins/Hudson Plugin on Railroader</title>
+    <link>https://railroader.org/docs/jenkins/</link>
+    <description>Recent content in Jenkins/Hudson Plugin on Railroader</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://railroader.org/docs/jenkins/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Installing the Railroader Plugin</title>
+      <link>https://railroader.org/docs/jenkins/installation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/jenkins/installation/</guid>
+      <description>Note: This plugin does not contain Railroader, it only imports and aggregates Railroader results.
+Installion Through Plugin Manager Navigate to Manage Jenkins -&amp;gt; Manage Plugins -&amp;gt; Available.
+Check the box next to &amp;ldquo;Railroader&amp;rdquo; and click the &amp;ldquo;Install&amp;rdquo; button at the bottom of the page.
+When installation is complete, restart Jenkins.
+Manual Installion Install the Static Analysis Core Plugin First, install the Static Analysis Core Plugin.
+To do so, navigate through Jenkins to the list of available plugins: Manage Jenkins -&amp;gt; Manage Plugins -&amp;gt; Available.</description>
+    </item>
+    
+    <item>
+      <title>Jenkins Job Setup</title>
+      <link>https://railroader.org/docs/jenkins/setup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://railroader.org/docs/jenkins/setup/</guid>
+      <description>The main goal when setting up a job is to have Jenkins run Railroader, and then the plugin will read the results.
+Ruby must be installed on the Jenkins server.
+Enable the plugin On the job configuration page, check the box next to &amp;ldquo;Publish Railroader warnings&amp;rdquo;. On newer builds of Jenkins, you&amp;rsquo;ll find this under the &amp;ldquo;Add post-build action&amp;rdquo; dropdown at the bottom of the page.
+The plugin will look for an output file from Railroader in the work directory.</description>
+    </item>
+    
+  </channel>
+</rss>

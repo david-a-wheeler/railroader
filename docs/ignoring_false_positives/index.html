@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Railroader  | Ignoring False Positives</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Ignoring False Positives" />
+<meta property="og:description" content="False positives (warnings about potential vulnerabilities which are not actual vulnerabilities) are present in any security tool. Before ignoring a false positive, be certain it is actually a false positive and also consider reporting it in case changes can be made to Railroader to prevent the false positive in the future.
+The ignore configuration is a JSON file containing a list of warnings. This is essentially the same as the JSON report, except the warnings can also have a note field." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://railroader.org/docs/ignoring_false_positives/" />
+
+
+<meta itemprop="name" content="Ignoring False Positives">
+<meta itemprop="description" content="False positives (warnings about potential vulnerabilities which are not actual vulnerabilities) are present in any security tool. Before ignoring a false positive, be certain it is actually a false positive and also consider reporting it in case changes can be made to Railroader to prevent the false positive in the future.
+The ignore configuration is a JSON file containing a list of warnings. This is essentially the same as the JSON report, except the warnings can also have a note field.">
+
+
+
+<meta itemprop="wordCount" content="544">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Ignoring False Positives"/>
+<meta name="twitter:description" content="False positives (warnings about potential vulnerabilities which are not actual vulnerabilities) are present in any security tool. Before ignoring a false positive, be certain it is actually a false positive and also consider reporting it in case changes can be made to Railroader to prevent the false positive in the future.
+The ignore configuration is a JSON file containing a list of warnings. This is essentially the same as the JSON report, except the warnings can also have a note field."/>
+
+      
+    
+  </head>
+
+  <body class="ma0 avenir bg-near-white production">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://railroader.org/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Railroader
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/about/" title="About page">
+              About
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/contribute/" title="Contribute page">
+              Contribute
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/docs/" title="Documentation page">
+              Documentation
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/install/" title="Install page">
+              Install
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/use/" title="Use page">
+              Use
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        DOCUMENTATION
+      </p>
+      <h1 class="f1 athelas mb1">Ignoring False Positives</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>False positives (warnings about potential vulnerabilities which are not actual vulnerabilities) are present in any security tool. Before ignoring a false positive, be certain it is actually a false positive and also consider <a href="https://github.com/presidentbeef/railroader/wiki/How-to-Report-a-Railroader-Issue#false-positivesfalse-negatives">reporting it</a> in case changes can be made to Railroader to prevent the false positive in the future.</p>
+
+<p>The ignore configuration is a JSON file containing a list of warnings. This is essentially the same as the JSON report, except the warnings can also have a <code>note</code> field.</p>
+
+<p>A minimal configuration might look like this, although the auto-generated one will have more information:</p>
+
+<pre><code>{
+    &quot;ignored_warnings&quot;: [
+        {
+          &quot;fingerprint&quot;: &quot;a21418b38aa77ef73946105fb1c9e3623b7be67a2419b960793871587200cbcc&quot;,
+          &quot;note&quot;: &quot;ignore foo&quot;
+        },
+        {
+          &quot;fingerprint&quot;: &quot;5945a9b096557ee5771c2dd12ea6cbec933b662d169e559f524ba01c44bf2452&quot;,
+          &quot;note&quot;: &quot;ignore bar&quot;
+        }
+    ]
+}
+</code></pre>
+
+<p>This functionality was introduced in <a href="/blog/2013/07/17/railroader-2-dot-1-0-released/">Railroader 2.1.0</a>.</p>
+
+<h2 id="creating-and-managing-an-ignore-file">Creating and Managing an Ignore File</h2>
+
+<p>The <code>-I</code> option (or <code>--interactive-ignore</code> if you are not into the whole brevity thing) is the simplest way to create and manage an ignore configuration.</p>
+
+<p>Use the <code>-I</code> option with a regular run of Railroader.</p>
+
+<p>After the scan, Railroader will ask for an existing configuration file to load:</p>
+
+<pre><code>Input file: |config/railroader.ignore| 
+</code></pre>
+
+<p>Unless there is an existing file somewhere else, just press enter to continue. If the file does not exist, Railroader will prompt</p>
+
+<pre><code>No such file. Continue with empty config? 
+</code></pre>
+
+<p>Enter <code>y</code> unless there is an existing file.</p>
+
+<p>Next, Railroader will ask what to do:</p>
+
+<pre><code>1. Inspect all warnings
+2. Hide previously ignored warnings
+3. Skip - use current ignore configuration
+? 
+</code></pre>
+
+<p>Enter <code>1</code> to step through all warnings. Enter <code>2</code> to step through all warnings except those which were already ignored. Enter <code>3</code> to skip the whole process and leave things as-is.</p>
+
+<p>For option <code>1</code> or <code>2</code>, Railroader will now present each warning in turn and ask what to do with them:</p>
+
+<p><img src="/images/bm-I.png" alt="railroader -I" /></p>
+
+<p>These are the options:</p>
+
+<pre><code>i - Add warning to ignore list
+n - Add warning to ignore list and add note
+s - Skip this warning (will remain ignored or shown)
+u - Remove this warning from ignore list
+a - Ignore this warning and all remaining warnings
+k - Skip this warning and all remaining warnings
+q - Quit, do not update ignored warnings
+? - Display this help
+</code></pre>
+
+<p>After stepping through the warnings, Railroader will ask if the changes should be saved:</p>
+
+<pre><code>1. Save changes
+2. Start over
+3. Quit, do not save changes
+? 
+</code></pre>
+
+<p>Enter <code>1</code> to save the changes to a file. Enter <code>2</code> to step through the warnings again. Enter <code>3</code> to not save any changes.</p>
+
+<p>For option <code>1</code>, Railroader will ask where to save the file. The default <code>config/railroader.ignore</code> is recommended.</p>
+
+<p>After that, the scan report will be generated, with the specified warnings ignored.</p>
+
+<h2 id="specifying-an-ignore-file">Specifying an Ignore File</h2>
+
+<p>By default, Railroader will look in the <code>config</code> directory of the application being scanned for a file named <code>railroader.ignore</code>. If this file exists, it will automatically be loaded and used.</p>
+
+<p>Otherwise, the location of the configuration file can be set using <code>-i</code> or <code>--ignore-config</code> with the file name, relative to the root of the Rails application.</p>
+
+<h2 id="when-warnings-are-ignored">When Warnings are Ignored</h2>
+
+<p>JSON reports include an array of <code>ignored_warnings</code>, HTML reports have a table of ignored warnings which is hidden by default, and the basic text output will include the number of warnings ignored, if any.</p>
+
+<hr />
+
+<p><a href="/docs/reducing_false_positives">Reducing false positives</a></p>
+
+<p><a href="/docs">More documentation</a></p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://railroader.org/" >
+    &copy; 2019 Railroader
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

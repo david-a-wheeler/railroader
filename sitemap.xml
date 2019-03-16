@@ -36,9 +36,173 @@
   </url>
   
   <url>
+    <loc>https://railroader.org/docs/warning_types/attribute_restriction/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/authentication/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/authentication_whitelist/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/basic_auth/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/basic_authentication/</loc>
+  </url>
+  
+  <url>
     <loc>https://railroader.org/categories/</loc>
     <lastmod>2019-02-07T12:01:40-05:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/command_injection/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/confidence/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/contributing/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/cross-site_request_forgery/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/cross_site_scripting/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/content_tag/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/cross_site_scripting_to_json/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/link_to/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/link_to_href/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/cross_site_request_forgery/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/cross-site_scripting/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/cross-site_scripting_to_json/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/dangerous_eval/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/dangerous_evaluation/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/evaluation/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/dangerous_send/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/default_routes/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/denial_of_service/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/dynamic_render_path/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/dynamic_render_paths/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/file_access/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/format_validation/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/model_validation/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/faq/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/ignoring_false_positives/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/information_disclosure/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/install/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/jenkins/installation/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/introduction/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/jenkins/setup/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/jenkins/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/cve-2011-0446/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/mass_assignment/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/cve-2010-3933/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/options/</loc>
   </url>
   
   <url>
@@ -53,9 +217,81 @@
   </url>
   
   <url>
+    <loc>https://railroader.org/docs/railroader_as_a_library/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/rake/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/redirect/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/reducing_false_positives/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/remote_code_execution/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/remote_code_execution_yaml_load/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/cve-2011-3186/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/running/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/sql_injection/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/ssl_verification_bypass/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/session_manipulation/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/session_setting/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/session_settings/</loc>
+  </url>
+  
+  <url>
     <loc>https://railroader.org/tags/</loc>
     <lastmod>2019-02-07T12:01:40-05:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/testing_railroader/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/troubleshooting/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/unsafe_deserialization/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/unscoped_find/</loc>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/docs/warning_types/</loc>
   </url>
   
 </urlset>
