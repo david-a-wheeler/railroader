@@ -11,7 +11,7 @@ Railroader is an open source static analysis tool which checks Ruby on Rails app
 
 Railroader is a fork of the Brakeman analysis tool version 4.3.1 (the last version of Brakeman that was open source software).  A key distinguishing feature is that Railroader is open source software (OSS), while Brakeman is not open source software any more.  Railroader is licensed under the [MIT-LICENSE](MIT-LICENSE). As a result, Railroader can be freely used for any purpose, including any commercial purposes.  In addition, contributors to Railroader (unlike Brakeman) retain their copyrights.
 
-If you are interested in Brakeman, please see the [Brakeman site instead](https://brakemanscanner.org/) instead!
+If you are interested in Brakeman, please see the [Brakeman site](https://brakemanscanner.org/) instead!
 
 We are currently in a transition process, because we have just started creating Railroader as a fork of Brakeman.  Some names in the process of changing - help is wanted to complete it. We need to change the name, because we assume that Synopsys owns the trademarks and in any case we want to make sure there is *no* confusion by anyone that Railroader is Brakeman (they are now different projects).
 
