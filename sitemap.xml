@@ -3,11 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://railroader.org/post/first-post/</loc>
-    <lastmod>2019-02-07T12:01:40-05:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://railroader.org/tags/</loc>
     <lastmod>2019-02-07T12:01:40-05:00</lastmod>
     <priority>0</priority>
@@ -20,19 +15,56 @@
   </url>
   
   <url>
+    <loc>https://railroader.org/categories/</loc>
+    <lastmod>2019-02-07T12:01:40-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/post/</loc>
+    <lastmod>2019-02-07T12:01:40-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/</loc>
+    <lastmod>2019-02-07T12:01:40-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/tags/</loc>
+    <lastmod>2019-02-07T12:01:40-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/post/first-post/</loc>
+    <lastmod>2019-02-07T12:01:40-05:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://railroader.org/about/</loc>
+    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://railroader.org/contribute/</loc>
+    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://railroader.org/install/</loc>
+    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://railroader.org/use/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://railroader.org/users/</loc>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -53,12 +85,6 @@
   
   <url>
     <loc>https://railroader.org/docs/warning_types/basic_authentication/</loc>
-  </url>
-  
-  <url>
-    <loc>https://railroader.org/categories/</loc>
-    <lastmod>2019-02-07T12:01:40-05:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -206,17 +232,6 @@
   </url>
   
   <url>
-    <loc>https://railroader.org/post/</loc>
-    <lastmod>2019-02-07T12:01:40-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://railroader.org/</loc>
-    <lastmod>2019-02-07T12:01:40-05:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://railroader.org/docs/railroader_as_a_library/</loc>
   </url>
   
@@ -266,12 +281,6 @@
   
   <url>
     <loc>https://railroader.org/docs/warning_types/session_settings/</loc>
-  </url>
-  
-  <url>
-    <loc>https://railroader.org/tags/</loc>
-    <lastmod>2019-02-07T12:01:40-05:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
