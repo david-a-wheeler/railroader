@@ -1,5 +1,5 @@
 FROM ruby:2.4-alpine
-MAINTAINER Justin Collins
+MAINTAINER David A. Wheeler
 
 WORKDIR /usr/src/app
 COPY . /usr/src/app
