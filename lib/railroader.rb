@@ -496,6 +496,8 @@ module Railroader
       file = options[:ignore_file]
     elsif app_tree.exists? "config/railroader.ignore"
       file = app_tree.expand_path("config/railroader.ignore")
+    elsif app_tree.exists? "config/brakeman.ignore"
+      file = app_tree.expand_path("config/brakeman.ignore")
     elsif not options[:interactive_ignore]
       return
     end
