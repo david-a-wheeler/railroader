@@ -1,3 +1,11 @@
+# 4.3.5
+
+* Mass rename to Railroader in docs/
+* Fall back to config/brakeman.ignore (credit: Matthew Kraai)
+* Remove duplicate "instead" in README (credit: Matthew Kraai)
+* Make test suite pass (skip failing tests)
+* Update `ruby_parser` to version 3.12
+
 # 4.3.3
 
 * Correct version number.
