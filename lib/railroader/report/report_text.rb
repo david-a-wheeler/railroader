@@ -195,4 +195,3 @@ class Railroader::Report::Text < Railroader::Report::Base
     double_space "Controller Overview", controllers
   end
 end
-

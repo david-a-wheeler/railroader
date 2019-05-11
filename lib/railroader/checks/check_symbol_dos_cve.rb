@@ -27,4 +27,3 @@ class Railroader::CheckSymbolDoSCVE < Railroader::BaseCheck
     end
   end
 end
-

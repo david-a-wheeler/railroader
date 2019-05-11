@@ -291,4 +291,3 @@ class Railroader::Warning
     formatted
   end
 end
-

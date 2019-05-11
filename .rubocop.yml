@@ -102,8 +102,6 @@ Layout/SpaceInsideParens:
   Enabled: False
 Layout/Tab:
   Enabled: False
-Layout/TrailingBlankLines:
-  Enabled: False
 Metrics/AbcSize:
   Enabled: False
 Metrics/BlockLength:
