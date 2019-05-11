@@ -220,7 +220,7 @@ module Railroader
       [:to_markdown]
     when :cc, :to_cc, :codeclimate, :to_codeclimate
       [:to_codeclimate]
-    when :plain,:to_plain, :text, :to_text, :to_s
+    when :plain, :to_plain, :text, :to_text, :to_s
       [:to_text]
     when :table, :to_table
       [:to_table]
@@ -307,7 +307,7 @@ module Railroader
 
     options.delete :create_config
 
-    options.each do |k,v|
+    options.each do |k, v|
       if v.is_a? Set
         options[k] = v.to_a
       end

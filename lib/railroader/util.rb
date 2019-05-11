@@ -40,8 +40,8 @@ module Railroader::Util
   #Taken from ActiveSupport.
   def underscore camel_cased_word
     camel_cased_word.to_s.gsub(/::/, '/').
-      gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
-      gsub(/([a-z\d])([A-Z])/,'\1_\2').
+      gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2').
+      gsub(/([a-z\d])([A-Z])/, '\1_\2').
       tr("-", "_").
       downcase
   end
@@ -102,7 +102,7 @@ module Railroader::Util
   #Insert value into Hash Sexp
   def hash_insert hash, key, value
     index = 1
-    hash_iterate hash.dup do |k,v|
+    hash_iterate hash.dup do |k, v|
       if k == key
         hash[index + 1] = value
         return hash

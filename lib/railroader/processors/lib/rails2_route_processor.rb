@@ -199,7 +199,7 @@ class Railroader::Rails2RoutesProcessor < Railroader::BasicProcessor
     #to a controller which already allows them all
     return if @tracker.routes[@current_controller].is_a? Array and @tracker.routes[@current_controller][0] == :allow_all_actions
 
-    exp.last.each_with_index do |e,i|
+    exp.last.each_with_index do |e, i|
       if symbol? e and e.value == :action
         action = exp.last[i + 1]
 
@@ -294,7 +294,7 @@ class Railroader::RouteAliasProcessor < Railroader::AliasProcessor
     if hash? exp.target and exp.method == :keys
       keys = get_keys exp.target
       exp.clear
-      keys.each_with_index do |e,i|
+      keys.each_with_index do |e, i|
         exp[i] = e
       end
     end

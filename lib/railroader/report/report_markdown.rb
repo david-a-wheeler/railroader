@@ -98,7 +98,7 @@ class Railroader::Report::Markdown < Railroader::Report::Table
     end
     if warning.code
       code = warning.format_code
-      message.gsub(code, "`#{code.gsub('`','``').gsub(/\A``|``\z/, '` `')}`")
+      message.gsub(code, "`#{code.gsub('`', '``').gsub(/\A``|``\z/, '` `')}`")
     else
       message
     end

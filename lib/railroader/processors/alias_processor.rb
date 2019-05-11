@@ -527,7 +527,7 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
       unless node_type? target, :hash
         exp.target = target
       end
-    elsif method.to_s[-1,1] == "="
+    elsif method.to_s[-1, 1] == "="
       exp.first_arg = process(index_arg)
       value = get_rhs(exp)
       #This is what we'll replace with the value

@@ -254,7 +254,7 @@ class Railroader::Report::Base
   end
 
   def number_of_templates tracker
-    Set.new(tracker.templates.map {|k,v| v.name.to_s[/[^.]+/]}).length
+    Set.new(tracker.templates.map {|k, v| v.name.to_s[/[^.]+/]}).length
   end
 
   def warning_file warning, absolute = @tracker.options[:absolute_paths]

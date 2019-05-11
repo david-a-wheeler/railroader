@@ -76,8 +76,6 @@ Layout/MultilineMethodCallIndentation:
   Enabled: False
 Layout/MultilineOperationIndentation:
   Enabled: False
-Layout/SpaceAfterComma:
-  Enabled: False
 Layout/SpaceAroundBlockParameters:
   Enabled: False
 Layout/SpaceAroundEqualsInParameterDefault:

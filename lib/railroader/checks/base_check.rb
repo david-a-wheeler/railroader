@@ -367,7 +367,7 @@ class Railroader::BaseCheck < Railroader::SexpProcessor
 
       if always_safe_method? method
         false
-      elsif call? target and not method.to_s[-1,1] == "?"
+      elsif call? target and not method.to_s[-1, 1] == "?"
         if has_immediate_model?(target, out)
           exp
         else

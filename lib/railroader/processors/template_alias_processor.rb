@@ -86,7 +86,7 @@ class Railroader::TemplateAliasProcessor < Railroader::AliasProcessor
     if call? exp
       target = exp.target
 
-      if COLLECTION_METHODS.include? exp.method or exp.method.to_s[0,4] == "find"
+      if COLLECTION_METHODS.include? exp.method or exp.method.to_s[0, 4] == "find"
         models = Set.new @tracker.models.keys
         name = class_name target
         return target if models.include?(name)
