@@ -100,6 +100,9 @@ To compare results of a scan with a previous scan, use the JSON output option an
 This will output JSON with two lists: one of fixed warnings and one of new warnings.
 
 Railroader will ignore warnings if configured to do so. By default, it looks for a configuration file in `config/railroader.ignore`.
+(To help people transition from Brakeman, if `config/railroader.ignore`
+doesn't exist, but `config/brakeman.ignore` does, then we'' use the
+latter file.)
 To create and manage this file, use:
 
     railroader -I
@@ -162,6 +165,17 @@ For even more continuous testing, try the [Guard plugin](https://github.com/guar
 [..and more!](http://railroader.org)
 
 -->
+
+# Contributing
+
+We love contributions!  Please help us!
+
+For more about how to contribute, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+# Reporting vulnerabilities in Railroader itself
+
+If you find an exploitable vulnerability in Railroader itself,
+see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 # Homepage/News
 
