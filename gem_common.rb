@@ -2,6 +2,8 @@ module Railroader
   module GemDependencies
     def self.dev_dependencies spec
       spec.add_development_dependency "minitest"
+      spec.add_development_dependency 'rubocop', '~> 0.68.1'
+      spec.add_development_dependency 'rubocop-performance'
     end
 
     def self.base_dependencies spec

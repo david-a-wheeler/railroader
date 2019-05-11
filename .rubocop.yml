@@ -1,0 +1,346 @@
+require: rubocop-performance
+
+AllCops:
+  Exclude:
+    - 'test/**/*'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'bin/{rails,rake}'
+
+# Railroader is a fork of Brakeman, and Brakeman didn't use Rubocop.
+# Thus, there are a huge number of issues normally reported by Rubocop
+# (this is a normal problem with "brown field" addition of a checker).
+# We will solve this by disabling most checks, and slowly enabling them
+# over time.
+
+Bundler/OrderedGems:
+  Enabled: False
+Layout/AccessModifierIndentation:
+  Enabled: False
+Layout/AlignArguments:
+  Enabled: False
+Layout/AlignArray:
+  Enabled: False
+Layout/AlignHash:
+  Enabled: False
+Layout/BlockAlignment:
+  Enabled: False
+Layout/CaseIndentation:
+  Enabled: False
+Layout/ClosingHeredocIndentation:
+  Enabled: False
+Layout/DotPosition:
+  Enabled: False
+Layout/ElseAlignment:
+  Enabled: False
+Layout/EmptyLineAfterGuardClause:
+  Enabled: False
+Layout/EmptyLineBetweenDefs:
+  Enabled: False
+Layout/EmptyLines:
+  Enabled: False
+Layout/EmptyLinesAroundAccessModifier:
+  Enabled: False
+Layout/EmptyLinesAroundArguments:
+  Enabled: False
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: False
+Layout/EmptyLinesAroundClassBody:
+  Enabled: False
+Layout/EmptyLinesAroundExceptionHandlingKeywords:
+  Enabled: False
+Layout/EmptyLinesAroundMethodBody:
+  Enabled: False
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: False
+Layout/ExtraSpacing:
+  Enabled: False
+Layout/IndentationConsistency:
+  Enabled: False
+Layout/IndentationWidth:
+  Enabled: False
+Layout/IndentFirstArrayElement:
+  Enabled: False
+Layout/IndentFirstHashElement:
+  Enabled: False
+Layout/IndentHeredoc:
+  Enabled: False
+Layout/LeadingBlankLines:
+  Enabled: False
+Layout/LeadingCommentSpace:
+  Enabled: False
+Layout/MultilineArrayBraceLayout:
+  Enabled: False
+Layout/MultilineHashBraceLayout:
+  Enabled: False
+Layout/MultilineMethodCallIndentation:
+  Enabled: False
+Layout/MultilineOperationIndentation:
+  Enabled: False
+Layout/SpaceAfterComma:
+  Enabled: False
+Layout/SpaceAroundBlockParameters:
+  Enabled: False
+Layout/SpaceAroundEqualsInParameterDefault:
+  Enabled: False
+Layout/SpaceAroundKeyword:
+  Enabled: False
+Layout/SpaceAroundOperators:
+  Enabled: False
+Layout/SpaceBeforeBlockBraces:
+  Enabled: False
+Layout/SpaceBeforeComma:
+  Enabled: False
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: False
+Layout/SpaceInsideBlockBraces:
+  Enabled: False
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: False
+Layout/SpaceInsideParens:
+  Enabled: False
+Layout/Tab:
+  Enabled: False
+Layout/TrailingBlankLines:
+  Enabled: False
+Layout/TrailingWhitespace:
+  Enabled: False
+Metrics/AbcSize:
+  Enabled: False
+Metrics/BlockLength:
+  Enabled: False
+Metrics/BlockNesting:
+  Enabled: False
+Metrics/ClassLength:
+  Enabled: False
+Metrics/CyclomaticComplexity:
+  Enabled: False
+Metrics/LineLength:
+  Enabled: False
+Metrics/MethodLength:
+  Enabled: False
+Metrics/ModuleLength:
+  Enabled: False
+Metrics/PerceivedComplexity:
+  Enabled: False
+Naming/AccessorMethodName:
+  Enabled: False
+Naming/BinaryOperatorParameterName:
+  Enabled: False
+Naming/ConstantName:
+  Enabled: False
+Naming/MemoizedInstanceVariableName:
+  Enabled: False
+Naming/PredicateName:
+  Enabled: False
+Naming/RescuedExceptionsVariableName:
+  Enabled: False
+Naming/UncommunicativeMethodParamName:
+  Enabled: False
+Naming/VariableNumber:
+  Enabled: False
+Performance/Casecmp:
+  Enabled: False
+Performance/EndWith:
+  Enabled: False
+Performance/RedundantMatch:
+  Enabled: False
+Performance/RedundantMerge:
+  Enabled: False
+Performance/RegexpMatch:
+  Enabled: False
+Performance/StringReplacement:
+  Enabled: False
+Security/Open:
+  Enabled: False
+Style/AccessModifierDeclarations:
+  Enabled: False
+Style/Alias:
+  Enabled: False
+Style/AndOr:
+  Enabled: False
+Style/BarePercentLiterals:
+  Enabled: False
+Style/BlockDelimiters:
+  Enabled: False
+Style/BracesAroundHashParameters:
+  Enabled: False
+Style/CaseEquality:
+  Enabled: False
+Style/ClassAndModuleChildren:
+  Enabled: False
+Style/CommentAnnotation:
+  Enabled: False
+Style/ConditionalAssignment:
+  Enabled: False
+Style/Dir:
+  Enabled: False
+Style/Documentation:
+  Enabled: False
+Style/DoubleNegation:
+  Enabled: False
+Style/EmptyCaseCondition:
+  Enabled: False
+Style/EmptyElse:
+  Enabled: False
+Style/EvalWithLocation:
+  Enabled: False
+Style/ExpandPathArguments:
+  Enabled: False
+Style/FormatString:
+  Enabled: False
+Style/FrozenStringLiteralComment:
+  Enabled: False
+Style/GuardClause:
+  Enabled: False
+Style/HashSyntax:
+  Enabled: False
+Style/IdenticalConditionalBranches:
+  Enabled: False
+Style/IfInsideElse:
+  Enabled: False
+Style/IfUnlessModifier:
+  Enabled: False
+Style/InverseMethods:
+  Enabled: False
+Style/LineEndConcatenation:
+  Enabled: False
+Style/MethodCallWithoutArgsParentheses:
+  Enabled: False
+Style/MethodDefParentheses:
+  Enabled: False
+Style/MethodMissingSuper:
+  Enabled: False
+Style/MissingRespondToMissing:
+  Enabled: False
+Style/MultilineBlockChain:
+  Enabled: False
+Style/MultilineIfModifier:
+  Enabled: False
+Style/MultilineIfThen:
+  Enabled: False
+Style/MultipleComparison:
+  Enabled: False
+Style/MutableConstant:
+  Enabled: False
+Style/NegatedIf:
+  Enabled: False
+Style/NestedParenthesizedCalls:
+  Enabled: False
+Style/Next:
+  Enabled: False
+Style/NilComparison:
+  Enabled: False
+Style/Not:
+  Enabled: False
+Style/NumericPredicate:
+  Enabled: False
+Style/OrAssignment:
+  Enabled: False
+Style/ParenthesesAroundCondition:
+  Enabled: False
+Style/PercentLiteralDelimiters:
+  Enabled: False
+Style/PerlBackrefs:
+  Enabled: False
+Style/RaiseArgs:
+  Enabled: False
+Style/RedundantBegin:
+  Enabled: False
+Style/RedundantConditional:
+  Enabled: False
+Style/RedundantParentheses:
+  Enabled: False
+Style/RedundantReturn:
+  Enabled: False
+Style/RedundantSelf:
+  Enabled: False
+Style/RegexpLiteral:
+  Enabled: False
+Style/RescueStandardError:
+  Enabled: False
+Style/SafeNavigation:
+  Enabled: False
+Style/SelfAssignment:
+  Enabled: False
+Style/Semicolon:
+  Enabled: False
+Style/SpecialGlobalVars:
+  Enabled: False
+Style/StderrPuts:
+  Enabled: False
+Style/StringLiterals:
+  Enabled: False
+Style/StringLiteralsInInterpolation:
+  Enabled: False
+Style/SymbolArray:
+  Enabled: False
+Style/SymbolProc:
+  Enabled: False
+Style/TrailingCommaInArrayLiteral:
+  Enabled: False
+Style/TrailingCommaInHashLiteral:
+  Enabled: False
+Style/TrailingUnderscoreVariable:
+  Enabled: False
+Style/TrivialAccessors:
+  Enabled: False
+Style/UnlessElse:
+  Enabled: False
+Style/UnneededCondition:
+  Enabled: False
+Style/UnneededPercentQ:
+  Enabled: False
+Style/VariableInterpolation:
+  Enabled: False
+Style/WhileUntilDo:
+  Enabled: False
+Style/WhileUntilModifier:
+  Enabled: False
+Style/WordArray:
+  Enabled: False
+Style/YodaCondition:
+  Enabled: False
+Style/ZeroLengthPredicate:
+  Enabled: False
+
+# Warnings
+Layout/EndAlignment:
+  Enabled: False
+Lint/AmbiguousBlockAssociation:
+  Enabled: False
+Lint/AmbiguousRegexpLiteral:
+  Enabled: False
+Lint/AssignmentInCondition:
+  Enabled: False
+Lint/BooleanSymbol:
+  Enabled: False
+Lint/DuplicateMethods:
+  Enabled: False
+Lint/EmptyWhen:
+  Enabled: False
+Lint/IneffectiveAccessModifier:
+  Enabled: False
+Lint/NonLocalExitFromIterator:
+  Enabled: False
+Lint/ShadowedArgument:
+  Enabled: False
+Lint/ShadowedException:
+  Enabled: False
+Lint/ShadowingOuterLocalVariable:
+  Enabled: False
+Lint/StringConversionInInterpolation:
+  Enabled: False
+Lint/ToJSON:
+  Enabled: False
+Lint/UnneededRequireStatement:
+  Enabled: False
+Lint/UnusedBlockArgument:
+  Enabled: False
+Lint/UnusedMethodArgument:
+  Enabled: False
+Lint/UselessAccessModifier:
+  Enabled: False
+Lint/UselessAssignment:
+  Enabled: False
