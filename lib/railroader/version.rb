@@ -1,3 +1,3 @@
 module Railroader
-  Version = "4.3.5"
+  Version = "4.3.7"
 end

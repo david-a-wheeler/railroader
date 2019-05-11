@@ -1,4 +1,4 @@
-# 4.3.6
+# 4.3.7
 
 * We earned a CII Best Practices badge!  Show its badge on the README.
 * Add use of the static analyzer Rubocop, and fix some issues it found.
