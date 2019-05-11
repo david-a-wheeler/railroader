@@ -24,7 +24,9 @@ after_script:
 matrix:
   include:
     - rvm: "ruby-head"
-    - rvm: "1.9.3"
+# Disable Ruby 1.9.*, which is not directly supported by ruby_parser 3.13.*.
+# See: https://github.com/seattlerb/ruby_parser/blob/master/History.rdoc
+#    - rvm: "1.9.3"
     - rvm: "2.3.5"
     - rvm: "2.4.2"
     - rvm: "2.5.1"
