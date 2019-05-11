@@ -1,6 +1,6 @@
 require 'railroader/checks/base_check'
 
-#Check for vulnerability in translate() helper that allows cross-site scripting
+# Check for vulnerability in translate() helper that allows cross-site scripting
 class Railroader::CheckTranslateBug < Railroader::BaseCheck
   Railroader::Checks.add self
 

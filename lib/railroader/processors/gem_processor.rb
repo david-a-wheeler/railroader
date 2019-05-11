@@ -1,6 +1,6 @@
 require 'railroader/processors/lib/basic_processor'
 
-#Processes Gemfile and Gemfile.lock
+# Processes Gemfile and Gemfile.lock
 class Railroader::GemProcessor < Railroader::BasicProcessor
 
   def initialize *args

@@ -19,7 +19,7 @@ class Railroader::CheckJRubyXML < Railroader::BaseCheck
         return
       end
 
-    #Check for workaround
+    # Check for workaround
     tracker.check_initializers(:"ActiveSupport::XmlMini", :backend=).each do |result|
       arg = result.call.first_arg
 

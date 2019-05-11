@@ -1,22 +1,22 @@
 require 'optparse'
 require 'set'
 
-#Parses command line arguments for Railroader
+# Parses command line arguments for Railroader
 module Railroader::Options
 
   class << self
 
-    #Parse argument array
+    # Parse argument array
     def parse args
       get_options args
     end
 
-    #Parse arguments and remove them from the array as they are matched
+    # Parse arguments and remove them from the array as they are matched
     def parse! args
       get_options args, true
     end
 
-    #Return hash of options and the parser
+    # Return hash of options and the parser
     def get_options args, destructive = false
       options = {}
 

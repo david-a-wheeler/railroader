@@ -1,7 +1,7 @@
 require 'railroader/checks/base_check'
 
-#sanitize and sanitize_css are vulnerable:
-#CVE-2013-1855 and CVE-2013-1857
+# sanitize and sanitize_css are vulnerable:
+# CVE-2013-1855 and CVE-2013-1857
 class Railroader::CheckSanitizeMethods < Railroader::BaseCheck
   Railroader::Checks.add self
 

@@ -4,9 +4,9 @@ require 'railroader/processors/lib/processor_helper'
 require 'railroader/processors/lib/safe_call_helper'
 require 'railroader/processors/lib/call_conversion_helper'
 
-#Returns an s-expression with aliases replaced with their value.
-#This does not preserve semantics (due to side effects, etc.), but it makes
-#processing easier when searching for various things.
+# Returns an s-expression with aliases replaced with their value.
+# This does not preserve semantics (due to side effects, etc.), but it makes
+# processing easier when searching for various things.
 class Railroader::AliasProcessor < Railroader::SexpProcessor
   include Railroader::ProcessorHelper
   include Railroader::SafeCallHelper
@@ -15,9 +15,9 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
 
   attr_reader :result, :tracker
 
-  #Returns a new AliasProcessor with an empty environment.
+  # Returns a new AliasProcessor with an empty environment.
   #
-  #The recommended usage is:
+  # The recommended usage is:
   #
   # AliasProcessor.new.process_safely src
   def initialize tracker = nil, file_name = nil
@@ -27,23 +27,23 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     @ignore_ifs = nil
     @exp_context = []
     @current_module = nil
-    @tracker = tracker #set in subclass as necessary
+    @tracker = tracker # set in subclass as necessary
     @helper_method_cache = {}
     @helper_method_info = Hash.new({})
-    @or_depth_limit = (tracker && tracker.options[:branch_limit]) || 5 #arbitrary default
+    @or_depth_limit = (tracker && tracker.options[:branch_limit]) || 5 # arbitrary default
     @meth_env = nil
     @file_name = file_name
     set_env_defaults
   end
 
-  #This method processes the given Sexp, but copies it first so
-  #the original argument will not be modified.
+  # This method processes the given Sexp, but copies it first so
+  # the original argument will not be modified.
   #
-  #_set_env_ should be an instance of SexpProcessor::Environment. If provided,
-  #it will be used as the starting environment.
+  # _set_env_ should be an instance of SexpProcessor::Environment. If provided,
+  # it will be used as the starting environment.
   #
-  #This method returns a new Sexp with variables replaced with their values,
-  #where possible.
+  # This method returns a new Sexp with variables replaced with their values,
+  # where possible.
   def process_safely src, set_env = nil, file_name = nil
     @file_name = file_name
     @env = set_env || SexpProcessor::Environment.new
@@ -52,8 +52,8 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     @result
   end
 
-  #Process a Sexp. If the Sexp has a value associated with it in the
-  #environment, that value will be returned.
+  # Process a Sexp. If the Sexp has a value associated with it in the
+  # environment, that value will be returned.
   def process_default exp
     @exp_context.push exp
 
@@ -160,7 +160,7 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
   HASH_CONST = s(:const, :Hash)
   RAILS_TEST = s(:call, s(:call, s(:const, :Rails), :env), :test?)
 
-  #Process a method call.
+  # Process a method call.
   def process_call exp
     return exp if process_call_defn? exp
     target_var = exp.target
@@ -175,7 +175,7 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
       exp = process_default exp
     end
 
-    #In case it is replaced with something else
+    # In case it is replaced with something else
     unless call? exp
       return exp
     end
@@ -199,8 +199,8 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
       return Sexp.new(:false)
     end
 
-    #See if it is possible to simplify some basic cases
-    #of addition/concatenation.
+    # See if it is possible to simplify some basic cases
+    # of addition/concatenation.
     case method
     when :+
       if array? target and array? first_arg
@@ -351,7 +351,7 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
         env.current[local] = safe_literal(exp.line)
       else
         block_args.each do |e|
-          #Force block arg(s) to be local
+          # Force block arg(s) to be local
           if node_type? e, :lasgn
             env.current[Sexp.new(:lvar, e.lhs)] = Sexp.new(:lvar, e.lhs)
           elsif node_type? e, :kwarg
@@ -382,7 +382,7 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     exp
   end
 
-  #Process a new scope.
+  # Process a new scope.
   def process_scope exp
     env.scope do
       process exp.block
@@ -390,14 +390,14 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     exp
   end
 
-  #Start new scope for block.
+  # Start new scope for block.
   def process_block exp
     env.scope do
       process_default exp
     end
   end
 
-  #Process a method definition.
+  # Process a method definition.
   def process_defn exp
     meth_env do
       exp.body = process_all! exp.body
@@ -417,7 +417,7 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     end
   end
 
-  #Process a method definition on self.
+  # Process a method definition on self.
   def process_defs exp
     env.scope do
       set_env_defaults
@@ -435,7 +435,7 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     end
   end
 
-  #Local assignment
+  # Local assignment
   # x = 1
   def process_lasgn exp
     self_assign = self_assign?(exp.lhs, exp.rhs)
@@ -454,7 +454,7 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     exp
   end
 
-  #Instance variable assignment
+  # Instance variable assignment
   # @x = 1
   def process_iasgn exp
     self_assign = self_assign?(exp.lhs, exp.rhs)
@@ -474,7 +474,7 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     exp
   end
 
-  #Global assignment
+  # Global assignment
   # $x = 1
   def process_gasgn exp
     match = Sexp.new(:gvar, exp.lhs)
@@ -490,7 +490,7 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     exp
   end
 
-  #Class variable assignment
+  # Class variable assignment
   # @@x = 1
   def process_cvdecl exp
     match = Sexp.new(:cvar, exp.lhs)
@@ -502,9 +502,9 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     exp
   end
 
-  #'Attribute' assignment
+  # 'Attribute' assignment
   # x.y = 1
-  #or
+  # or
   # x[:y] = 1
   def process_attrasgn exp
     tar_variable = exp.target
@@ -530,7 +530,7 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     elsif method.to_s[-1, 1] == "="
       exp.first_arg = process(index_arg)
       value = get_rhs(exp)
-      #This is what we'll replace with the value
+      # This is what we'll replace with the value
       match = Sexp.new(:call, target, method.to_s[0..-2].to_sym)
 
       set_value match, value
@@ -585,7 +585,7 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     exp
   end
 
-  #Merge values into hash when processing
+  # Merge values into hash when processing
   #
   # h.merge! :something => "value"
   def process_hash_merge! hash, args
@@ -598,7 +598,7 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     hash
   end
 
-  #Return a new hash Sexp with the given values merged into it.
+  # Return a new hash Sexp with the given values merged into it.
   #
   #+args+ should be a hash Sexp as well.
   def process_hash_merge hash, args
@@ -609,7 +609,7 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     hash
   end
 
-  #Assignments like this
+  # Assignments like this
   # x[:y] ||= 1
   def process_op_asgn1 exp
     target_var = exp[1]
@@ -637,7 +637,7 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     exp
   end
 
-  #Assignments like this
+  # Assignments like this
   # x.y ||= 1
   def process_op_asgn2 exp
     return process_default(exp) if exp[3] != :"||"
@@ -655,13 +655,13 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     exp
   end
 
-  #This is the right hand side value of a multiple assignment,
-  #like `x = y, z`
+  # This is the right hand side value of a multiple assignment,
+  # like `x = y, z`
   def process_svalue exp
     exp.value
   end
 
-  #Constant assignments like
+  # Constant assignments like
   # BIG_CONSTANT = 234810983
   def process_cdecl exp
     if sexp? exp.rhs
@@ -706,7 +706,7 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     all_literals? exp.target
   end
 
-  #Sets @inside_if = true
+  # Sets @inside_if = true
   def process_if exp
     if @ignore_ifs.nil?
       @ignore_ifs = @tracker && @tracker.options[:ignore_ifs]
@@ -714,7 +714,7 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
 
     condition = exp.condition = process exp.condition
 
-    #Check if a branch is obviously going to be taken
+    # Check if a branch is obviously going to be taken
     if true? condition
       no_branch = true
       exps = [exp.then_clause, nil]
@@ -904,22 +904,22 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     end
   end
 
-  #Returns a new SexpProcessor::Environment containing only instance variables.
-  #This is useful, for example, when processing views.
+  # Returns a new SexpProcessor::Environment containing only instance variables.
+  # This is useful, for example, when processing views.
   def only_ivars include_request_vars = false, lenv = nil
     lenv ||= env
     res = SexpProcessor::Environment.new
 
     if include_request_vars
       lenv.all.each do |k, v|
-        #TODO Why would this have nil values?
+        # TODO Why would this have nil values?
         if (k.node_type == :ivar or request_value? k) and not v.nil?
           res[k] = v.dup
         end
       end
     else
       lenv.all.each do |k, v|
-        #TODO Why would this have nil values?
+        # TODO Why would this have nil values?
         if k.node_type == :ivar and not v.nil?
           res[k] = v.dup
         end
@@ -944,7 +944,7 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
   def get_call_value call
     method_name = call.method
 
-    #Look for helper methods and see if we can get a return value
+    # Look for helper methods and see if we can get a return value
     if found_method = find_method(method_name, @current_class)
       helper = found_method[:method]
 
@@ -966,24 +966,24 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
 
     info = @helper_method_info[method_name]
 
-    #If method uses instance variables, then include those and request
-    #variables (params, etc) in the method environment. Otherwise,
-    #only include request variables.
+    # If method uses instance variables, then include those and request
+    # variables (params, etc) in the method environment. Otherwise,
+    # only include request variables.
     if info[:uses_ivars]
       meth_env = only_ivars(:include_request_vars)
     else
       meth_env = only_request_vars
     end
 
-    #Add arguments to method environment
+    # Add arguments to method environment
     assign_args method_exp, args, meth_env
 
 
-    #Find return values if method does not depend on environment/args
+    # Find return values if method does not depend on environment/args
     values = @helper_method_cache[method_name]
 
     unless values
-      #Serialize environment for cache key
+      # Serialize environment for cache key
       meth_values = meth_env.instance_variable_get(:@env).to_a
       meth_values.sort!
       meth_values = meth_values.to_s
@@ -994,14 +994,14 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     end
 
     if values
-      #Use values from cache
+      # Use values from cache
       values[:ivar_values].each do |var, val|
         env[var] = val
       end
 
       values[:return_value]
     else
-      #Find return value for method
+      # Find return value for method
       frv = Railroader::FindReturnValue.new
       value = frv.get_return_value(method_exp.body_list, meth_env)
 
@@ -1013,13 +1013,13 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
       end
 
       if not frv.uses_ivars? and args.length == 0
-        #Store return value without ivars and args if they are not used
+        # Store return value without ivars and args if they are not used
         @helper_method_cache[method_exp.method_name] = { :return_value => value, :ivar_values => ivars }
       else
         @helper_method_cache[digest] = { :return_value => value, :ivar_values => ivars }
       end
 
-      #Store information about method, just ivar usage for now
+      # Store information about method, just ivar usage for now
       @helper_method_info[method_name] = { :uses_ivars => frv.uses_ivars? }
 
       value
@@ -1040,7 +1040,7 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     meth_env
   end
 
-  #Finds the inner most call target which is not the target of a call to <<
+  # Finds the inner most call target which is not the target of a call to <<
   def find_push_target exp
     if call? exp and exp.method == :<<
       find_push_target exp.target
@@ -1061,8 +1061,8 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     nil
   end
 
-  #Return true if lhs == rhs or lhs is an or expression and
-  #rhs is one of its values
+  # Return true if lhs == rhs or lhs is an or expression and
+  # rhs is one of its values
   def same_value? lhs, rhs
     if lhs == rhs
       true
@@ -1077,7 +1077,7 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     self_assign_var?(var, value) or self_assign_target?(var, value)
   end
 
-  #Return true if for x += blah or @x += blah
+  # Return true if for x += blah or @x += blah
   def self_assign_var? var, value
     call? value and
     value.method == :+ and
@@ -1085,7 +1085,7 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     value.target.value == var
   end
 
-  #Return true for x = x.blah
+  # Return true for x = x.blah
   def self_assign_target? var, value
     target = top_target(value)
 
@@ -1096,7 +1096,7 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     var == target
   end
 
-  #Returns last non-nil target in a call chain
+  # Returns last non-nil target in a call chain
   def top_target exp, last = nil
     if call? exp
       top_target exp.target, exp
@@ -1109,8 +1109,8 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
 
   def value_from_if exp
     if block? exp.else_clause or block? exp.then_clause
-      #If either clause is more than a single expression, just use entire
-      #if expression for now
+      # If either clause is more than a single expression, just use entire
+      # if expression for now
       exp
     elsif exp.else_clause.nil?
       exp.then_clause
@@ -1159,10 +1159,10 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     call? exp and exp.method == :raise
   end
 
-  #Set variable to given value.
-  #Creates "branched" versions of values when appropriate.
-  #Avoids creating multiple branched versions inside same
-  #if branch.
+  # Set variable to given value.
+  # Creates "branched" versions of values when appropriate.
+  # Avoids creating multiple branched versions inside same
+  # if branch.
   def set_value var, value
     if node_type? value, :if
       value = value_from_if(value)
@@ -1187,16 +1187,16 @@ class Railroader::AliasProcessor < Railroader::SexpProcessor
     end
   end
 
-  #If possible, distribute operation over both sides of an or.
-  #For example,
+  # If possible, distribute operation over both sides of an or.
+  # For example,
   #
   #    (1 or 2) * 5
   #
-  #Becomes
+  # Becomes
   #
   #    (5 or 10)
   #
-  #Only works for strings and numbers right now.
+  # Only works for strings and numbers right now.
   def process_or_simple_operation exp
     arg = exp.first_arg
     return nil unless string? arg or number? arg

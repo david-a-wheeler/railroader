@@ -1,9 +1,9 @@
 require 'railroader/processors/lib/basic_processor'
 
-#Processes the Sexp from routes.rb. Stores results in tracker.routes.
+# Processes the Sexp from routes.rb. Stores results in tracker.routes.
 #
-#Note that it is only interested in determining what methods on which
-#controllers are used as routes, not the generated URLs for routes.
+# Note that it is only interested in determining what methods on which
+# controllers are used as routes, not the generated URLs for routes.
 class Railroader::Rails3RoutesProcessor < Railroader::BasicProcessor
   include Railroader::RouteHelper
 
@@ -12,10 +12,10 @@ class Railroader::Rails3RoutesProcessor < Railroader::BasicProcessor
   def initialize tracker
     super
     @map = Sexp.new(:lvar, :map)
-    @nested = nil  #used for identifying nested targets
-    @prefix = [] #Controller name prefix (a module name, usually)
+    @nested = nil  # used for identifying nested targets
+    @prefix = [] # Controller name prefix (a module name, usually)
     @current_controller = nil
-    @with_options = nil #For use inside map.with_options
+    @with_options = nil # For use inside map.with_options
     @controller_block = false
     @file_name = "config/routes.rb"
   end
@@ -76,7 +76,7 @@ class Railroader::Rails3RoutesProcessor < Railroader::BasicProcessor
     exp
   end
 
-  #TODO: Need test for this
+  # TODO: Need test for this
   def process_root exp
     if value = hash_access(exp.first_arg, :to)
       if string? value
@@ -96,12 +96,12 @@ class Railroader::Rails3RoutesProcessor < Railroader::BasicProcessor
 
       matcher = first_arg.value
       if matcher == ':controller(/:action(/:id(.:format)))' or
-        matcher.include? ':controller' and action_route?(matcher)  #Default routes
+        matcher.include? ':controller' and action_route?(matcher)  # Default routes
         @tracker.routes[:allow_all_actions] = first_arg
         return exp
       elsif action_route?(first_arg)
           if hash? second_arg and controller_name = hash_access(second_arg, :controller)
-            loose_action(controller_name, "matched") #TODO: Parse verbs
+            loose_action(controller_name, "matched") # TODO: Parse verbs
           end
       elsif second_arg.nil? and in_controller_block? and not matcher.include? ":"
         add_route matcher
@@ -173,7 +173,7 @@ class Railroader::Rails3RoutesProcessor < Railroader::BasicProcessor
         end
       end
     elsif string? first_arg
-      if first_arg.value.include? ':controller' and action_route?(first_arg) #Default routes
+      if first_arg.value.include? ':controller' and action_route?(first_arg) # Default routes
         @tracker.routes[:allow_all_actions] = first_arg
       end
 
@@ -209,7 +209,7 @@ class Railroader::Rails3RoutesProcessor < Railroader::BasicProcessor
 
     if second_arg and second_arg.node_type == :hash
       self.current_controller = first_arg.value
-      #handle hash
+      # handle hash
       add_resources_routes
     elsif exp.args.all? { |s| symbol? s }
       exp.each_arg do |s|
@@ -223,14 +223,14 @@ class Railroader::Rails3RoutesProcessor < Railroader::BasicProcessor
   end
 
   def process_resource exp
-    #Does resource even take more than one controller name?
+    # Does resource even take more than one controller name?
     exp.each_arg do |s|
       if symbol? s
         self.current_controller = pluralize(s.value.to_s)
         add_resource_routes
       else
-        #handle something else, like options
-        #or something?
+        # handle something else, like options
+        # or something?
       end
     end
 
@@ -259,7 +259,7 @@ class Railroader::Rails3RoutesProcessor < Railroader::BasicProcessor
   end
 
   def process_scope_block exp
-    #How to deal with options?
+    # How to deal with options?
     process exp.block
     exp
   end

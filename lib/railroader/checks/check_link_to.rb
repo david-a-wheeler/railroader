@@ -1,9 +1,9 @@
 require 'railroader/checks/check_cross_site_scripting'
 
-#Checks for calls to link_to in versions of Ruby where link_to did not
-#escape the first argument.
+# Checks for calls to link_to in versions of Ruby where link_to did not
+# escape the first argument.
 #
-#See https://rails.lighthouseapp.com/projects/8994/tickets/3518-link_to-doesnt-escape-its-input
+# See https://rails.lighthouseapp.com/projects/8994/tickets/3518-link_to-doesnt-escape-its-input
 class Railroader::CheckLinkTo < Railroader::CheckCrossSiteScripting
   Railroader::Checks.add self
 
@@ -21,7 +21,7 @@ class Railroader::CheckLinkTo < Railroader::CheckCrossSiteScripting
                            :will_paginate].merge tracker.options[:safe_methods]
 
     @known_dangerous = []
-    #Ideally, I think this should also check to see if people are setting
+    # Ideally, I think this should also check to see if people are setting
     #:escape => false
     @models = tracker.models.keys
     @inspect_arguments = tracker.options[:check_arguments]
@@ -32,8 +32,8 @@ class Railroader::CheckLinkTo < Railroader::CheckCrossSiteScripting
   def process_result result
     return if duplicate? result
 
-    #Have to make a copy of this, otherwise it will be changed to
-    #an ignored method call by the code above.
+    # Have to make a copy of this, otherwise it will be changed to
+    # an ignored method call by the code above.
     call = result[:call] = result[:call].dup
 
     first_arg = call.first_arg
@@ -41,7 +41,7 @@ class Railroader::CheckLinkTo < Railroader::CheckCrossSiteScripting
 
     @matched = false
 
-    #Skip if no arguments(?) or first argument is a hash
+    # Skip if no arguments(?) or first argument is a hash
     return if first_arg.nil? or hash? first_arg
 
     if version_between? "2.0.0", "2.2.99"
@@ -51,8 +51,8 @@ class Railroader::CheckLinkTo < Railroader::CheckCrossSiteScripting
         check_argument result, second_arg
       end
     elsif second_arg
-      #Only check first argument if there is a second argument
-      #in Rails 2.3.x
+      # Only check first argument if there is a second argument
+      # in Rails 2.3.x
       check_argument result, first_arg
     end
   end
@@ -122,9 +122,9 @@ class Railroader::CheckLinkTo < Railroader::CheckCrossSiteScripting
     target = exp.target
     target = process target.dup if sexp? target
 
-    #Bare records create links to the model resource,
-    #not a string that could have injection
-    #TODO: Needs test? I think this is broken?
+    # Bare records create links to the model resource,
+    # not a string that could have injection
+    # TODO: Needs test? I think this is broken?
     return exp if model_name? target and context == [:call, :arglist]
 
     super

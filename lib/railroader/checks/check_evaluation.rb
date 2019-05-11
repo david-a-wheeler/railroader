@@ -1,13 +1,13 @@
 require 'railroader/checks/base_check'
 
-#This check looks for calls to +eval+, +instance_eval+, etc. which include
-#user input.
+# This check looks for calls to +eval+, +instance_eval+, etc. which include
+# user input.
 class Railroader::CheckEvaluation < Railroader::BaseCheck
   Railroader::Checks.add self
 
   @description = "Searches for evaluation of user input"
 
-  #Process calls
+  # Process calls
   def run_check
     Railroader.debug "Finding eval-like calls"
     calls = tracker.find_call :method => [:eval, :instance_eval, :class_eval, :module_eval]
@@ -18,7 +18,7 @@ class Railroader::CheckEvaluation < Railroader::BaseCheck
     end
   end
 
-  #Warns if eval includes user input
+  # Warns if eval includes user input
   def process_result result
     return unless original? result
 

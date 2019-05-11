@@ -68,7 +68,7 @@ module Railroader
       if args.length == 1 and integer? args.first
         index = args.first.value
 
-        #Have to do this because first element is :array and we have to skip it
+        # Have to do this because first element is :array and we have to skip it
         array[1..-1][index] or original_exp
       else
         original_exp

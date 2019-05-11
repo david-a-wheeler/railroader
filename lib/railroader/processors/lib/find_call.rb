@@ -1,10 +1,10 @@
 require 'railroader/processors/lib/basic_processor'
 
-#Finds method calls matching the given target(s).
+# Finds method calls matching the given target(s).
 #   #-- This should be deprecated --#
 #   #--  Do not use for new code  --#
 #
-#Targets/methods can be:
+# Targets/methods can be:
 #
 # - nil: matches anything, including nothing
 # - Empty array: matches nothing
@@ -13,12 +13,12 @@ require 'railroader/processors/lib/basic_processor'
 # - Regular expression: matches the expression
 # - Array of regular expressions: matches any of the expressions
 #
-#If a target is also the name of a class, methods called on instances
-#of that class will also be matched, in a very limited way.
-#(Any methods called on Klass.new, basically. More useful when used
-#in conjunction with AliasProcessor.)
+# If a target is also the name of a class, methods called on instances
+# of that class will also be matched, in a very limited way.
+# (Any methods called on Klass.new, basically. More useful when used
+# in conjunction with AliasProcessor.)
 #
-#Examples:
+# Examples:
 #
 # #To find any uses of this class:
 # FindCall.new :FindCall, nil
@@ -43,23 +43,23 @@ class Railroader::FindCall < Railroader::BasicProcessor
     @in_depth = in_depth
   end
 
-  #Returns a list of results.
+  # Returns a list of results.
   #
-  #A result looks like:
+  # A result looks like:
   #
   # s(:result, :ClassName, :method_name, s(:call, ...))
   #
-  #or
+  # or
   #
   # s(:result, :template_name, s(:call, ...))
   def matches
     @calls
   end
 
-  #Process the given source. Provide either class and method being searched
-  #or the template. These names are used when reporting results.
+  # Process the given source. Provide either class and method being searched
+  # or the template. These names are used when reporting results.
   #
-  #Use FindCall#matches to retrieve results.
+  # Use FindCall#matches to retrieve results.
   def process_source exp, klass = nil, method = nil, template = nil
     @current_class = klass
     @current_method = method
@@ -67,19 +67,19 @@ class Railroader::FindCall < Railroader::BasicProcessor
     process exp
   end
 
-  #Process body of method
+  # Process body of method
   def process_defn exp
     process_all exp.body
   end
 
   alias :process_defs :process_defn
 
-  #Process body of block
+  # Process body of block
   def process_rlist exp
     process_all exp
   end
 
-  #Look for matching calls and add them to results
+  # Look for matching calls and add them to results
   def process_call exp
     target = get_target exp.target
     method = exp.method
@@ -96,12 +96,12 @@ class Railroader::FindCall < Railroader::BasicProcessor
 
     end
 
-    #Normally FindCall won't match a method invocation that is the target of
-    #another call, such as:
+    # Normally FindCall won't match a method invocation that is the target of
+    # another call, such as:
     #
     #  User.find(:first, :conditions => "user = '#{params['user']}').name
     #
-    #A search for User.find will not match this unless @in_depth is true.
+    # A search for User.find will not match this unless @in_depth is true.
     if @in_depth and call? exp.target
       process exp.target
     end
@@ -109,15 +109,15 @@ class Railroader::FindCall < Railroader::BasicProcessor
     exp
   end
 
-  #Process an assignment like a call
+  # Process an assignment like a call
   def process_attrasgn exp
     process_call exp
   end
 
   private
 
-  #Gets the target of a call as a Symbol
-  #if possible
+  # Gets the target of a call as a Symbol
+  # if possible
   def get_target exp
     if sexp? exp
       case exp.node_type
@@ -135,7 +135,7 @@ class Railroader::FindCall < Railroader::BasicProcessor
     end
   end
 
-  #Checks if the search terms match the given item
+  # Checks if the search terms match the given item
   def match search_terms, item
     case search_terms
     when Symbol
@@ -168,7 +168,7 @@ class Railroader::FindCall < Railroader::BasicProcessor
     end
   end
 
-  #Checks if +item+ is an instance of +klass+ by looking for Klass.new
+  # Checks if +item+ is an instance of +klass+ by looking for Klass.new
   def is_instance_of? item, klass
     if call? item
       if sexp? item.target

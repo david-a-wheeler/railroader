@@ -1,7 +1,7 @@
 require 'railroader/checks/base_check'
 
-#Warn about response splitting in Rails versions before 2.3.13
-#http://groups.google.com/group/rubyonrails-security/browse_thread/thread/6ffc93bde0298768
+# Warn about response splitting in Rails versions before 2.3.13
+# http://groups.google.com/group/rubyonrails-security/browse_thread/thread/6ffc93bde0298768
 class Railroader::CheckResponseSplitting < Railroader::BaseCheck
   Railroader::Checks.add self
 

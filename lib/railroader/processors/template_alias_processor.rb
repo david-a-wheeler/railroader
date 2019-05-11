@@ -4,8 +4,8 @@ require 'railroader/processors/lib/render_helper'
 require 'railroader/processors/lib/render_path'
 require 'railroader/tracker'
 
-#Processes aliasing in templates.
-#Handles calls to +render+.
+# Processes aliasing in templates.
+# Handles calls to +render+.
 class Railroader::TemplateAliasProcessor < Railroader::AliasProcessor
   include Railroader::RenderHelper
 
@@ -17,7 +17,7 @@ class Railroader::TemplateAliasProcessor < Railroader::AliasProcessor
     @called_from = called_from
   end
 
-  #Process template
+  # Process template
   def process_template name, args, _, line = nil, file_name = nil
     @file_name = file_name || relative_path(@template.file || @tracker.templates[@template.name])
 
@@ -33,7 +33,7 @@ class Railroader::TemplateAliasProcessor < Railroader::AliasProcessor
     end
   end
 
-  #Determine template name
+  # Determine template name
   def template_name name
     if !name.to_s.include?('/') && @template.name.to_s.include?('/')
       name = "#{@template.name.to_s.match(/^(.*\/).*$/)[1]}#{name}"
@@ -44,7 +44,7 @@ class Railroader::TemplateAliasProcessor < Railroader::AliasProcessor
   UNKNOWN_MODEL_CALL = Sexp.new(:call, Sexp.new(:const, Railroader::Tracker::UNKNOWN_MODEL), :new)
   FORM_BUILDER_CALL = Sexp.new(:call, Sexp.new(:const, :FormBuilder), :new)
 
-  #Looks for form methods and iterating over collections of Models
+  # Looks for form methods and iterating over collections of Models
   def process_iter exp
     process_default exp
 
@@ -56,7 +56,7 @@ class Railroader::TemplateAliasProcessor < Railroader::AliasProcessor
       arg = exp.block_args.first_param
       block = exp.block
 
-      #Check for e.g. Model.find.each do ... end
+      # Check for e.g. Model.find.each do ... end
       if method == :each and arg and block and model = get_model_target(target)
         if arg.is_a? Symbol
           if model == target.target
@@ -81,7 +81,7 @@ class Railroader::TemplateAliasProcessor < Railroader::AliasProcessor
 
   COLLECTION_METHODS = [:all, :find, :select, :where]
 
-  #Checks if +exp+ is a call to Model.all or Model.find*
+  # Checks if +exp+ is a call to Model.all or Model.find*
   def get_model_target exp
     if call? exp
       target = exp.target
@@ -98,8 +98,8 @@ class Railroader::TemplateAliasProcessor < Railroader::AliasProcessor
     false
   end
 
-  #Ignore `<<` calls on template variables which are used by the templating
-  #library (HAML, ERB, etc.)
+  # Ignore `<<` calls on template variables which are used by the templating
+  # library (HAML, ERB, etc.)
   def find_push_target exp
     if sexp? exp
       if exp.node_type == :lvar and (exp.value == :_buf or exp.value == :_erbout)

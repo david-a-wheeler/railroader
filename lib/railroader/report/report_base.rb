@@ -22,7 +22,7 @@ class Railroader::Report::Base
     @warnings_summary = nil
   end
 
-  #Generate table of how many warnings of each warning type were reported
+  # Generate table of how many warnings of each warning type were reported
   def generate_warning_overview
     types = warnings_summary.keys
     types.delete :high_confidence
@@ -32,7 +32,7 @@ class Railroader::Report::Base
     render_array('warning_overview', ['Warning Type', 'Total'], values, locals)
   end
 
-  #Generate table of controllers and routes found for those controllers
+  # Generate table of controllers and routes found for those controllers
   def generate_controllers
     controller_rows = []
 
@@ -43,9 +43,9 @@ class Railroader::Report::Base
       if tracker.routes.include? :allow_all_actions or (tracker.routes[name] and tracker.routes[name].include? :allow_all_actions)
         routes = c.methods_public.keys.map{|e| e.to_s}.sort.join(", ")
       elsif tracker.routes[name].nil?
-        #No routes defined for this controller.
-        #This can happen when it is only a parent class
-        #for other controllers, for example.
+        # No routes defined for this controller.
+        # This can happen when it is only a parent class
+        # for other controllers, for example.
         routes = "[None]"
 
       else
@@ -74,7 +74,7 @@ class Railroader::Report::Base
     render_array('controller_overview', cols, values, locals)
   end
 
-  #Generate table of errors or return nil if no errors
+  # Generate table of errors or return nil if no errors
   def generate_errors
     values = tracker.errors.collect{|error| [error[:error], error[:backtrace][0]]}
     render_array('error_overview', ['Error', 'Location'], values, {:tracker => tracker})
@@ -93,7 +93,7 @@ class Railroader::Report::Base
                     'Class'
   end
 
-  #Generate table of template warnings or return nil if no warnings
+  # Generate table of template warnings or return nil if no warnings
   def generate_template_warnings
     render_warnings template_warnings,
                     :template,
@@ -103,7 +103,7 @@ class Railroader::Report::Base
 
   end
 
-  #Generate table of model warnings or return nil if no warnings
+  # Generate table of model warnings or return nil if no warnings
   def generate_model_warnings
     render_warnings model_warnings,
                     :model,
@@ -112,7 +112,7 @@ class Railroader::Report::Base
                     'Model'
   end
 
-  #Generate table of controller warnings or nil if no warnings
+  # Generate table of controller warnings or nil if no warnings
   def generate_controller_warnings
     render_warnings controller_warnings,
                     :controller,
@@ -193,7 +193,7 @@ class Railroader::Report::Base
     end
   end
 
-  #Return summary of warnings in hash and store in @warnings_summary
+  # Return summary of warnings in hash and store in @warnings_summary
   def warnings_summary
     return @warnings_summary if @warnings_summary
 
@@ -280,7 +280,7 @@ class Railroader::Report::Base
     end
   end
 
-  #Escape warning message and highlight user input in text output
+  # Escape warning message and highlight user input in text output
   def text_message warning, message
     if @highlight_user_input and warning.user_input
       user_input = warning.format_user_input

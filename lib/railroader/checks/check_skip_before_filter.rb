@@ -1,12 +1,12 @@
 require 'railroader/checks/base_check'
 
-#At the moment, this looks for
+# At the moment, this looks for
 #
 #  skip_before_filter :verify_authenticity_token, :except => [...]
 #
-#which is essentially a blacklist approach (no actions are checked EXCEPT the
-#ones listed) versus a whitelist approach (ONLY the actions listed will skip
-#the check)
+# which is essentially a blacklist approach (no actions are checked EXCEPT the
+# ones listed) versus a whitelist approach (ONLY the actions listed will skip
+# the check)
 class Railroader::CheckSkipBeforeFilter < Railroader::BaseCheck
   Railroader::Checks.add self
 
@@ -23,7 +23,7 @@ class Railroader::CheckSkipBeforeFilter < Railroader::BaseCheck
   def process_skip_filter filter, controller
     case skip_except_value filter
     when :verify_authenticity_token
-      warn :class => controller.name, #ugh this should be a controller warning, too
+      warn :class => controller.name, # ugh this should be a controller warning, too
         :warning_type => "Cross-Site Request Forgery",
         :warning_code => :csrf_blacklist,
         :message => "Use whitelist (:only => [..]) when skipping CSRF check",

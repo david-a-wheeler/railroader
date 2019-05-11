@@ -1,11 +1,11 @@
 require 'railroader/checks/check_cross_site_scripting'
 
-#Checks for calls to link_to which pass in potentially hazardous data
-#to the second argument.  While this argument must be html_safe to not break
-#the html, it must also be url safe as determined by calling a
+# Checks for calls to link_to which pass in potentially hazardous data
+# to the second argument.  While this argument must be html_safe to not break
+# the html, it must also be url safe as determined by calling a
 #:url_safe_method.  This prevents attacks such as javascript:evil() or
-#data:<encoded XSS> which is html_safe, but not safe as an href
-#Props to Nick Green for the idea.
+# data:<encoded XSS> which is html_safe, but not safe as an href
+# Props to Nick Green for the idea.
 class Railroader::CheckLinkToHref < Railroader::CheckLinkTo
   Railroader::Checks.add self
 
@@ -30,8 +30,8 @@ class Railroader::CheckLinkToHref < Railroader::CheckLinkTo
   end
 
   def process_result result
-    #Have to make a copy of this, otherwise it will be changed to
-    #an ignored method call by the code above.
+    # Have to make a copy of this, otherwise it will be changed to
+    # an ignored method call by the code above.
     call = result[:call] = result[:call].dup
     @matched = false
     url_arg = process call.second_arg
@@ -98,8 +98,8 @@ class Railroader::CheckLinkToHref < Railroader::CheckLinkTo
       ignore_interpolation? url_arg, exp
   end
 
-  #Ignore situations where the href is an interpolated string
-  #with something before the user input
+  # Ignore situations where the href is an interpolated string
+  # with something before the user input
   def ignore_interpolation? arg, suspect
     return unless string_interp? arg
     return true unless arg[1].chomp.empty? # plain string before interpolation

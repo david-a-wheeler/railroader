@@ -1,6 +1,6 @@
 require 'railroader/checks/base_check'
 
-#Checks for session key length and http_only settings
+# Checks for session key length and http_only settings
 class Railroader::CheckSessionSettings < Railroader::BaseCheck
   Railroader::Checks.add self
 
@@ -32,14 +32,14 @@ class Railroader::CheckSessionSettings < Railroader::BaseCheck
     end
   end
 
-  #Looks for ActionController::Base.session = { ... }
-  #in Rails 2.x apps
+  # Looks for ActionController::Base.session = { ... }
+  # in Rails 2.x apps
   #
-  #and App::Application.config.secret_token =
-  #in Rails 3.x apps
+  # and App::Application.config.secret_token =
+  # in Rails 3.x apps
   #
-  #and App::Application.config.secret_key_base =
-  #in Rails 4.x apps
+  # and App::Application.config.secret_key_base =
+  # in Rails 4.x apps
   def process_attrasgn exp
     if not tracker.options[:rails3] and exp.target == @session_settings and exp.method == :session=
       check_for_issues exp.first_arg, @app_tree.expand_path("config/initializers/session_store.rb")
@@ -54,8 +54,8 @@ class Railroader::CheckSessionSettings < Railroader::BaseCheck
     exp
   end
 
-  #Looks for Rails3::Application.config.session_store :cookie_store, { ... }
-  #in Rails 3.x apps
+  # Looks for Rails3::Application.config.session_store :cookie_store, { ... }
+  # in Rails 3.x apps
   def process_call exp
     if tracker.options[:rails3] and settings_target?(exp.target) and exp.method == :session_store
       check_for_rails3_issues exp.second_arg, @app_tree.expand_path("config/initializers/session_store.rb")

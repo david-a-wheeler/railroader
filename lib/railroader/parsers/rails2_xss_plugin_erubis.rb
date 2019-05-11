@@ -1,12 +1,12 @@
 Railroader.load_railroader_dependency 'erubis'
 
-#This is from the rails_xss plugin for Rails 2
+# This is from the rails_xss plugin for Rails 2
 class Railroader::Rails2XSSPluginErubis < ::Erubis::Eruby
   def add_preamble(src)
-    #src << "@output_buffer = ActiveSupport::SafeBuffer.new;"
+    # src << "@output_buffer = ActiveSupport::SafeBuffer.new;"
   end
 
-  #This is different from rails_xss - fixes some line number issues
+  # This is different from rails_xss - fixes some line number issues
   def add_text(src, text)
     if text == "\n"
       src << "\n"
@@ -43,6 +43,6 @@ class Railroader::Rails2XSSPluginErubis < ::Erubis::Eruby
   end
 
   def add_postamble(src)
-    #src << '@output_buffer.to_s'
+    # src << '@output_buffer.to_s'
   end
 end

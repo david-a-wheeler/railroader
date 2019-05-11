@@ -43,8 +43,8 @@ class Railroader::CheckCreateWith < Railroader::BaseCheck
     end
   end
 
-  #For a given create_with call, set confidence level.
-  #Ignore calls that use permit()
+  # For a given create_with call, set confidence level.
+  # Ignore calls that use permit()
   def danger_level exp
     return unless sexp? exp
 

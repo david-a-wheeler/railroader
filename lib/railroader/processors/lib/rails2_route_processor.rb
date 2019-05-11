@@ -1,9 +1,9 @@
 require 'railroader/processors/lib/basic_processor'
 
-#Processes the Sexp from routes.rb. Stores results in tracker.routes.
+# Processes the Sexp from routes.rb. Stores results in tracker.routes.
 #
-#Note that it is only interested in determining what methods on which
-#controllers are used as routes, not the generated URLs for routes.
+# Note that it is only interested in determining what methods on which
+# controllers are used as routes, not the generated URLs for routes.
 class Railroader::Rails2RoutesProcessor < Railroader::BasicProcessor
   include Railroader::RouteHelper
 
@@ -12,22 +12,22 @@ class Railroader::Rails2RoutesProcessor < Railroader::BasicProcessor
   def initialize tracker
     super
     @map = Sexp.new(:lvar, :map)
-    @nested = nil  #used for identifying nested targets
-    @prefix = [] #Controller name prefix (a module name, usually)
+    @nested = nil  # used for identifying nested targets
+    @prefix = [] # Controller name prefix (a module name, usually)
     @current_controller = nil
-    @with_options = nil #For use inside map.with_options
+    @with_options = nil # For use inside map.with_options
     @file_name = "config/routes.rb"
   end
 
-  #Call this with parsed route file information.
+  # Call this with parsed route file information.
   #
-  #This method first calls RouteAliasProcessor#process_safely on the +exp+,
-  #so it does not modify the +exp+.
+  # This method first calls RouteAliasProcessor#process_safely on the +exp+,
+  # so it does not modify the +exp+.
   def process_routes exp
     process Railroader::RouteAliasProcessor.new.process_safely(exp, nil, @file_name)
   end
 
-  #Looking for mapping of routes
+  # Looking for mapping of routes
   def process_call exp
     target = exp.target
 
@@ -40,8 +40,8 @@ class Railroader::Rails2RoutesProcessor < Railroader::BasicProcessor
     exp
   end
 
-  #Process a map.something call
-  #based on the method used
+  # Process a map.something call
+  # based on the method used
   def process_map exp
     args = exp.args
 
@@ -59,8 +59,8 @@ class Railroader::Rails2RoutesProcessor < Railroader::BasicProcessor
     exp
   end
 
-  #Look for map calls that take a block.
-  #Otherwise, just do the default processing.
+  # Look for map calls that take a block.
+  # Otherwise, just do the default processing.
   def process_iter exp
     target = exp.block_call.target
 
@@ -81,9 +81,9 @@ class Railroader::Rails2RoutesProcessor < Railroader::BasicProcessor
     end
   end
 
-  #Process
+  # Process
   # map.resources :x, :controller => :y, :member => ...
-  #etc.
+  # etc.
   def process_resources exp
     controller = check_for_controller_name exp
     if controller
@@ -100,8 +100,8 @@ class Railroader::Rails2RoutesProcessor < Railroader::BasicProcessor
     end
   end
 
-  #Process all the options that might be in the hash passed to
-  #map.resource, et al.
+  # Process all the options that might be in the hash passed to
+  # map.resource, et al.
   def process_resource_options exp
     if exp.nil? and @with_options
       exp = @with_options
@@ -115,12 +115,12 @@ class Railroader::Rails2RoutesProcessor < Railroader::BasicProcessor
       when :controller, :requirements, :singular, :path_prefix, :as,
         :path_names, :shallow, :name_prefix, :member_path, :nested_member_path,
         :belongs_to, :conditions, :active_scaffold
-        #should be able to skip
+        # should be able to skip
       when :collection, :member, :new
         process_collection value
       when :has_one
         save_controller = current_controller
-        process_resource value[1..-1] #Verify this is proper behavior
+        process_resource value[1..-1] # Verify this is proper behavior
         self.current_controller = save_controller
       when :has_many
         save_controller = current_controller
@@ -136,7 +136,7 @@ class Railroader::Rails2RoutesProcessor < Railroader::BasicProcessor
     end
   end
 
-  #Process route option :only => ...
+  # Process route option :only => ...
   def process_option_only exp
     routes = @tracker.routes[@current_controller]
     [:index, :new, :create, :show, :edit, :update, :destroy].each do |r|
@@ -150,7 +150,7 @@ class Railroader::Rails2RoutesProcessor < Railroader::BasicProcessor
     end
   end
 
-  #Process route option :except => ...
+  # Process route option :except => ...
   def process_option_except exp
     return unless exp.node_type == :array
     routes = @tracker.routes[@current_controller]
@@ -177,7 +177,7 @@ class Railroader::Rails2RoutesProcessor < Railroader::BasicProcessor
     end
   end
 
-  #Process
+  # Process
   # map.connect '/something', :controller => 'blah', :action => 'whatever'
   def process_connect exp
     return if exp.empty?
@@ -185,7 +185,7 @@ class Railroader::Rails2RoutesProcessor < Railroader::BasicProcessor
     controller = check_for_controller_name exp
     self.current_controller = controller if controller
 
-    #Check for default route
+    # Check for default route
     if string? exp.first
       if exp.first.value == ":controller/:action/:id"
         @tracker.routes[:allow_all_actions] = exp.first
@@ -195,8 +195,8 @@ class Railroader::Rails2RoutesProcessor < Railroader::BasicProcessor
       end
     end
 
-    #This -seems- redundant, but people might connect actions
-    #to a controller which already allows them all
+    # This -seems- redundant, but people might connect actions
+    # to a controller which already allows them all
     return if @tracker.routes[@current_controller].is_a? Array and @tracker.routes[@current_controller][0] == :allow_all_actions
 
     exp.last.each_with_index do |e, i|
@@ -221,7 +221,7 @@ class Railroader::Rails2RoutesProcessor < Railroader::BasicProcessor
 
     self.current_controller = check_for_controller_name exp.block_call.args
 
-    #process block
+    # process block
     process exp.block
 
     @with_options = nil
@@ -252,7 +252,7 @@ class Railroader::Rails2RoutesProcessor < Railroader::BasicProcessor
     process_connect exp
   end
 
-  #Process collection option
+  # Process collection option
   # :collection => { :some_action => :http_actions }
   def process_collection exp
     return unless exp.node_type == :hash
@@ -265,10 +265,10 @@ class Railroader::Rails2RoutesProcessor < Railroader::BasicProcessor
 
   private
 
-  #Checks an argument list for a hash that has a key :controller.
-  #If it does, returns the value.
+  # Checks an argument list for a hash that has a key :controller.
+  # If it does, returns the value.
   #
-  #Otherwise, returns nil.
+  # Otherwise, returns nil.
   def check_for_controller_name args
     args.each do |a|
       if hash? a and value = hash_access(a, :controller)
@@ -280,13 +280,13 @@ class Railroader::Rails2RoutesProcessor < Railroader::BasicProcessor
   end
 end
 
-#This is for a really specific case where a hash is used as arguments
-#to one of the map methods.
+# This is for a really specific case where a hash is used as arguments
+# to one of the map methods.
 class Railroader::RouteAliasProcessor < Railroader::AliasProcessor
 
-  #This replaces
+  # This replaces
   # { :some => :hash }.keys
-  #with
+  # with
   # [:some]
   def process_call exp
     process_default exp
@@ -301,7 +301,7 @@ class Railroader::RouteAliasProcessor < Railroader::AliasProcessor
     exp
   end
 
-  #Returns an array Sexp containing the keys from the hash
+  # Returns an array Sexp containing the keys from the hash
   def get_keys hash
     keys = Sexp.new(:array)
     hash_iterate(hash) do |key, _value|

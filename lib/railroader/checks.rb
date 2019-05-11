@@ -1,23 +1,23 @@
 require 'thread'
 require 'railroader/differ'
 
-#Collects up results from running different checks.
+# Collects up results from running different checks.
 #
-#Checks can be added with +Check.add(check_class)+
+# Checks can be added with +Check.add(check_class)+
 #
-#All .rb files in checks/ will be loaded.
+# All .rb files in checks/ will be loaded.
 class Railroader::Checks
   @checks = []
   @optional_checks = []
 
   attr_reader :warnings, :controller_warnings, :model_warnings, :template_warnings, :checks_run
 
-  #Add a check. This will call +_klass_.new+ when running tests
+  # Add a check. This will call +_klass_.new+ when running tests
   def self.add klass
     @checks << klass unless @checks.include? klass
   end
 
-  #Add an optional check
+  # Add an optional check
   def self.add_optional klass
     @optional_checks << klass unless @checks.include? klass
   end
@@ -31,7 +31,7 @@ class Railroader::Checks
   end
 
   def self.initialize_checks check_directory = ""
-    #Load all files in check_directory
+    # Load all files in check_directory
     Dir.glob(File.join(check_directory, "*.rb")).sort.each do |f|
       require f
     end
@@ -55,7 +55,7 @@ class Railroader::Checks
     []
   end
 
-  #No need to use this directly.
+  # No need to use this directly.
   def initialize options = { }
     if options[:min_confidence]
       @min_confidence = options[:min_confidence]
@@ -70,11 +70,11 @@ class Railroader::Checks
     @checks_run = []
   end
 
-  #Add Warning to list of warnings to report.
-  #Warnings are split into four different arrays
-  #for template, controller, model, and generic warnings.
+  # Add Warning to list of warnings to report.
+  # Warnings are split into four different arrays
+  # for template, controller, model, and generic warnings.
   #
-  #Will not add warnings which are below the minimum confidence level.
+  # Will not add warnings which are below the minimum confidence level.
   def add_warning warning
     unless warning.confidence > @min_confidence
       case warning.warning_set
@@ -92,7 +92,7 @@ class Railroader::Checks
     end
   end
 
-  #Return a hash of arrays of new and fixed warnings
+  # Return a hash of arrays of new and fixed warnings
   #
   #    diff = checks.diff old_checks
   #    diff[:fixed]  # [...]
@@ -103,13 +103,13 @@ class Railroader::Checks
     Railroader::Differ.new(my_warnings, other_warnings).diff
   end
 
-  #Return an array of all warnings found.
+  # Return an array of all warnings found.
   def all_warnings
     @warnings + @template_warnings + @controller_warnings + @model_warnings
   end
 
-  #Run all the checks on the given Tracker.
-  #Returns a new instance of Checks with the results.
+  # Run all the checks on the given Tracker.
+  # Returns a new instance of Checks with the results.
   def self.run_checks(app_tree, tracker)
     checks = self.checks_to_run(tracker)
     check_runner = self.new :min_confidence => tracker.options[:min_confidence]
@@ -134,8 +134,8 @@ class Railroader::Checks
         results << self.run_a_check(c, error_mutex, app_tree, tracker)
       end
 
-      #Maintain list of which checks were run
-      #mainly for reporting purposes
+      # Maintain list of which checks were run
+      # mainly for reporting purposes
       check_runner.checks_run << check_name[5..-1]
     end
 
@@ -203,7 +203,7 @@ class Railroader::Checks
   end
 end
 
-#Load all files in checks/ directory
+# Load all files in checks/ directory
 Dir.glob("#{File.expand_path(File.dirname(__FILE__))}/checks/*.rb").sort.each do |f|
   require f.match(/(railroader\/checks\/.*)\.rb$/)[0]
 end

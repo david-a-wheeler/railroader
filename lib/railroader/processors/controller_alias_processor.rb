@@ -3,21 +3,21 @@ require 'railroader/processors/lib/render_helper'
 require 'railroader/processors/lib/render_path'
 require 'railroader/processors/lib/find_return_value'
 
-#Processes aliasing in controllers, but includes following
-#renders in routes and putting variables into templates
+# Processes aliasing in controllers, but includes following
+# renders in routes and putting variables into templates
 class Railroader::ControllerAliasProcessor < Railroader::AliasProcessor
   include Railroader::RenderHelper
 
-  #If only_method is specified, only that method will be processed,
-  #other methods will be skipped.
-  #This is for rescanning just a single action.
+  # If only_method is specified, only that method will be processed,
+  # other methods will be skipped.
+  # This is for rescanning just a single action.
   def initialize app_tree, tracker, only_method = nil
     super tracker
     @app_tree = app_tree
     @only_method = only_method
     @rendered = false
     @current_class = @current_module = @current_method = nil
-    @method_cache = {} #Cache method lookups
+    @method_cache = {} # Cache method lookups
   end
 
   def process_controller name, src, file_name
@@ -34,7 +34,7 @@ class Railroader::ControllerAliasProcessor < Railroader::AliasProcessor
     end
   end
 
-  #Process modules mixed into the controller, in case they contain actions.
+  # Process modules mixed into the controller, in case they contain actions.
   def process_mixins
     controller = @tracker.controllers[@current_class]
 
@@ -43,43 +43,43 @@ class Railroader::ControllerAliasProcessor < Railroader::AliasProcessor
 
       next unless mixin
 
-      #Process methods in alphabetical order for consistency
+      # Process methods in alphabetical order for consistency
       methods = mixin.methods_public.keys.map { |n| n.to_s }.sort.map { |n| n.to_sym }
 
       methods.each do |name|
-        #Need to process the method like it was in a controller in order
-        #to get the renders set
+        # Need to process the method like it was in a controller in order
+        # to get the renders set
         processor = Railroader::ControllerProcessor.new(@app_tree, @tracker)
         method = mixin.get_method(name)[:src].deep_clone
 
         if node_type? method, :defn
           method = processor.process_defn method
         else
-          #Should be a defn, but this will catch other cases
+          # Should be a defn, but this will catch other cases
           method = processor.process method
         end
 
         @file_name = mixin.file
-        #Then process it like any other method in the controller
+        # Then process it like any other method in the controller
         process method
       end
     end
   end
 
-  #Skip it, must be an inner class
+  # Skip it, must be an inner class
   def process_class exp
     exp
   end
 
-  #Processes a method definition, which may include
-  #processing any rendered templates.
+  # Processes a method definition, which may include
+  # processing any rendered templates.
   def process_defn exp
     meth_name = exp.method_name
 
     Railroader.debug "Processing #{@current_class}##{meth_name}"
 
-    #Skip if instructed to only process a specific method
-    #(but don't skip if this method was called from elsewhere)
+    # Skip if instructed to only process a specific method
+    # (but don't skip if this method was called from elsewhere)
     return exp if @current_method.nil? and @only_method and @only_method != meth_name
 
     is_route = route? meth_name
@@ -105,7 +105,7 @@ class Railroader::ControllerAliasProcessor < Railroader::AliasProcessor
     exp
   end
 
-  #Look for calls to head()
+  # Look for calls to head()
   def process_call exp
     exp = super
     return exp unless call? exp
@@ -125,7 +125,7 @@ class Railroader::ControllerAliasProcessor < Railroader::AliasProcessor
     exp
   end
 
-  #Check for +respond_to+
+  # Check for +respond_to+
   def process_iter exp
     super
 
@@ -136,9 +136,9 @@ class Railroader::ControllerAliasProcessor < Railroader::AliasProcessor
     exp
   end
 
-  #Processes a call to a before filter.
-  #Basically, adds any instance variable assignments to the environment.
-  #TODO: method arguments?
+  # Processes a call to a before filter.
+  # Basically, adds any instance variable assignments to the environment.
+  # TODO: method arguments?
   def process_before_filter name
     filter = find_method name, @current_class
 
@@ -167,13 +167,13 @@ class Railroader::ControllerAliasProcessor < Railroader::AliasProcessor
     end
   end
 
-  #Processes the default template for the current action
+  # Processes the default template for the current action
   def process_default_render exp
     process_layout
     process_template template_name, nil, nil, nil
   end
 
-  #Process template and add the current class and method name as called_from info
+  # Process template and add the current class and method name as called_from info
   def process_template name, args, _, line
     # If line is null, assume implicit render and set the end of the action
     # method as the line number
@@ -191,7 +191,7 @@ class Railroader::ControllerAliasProcessor < Railroader::AliasProcessor
     super name, args, render_path, line
   end
 
-  #Turns a method name into a template name
+  # Turns a method name into a template name
   def template_name name = nil
     name ||= @current_method
     name = name.to_s
@@ -204,7 +204,7 @@ class Railroader::ControllerAliasProcessor < Railroader::AliasProcessor
     end
   end
 
-  #Determines default layout name
+  # Determines default layout name
   def layout_name
     controller = @tracker.controllers[@current_class]
 
@@ -218,7 +218,7 @@ class Railroader::ControllerAliasProcessor < Railroader::AliasProcessor
     nil
   end
 
-  #Returns true if the given method name is also a route
+  # Returns true if the given method name is also a route
   def route? method
     if @tracker.routes[:allow_all_actions] or @tracker.options[:assume_all_routes]
       true
@@ -228,7 +228,7 @@ class Railroader::ControllerAliasProcessor < Railroader::AliasProcessor
     end
   end
 
-  #Get list of filters, including those that are inherited
+  # Get list of filters, including those that are inherited
   def before_filter_list method, klass
     controller = @tracker.controllers[klass]
 
@@ -239,11 +239,11 @@ class Railroader::ControllerAliasProcessor < Railroader::AliasProcessor
     end
   end
 
-  #Finds a method in the given class or a parent class
+  # Finds a method in the given class or a parent class
   #
-  #Returns nil if the method could not be found.
+  # Returns nil if the method could not be found.
   #
-  #If found, returns hash table with controller name and method sexp.
+  # If found, returns hash table with controller name and method sexp.
   def find_method method_name, klass
     return nil if sexp? method_name
     method_name = method_name.to_sym

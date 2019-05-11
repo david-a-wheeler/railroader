@@ -106,8 +106,8 @@ module Railroader
     def before_filter_to_hash processor, args
       filter = {}
 
-      #Process args for the uncommon but possible situation
-      #in which some variables are used in the filter.
+      # Process args for the uncommon but possible situation
+      # in which some variables are used in the filter.
       args.each do |a|
         if sexp? a
           a = processor.process_default a

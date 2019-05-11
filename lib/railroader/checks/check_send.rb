@@ -1,6 +1,6 @@
 require 'railroader/checks/base_check'
 
-#Checks if user supplied data is passed to send
+# Checks if user supplied data is passed to send
 class Railroader::CheckSend < Railroader::BaseCheck
   Railroader::Checks.add self
 

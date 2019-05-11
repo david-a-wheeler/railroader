@@ -1,9 +1,9 @@
 require 'set'
 
-#Stores call sites to look up later.
+# Stores call sites to look up later.
 class Railroader::CallIndex
 
-  #Initialize index with calls from FindAllCalls
+  # Initialize index with calls from FindAllCalls
   def initialize calls
     @calls_by_method = Hash.new { |h, k| h[k] = [] }
     @calls_by_target = Hash.new { |h, k| h[k] = [] }
@@ -11,9 +11,9 @@ class Railroader::CallIndex
     index_calls calls
   end
 
-  #Find calls matching specified option hash.
+  # Find calls matching specified option hash.
   #
-  #Options:
+  # Options:
   #
   #  * :target - symbol, array of symbols, or regular expression to match target(s)
   #  * :method - symbol, array of symbols, or regular expression to match method(s)
@@ -26,7 +26,7 @@ class Railroader::CallIndex
 
     if options[:chained]
       return find_chain options
-    #Find by narrowest category
+    # Find by narrowest category
     elsif target and method and target.is_a? Array and method.is_a? Array
       if target.length > method.length
         calls = filter_by_target calls_by_methods(method), target
@@ -35,7 +35,7 @@ class Railroader::CallIndex
         calls = filter_by_method calls, method
       end
 
-    #Find by target, then by methods, if provided
+    # Find by target, then by methods, if provided
     elsif target
       calls = calls_by_target target
 
@@ -43,13 +43,13 @@ class Railroader::CallIndex
         calls = filter_by_method calls, method
       end
 
-    #Find calls with no explicit target
-    #with either :target => nil or :target => false
+    # Find calls with no explicit target
+    # with either :target => nil or :target => false
     elsif (options.key? :target or options.key? :targets) and not target and method
       calls = calls_by_method method
       calls = filter_by_target calls, nil
 
-    #Find calls by method
+    # Find calls by method
     elsif method
       calls = calls_by_method method
     else
@@ -58,8 +58,8 @@ class Railroader::CallIndex
 
     return [] if calls.nil?
 
-    #Remove calls that are actually targets of other calls
-    #Unless those are explicitly desired
+    # Remove calls that are actually targets of other calls
+    # Unless those are explicitly desired
     calls = filter_nested calls unless nested
 
     calls

@@ -1,7 +1,7 @@
 require 'railroader/checks/base_check'
 
-#Check for filter skipping vulnerability
-#http://groups.google.com/group/rubyonrails-security/browse_thread/thread/3420ac71aed312d6
+# Check for filter skipping vulnerability
+# http://groups.google.com/group/rubyonrails-security/browse_thread/thread/3420ac71aed312d6
 class Railroader::CheckFilterSkipping < Railroader::BaseCheck
   Railroader::Checks.add self
 

@@ -3,7 +3,7 @@ require 'railroader/processors/lib/processor_helper'
 require 'railroader/warning'
 require 'railroader/util'
 
-#Basis of vulnerability checks.
+# Basis of vulnerability checks.
 class Railroader::BaseCheck < Railroader::SexpProcessor
   include Railroader::ProcessorHelper
   include Railroader::SafeCallHelper
@@ -24,11 +24,11 @@ class Railroader::BaseCheck < Railroader::SexpProcessor
     end
   end
 
-  #Initialize Check with Checks.
+  # Initialize Check with Checks.
   def initialize(app_tree, tracker)
     super()
     @app_tree = app_tree
-    @results = [] #only to check for duplicates
+    @results = [] # only to check for duplicates
     @warnings = []
     @tracker = tracker
     @string_interp = false
@@ -41,7 +41,7 @@ class Railroader::BaseCheck < Railroader::SexpProcessor
     @comparison_ops = Set[:==, :!=, :>, :<, :>=, :<=]
   end
 
-  #Add result to result list, which is used to check for duplicates
+  # Add result to result list, which is used to check for duplicates
   def add_result result, location = nil
     location ||= (@current_template && @current_template.name) || @current_class || @current_module || @current_set || result[:location][:class] || result[:location][:template]
     location = location[:name] if location.is_a? Hash
@@ -59,8 +59,8 @@ class Railroader::BaseCheck < Railroader::SexpProcessor
     @results << [line, location, result]
   end
 
-  #Default Sexp processing. Iterates over each value in the Sexp
-  #and processes them if they are also Sexps.
+  # Default Sexp processing. Iterates over each value in the Sexp
+  # and processes them if they are also Sexps.
   def process_default exp
     exp.each do |e|
       process e if sexp? e
@@ -69,7 +69,7 @@ class Railroader::BaseCheck < Railroader::SexpProcessor
     exp
   end
 
-  #Process calls and check if they include user input
+  # Process calls and check if they include user input
   def process_call exp
     unless @comparison_ops.include? exp.method
       process exp.target if sexp? exp.target
@@ -85,7 +85,7 @@ class Railroader::BaseCheck < Railroader::SexpProcessor
         @has_user_input = Match.new(:cookies, exp)
       elsif request_env? target
         @has_user_input = Match.new(:request, exp)
-      elsif sexp? target and model_name? target[1] #TODO: Can this be target.target?
+      elsif sexp? target and model_name? target[1] # TODO: Can this be target.target?
         @has_user_input = Match.new(:model, exp)
       end
     end
@@ -94,7 +94,7 @@ class Railroader::BaseCheck < Railroader::SexpProcessor
   end
 
   def process_if exp
-    #This is to ignore user input in condition
+    # This is to ignore user input in condition
     current_user_input = @has_user_input
     process exp.condition
     @has_user_input = current_user_input
@@ -105,19 +105,19 @@ class Railroader::BaseCheck < Railroader::SexpProcessor
     exp
   end
 
-  #Note that params are included in current expression
+  # Note that params are included in current expression
   def process_params exp
     @has_user_input = Match.new(:params, exp)
     exp
   end
 
-  #Note that cookies are included in current expression
+  # Note that cookies are included in current expression
   def process_cookies exp
     @has_user_input = Match.new(:cookies, exp)
     exp
   end
 
-  #Does not actually process string interpolation, but notes that it occurred.
+  # Does not actually process string interpolation, but notes that it occurred.
   def process_dstr exp
     unless @string_interp # don't overwrite existing value
       @string_interp = Match.new(:interp, exp)
@@ -137,7 +137,7 @@ class Railroader::BaseCheck < Railroader::SexpProcessor
     method[-1] == "?"
   end
 
-  #Report a warning
+  # Report a warning
   def warn options
     extra_opts = { :check => self.class.to_s }
 
@@ -148,12 +148,12 @@ class Railroader::BaseCheck < Railroader::SexpProcessor
     @warnings << warning
   end
 
-  #Run _exp_ through OutputProcessor to get a nice String.
+  # Run _exp_ through OutputProcessor to get a nice String.
   def format_output exp
     Railroader::OutputProcessor.new.format(exp).gsub(/\r|\n/, "")
   end
 
-  #Checks if mass assignment is disabled globally in an initializer.
+  # Checks if mass assignment is disabled globally in an initializer.
   def mass_assign_disabled?
     return @mass_assign_disabled unless @mass_assign_disabled.nil?
 
@@ -167,7 +167,7 @@ class Railroader::BaseCheck < Railroader::SexpProcessor
 
       @mass_assign_disabled = true
     else
-      #Check for ActiveRecord::Base.send(:attr_accessible, nil)
+      # Check for ActiveRecord::Base.send(:attr_accessible, nil)
       tracker.check_initializers(:"ActiveRecord::Base", :attr_accessible).each do |result|
         call = result.call
         if call? call
@@ -191,7 +191,7 @@ class Railroader::BaseCheck < Railroader::SexpProcessor
       end
 
       unless @mass_assign_disabled
-        #Check for
+        # Check for
         #  class ActiveRecord::Base
         #    attr_accessible nil
         #  end
@@ -210,10 +210,10 @@ class Railroader::BaseCheck < Railroader::SexpProcessor
       end
     end
 
-    #There is a chance someone is using Rails 3.x and the `strong_parameters`
-    #gem and still using hack above, so this is a separate check for
-    #including ActiveModel::ForbiddenAttributesProtection in
-    #ActiveRecord::Base in an initializer.
+    # There is a chance someone is using Rails 3.x and the `strong_parameters`
+    # gem and still using hack above, so this is a separate check for
+    # including ActiveModel::ForbiddenAttributesProtection in
+    # ActiveRecord::Base in an initializer.
     if not @mass_assign_disabled and version_between?("3.1.0", "3.9.9") and tracker.config.has_gem? :strong_parameters
       matches = tracker.check_initializers([], :include)
       forbidden_protection = Sexp.new(:colon2, Sexp.new(:const, :ActiveModel), :ForbiddenAttributesProtection)
@@ -245,8 +245,8 @@ class Railroader::BaseCheck < Railroader::SexpProcessor
     true
   end
 
-  #This is to avoid reporting duplicates. Checks if the result has been
-  #reported already from the same line number.
+  # This is to avoid reporting duplicates. Checks if the result has been
+  # reported already from the same line number.
   def duplicate? result, location = nil
     if result.is_a? Hash
       line = result[:call].original_line || result[:call].line
@@ -275,34 +275,34 @@ class Railroader::BaseCheck < Railroader::SexpProcessor
     false
   end
 
-  #Checks if an expression contains string interpolation.
+  # Checks if an expression contains string interpolation.
   #
-  #Returns Match with :interp type if found.
+  # Returns Match with :interp type if found.
   def include_interp? exp
     @string_interp = false
     process exp
     @string_interp
   end
 
-  #Checks if _exp_ includes user input in the form of cookies, parameters,
-  #request environment, or model attributes.
+  # Checks if _exp_ includes user input in the form of cookies, parameters,
+  # request environment, or model attributes.
   #
-  #If found, returns a struct containing a type (:cookies, :params, :request, :model) and
-  #the matching expression (Match#type and Match#match).
+  # If found, returns a struct containing a type (:cookies, :params, :request, :model) and
+  # the matching expression (Match#type and Match#match).
   #
-  #Returns false otherwise.
+  # Returns false otherwise.
   def include_user_input? exp
     @has_user_input = false
     process exp
     @has_user_input
   end
 
-  #This is used to check for user input being used directly.
+  # This is used to check for user input being used directly.
   #
-  ##If found, returns a struct containing a type (:cookies, :params, :request) and
-  #the matching expression (Match#type and Match#match).
+  # #If found, returns a struct containing a type (:cookies, :params, :request) and
+  # the matching expression (Match#type and Match#match).
   #
-  #Returns false otherwise.
+  # Returns false otherwise.
   def has_immediate_user_input? exp
     if exp.nil?
       false
@@ -352,8 +352,8 @@ class Railroader::BaseCheck < Railroader::SexpProcessor
     end
   end
 
-  #Checks for a model attribute at the top level of the
-  #expression.
+  # Checks for a model attribute at the top level of the
+  # expression.
   def has_immediate_model? exp, out = nil
     out = exp if out.nil?
 
@@ -414,11 +414,11 @@ class Railroader::BaseCheck < Railroader::SexpProcessor
     end
   end
 
-  #Checks if +exp+ is a model name.
+  # Checks if +exp+ is a model name.
   #
-  #Prior to using this method, either @tracker must be set to
-  #the current tracker, or else @models should contain an array of the model
-  #names, which is available via tracker.models.keys
+  # Prior to using this method, either @tracker must be set to
+  # the current tracker, or else @models should contain an array of the model
+  # names, which is available via tracker.models.keys
   def model_name? exp
     @models ||= @tracker.models.keys
 
@@ -433,7 +433,7 @@ class Railroader::BaseCheck < Railroader::SexpProcessor
     end
   end
 
-  #Returns true if +target+ is in +exp+
+  # Returns true if +target+ is in +exp+
   def include_target? exp, target
     return false unless call? exp
 

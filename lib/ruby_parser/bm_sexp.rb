@@ -1,20 +1,20 @@
-#Sexp changes from ruby_parser
-#and some changes for caching hash value and tracking 'original' line number
-#of a Sexp.
+# Sexp changes from ruby_parser
+# and some changes for caching hash value and tracking 'original' line number
+# of a Sexp.
 class Sexp
   attr_accessor :original_line, :or_depth
   ASSIGNMENT_BOOL = [:gasgn, :iasgn, :lasgn, :cvdecl, :cvasgn, :cdecl, :or, :and, :colon2, :op_asgn_or]
   CALLS = [:call, :attrasgn, :safe_call, :safe_attrasgn]
 
   def method_missing name, *args
-    #Railroader does not use this functionality,
-    #so overriding it to raise a NoMethodError.
+    # Railroader does not use this functionality,
+    # so overriding it to raise a NoMethodError.
     #
-    #The original functionality calls find_node and optionally
-    #deletes the node if found.
+    # The original functionality calls find_node and optionally
+    # deletes the node if found.
     #
-    #Defining a method named "return" seems like a bad idea, so we have to
-    #check for it here instead
+    # Defining a method named "return" seems like a bad idea, so we have to
+    # check for it here instead
     if name == :return
       find_node name, *args
     else
@@ -22,8 +22,8 @@ class Sexp
     end
   end
 
-  #Create clone of Sexp and nested Sexps but not their non-Sexp contents.
-  #If a line number is provided, also sets line/original_line on all Sexps.
+  # Create clone of Sexp and nested Sexps but not their non-Sexp contents.
+  # If a line number is provided, also sets line/original_line on all Sexps.
   def deep_clone line = nil
     s = Sexp.new
 
@@ -74,9 +74,9 @@ class Sexp
     self[0] = type
   end
 
-  #Join self and exp into an :or Sexp.
-  #Sets or_depth.
-  #Used for combining "branched" values in AliasProcessor.
+  # Join self and exp into an :or Sexp.
+  # Sets or_depth.
+  # Used for combining "branched" values in AliasProcessor.
   def combine exp, line = nil
     combined = Sexp.new(:or, self, exp).line(line || -2)
 
@@ -99,10 +99,10 @@ class Sexp
   end
 
   def hash
-    #There still seems to be some instances in which the hash of the
-    #Sexp changes, but I have not found what method call is doing it.
-    #Of course, Sexp is subclasses from Array, so who knows what might
-    #be going on.
+    # There still seems to be some instances in which the hash of the
+    # Sexp changes, but I have not found what method call is doing it.
+    # Of course, Sexp is subclasses from Array, so who knows what might
+    # be going on.
     @my_hash_value ||= super
   end
 
@@ -121,33 +121,33 @@ class Sexp
     old_find_node(*args)
   end
 
-  #Raise a WrongSexpError if the nodes type does not match one of the expected
-  #types.
+  # Raise a WrongSexpError if the nodes type does not match one of the expected
+  # types.
   def expect *types
     unless types.include? self.node_type
       raise WrongSexpError, "Expected #{types.join ' or '} but given #{self.inspect}", caller[1..-1]
     end
   end
 
-  #Returns target of a method call:
+  # Returns target of a method call:
   #
-  #s(:call, s(:call, nil, :x, s(:arglist)), :y, s(:arglist, s(:lit, 1)))
+  # s(:call, s(:call, nil, :x, s(:arglist)), :y, s(:arglist, s(:lit, 1)))
   #         ^-----------target-----------^
   def target
     expect :call, :attrasgn, :safe_call, :safe_attrasgn
     self[1]
   end
 
-  #Sets the target of a method call:
+  # Sets the target of a method call:
   def target= exp
     expect :call, :attrasgn, :safe_call, :safe_attrasgn
     @my_hash_value = nil
     self[1] = exp
   end
 
-  #Returns method of a method call:
+  # Returns method of a method call:
   #
-  #s(:call, s(:call, nil, :x, s(:arglist)), :y, s(:arglist, s(:lit, 1)))
+  # s(:call, s(:call, nil, :x, s(:arglist)), :y, s(:arglist, s(:lit, 1)))
   #                        ^- method
   def method
     expect :call, :attrasgn, :safe_call, :safe_attrasgn, :super, :zsuper, :result
@@ -168,7 +168,7 @@ class Sexp
     self[2] = name
   end
 
-  #Sets the arglist in a method call.
+  # Sets the arglist in a method call.
   def arglist= exp
     expect :call, :attrasgn, :safe_call, :safe_attrasgn
     @my_hash_value = nil
@@ -187,9 +187,9 @@ class Sexp
     self.arglist = exp
   end
 
-  #Returns arglist for method call. This differs from Sexp#args, as Sexp#args
-  #does not return a 'real' Sexp (it does not have a node type) but
-  #Sexp#arglist returns a s(:arglist, ...)
+  # Returns arglist for method call. This differs from Sexp#args, as Sexp#args
+  # does not return a 'real' Sexp (it does not have a node type) but
+  # Sexp#arglist returns a s(:arglist, ...)
   #
   #    s(:call, s(:call, nil, :x, s(:arglist)), :y, s(:arglist, s(:lit, 1), s(:lit, 2)))
   #                                                 ^------------ arglist ------------^
@@ -208,7 +208,7 @@ class Sexp
     end
   end
 
-  #Returns arguments of a method call. This will be an 'untyped' Sexp.
+  # Returns arguments of a method call. This will be an 'untyped' Sexp.
   #
   #    s(:call, s(:call, nil, :x, s(:arglist)), :y, s(:arglist, s(:lit, 1), s(:lit, 2)))
   #                                                             ^--------args--------^
@@ -261,26 +261,26 @@ class Sexp
     self.each_arg true, &block
   end
 
-  #Returns first argument of a method call.
+  # Returns first argument of a method call.
   def first_arg
     expect :call, :attrasgn, :safe_call, :safe_attrasgn
     self[3]
   end
 
-  #Sets first argument of a method call.
+  # Sets first argument of a method call.
   def first_arg= exp
     expect :call, :attrasgn, :safe_call, :safe_attrasgn
     @my_hash_value = nil
     self[3] = exp
   end
 
-  #Returns second argument of a method call.
+  # Returns second argument of a method call.
   def second_arg
     expect :call, :attrasgn, :safe_call, :safe_attrasgn
     self[4]
   end
 
-  #Sets second argument of a method call.
+  # Sets second argument of a method call.
   def second_arg= exp
     expect :call, :attrasgn, :safe_call, :safe_attrasgn
     @my_hash_value = nil
@@ -323,7 +323,7 @@ class Sexp
     chain
   end
 
-  #Returns condition of an if expression:
+  # Returns condition of an if expression:
   #
   #    s(:if,
   #     s(:lvar, :condition), <-- condition
@@ -340,7 +340,7 @@ class Sexp
   end
 
 
-  #Returns 'then' clause of an if expression:
+  # Returns 'then' clause of an if expression:
   #
   #    s(:if,
   #     s(:lvar, :condition),
@@ -351,7 +351,7 @@ class Sexp
     self[2]
   end
 
-  #Returns 'else' clause of an if expression:
+  # Returns 'else' clause of an if expression:
   #
   #    s(:if,
   #     s(:lvar, :condition),
@@ -363,7 +363,7 @@ class Sexp
     self[3]
   end
 
-  #Method call associated with a block:
+  # Method call associated with a block:
   #
   #    s(:iter,
   #     s(:call, nil, :x, s(:arglist)), <- block_call
@@ -374,8 +374,8 @@ class Sexp
     self[1]
   end
 
-  #Returns block of a call with a block.
-  #Could be a single expression or a block:
+  # Returns block of a call with a block.
+  # Could be a single expression or a block:
   #
   #    s(:iter,
   #     s(:call, nil, :x, s(:arglist)),
@@ -383,7 +383,7 @@ class Sexp
   #       s(:block, s(:lvar, :y), s(:call, nil, :z, s(:arglist))))
   #       ^-------------------- block --------------------------^
   def block delete = nil
-    unless delete.nil? #this is from RubyParser
+    unless delete.nil? # this is from RubyParser
       return find_node :block, delete
     end
 
@@ -395,12 +395,12 @@ class Sexp
     when :scope
       self[1]
     when :resbody
-      #This is for Ruby2Ruby ONLY
+      # This is for Ruby2Ruby ONLY
       find_node :block
     end
   end
 
-  #Returns parameters for a block
+  # Returns parameters for a block
   #
   #    s(:iter,
   #     s(:call, nil, :x, s(:arglist)),
@@ -420,7 +420,7 @@ class Sexp
     self[1]
   end
 
-  #Returns the left hand side of assignment or boolean:
+  # Returns the left hand side of assignment or boolean:
   #
   #    s(:lasgn, :x, s(:lit, 1))
   #               ^--lhs
@@ -429,14 +429,14 @@ class Sexp
     self[1]
   end
 
-  #Sets the left hand side of assignment or boolean.
+  # Sets the left hand side of assignment or boolean.
   def lhs= exp
     expect(*ASSIGNMENT_BOOL)
     @my_hash_value = nil
     self[1] = exp
   end
 
-  #Returns right side (value) of assignment or boolean:
+  # Returns right side (value) of assignment or boolean:
   #
   #    s(:lasgn, :x, s(:lit, 1))
   #                  ^--rhs---^
@@ -454,7 +454,7 @@ class Sexp
     end
   end
 
-  #Sets the right hand side of assignment or boolean.
+  # Sets the right hand side of assignment or boolean.
   def rhs= exp
     expect :attrasgn, :safe_attrasgn, *ASSIGNMENT_BOOL
     @my_hash_value = nil
@@ -466,7 +466,7 @@ class Sexp
     end
   end
 
-  #Returns name of method being defined in a method definition.
+  # Returns name of method being defined in a method definition.
   def method_name
     expect :defn, :defs
 
@@ -489,8 +489,8 @@ class Sexp
     end
   end
 
-  #Sets body, which is now a complicated process because the body is no longer
-  #a separate Sexp, but just a list of Sexps.
+  # Sets body, which is now a complicated process because the body is no longer
+  # a separate Sexp, but just a list of Sexps.
   def body= exp
     expect :defn, :defs, :class, :module
     @my_hash_value = nil
@@ -504,21 +504,21 @@ class Sexp
       index = 2
     end
 
-    self.slice!(index..-1) #Remove old body
+    self.slice!(index..-1) # Remove old body
 
     if exp.first == :rlist
       exp = exp[1..-1]
     end
 
-    #Insert new body
+    # Insert new body
     exp.each do |e|
       self[index] = e
       index += 1
     end
   end
 
-  #Returns body of a method definition, class, or module.
-  #This will be an untyped Sexp containing a list of Sexps from the body.
+  # Returns body of a method definition, class, or module.
+  # This will be an untyped Sexp containing a list of Sexps from the body.
   def body
     expect :defn, :defs, :class, :module
 
@@ -532,8 +532,8 @@ class Sexp
     end
   end
 
-  #Like Sexp#body, except the returned Sexp is of type :rlist
-  #instead of untyped.
+  # Like Sexp#body, except the returned Sexp is of type :rlist
+  # instead of untyped.
   def body_list
     self.body.unshift :rlist
   end
@@ -555,21 +555,21 @@ class Sexp
     self[2]
   end
 
-  #Returns the call Sexp in a result returned from FindCall
+  # Returns the call Sexp in a result returned from FindCall
   def call
     expect :result
 
     self.last
   end
 
-  #Returns the module the call is inside
+  # Returns the module the call is inside
   def module
     expect :result
 
     self[1]
   end
 
-  #Return the class the call is inside
+  # Return the class the call is inside
   def result_class
     expect :result
 
@@ -595,7 +595,7 @@ class Sexp
   end
 end
 
-#Invalidate hash cache if the Sexp changes
+# Invalidate hash cache if the Sexp changes
 [:[]=, :clear, :collect!, :compact!, :concat, :delete, :delete_at,
   :delete_if, :drop, :drop_while, :fill, :flatten!, :replace, :insert,
   :keep_if, :map!, :pop, :push, :reject!, :replace, :reverse!, :rotate!,
@@ -610,8 +610,8 @@ end
     RUBY
 end
 
-#Methods used by RubyParser which would normally go through method_missing but
-#we don't want that to happen because it hides Railroader errors
+# Methods used by RubyParser which would normally go through method_missing but
+# we don't want that to happen because it hides Railroader errors
 [:resbody, :lasgn, :iasgn, :splat].each do |method|
   Sexp.class_eval <<-RUBY
     def #{method} delete = false

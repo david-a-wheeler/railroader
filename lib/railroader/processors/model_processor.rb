@@ -2,7 +2,7 @@ require 'railroader/processors/base_processor'
 require 'railroader/processors/lib/module_helper'
 require 'railroader/tracker/model'
 
-#Processes models. Puts results in tracker.models
+# Processes models. Puts results in tracker.models
 class Railroader::ModelProcessor < Railroader::BaseProcessor
   include Railroader::ModuleHelper
 
@@ -15,18 +15,18 @@ class Railroader::ModelProcessor < Railroader::BaseProcessor
     @file_name = nil
   end
 
-  #Process model source
+  # Process model source
   def process_model src, file_name = nil
     @file_name = file_name
     process src
   end
 
-  #s(:class, NAME, PARENT, BODY)
+  # s(:class, NAME, PARENT, BODY)
   def process_class exp
     name = class_name(exp.class_name)
     parent = class_name(exp.parent_name)
 
-    #If inside an inner class we treat it as a library.
+    # If inside an inner class we treat it as a library.
     if @current_class
       Railroader.debug "[Notice] Treating inner class as library: #{name}"
       Railroader::LibraryProcessor.new(@tracker).process_library exp, @file_name
@@ -40,8 +40,8 @@ class Railroader::ModelProcessor < Railroader::BaseProcessor
     handle_module exp, Railroader::Model
   end
 
-  #Handle calls outside of methods,
-  #such as include, attr_accessible, private, etc.
+  # Handle calls outside of methods,
+  # such as include, attr_accessible, private, etc.
   def process_call exp
     return exp unless @current_class
     return exp if process_call_defn? exp
@@ -54,8 +54,8 @@ class Railroader::ModelProcessor < Railroader::BaseProcessor
     method = exp.method
     first_arg = exp.first_arg
 
-    #Methods called inside class definition
-    #like attr_* and other settings
+    # Methods called inside class definition
+    # like attr_* and other settings
     if @current_method.nil? and target.nil?
       if first_arg.nil?
         case method
@@ -64,7 +64,7 @@ class Railroader::ModelProcessor < Railroader::BaseProcessor
         when :attr_accessible
           @current_class.set_attr_accessible
         else
-          #??
+          # ??
         end
       else
         case method

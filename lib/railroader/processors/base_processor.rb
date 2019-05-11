@@ -2,7 +2,7 @@ require 'railroader/processors/lib/processor_helper'
 require 'railroader/processors/lib/safe_call_helper'
 require 'railroader/util'
 
-#Base processor for most processors.
+# Base processor for most processors.
 class Railroader::BaseProcessor < Railroader::SexpProcessor
   include Railroader::ProcessorHelper
   include Railroader::SafeCallHelper
@@ -10,7 +10,7 @@ class Railroader::BaseProcessor < Railroader::SexpProcessor
 
   IGNORE = Sexp.new :ignore
 
-  #Return a new Processor.
+  # Return a new Processor.
   def initialize tracker
     super()
     @last = nil
@@ -27,12 +27,12 @@ class Railroader::BaseProcessor < Railroader::SexpProcessor
     IGNORE
   end
 
-  #Process a new scope. Removes expressions that are set to nil.
+  # Process a new scope. Removes expressions that are set to nil.
   def process_scope exp
-    #NOPE?
+    # NOPE?
   end
 
-  #Default processing.
+  # Default processing.
   def process_default exp
     exp = exp.dup
 
@@ -43,7 +43,7 @@ class Railroader::BaseProcessor < Railroader::SexpProcessor
     exp
   end
 
-  #Process an if statement.
+  # Process an if statement.
   def process_if exp
     exp = exp.dup
     condition = exp[1] = process exp.condition
@@ -62,13 +62,13 @@ class Railroader::BaseProcessor < Railroader::SexpProcessor
     exp
   end
 
-  #Processes calls with blocks.
+  # Processes calls with blocks.
   #
-  #s(:iter, CALL, {:lasgn|:masgn}, BLOCK)
+  # s(:iter, CALL, {:lasgn|:masgn}, BLOCK)
   def process_iter exp
     exp = exp.dup
     call = process exp.block_call
-    #deal with assignments somehow
+    # deal with assignments somehow
     if exp.block
       block = process exp.block
       block = nil if block.empty?
@@ -81,7 +81,7 @@ class Railroader::BaseProcessor < Railroader::SexpProcessor
     call
   end
 
-  #String with interpolation.
+  # String with interpolation.
   def process_dstr exp
     exp = exp.dup
     exp.shift
@@ -101,7 +101,7 @@ class Railroader::BaseProcessor < Railroader::SexpProcessor
     exp.unshift :dstr
   end
 
-  #Processes a block. Changes Sexp node type to :rlist
+  # Processes a block. Changes Sexp node type to :rlist
   def process_block exp
     exp = exp.dup
     exp.shift
@@ -113,7 +113,7 @@ class Railroader::BaseProcessor < Railroader::SexpProcessor
     exp.unshift :rlist
   end
 
-  #Processes the inside of an interpolated String.
+  # Processes the inside of an interpolated String.
   def process_evstr exp
     exp = exp.dup
     if exp[1]
@@ -123,7 +123,7 @@ class Railroader::BaseProcessor < Railroader::SexpProcessor
     exp
   end
 
-  #Processes a hash
+  # Processes a hash
   def process_hash exp
     exp = exp.dup
     exp.shift
@@ -138,7 +138,7 @@ class Railroader::BaseProcessor < Railroader::SexpProcessor
     exp.unshift :hash
   end
 
-  #Processes the values in an argument list
+  # Processes the values in an argument list
   def process_arglist exp
     exp = exp.dup
     exp.shift
@@ -149,7 +149,7 @@ class Railroader::BaseProcessor < Railroader::SexpProcessor
     exp.unshift :arglist
   end
 
-  #Processes a local assignment
+  # Processes a local assignment
   def process_lasgn exp
     exp = exp.dup
     exp.rhs = process exp.rhs
@@ -158,14 +158,14 @@ class Railroader::BaseProcessor < Railroader::SexpProcessor
 
   alias :process_iasgn :process_lasgn
 
-  #Processes an instance variable assignment
+  # Processes an instance variable assignment
   def process_iasgn exp
     exp = exp.dup
     exp.rhs = process exp.rhs
     exp
   end
 
-  #Processes an attribute assignment, which can be either x.y = 1 or x[:y] = 1
+  # Processes an attribute assignment, which can be either x.y = 1 or x[:y] = 1
   def process_attrasgn exp
     exp = exp.dup
     exp.target = process exp.target
@@ -173,7 +173,7 @@ class Railroader::BaseProcessor < Railroader::SexpProcessor
     exp
   end
 
-  #Ignore ignore Sexps
+  # Ignore ignore Sexps
   def process_ignore exp
     exp
   end
@@ -191,12 +191,12 @@ class Railroader::BaseProcessor < Railroader::SexpProcessor
     exp
   end
 
-  #Convenience method for `make_render exp, true`
+  # Convenience method for `make_render exp, true`
   def make_render_in_view exp
     make_render exp, true
   end
 
-  #Generates :render node from call to render.
+  # Generates :render node from call to render.
   def make_render exp, in_view = false
     render_type, value, rest = find_render_type exp, in_view
     rest = process rest
@@ -205,13 +205,13 @@ class Railroader::BaseProcessor < Railroader::SexpProcessor
     result
   end
 
-  #Determines the type of a call to render.
+  # Determines the type of a call to render.
   #
-  #Possible types are:
+  # Possible types are:
   #:action, :default, :file, :inline, :js, :json, :nothing, :partial,
   #:template, :text, :update, :xml
   #
-  #And also :layout for inside templates
+  # And also :layout for inside templates
   def find_render_type call, in_view = false
     rest = Sexp.new(:hash)
     type = nil
@@ -219,10 +219,10 @@ class Railroader::BaseProcessor < Railroader::SexpProcessor
     first_arg = call.first_arg
 
     if call.second_arg.nil? and first_arg == Sexp.new(:lit, :update)
-      return :update, nil, Sexp.new(:arglist, *call.args[0..-2]) #TODO HUH?
+      return :update, nil, Sexp.new(:arglist, *call.args[0..-2]) # TODO HUH?
     end
 
-    #Look for render :action, ... or render "action", ...
+    # Look for render :action, ... or render "action", ...
     if string? first_arg or symbol? first_arg
       if @current_template and @tracker.options[:rails3]
         type = :partial
@@ -243,15 +243,15 @@ class Railroader::BaseProcessor < Railroader::SexpProcessor
 
     types_in_hash = Set[:action, :file, :inline, :js, :json, :nothing, :partial, :template, :text, :update, :xml]
 
-    #render :layout => "blah" means something else when in a template
+    # render :layout => "blah" means something else when in a template
     if in_view
       types_in_hash << :layout
     end
 
     last_arg = call.last_arg
 
-    #Look for "type" of render in options hash
-    #For example, render :file => "blah"
+    # Look for "type" of render in options hash
+    # For example, render :file => "blah"
     if hash? last_arg
       hash_iterate(last_arg) do |key, val|
         if symbol? key and types_in_hash.include? key.value

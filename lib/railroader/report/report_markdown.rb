@@ -34,7 +34,7 @@ class Railroader::Report::Markdown < Railroader::Report::Table
     generate_overview.to_s << "\n\n" <<
     generate_warning_overview.to_s << "\n\n"
 
-    #Return output early if only summarizing
+    # Return output early if only summarizing
     return out if tracker.options[:summary_only]
 
     if tracker.options[:report_routes] or tracker.options[:debug]

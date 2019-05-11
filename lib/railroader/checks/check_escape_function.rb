@@ -1,7 +1,7 @@
 require 'railroader/checks/base_check'
 
-#Check for versions with vulnerable html escape method
-#http://groups.google.com/group/rubyonrails-security/browse_thread/thread/56bffb5923ab1195
+# Check for versions with vulnerable html escape method
+# http://groups.google.com/group/rubyonrails-security/browse_thread/thread/56bffb5923ab1195
 class Railroader::CheckEscapeFunction < Railroader::BaseCheck
   Railroader::Checks.add self
 

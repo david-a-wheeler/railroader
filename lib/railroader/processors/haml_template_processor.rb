@@ -1,13 +1,13 @@
 require 'railroader/processors/template_processor'
 
-#Processes HAML templates.
+# Processes HAML templates.
 class Railroader::HamlTemplateProcessor < Railroader::TemplateProcessor
   HAML_FORMAT_METHOD = /format_script_(true|false)_(true|false)_(true|false)_(true|false)_(true|false)_(true|false)_(true|false)/
   HAML_HELPERS = s(:colon2, s(:const, :Haml), :Helpers)
   JAVASCRIPT_FILTER = s(:colon2, s(:colon2, s(:const, :Haml), :Filters), :Javascript)
   COFFEE_FILTER = s(:colon2, s(:colon2, s(:const, :Haml), :Filters), :Coffee)
 
-  #Processes call, looking for template output
+  # Processes call, looking for template output
   def process_call exp
     target = exp.target
     if sexp? target
@@ -18,7 +18,7 @@ class Railroader::HamlTemplateProcessor < Railroader::TemplateProcessor
 
     if (call? target and target.method == :_hamlout)
       res = case method
-            when :adjust_tabs, :rstrip!, :attributes #Check attributes, maybe?
+            when :adjust_tabs, :rstrip!, :attributes # Check attributes, maybe?
               ignore
             when :options, :buffer
               exp
@@ -69,22 +69,22 @@ class Railroader::HamlTemplateProcessor < Railroader::TemplateProcessor
       res.line(exp.line)
       res
 
-      #_hamlout.buffer <<
-      #This seems to be used rarely, but directly appends args to output buffer.
-      #Has something to do with values of blocks?
+      # _hamlout.buffer <<
+      # This seems to be used rarely, but directly appends args to output buffer.
+      # Has something to do with values of blocks?
     elsif sexp? target and method == :<< and is_buffer_target? target
       @inside_concat = true
       exp.first_arg = process(exp.first_arg)
       out = normalize_output(exp.first_arg)
       @inside_concat = false
 
-      if out.node_type == :str #ignore plain strings
+      if out.node_type == :str # ignore plain strings
         ignore
       else
         add_output out
       end
     elsif target == nil and method == :render
-      #Process call to render()
+      # Process call to render()
       exp.arglist = process exp.arglist
       make_render_in_view exp
     elsif target == nil and method == :find_and_preserve and exp.first_arg
@@ -102,7 +102,7 @@ class Railroader::HamlTemplateProcessor < Railroader::TemplateProcessor
     end
   end
 
-  #If inside an output stream, only return the final expression
+  # If inside an output stream, only return the final expression
   def process_block exp
     exp = exp.dup
     exp.shift
@@ -126,8 +126,8 @@ class Railroader::HamlTemplateProcessor < Railroader::TemplateProcessor
     end
   end
 
-  #Checks if the buffer is the target in a method call Sexp.
-  #TODO: Test this
+  # Checks if the buffer is the target in a method call Sexp.
+  # TODO: Test this
   def is_buffer_target? exp
     exp.node_type == :call and
     node_type? exp.target, :lvar and
@@ -135,8 +135,8 @@ class Railroader::HamlTemplateProcessor < Railroader::TemplateProcessor
     exp.method == :buffer
   end
 
-  #HAML likes to put interpolated values into _hamlout.push_text
-  #but we want to handle those individually
+  # HAML likes to put interpolated values into _hamlout.push_text
+  # but we want to handle those individually
   def build_output_from_push_text exp, default = :output
     if string_interp? exp
       exp.map! do |e|
@@ -153,7 +153,7 @@ class Railroader::HamlTemplateProcessor < Railroader::TemplateProcessor
     end
   end
 
-  #Gets outputs from values interpolated into _hamlout.push_text
+  # Gets outputs from values interpolated into _hamlout.push_text
   def get_pushed_value exp, default = :output
     return exp unless sexp? exp
 

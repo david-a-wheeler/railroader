@@ -22,8 +22,8 @@ class Railroader::CheckModelSerialize < Railroader::BaseCheck
     end
   end
 
-  #High confidence warning on serialized, unprotected attributes.
-  #Medium confidence warning for serialized, protected attributes.
+  # High confidence warning on serialized, unprotected attributes.
+  # Medium confidence warning for serialized, protected attributes.
   def check_for_serialize model
     if serialized_attrs = model.options[:serialize]
       attrs = Set.new

@@ -1,10 +1,10 @@
 require 'railroader/checks/base_check'
 
-#Check if mass assignment is used with models
-#which inherit from ActiveRecord::Base.
+# Check if mass assignment is used with models
+# which inherit from ActiveRecord::Base.
 #
-#If tracker.options[:collapse_mass_assignment] is +true+ (default), all models
-#which do not use attr_accessible will be reported in a single warning
+# If tracker.options[:collapse_mass_assignment] is +true+ (default), all models
+# which do not use attr_accessible will be reported in a single warning
 class Railroader::CheckModelAttributes < Railroader::BaseCheck
   Railroader::Checks.add self
 
@@ -13,7 +13,7 @@ class Railroader::CheckModelAttributes < Railroader::BaseCheck
   def run_check
     return if mass_assign_disabled?
 
-    #Roll warnings into one warning for all models
+    # Roll warnings into one warning for all models
     if tracker.options[:collapse_mass_assignment]
       no_accessible_names = []
       protected_names = []
@@ -50,7 +50,7 @@ class Railroader::CheckModelAttributes < Railroader::BaseCheck
           :confidence => confidence,
           :link => link
       end
-    else #Output one warning per model
+    else # Output one warning per model
 
       check_models do |name, model|
         if model.attr_protected.nil?

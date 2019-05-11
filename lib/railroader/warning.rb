@@ -2,7 +2,7 @@ require 'json'
 require 'digest/sha2'
 require 'railroader/warning_codes'
 
-#The Warning class stores information about warnings
+# The Warning class stores information about warnings
 class Railroader::Warning
   attr_reader :called_from, :check, :class, :confidence, :controller,
     :line, :method, :model, :template, :user_input, :user_input_type,
@@ -59,7 +59,7 @@ class Railroader::Warning
       @code ||= result[:call]
       @file ||= result[:location][:file]
 
-      if result[:location][:type] == :template #template result
+      if result[:location][:type] == :template # template result
         @template ||= result[:location][:template]
       else
         @class ||= result[:location][:class]
@@ -141,7 +141,7 @@ class Railroader::Warning
     raise "Invalid confidence: `#{@confidence}`" unless TEXT_CONFIDENCE[@confidence]
   end
 
-  #Returns name of a view, including where it was rendered from
+  # Returns name of a view, including where it was rendered from
   def view_name(include_renderer = true)
     if called_from and include_renderer
       @view_name = "#{template.name} (#{called_from.last})"
@@ -150,14 +150,14 @@ class Railroader::Warning
     end
   end
 
-  #Return String of the code output from the OutputProcessor and
-  #stripped of newlines and tabs.
+  # Return String of the code output from the OutputProcessor and
+  # stripped of newlines and tabs.
   def format_code strip = true
     format_ruby self.code, strip
   end
 
-  #Return String of the user input formatted and
-  #stripped of newlines and tabs.
+  # Return String of the user input formatted and
+  # stripped of newlines and tabs.
   def format_user_input strip = true
     format_ruby self.user_input, strip
   end
@@ -172,7 +172,7 @@ class Railroader::Warning
     end
   end
 
-  #Return formatted warning message
+  # Return formatted warning message
   def format_message
     return @format_message if @format_message
 
@@ -206,7 +206,7 @@ class Railroader::Warning
     @link
   end
 
-  #Generates a hash suitable for inserting into a table
+  # Generates a hash suitable for inserting into a table
   def to_row type = :warning
     @row = { "Confidence" => self.confidence,
       "Warning Type" => self.warning_type.to_s,

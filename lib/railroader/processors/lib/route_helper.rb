@@ -1,7 +1,7 @@
 module Railroader::RouteHelper
-  #Manage Controller prefixes
-  #@prefix is an Array, but this method returns a string
-  #suitable for prefixing onto a controller name.
+  # Manage Controller prefixes
+  # @prefix is an Array, but this method returns a string
+  # suitable for prefixing onto a controller name.
   def prefix
     if @prefix.length > 0
       @prefix.join("::") << "::"
@@ -10,20 +10,20 @@ module Railroader::RouteHelper
     end
   end
 
-  #Sets the controller name to a proper class name.
-  #For example
+  # Sets the controller name to a proper class name.
+  # For example
   # self.current_controller = :session
   # @controller == :SessionController #true
   #
-  #Also prepends the prefix if there is one set.
+  # Also prepends the prefix if there is one set.
   def current_controller= name
     @current_controller = (prefix + camelize(name) + "Controller").to_sym
     @tracker.routes[@current_controller] ||= Set.new
   end
 
-  #Add route to controller. If a controller is specified,
-  #the current controller will be set to that controller.
-  #If no controller is specified, uses current controller value.
+  # Add route to controller. If a controller is specified,
+  # the current controller will be set to that controller.
+  # If no controller is specified, uses current controller value.
   def add_route route, controller = nil
     if node_type? route, :str, :lit
       route = route.value
@@ -48,7 +48,7 @@ module Railroader::RouteHelper
     end
   end
 
-  #Add default routes
+  # Add default routes
   def add_resources_routes
     existing_routes = @tracker.routes[@current_controller]
 
@@ -57,7 +57,7 @@ module Railroader::RouteHelper
     end
   end
 
-  #Add default routes minus :index
+  # Add default routes minus :index
   def add_resource_routes
     existing_routes = @tracker.routes[@current_controller]
 

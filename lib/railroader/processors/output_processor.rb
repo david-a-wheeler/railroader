@@ -1,14 +1,14 @@
 Railroader.load_railroader_dependency 'ruby2ruby'
 require 'railroader/util'
 
-#Produces formatted output strings from Sexps.
-#Recommended usage is
+# Produces formatted output strings from Sexps.
+# Recommended usage is
 #
 #  OutputProcessor.new.format(Sexp.new(:str, "hello"))
 class Railroader::OutputProcessor < Ruby2Ruby
   include Railroader::Util
 
-  #Copies +exp+ and then formats it.
+  # Copies +exp+ and then formats it.
   def format exp, user_input = nil, &block
     @user_input = user_input
     @user_input_block = block

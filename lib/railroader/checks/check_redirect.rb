@@ -1,8 +1,8 @@
 require 'railroader/checks/base_check'
 
-#Reports any calls to +redirect_to+ which include parameters in the arguments.
+# Reports any calls to +redirect_to+ which include parameters in the arguments.
 #
-#For example:
+# For example:
 #
 # redirect_to params.merge(:action => :elsewhere)
 class Railroader::CheckRedirect < Railroader::BaseCheck
@@ -59,10 +59,10 @@ class Railroader::CheckRedirect < Railroader::BaseCheck
     end
   end
 
-  #Custom check for user input. First looks to see if the user input
-  #is being output directly. This is necessary because of tracker.options[:check_arguments]
-  #which can be used to enable/disable reporting output of method calls which use
-  #user input as arguments.
+  # Custom check for user input. First looks to see if the user input
+  # is being output directly. This is necessary because of tracker.options[:check_arguments]
+  # which can be used to enable/disable reporting output of method calls which use
+  # user input as arguments.
   def include_user_input? call, immediate = :immediate
     Railroader.debug "Checking if call includes user input"
 
@@ -89,7 +89,7 @@ class Railroader::CheckRedirect < Railroader::BaseCheck
         return Match.new(immediate, arg.target)
       elsif arg.method == :url_for and include_user_input? arg
         return Match.new(immediate, arg)
-        #Ignore helpers like some_model_url?
+        # Ignore helpers like some_model_url?
       elsif arg.method.to_s =~ /_(url|path)\z/
         return false
       end
@@ -98,14 +98,14 @@ class Railroader::CheckRedirect < Railroader::BaseCheck
     end
 
     if tracker.options[:check_arguments] and call? arg
-      include_user_input? arg, false  #I'm doubting if this is really necessary...
+      include_user_input? arg, false  # I'm doubting if this is really necessary...
     else
       false
     end
   end
 
-  #Checks +redirect_to+ arguments for +only_path => true+ which essentially
-  #nullifies the danger posed by redirecting with user input
+  # Checks +redirect_to+ arguments for +only_path => true+ which essentially
+  # nullifies the danger posed by redirecting with user input
   def only_path? call
     arg = call.first_arg
 
@@ -164,7 +164,7 @@ class Railroader::CheckRedirect < Railroader::BaseCheck
   end
 
   #+url_for+ is only_path => true by default. This checks to see if it is
-  #set to false for some reason.
+  # set to false for some reason.
   def check_url_for call
     arg = call.first_arg
 
@@ -177,7 +177,7 @@ class Railroader::CheckRedirect < Railroader::BaseCheck
     true
   end
 
-  #Returns true if exp is (probably) a model instance
+  # Returns true if exp is (probably) a model instance
   def model_instance? exp
     if node_type? exp, :or
       model_instance? exp.lhs or model_instance? exp.rhs
@@ -198,14 +198,14 @@ class Railroader::CheckRedirect < Railroader::BaseCheck
     model_target? exp.target
   end
 
-  #Returns true if exp is (probably) a friendly model instance
-  #using the FriendlyId gem
+  # Returns true if exp is (probably) a friendly model instance
+  # using the FriendlyId gem
   def friendly_model? exp
     call? exp and model_name? exp.target and exp.method == :friendly
   end
 
-  #Returns true if exp is (probably) a decorated model instance
-  #using the Draper gem
+  # Returns true if exp is (probably) a decorated model instance
+  # using the Draper gem
   def decorated_model? exp
     if node_type? exp, :or
       decorated_model? exp.lhs or decorated_model? exp.rhs
@@ -218,7 +218,7 @@ class Railroader::CheckRedirect < Railroader::BaseCheck
     end
   end
 
-  #Check if method is actually an association in a Model
+  # Check if method is actually an association in a Model
   def association? model_name, meth
     if call? model_name
       return association? model_name.target, meth

@@ -1,7 +1,7 @@
 require 'railroader/checks/base_check'
 
-#Checks for CVE-2012-3463, unescaped input in :prompt option of select_tag:
-#https://groups.google.com/d/topic/rubyonrails-security/fV3QUToSMSw/discussion
+# Checks for CVE-2012-3463, unescaped input in :prompt option of select_tag:
+# https://groups.google.com/d/topic/rubyonrails-security/fV3QUToSMSw/discussion
 class Railroader::CheckSelectTag < Railroader::BaseCheck
   Railroader::Checks.add self
 
@@ -32,11 +32,11 @@ class Railroader::CheckSelectTag < Railroader::BaseCheck
     end
   end
 
-  #Check if select_tag is called with user input in :prompt option
+  # Check if select_tag is called with user input in :prompt option
   def process_result result
     return unless original? result
 
-    #Only concerned if user input is supplied for :prompt option
+    # Only concerned if user input is supplied for :prompt option
     last_arg = result[:call].last_arg
 
     if hash? last_arg

@@ -1,5 +1,5 @@
-#Generated tab-separated output suitable for the Jenkins Railroader Plugin:
-#https://github.com/presidentbeef/railroader-jenkins-plugin
+# Generated tab-separated output suitable for the Jenkins Railroader Plugin:
+# https://github.com/presidentbeef/railroader-jenkins-plugin
 class Railroader::Report::Tabs < Railroader::Report::Base
   def generate_report
     [[:generic_warnings, "General"], [:controller_warnings, "Controller"],

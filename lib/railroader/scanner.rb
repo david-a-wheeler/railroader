@@ -12,12 +12,12 @@ rescue LoadError => e
   exit(-1)
 end
 
-#Scans the Rails application.
+# Scans the Rails application.
 class Railroader::Scanner
   attr_reader :options
   RUBY_1_9 = RUBY_VERSION >= "1.9.0"
 
-  #Pass in path to the root of the Rails application
+  # Pass in path to the root of the Rails application
   def initialize options, processor = nil
     @options = options
     @app_tree = Railroader::AppTree.from_options(options)
@@ -29,12 +29,12 @@ class Railroader::Scanner
     @processor = processor || Railroader::Processor.new(@app_tree, options)
   end
 
-  #Returns the Tracker generated from the scan
+  # Returns the Tracker generated from the scan
   def tracker
     @processor.tracked_events
   end
 
-  #Process everything in the Rails application
+  # Process everything in the Rails application
   def process
     Railroader.notify "Processing gems..."
     process_gems
@@ -90,9 +90,9 @@ class Railroader::Scanner
     @file_list = fp.file_list
   end
 
-  #Process config/environment.rb and config/gems.rb
+  # Process config/environment.rb and config/gems.rb
   #
-  #Stores parsed information in tracker.config
+  # Stores parsed information in tracker.config
   def process_config
     if options[:rails3] or options[:rails4] or options[:rails5]
       process_config_file "application.rb"
@@ -128,7 +128,7 @@ class Railroader::Scanner
 
   private :process_config_file
 
-  #Process Gemfile
+  # Process Gemfile
   def process_gems
     gem_files = {}
     if @app_tree.exists? "Gemfile"
@@ -151,7 +151,7 @@ class Railroader::Scanner
     tracker.error e.exception(e.message + "\nWhile processing Gemfile"), e.backtrace
   end
 
-  #Set :rails3/:rails4 option if version was not determined from Gemfile
+  # Set :rails3/:rails4 option if version was not determined from Gemfile
   def guess_rails_version
     unless tracker.options[:rails3] or tracker.options[:rails4]
       if @app_tree.exists?("script/rails")
@@ -170,9 +170,9 @@ class Railroader::Scanner
     end
   end
 
-  #Process all the .rb files in config/initializers/
+  # Process all the .rb files in config/initializers/
   #
-  #Adds parsed information to tracker.initializers
+  # Adds parsed information to tracker.initializers
   def process_initializers
     track_progress @file_list[:initializers] do |init|
       Railroader.debug "Processing #{init[:path]}"
@@ -180,14 +180,14 @@ class Railroader::Scanner
     end
   end
 
-  #Process an initializer
+  # Process an initializer
   def process_initializer init
     @processor.process_initializer(init.path, init.ast)
   end
 
-  #Process all .rb in lib/
+  # Process all .rb in lib/
   #
-  #Adds parsed information to tracker.libs.
+  # Adds parsed information to tracker.libs.
   def process_libs
     if options[:skip_libs]
       Railroader.notify '[Skipping]'
@@ -200,14 +200,14 @@ class Railroader::Scanner
     end
   end
 
-  #Process a library
+  # Process a library
   def process_lib lib
     @processor.process_lib lib.ast, lib.path
   end
 
-  #Process config/routes.rb
+  # Process config/routes.rb
   #
-  #Adds parsed information to tracker.routes
+  # Adds parsed information to tracker.routes
   def process_routes
     if @app_tree.exists?("config/routes.rb")
       begin
@@ -222,9 +222,9 @@ class Railroader::Scanner
     end
   end
 
-  #Process all .rb files in controllers/
+  # Process all .rb files in controllers/
   #
-  #Adds processed controllers to tracker.controllers
+  # Adds processed controllers to tracker.controllers
   def process_controllers
     track_progress @file_list[:controllers] do |controller|
       Railroader.debug "Processing #{controller.path}"
@@ -242,7 +242,7 @@ class Railroader::Scanner
       end
     end
 
-    #No longer need these processed filter methods
+    # No longer need these processed filter methods
     tracker.filter_cache.clear
   end
 
@@ -254,9 +254,9 @@ class Railroader::Scanner
     end
   end
 
-  #Process all views and partials in views/
+  # Process all views and partials in views/
   #
-  #Adds processed views to tracker.views
+  # Adds processed views to tracker.views
   def process_templates
     templates = @file_list[:templates].sort_by { |t| t[:path] }
 
@@ -279,9 +279,9 @@ class Railroader::Scanner
     end
   end
 
-  #Process all the .rb files in models/
+  # Process all the .rb files in models/
   #
-  #Adds the processed models to tracker.models
+  # Adds the processed models to tracker.models
   def process_models
     track_progress @file_list[:models] do |model|
       Railroader.debug "Processing #{model[:path]}"

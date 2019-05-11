@@ -1,10 +1,10 @@
 require 'railroader/processors/base_processor'
 require 'railroader/tracker/template'
 
-#Base Processor for templates/views
+# Base Processor for templates/views
 class Railroader::TemplateProcessor < Railroader::BaseProcessor
 
-  #Initializes template information.
+  # Initializes template information.
   def initialize tracker, template_name, called_from = nil, file_name = nil
     super(tracker)
     @current_template = Railroader::Template.new template_name, called_from, file_name, tracker
@@ -19,7 +19,7 @@ class Railroader::TemplateProcessor < Railroader::BaseProcessor
     @inside_concat = false
   end
 
-  #Process the template Sexp.
+  # Process the template Sexp.
   def process exp
     begin
       super
@@ -30,9 +30,9 @@ class Railroader::TemplateProcessor < Railroader::BaseProcessor
     end
   end
 
-  #Ignore initial variable assignment
+  # Ignore initial variable assignment
   def process_lasgn exp
-    if exp.lhs == :_erbout and exp.rhs.node_type == :str  #ignore
+    if exp.lhs == :_erbout and exp.rhs.node_type == :str  # ignore
       ignore
     elsif exp.lhs == :_buf and exp.rhs.node_type == :str
       ignore
@@ -42,7 +42,7 @@ class Railroader::TemplateProcessor < Railroader::BaseProcessor
     end
   end
 
-  #Adds output to the list of outputs.
+  # Adds output to the list of outputs.
   def process_output exp
     exp.value = process exp.value
     @current_template.add_output exp unless exp.original_line

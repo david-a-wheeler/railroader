@@ -10,7 +10,7 @@ class Railroader::Report::CSV < Railroader::Report::Table
 
     output << table_to_csv(generate_warning_overview) << "\n"
 
-    #Return output early if only summarizing
+    # Return output early if only summarizing
     if tracker.options[:summary_only]
       return output
     end
@@ -46,7 +46,7 @@ class Railroader::Report::CSV < Railroader::Report::Table
     output
   end
 
-  #Generate header for CSV output
+  # Generate header for CSV output
   def csv_header
     header = CSV.generate_line(["Application Path", "Report Generation Time", "Checks Performed", "Rails Version"])
     header << CSV.generate_line([File.expand_path(tracker.app_path), Time.now.to_s, checks.checks_run.sort.join(", "), rails_version])

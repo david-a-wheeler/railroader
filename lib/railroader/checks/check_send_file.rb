@@ -1,7 +1,7 @@
 require 'railroader/checks/check_file_access'
 require 'railroader/processors/lib/processor_helper'
 
-#Checks for user input in send_file()
+# Checks for user input in send_file()
 class Railroader::CheckSendFile < Railroader::CheckFileAccess
   Railroader::Checks.add self
 

@@ -1,9 +1,9 @@
 require 'railroader/processors/template_processor'
 
-#Processes ERB templates using Erubis instead of erb.
+# Processes ERB templates using Erubis instead of erb.
 class Railroader::ErubisTemplateProcessor < Railroader::TemplateProcessor
 
-  #s(:call, TARGET, :method, ARGS)
+  # s(:call, TARGET, :method, ARGS)
   def process_call exp
     target = exp.target
     if sexp? target
@@ -14,13 +14,13 @@ class Railroader::ErubisTemplateProcessor < Railroader::TemplateProcessor
     exp.arglist = process exp.arglist
     method = exp.method
 
-    #_buf is the default output variable for Erubis
+    # _buf is the default output variable for Erubis
     if node_type?(target, :lvar, :ivar) and (target.value == :_buf or target.value == :@output_buffer)
       if method == :<< or method == :safe_concat
 
         arg = normalize_output(exp.first_arg)
 
-        if arg.node_type == :str #ignore plain strings
+        if arg.node_type == :str # ignore plain strings
           ignore
         elsif node_type? target, :ivar and target.value == :@output_buffer
           add_escaped_output arg
@@ -39,7 +39,7 @@ class Railroader::ErubisTemplateProcessor < Railroader::TemplateProcessor
     end
   end
 
-  #Process blocks, ignoring :ignore exps
+  # Process blocks, ignoring :ignore exps
   def process_block exp
     exp = exp.dup
     exp.shift
@@ -56,7 +56,7 @@ class Railroader::ErubisTemplateProcessor < Railroader::TemplateProcessor
     block
   end
 
-  #Look for assignments to output buffer that look like this:
+  # Look for assignments to output buffer that look like this:
   #  @output_buffer.append = some_output
   #  @output_buffer.safe_append = some_output
   #  @output_buffer.safe_expr_append = some_output

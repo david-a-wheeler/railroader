@@ -1,13 +1,13 @@
 require 'railroader/checks/base_check'
 
-#Check for uses of strip_tags in Rails versions before 3.0.17, 3.1.8, 3.2.8 (including 2.3.x):
-#https://groups.google.com/d/topic/rubyonrails-security/FgVEtBajcTY/discussion
+# Check for uses of strip_tags in Rails versions before 3.0.17, 3.1.8, 3.2.8 (including 2.3.x):
+# https://groups.google.com/d/topic/rubyonrails-security/FgVEtBajcTY/discussion
 #
-#Check for uses of strip_tags in Rails versions before 2.3.13 and 3.0.10:
-#http://groups.google.com/group/rubyonrails-security/browse_thread/thread/2b9130749b74ea12
+# Check for uses of strip_tags in Rails versions before 2.3.13 and 3.0.10:
+# http://groups.google.com/group/rubyonrails-security/browse_thread/thread/2b9130749b74ea12
 #
-#Check for user of strip_tags with rails-html-sanitizer 1.0.2:
-#https://groups.google.com/d/msg/rubyonrails-security/OU9ugTZcbjc/PjEP46pbFQAJ
+# Check for user of strip_tags with rails-html-sanitizer 1.0.2:
+# https://groups.google.com/d/msg/rubyonrails-security/OU9ugTZcbjc/PjEP46pbFQAJ
 class Railroader::CheckStripTags < Railroader::BaseCheck
   Railroader::Checks.add self
 

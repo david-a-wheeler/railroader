@@ -1,9 +1,9 @@
 require 'railroader/checks/base_check'
 
-#Checks if password is stored in controller
-#when using http_basic_authenticate_with
+# Checks if password is stored in controller
+# when using http_basic_authenticate_with
 #
-#Only for Rails >= 3.1
+# Only for Rails >= 3.1
 class Railroader::CheckBasicAuth < Railroader::BaseCheck
   Railroader::Checks.add self
 

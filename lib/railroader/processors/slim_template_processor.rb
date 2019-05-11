@@ -44,8 +44,8 @@ class Railroader::SlimTemplateProcessor < Railroader::TemplateProcessor
     end
   end
 
-  #Slim likes to interpolate output into strings then pass them to safe_concat.
-  #Better to pull those values out directly.
+  # Slim likes to interpolate output into strings then pass them to safe_concat.
+  # Better to pull those values out directly.
   def process_inside_interp exp
     exp.map! do |e|
       if node_type? e, :evstr
@@ -104,8 +104,8 @@ class Railroader::SlimTemplateProcessor < Railroader::TemplateProcessor
   end
 
   def process_render exp
-    #Still confused as to why this is not needed in other template processors
-    #but is needed here
+    # Still confused as to why this is not needed in other template processors
+    # but is needed here
     exp
   end
 end

@@ -1,16 +1,16 @@
 require 'railroader/processors/alias_processor'
 
-#Attempts to determine the return value of a method.
+# Attempts to determine the return value of a method.
 #
-#Preferred usage:
+# Preferred usage:
 #
 #  Railroader::FindReturnValue.return_value exp
 class Railroader::FindReturnValue
   include Railroader::Util
 
-  #Returns a guess at the return value of a given method or other block of code.
+  # Returns a guess at the return value of a given method or other block of code.
   #
-  #If multiple return values are possible, returns all values in an :or Sexp.
+  # If multiple return values are possible, returns all values in an :or Sexp.
   def self.return_value exp, env = nil
     self.new.get_return_value exp, env
   end
@@ -24,7 +24,7 @@ class Railroader::FindReturnValue
     @uses_ivars
   end
 
-  #Find return value of Sexp. Takes an optional starting environment.
+  # Find return value of Sexp. Takes an optional starting environment.
   def get_return_value exp, env = nil
     process_method exp, env
     value = make_return_value
@@ -32,7 +32,7 @@ class Railroader::FindReturnValue
     value
   end
 
-  #Process method (or, actually, any Sexp) for return value.
+  # Process method (or, actually, any Sexp) for return value.
   def process_method exp, env = nil
     exp = Railroader::AliasProcessor.new.process_safely exp, env
 
@@ -55,7 +55,7 @@ class Railroader::FindReturnValue
     exp
   end
 
-  #Searches expression for return statements.
+  # Searches expression for return statements.
   def find_explicit_return_values exp
     todo = [exp]
 
@@ -72,7 +72,7 @@ class Railroader::FindReturnValue
     end
   end
 
-  #Determines the "last value" of an expression.
+  # Determines the "last value" of an expression.
   def last_value exp
     case exp.node_type
     when :rlist, :block, :scope, Sexp
@@ -95,7 +95,7 @@ class Railroader::FindReturnValue
           value = make_or(true_branch, false_branch)
           value.original_line = value.rhs.line
           value
-        else #Unlikely?
+        else # Unlikely?
           true_branch or false_branch
         end
       end
@@ -140,7 +140,7 @@ class Railroader::FindReturnValue
   end
 
   def make_or lhs, rhs
-    #Better checks in future
+    # Better checks in future
     if lhs == rhs
       lhs
     else
@@ -148,7 +148,7 @@ class Railroader::FindReturnValue
     end
   end
 
-  #Turns the array of return values into an :or Sexp
+  # Turns the array of return values into an :or Sexp
   def make_return_value
     @return_values.compact!
     @return_values.uniq!

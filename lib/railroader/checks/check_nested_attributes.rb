@@ -1,7 +1,7 @@
 require 'railroader/checks/base_check'
 
-#Check for vulnerability in nested attributes in Rails 2.3.9 and 3.0.0
-#http://groups.google.com/group/rubyonrails-security/browse_thread/thread/f9f913d328dafe0c
+# Check for vulnerability in nested attributes in Rails 2.3.9 and 3.0.0
+# http://groups.google.com/group/rubyonrails-security/browse_thread/thread/f9f913d328dafe0c
 class Railroader::CheckNestedAttributes < Railroader::BaseCheck
   Railroader::Checks.add self
 

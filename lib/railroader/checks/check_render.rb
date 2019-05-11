@@ -1,6 +1,6 @@
 require 'railroader/checks/base_check'
 
-#Check calls to +render()+ for dangerous values
+# Check calls to +render()+ for dangerous values
 class Railroader::CheckRender < Railroader::BaseCheck
   Railroader::Checks.add self
 
@@ -28,7 +28,7 @@ class Railroader::CheckRender < Railroader::BaseCheck
     end
   end
 
-  #Check if path to action or file is determined dynamically
+  # Check if path to action or file is determined dynamically
   def check_for_dynamic_path result
     view = result[:call][2]
 
@@ -46,7 +46,7 @@ class Railroader::CheckRender < Railroader::BaseCheck
         return
       end
 
-      return if input.type == :model #skip models
+      return if input.type == :model # skip models
       return if safe_param? input.match
 
       message = "Render path contains #{friendly_type_of input}"

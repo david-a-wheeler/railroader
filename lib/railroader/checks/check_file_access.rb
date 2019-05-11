@@ -1,7 +1,7 @@
 require 'railroader/checks/base_check'
 require 'railroader/processors/lib/processor_helper'
 
-#Checks for user input in methods which open or manipulate files
+# Checks for user input in methods which open or manipulate files
 class Railroader::CheckFileAccess < Railroader::BaseCheck
   Railroader::Checks.add self
 
@@ -39,7 +39,7 @@ class Railroader::CheckFileAccess < Railroader::BaseCheck
     elsif tracker.options[:check_arguments] and
       match = include_user_input?(file_name)
 
-      #Check for string building in file name
+      # Check for string building in file name
       if call?(file_name) and (file_name.method == :+ or file_name.method == :<<)
         confidence = :high
       else

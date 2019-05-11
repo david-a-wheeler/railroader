@@ -1,6 +1,6 @@
 require 'railroader/checks/check_cross_site_scripting'
 
-#Checks for unescaped values in `content_tag`
+# Checks for unescaped values in `content_tag`
 #
 #    content_tag :tag, body
 #                       ^-- Unescaped in Rails 2.x
@@ -56,15 +56,15 @@ class Railroader::CheckContentTag < Railroader::CheckCrossSiteScripting
 
     @matched = false
 
-    #Silly, but still dangerous if someone uses user input in the tag type
+    # Silly, but still dangerous if someone uses user input in the tag type
     check_argument result, tag_name
 
-    #Versions before 3.x do not escape body of tag, nor does the rails_xss gem
+    # Versions before 3.x do not escape body of tag, nor does the rails_xss gem
     unless @matched or (tracker.options[:rails3] and not raw? content)
       check_argument result, content
     end
 
-    #Attribute keys are never escaped, so check them for user input
+    # Attribute keys are never escaped, so check them for user input
     if not @matched and hash? attributes and not request_value? attributes
       hash_iterate(attributes) do |k, _v|
         check_argument result, k
@@ -72,13 +72,13 @@ class Railroader::CheckContentTag < Railroader::CheckCrossSiteScripting
       end
     end
 
-    #By default, content_tag escapes attribute values passed in as a hash.
-    #But this behavior can be disabled. So only check attributes hash
-    #if they are explicitly not escaped.
+    # By default, content_tag escapes attribute values passed in as a hash.
+    # But this behavior can be disabled. So only check attributes hash
+    # if they are explicitly not escaped.
     if not @matched and attributes and (false? escape_attr or cve_2016_6316?)
       if request_value? attributes or not hash? attributes
         check_argument result, attributes
-      else #check hash values
+      else # check hash values
         hash_iterate(attributes) do |_k, v|
           check_argument result, v
           return if @matched
@@ -88,7 +88,7 @@ class Railroader::CheckContentTag < Railroader::CheckCrossSiteScripting
   end
 
   def check_argument result, exp
-    #Check contents of raw() calls directly
+    # Check contents of raw() calls directly
     if raw? exp
       arg = process exp.first_arg
     else

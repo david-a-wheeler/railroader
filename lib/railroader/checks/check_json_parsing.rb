@@ -36,12 +36,12 @@ class Railroader::CheckJSONParsing < Railroader::BaseCheck
     end
   end
 
-  #Check if `yajl` is included in Gemfile
+  # Check if `yajl` is included in Gemfile
   def uses_yajl?
     tracker.config.has_gem? :yajl
   end
 
-  #Check for `ActiveSupport::JSON.backend = "JSONGem"`
+  # Check for `ActiveSupport::JSON.backend = "JSONGem"`
   def uses_gem_backend?
     matches = tracker.check_initializers(:'ActiveSupport::JSON', :backend=)
 

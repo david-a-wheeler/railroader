@@ -1,6 +1,6 @@
 require 'railroader/checks/base_check'
 
-#This check looks for regexes that include user input.
+# This check looks for regexes that include user input.
 class Railroader::CheckDynamicFinders < Railroader::BaseCheck
   Railroader::Checks.add self
 

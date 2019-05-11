@@ -1,8 +1,8 @@
 require 'railroader/checks/base_check'
 
-#Check for unsafe manipulation of strings
-#Right now this is just a version check for
-#https://groups.google.com/group/rubyonrails-security/browse_thread/thread/edd28f1e3d04e913?pli=1
+# Check for unsafe manipulation of strings
+# Right now this is just a version check for
+# https://groups.google.com/group/rubyonrails-security/browse_thread/thread/edd28f1e3d04e913?pli=1
 class Railroader::CheckSafeBufferManipulation < Railroader::BaseCheck
   Railroader::Checks.add self
 

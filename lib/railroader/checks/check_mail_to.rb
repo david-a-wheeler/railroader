@@ -1,9 +1,9 @@
 require 'railroader/checks/base_check'
 
-#Check for cross-site scripting vulnerability in mail_to :encode => :javascript
-#with certain versions of Rails (< 2.3.11 or < 3.0.4).
+# Check for cross-site scripting vulnerability in mail_to :encode => :javascript
+# with certain versions of Rails (< 2.3.11 or < 3.0.4).
 #
-#http://groups.google.com/group/rubyonrails-security/browse_thread/thread/f02a48ede8315f81
+# http://groups.google.com/group/rubyonrails-security/browse_thread/thread/f02a48ede8315f81
 class Railroader::CheckMailTo < Railroader::BaseCheck
   Railroader::Checks.add self
 
@@ -29,7 +29,7 @@ class Railroader::CheckMailTo < Railroader::BaseCheck
     end
   end
 
-  #Check for javascript encoding of mail_to address
+  # Check for javascript encoding of mail_to address
   #    mail_to email, name, :encode => :javascript
   def mail_to_javascript?
     Railroader.debug "Checking calls to mail_to for javascript encoding"

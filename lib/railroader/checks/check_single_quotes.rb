@@ -1,7 +1,7 @@
 require 'railroader/checks/base_check'
 
-#Checks for versions which do not escape single quotes.
-#https://groups.google.com/d/topic/rubyonrails-security/kKGNeMrnmiY/discussion
+# Checks for versions which do not escape single quotes.
+# https://groups.google.com/d/topic/rubyonrails-security/kKGNeMrnmiY/discussion
 class Railroader::CheckSingleQuotes < Railroader::BaseCheck
   Railroader::Checks.add self
   RACK_UTILS = Sexp.new(:colon2, Sexp.new(:const, :Rack), :Utils)
@@ -37,8 +37,8 @@ class Railroader::CheckSingleQuotes < Railroader::BaseCheck
       :link_path => "https://groups.google.com/d/topic/rubyonrails-security/kKGNeMrnmiY/discussion"
   end
 
-  #Process initializers to see if they use workaround
-  #by replacing Erb::Util.html_escape
+  # Process initializers to see if they use workaround
+  # by replacing Erb::Util.html_escape
   def uses_rack_escape?
     @tracker.initializers.each do |_name, src|
       process src
@@ -47,7 +47,7 @@ class Railroader::CheckSingleQuotes < Railroader::BaseCheck
     @uses_rack_escape
   end
 
-  #Look for
+  # Look for
   #
   #    class ERB
   def process_class exp
@@ -60,7 +60,7 @@ class Railroader::CheckSingleQuotes < Railroader::BaseCheck
     exp
   end
 
-  #Look for
+  # Look for
   #
   #    module Util
   def process_module exp
@@ -73,7 +73,7 @@ class Railroader::CheckSingleQuotes < Railroader::BaseCheck
     exp
   end
 
-  #Look for
+  # Look for
   #
   #    def html_escape
   def process_defn exp
@@ -86,7 +86,7 @@ class Railroader::CheckSingleQuotes < Railroader::BaseCheck
     exp
   end
 
-  #Look for
+  # Look for
   #
   #    Rack::Utils.escape_html
   def process_call exp

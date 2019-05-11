@@ -47,7 +47,7 @@ module Railroader
     end
 
     def escape_html_entities_in_json?
-      #TODO add version-specific information here
+      # TODO add version-specific information here
       @rails[:active_support] and
         true? @rails[:active_support][:escape_html_entities_in_json]
     end
@@ -115,9 +115,9 @@ module Railroader
       end
     end
 
-    #Returns true if low_version <= RAILS_VERSION <= high_version
+    # Returns true if low_version <= RAILS_VERSION <= high_version
     #
-    #If the Rails version is unknown, returns false.
+    # If the Rails version is unknown, returns false.
     def version_between? low_version, high_version, current_version = nil
       current_version ||= rails_version
       return false unless current_version

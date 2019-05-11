@@ -1,4 +1,4 @@
-#Contains a couple shared methods for Processors.
+# Contains a couple shared methods for Processors.
 module Railroader::ProcessorHelper
   def process_all exp
     exp.each_sexp do |e|
@@ -19,9 +19,9 @@ module Railroader::ProcessorHelper
     exp
   end
 
-  #Process the arguments of a method call. Does not store results.
+  # Process the arguments of a method call. Does not store results.
   #
-  #This method is used because Sexp#args and Sexp#arglist create new objects.
+  # This method is used because Sexp#args and Sexp#arglist create new objects.
   def process_call_args exp
     exp.each_arg do |a|
       process a if sexp? a
@@ -38,7 +38,7 @@ module Railroader::ProcessorHelper
     exp
   end
 
-  #Sets the current module.
+  # Sets the current module.
   def process_module exp
     module_name = class_name(exp.class_name).to_s
     prev_module = @current_module

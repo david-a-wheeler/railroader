@@ -32,7 +32,7 @@ class Railroader::CheckYAMLParsing < Railroader::BaseCheck
         :link_path => "https://groups.google.com/d/topic/rubyonrails-security/61bkgvnSGTQ/discussion"
     end
 
-    #Warn if app accepts YAML
+    # Warn if app accepts YAML
     if version_between?("0.0.0", "2.3.14") and enabled_yaml_parser?
       message = "Parsing YAML request parameters enables remote code execution: disable YAML parser"
 
@@ -47,14 +47,14 @@ class Railroader::CheckYAMLParsing < Railroader::BaseCheck
 
   def disabled_xml_parser?
     if version_between? "0.0.0", "2.3.14"
-      #Look for ActionController::Base.param_parsers.delete(Mime::XML)
+      # Look for ActionController::Base.param_parsers.delete(Mime::XML)
       params_parser = s(:call,
                         s(:colon2, s(:const, :ActionController), :Base),
                         :param_parsers)
 
       matches = tracker.check_initializers(params_parser, :delete)
     else
-      #Look for ActionDispatch::ParamsParser::DEFAULT_PARSERS.delete(Mime::XML)
+      # Look for ActionDispatch::ParamsParser::DEFAULT_PARSERS.delete(Mime::XML)
       matches = tracker.check_initializers(:"ActionDispatch::ParamsParser::DEFAULT_PARSERS", :delete)
     end
 
@@ -71,8 +71,8 @@ class Railroader::CheckYAMLParsing < Railroader::BaseCheck
     false
   end
 
-  #Look for ActionController::Base.param_parsers[Mime::YAML] = :yaml
-  #in Rails 2.x apps
+  # Look for ActionController::Base.param_parsers[Mime::YAML] = :yaml
+  # in Rails 2.x apps
   def enabled_yaml_parser?
     param_parsers = s(:call,
                       s(:colon2, s(:const, :ActionController), :Base),

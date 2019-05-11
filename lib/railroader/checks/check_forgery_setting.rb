@@ -1,9 +1,9 @@
 require 'railroader/checks/base_check'
 
-#Checks that +protect_from_forgery+ is set in the ApplicationController.
+# Checks that +protect_from_forgery+ is set in the ApplicationController.
 #
-#Also warns for CSRF weakness in certain versions of Rails:
-#http://groups.google.com/group/rubyonrails-security/browse_thread/thread/2d95a3cc23e03665
+# Also warns for CSRF weakness in certain versions of Rails:
+# http://groups.google.com/group/rubyonrails-security/browse_thread/thread/2d95a3cc23e03665
 class Railroader::CheckForgerySetting < Railroader::BaseCheck
   Railroader::Checks.add self
 

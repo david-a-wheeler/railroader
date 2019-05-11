@@ -1,20 +1,20 @@
 
 require 'railroader/processors/lib/basic_processor'
 
-#Processes configuration. Results are put in tracker.config.
+# Processes configuration. Results are put in tracker.config.
 #
-#Configuration of Rails via Rails::Initializer are stored in tracker.config.rails.
-#For example:
+# Configuration of Rails via Rails::Initializer are stored in tracker.config.rails.
+# For example:
 #
 #  MyApp::Application.configure do
 #    config.active_record.whitelist_attributes = true
 #  end
 #
-#will be stored in
+# will be stored in
 #
 #  tracker.config.rails[:active_record][:whitelist_attributes]
 #
-#Values for tracker.config.rails will still be Sexps.
+# Values for tracker.config.rails will still be Sexps.
 class Railroader::Rails3ConfigProcessor < Railroader::BasicProcessor
   RAILS_CONFIG = Sexp.new(:call, nil, :config)
 
@@ -23,14 +23,14 @@ class Railroader::Rails3ConfigProcessor < Railroader::BasicProcessor
     @inside_config = false
   end
 
-  #Use this method to process configuration file
+  # Use this method to process configuration file
   def process_config src, file_name
     @file_name = file_name
     res = Railroader::AliasProcessor.new(@tracker).process_safely(src, nil, @file_name)
     process res
   end
 
-  #Look for MyApp::Application.configure do ... end
+  # Look for MyApp::Application.configure do ... end
   def process_iter exp
     call = exp.block_call
 
@@ -46,7 +46,7 @@ class Railroader::Rails3ConfigProcessor < Railroader::BasicProcessor
     exp
   end
 
-  #Look for class Application < Rails::Application
+  # Look for class Application < Rails::Application
   def process_class exp
     if exp.class_name == :Application
       @inside_config = true
@@ -57,15 +57,15 @@ class Railroader::Rails3ConfigProcessor < Railroader::BasicProcessor
     exp
   end
 
-  #Look for configuration settings
+  # Look for configuration settings
   def process_attrasgn exp
     return exp unless @inside_config
 
     if exp.target == RAILS_CONFIG
-      #Get rid of '=' at end
+      # Get rid of '=' at end
       attribute = exp.method.to_s[0..-2].to_sym
       if exp.args.length > 1
-        #Multiple arguments?...not sure if this will ever happen
+        # Multiple arguments?...not sure if this will ever happen
         @tracker.config.rails[attribute] = exp.args
       else
         @tracker.config.rails[attribute] = exp.first_arg
@@ -92,7 +92,7 @@ class Railroader::Rails3ConfigProcessor < Railroader::BasicProcessor
     exp
   end
 
-  #Check if an expression includes a call to set Rails config
+  # Check if an expression includes a call to set Rails config
   def include_rails_config? exp
     target = exp.target
     if call? target
@@ -108,11 +108,11 @@ class Railroader::Rails3ConfigProcessor < Railroader::BasicProcessor
     end
   end
 
-  #Returns an array of symbols for each 'level' in the config
+  # Returns an array of symbols for each 'level' in the config
   #
   #  config.action_controller.session_store = :cookie
   #
-  #becomes
+  # becomes
   #
   #  [:action_controller, :session_store]
   def get_rails_config exp

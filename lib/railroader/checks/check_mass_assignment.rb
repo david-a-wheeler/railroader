@@ -1,9 +1,9 @@
 require 'railroader/checks/base_check'
 require 'set'
 
-#Checks for mass assignments to models.
+# Checks for mass assignments to models.
 #
-#See http://guides.rubyonrails.org/security.html#mass-assignment for details
+# See http://guides.rubyonrails.org/security.html#mass-assignment for details
 class Railroader::CheckMassAssignment < Railroader::BaseCheck
   Railroader::Checks.add self
 
@@ -59,7 +59,7 @@ class Railroader::CheckMassAssignment < Railroader::BaseCheck
     end
   end
 
-  #All results should be Model.new(...) or Model.attributes=() calls
+  # All results should be Model.new(...) or Model.attributes=() calls
   def process_result res
     call = res[:call]
 
@@ -106,7 +106,7 @@ class Railroader::CheckMassAssignment < Railroader::BaseCheck
     res
   end
 
-  #Want to ignore calls to Model.new that have no arguments
+  # Want to ignore calls to Model.new that have no arguments
   def check_call call
     process_call_args call
 
@@ -116,7 +116,7 @@ class Railroader::CheckMassAssignment < Railroader::BaseCheck
       arg = call.first_arg
     end
 
-    if arg.nil? #empty new()
+    if arg.nil? # empty new()
       false
     elsif hash? arg and not include_user_input? arg
       false

@@ -4,10 +4,10 @@ require 'railroader/processors/lib/processor_helper'
 require 'railroader/util'
 require 'set'
 
-#This check looks for unescaped output in templates which contains
-#parameters or model attributes.
+# This check looks for unescaped output in templates which contains
+# parameters or model attributes.
 #
-#For example:
+# For example:
 #
 # <%= User.find(:id).name %>
 # <%= params[:id] %>
@@ -16,7 +16,7 @@ class Railroader::CheckCrossSiteScripting < Railroader::BaseCheck
 
   @description = "Checks for unescaped output in views"
 
-  #Model methods which are known to be harmless
+  # Model methods which are known to be harmless
   IGNORE_MODEL_METHODS = Set[:average, :count, :maximum, :minimum, :sum, :id]
 
   MODEL_METHODS = Set[:all, :find, :first, :last, :new]
@@ -33,7 +33,7 @@ class Railroader::CheckCrossSiteScripting < Railroader::BaseCheck
 
   FORM_BUILDER = Sexp.new(:call, Sexp.new(:const, :FormBuilder), :new)
 
-  #Run check
+  # Run check
   def run_check
     setup
 
@@ -119,7 +119,7 @@ class Railroader::CheckCrossSiteScripting < Railroader::BaseCheck
     end
   end
 
-  #Call already involves a model, but might not be acting on a record
+  # Call already involves a model, but might not be acting on a record
   def likely_model_attribute? exp
     return false unless call? exp
 
@@ -132,13 +132,13 @@ class Railroader::CheckCrossSiteScripting < Railroader::BaseCheck
     end
   end
 
-  #Process an output Sexp
+  # Process an output Sexp
   def process_output exp
     process exp.value.dup
   end
 
-  #Look for calls to raw()
-  #Otherwise, ignore
+  # Look for calls to raw()
+  # Otherwise, ignore
   def process_escaped_output exp
     unless check_for_immediate_xss exp
       if not duplicate? exp
@@ -152,12 +152,12 @@ class Railroader::CheckCrossSiteScripting < Railroader::BaseCheck
     exp
   end
 
-  #Check a call for user input
+  # Check a call for user input
   #
   #
-  #Since we want to report an entire call and not just part of one, use @mark
-  #to mark when a call is started. Any dangerous values inside will then
-  #report the entire call chain.
+  # Since we want to report an entire call and not just part of one, use @mark
+  # to mark when a call is started. Any dangerous values inside will then
+  # report the entire call chain.
   def process_call exp
     if @mark
       actually_process_call exp
@@ -214,10 +214,10 @@ class Railroader::CheckCrossSiteScripting < Railroader::BaseCheck
 
     method = exp.method
 
-    #Ignore safe items
+    # Ignore safe items
     if ignore_call? target, method
       @matched = false
-    elsif sexp? target and model_name? target[1] #TODO: use method call?
+    elsif sexp? target and model_name? target[1] # TODO: use method call?
       @matched = Match.new(:model, exp)
     elsif cookies? exp
       @matched = Match.new(:cookies, exp)
@@ -228,39 +228,39 @@ class Railroader::CheckCrossSiteScripting < Railroader::BaseCheck
     end
   end
 
-  #Note that params have been found
+  # Note that params have been found
   def process_params exp
     @matched = Match.new(:params, exp)
     exp
   end
 
-  #Note that cookies have been found
+  # Note that cookies have been found
   def process_cookies exp
     @matched = Match.new(:cookies, exp)
     exp
   end
 
-  #Ignore calls to render
+  # Ignore calls to render
   def process_render exp
     exp
   end
 
-  #Process as default
+  # Process as default
   def process_dstr exp
     process_default exp
   end
 
-  #Process as default
+  # Process as default
   def process_format exp
     process_default exp
   end
 
-  #Ignore output HTML escaped via HAML
+  # Ignore output HTML escaped via HAML
   def process_format_escaped exp
     exp
   end
 
-  #Ignore condition in if Sexp
+  # Ignore condition in if Sexp
   def process_if exp
     process exp.then_clause if sexp? exp.then_clause
     process exp.else_clause if sexp? exp.else_clause
@@ -268,8 +268,8 @@ class Railroader::CheckCrossSiteScripting < Railroader::BaseCheck
   end
 
   def process_case exp
-    #Ignore user input in case value
-    #TODO: also ignore when values
+    # Ignore user input in case value
+    # TODO: also ignore when values
 
     current = 2
     while current < exp.length

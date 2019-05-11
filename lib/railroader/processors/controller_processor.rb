@@ -2,7 +2,7 @@ require 'railroader/processors/base_processor'
 require 'railroader/processors/lib/module_helper'
 require 'railroader/tracker/controller'
 
-#Processes controller. Results are put in tracker.controllers
+# Processes controller. Results are put in tracker.controllers
 class Railroader::ControllerProcessor < Railroader::BaseProcessor
   include Railroader::ModuleHelper
 
@@ -19,20 +19,20 @@ class Railroader::ControllerProcessor < Railroader::BaseProcessor
     @concerns = Set.new
   end
 
-  #Use this method to process a Controller
+  # Use this method to process a Controller
   def process_controller src, file_name = nil
     @file_name = file_name
     process src
   end
 
-  #s(:class, NAME, PARENT, s(:scope ...))
+  # s(:class, NAME, PARENT, s(:scope ...))
   def process_class exp
     name = class_name(exp.class_name)
     parent = class_name(exp.parent_name)
 
-    #If inside a real controller, treat any other classes as libraries.
-    #But if not inside a controller already, then the class may include
-    #a real controller, so we can't take this shortcut.
+    # If inside a real controller, treat any other classes as libraries.
+    # But if not inside a controller already, then the class may include
+    # a real controller, so we can't take this shortcut.
     if @current_class and @current_class.name.to_s.end_with? "Controller"
       Railroader.debug "[Notice] Treating inner class as library: #{name}"
       Railroader::LibraryProcessor.new(@tracker).process_library exp, @file_name
@@ -41,11 +41,11 @@ class Railroader::ControllerProcessor < Railroader::BaseProcessor
 
     if not name.to_s.end_with? "Controller"
       Railroader.debug "[Notice] Adding noncontroller as library: #{name}"
-      #Set the class to be a module in order to get the right namespacing.
-      #Add class to libraries, in case it is needed later (e.g. it's used
-      #as a parent class for a controller.)
-      #However, still want to process it in this class, so have to set
-      #@current_class to this not-really-a-controller thing.
+      # Set the class to be a module in order to get the right namespacing.
+      # Add class to libraries, in case it is needed later (e.g. it's used
+      # as a parent class for a controller.)
+      # However, still want to process it in this class, so have to set
+      # @current_class to this not-really-a-controller thing.
       process_module exp, parent
 
       return exp
@@ -73,7 +73,7 @@ class Railroader::ControllerProcessor < Railroader::BaseProcessor
     end
   end
 
-  #Look for specific calls inside the controller
+  # Look for specific calls inside the controller
   def process_call exp
     return exp if process_call_defn? exp
 
@@ -86,17 +86,17 @@ class Railroader::ControllerProcessor < Railroader::BaseProcessor
     first_arg = exp.first_arg
     last_arg = exp.last_arg
 
-    #Methods called inside class definition
-    #like attr_* and other settings
+    # Methods called inside class definition
+    # like attr_* and other settings
     if @current_method.nil? and target.nil? and @current_class
-      if first_arg.nil? #No args
+      if first_arg.nil? # No args
         case method
         when :private, :protected, :public
           @visibility = method
         when :protect_from_forgery
           @current_class.options[:protect_from_forgery] = true
         else
-          #??
+          # ??
         end
       else
         case method
@@ -122,7 +122,7 @@ class Railroader::ControllerProcessor < Railroader::BaseProcessor
           @current_class.skip_filter exp
         when :layout
           if string? last_arg
-            #layout "some_layout"
+            # layout "some_layout"
 
             name = last_arg.value.to_s
             if @app_tree.layout_exists?(name)
@@ -131,7 +131,7 @@ class Railroader::ControllerProcessor < Railroader::BaseProcessor
               Railroader.debug "[Notice] Layout not found: #{name}"
             end
           elsif node_type? last_arg, :nil, :false
-            #layout :false or layout nil
+            # layout :false or layout nil
             @current_class.layout = false
           end
         else
@@ -143,10 +143,10 @@ class Railroader::ControllerProcessor < Railroader::BaseProcessor
     elsif target == nil and method == :render
       make_render exp
     elsif exp == FORMAT_HTML and context[1] != :iter
-      #This is an empty call to
+      # This is an empty call to
       # format.html
-      #Which renders the default template if no arguments
-      #Need to make more generic, though.
+      # Which renders the default template if no arguments
+      # Need to make more generic, though.
       call = Sexp.new :render, :default, @current_method
       call.line(exp.line)
       call
@@ -157,7 +157,7 @@ class Railroader::ControllerProcessor < Railroader::BaseProcessor
     end
   end
 
-  #Look for before_filters and add fake ones if necessary
+  # Look for before_filters and add fake ones if necessary
   def process_iter exp
     if @current_method.nil? and call? exp.block_call
       block_call_name = exp.block_call.method
@@ -172,22 +172,22 @@ class Railroader::ControllerProcessor < Railroader::BaseProcessor
     end
   end
 
-  #Sets default layout for renders inside Controller
+  # Sets default layout for renders inside Controller
   def set_layout_name
     return if @current_class.layout
 
     name = underscore(@current_class.name.to_s.split("::")[-1].gsub("Controller", ''))
 
-    #There is a layout for this Controller
+    # There is a layout for this Controller
     if @app_tree.layout_exists?(name)
       @current_class.layout = "layouts/#{name}"
     end
   end
 
-  #This is to handle before_filter do |controller| ... end
+  # This is to handle before_filter do |controller| ... end
   #
-  #We build a new method and process that the same way as usual
-  #methods and filters.
+  # We build a new method and process that the same way as usual
+  # methods and filters.
   def add_fake_filter exp
     unless @current_class
       Railroader.debug "Skipping before_filter outside controller: #{exp}"
@@ -211,7 +211,7 @@ class Railroader::ControllerProcessor < Railroader::BaseProcessor
       block_inner = [exp.block]
     end
 
-    #Build Sexp for filter method
+    # Build Sexp for filter method
     body = Sexp.new(:lasgn,
                     block_variable,
                     Sexp.new(:call, Sexp.new(:const, @current_class.name), :new))

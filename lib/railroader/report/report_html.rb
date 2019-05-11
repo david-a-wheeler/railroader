@@ -8,7 +8,7 @@ class Railroader::Report::HTML < Railroader::Report::Base
   def initialize *args
     super
 
-    @element_id = 0 #Used for HTML ids
+    @element_id = 0 # Used for HTML ids
   end
 
   def generate_report
@@ -42,7 +42,7 @@ class Railroader::Report::HTML < Railroader::Report::Base
       Railroader::Report::Renderer.new('overview', :locals => locals).render
   end
 
-  #Generate listings of templates and their output
+  # Generate listings of templates and their output
   def generate_templates
     out_processor = Railroader::OutputProcessor.new
     template_rows = {}
@@ -92,7 +92,7 @@ class Railroader::Report::HTML < Railroader::Report::Base
     warning
   end
 
-  #Return header for HTML output. Uses CSS from tracker.options[:html_style]
+  # Return header for HTML output. Uses CSS from tracker.options[:html_style]
   def html_header
     if File.exist? tracker.options[:html_style]
       css = File.read tracker.options[:html_style]
@@ -111,7 +111,7 @@ class Railroader::Report::HTML < Railroader::Report::Base
     Railroader::Report::Renderer.new('header', :locals => locals).render
   end
 
-  #Generate HTML for warnings, including context show/hidden via Javascript
+  # Generate HTML for warnings, including context show/hidden via Javascript
   def with_context warning, message
     context = context_for(@app_tree, warning)
     full_message = nil
@@ -197,7 +197,7 @@ class Railroader::Report::HTML < Railroader::Report::Base
     output << "</tbody></table></div>"
   end
 
-  #Escape warning message and highlight user input in HTML output
+  # Escape warning message and highlight user input in HTML output
   def html_message warning, message
     message = CGI.escapeHTML(message)
 

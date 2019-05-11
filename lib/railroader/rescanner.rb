@@ -2,25 +2,25 @@ require 'railroader/scanner'
 require 'railroader/util'
 require 'railroader/differ'
 
-#Class for rescanning changed files after an initial scan
+# Class for rescanning changed files after an initial scan
 class Railroader::Rescanner < Railroader::Scanner
  include Railroader::Util
   KNOWN_TEMPLATE_EXTENSIONS = Railroader::TemplateParser::KNOWN_TEMPLATE_EXTENSIONS
   SCAN_ORDER = [:config, :gemfile, :initializer, :lib, :routes, :template,
     :model, :controller]
 
-  #Create new Rescanner to scan changed files
+  # Create new Rescanner to scan changed files
   def initialize options, processor, changed_files
     super(options, processor)
 
     @paths = changed_files.map {|f| @app_tree.expand_path(f) }
-    @old_results = tracker.filtered_warnings  #Old warnings from previous scan
-    @changes = nil                 #True if files had to be rescanned
+    @old_results = tracker.filtered_warnings  # Old warnings from previous scan
+    @changes = nil                 # True if files had to be rescanned
     @reindex = Set.new
   end
 
-  #Runs checks.
-  #Will rescan files if they have not already been scanned
+  # Runs checks.
+  # Will rescan files if they have not already been scanned
   def recheck
     rescan if @changes.nil?
 
@@ -29,7 +29,7 @@ class Railroader::Rescanner < Railroader::Scanner
     Railroader::RescanReport.new @old_results, tracker
   end
 
-  #Rescans changed files
+  # Rescans changed files
   def rescan
     tracker.template_cache.clear
 
@@ -63,7 +63,7 @@ class Railroader::Rescanner < Railroader::Scanner
     self
   end
 
-  #Rescans a single file
+  # Rescans a single file
   def rescan_file path, type = nil
     type ||= file_type path
 
@@ -93,7 +93,7 @@ class Railroader::Rescanner < Railroader::Scanner
 
       process_gems
     else
-      return false #Nothing to do, file hopefully does not need to be rescanned
+      return false # Nothing to do, file hopefully does not need to be rescanned
     end
 
     true
@@ -106,8 +106,8 @@ class Railroader::Rescanner < Railroader::Scanner
       process_controller astfile
     end
 
-    #Process data flow and template rendering
-    #from the controller
+    # Process data flow and template rendering
+    # from the controller
     tracker.controllers.each do |name, controller|
       if controller.files.include?(path)
         tracker.templates.each do |template_name, template|
@@ -141,8 +141,8 @@ class Railroader::Rescanner < Railroader::Scanner
 
     rescan = Set.new
 
-    #Search for processed template and process it.
-    #Search for rendered versions of template and re-render (if necessary)
+    # Search for processed template and process it.
+    # Search for rendered versions of template and re-render (if necessary)
     tracker.templates.each do |_name, template|
       if template.file == path or template.file.nil?
         next unless template.render_path and template.name.to_sym == template_name.to_sym
@@ -185,7 +185,7 @@ class Railroader::Rescanner < Railroader::Scanner
       process_model astfile.path, astfile.ast
     end
 
-    #Only need to rescan other things if a model is added or removed
+    # Only need to rescan other things if a model is added or removed
     if num_models != tracker.models.length
       process_template_data_flows
       process_controller_data_flows
@@ -231,7 +231,7 @@ class Railroader::Rescanner < Railroader::Scanner
     end
   end
 
-  #Handle rescanning when a file is deleted
+  # Handle rescanning when a file is deleted
   def rescan_deleted_file path, type
     case type
     when :controller
@@ -260,13 +260,13 @@ class Railroader::Rescanner < Railroader::Scanner
 
     template_name = template_path_to_name(path)
 
-    #Remove template
+    # Remove template
     tracker.reset_template template_name
 
     rendered_from_controller = /^#{template_name}\.(.+Controller)#(.+)/
     rendered_from_view = /^#{template_name}\.Template:(.+)/
 
-    #Remove any rendered versions, or partials rendered from it
+    # Remove any rendered versions, or partials rendered from it
     tracker.templates.delete_if do |_name, template|
       template.file == path or template.name.to_sym == template_name.to_sym
     end
@@ -289,8 +289,8 @@ class Railroader::Rescanner < Railroader::Scanner
     tracker.initializers.delete Pathname.new(path).basename.to_s
   end
 
-  #Check controllers, templates, models and libs for data from file
-  #and delete it.
+  # Check controllers, templates, models and libs for data from file
+  # and delete it.
   def remove_deleted_file path
     deleted = false
 
@@ -313,7 +313,7 @@ class Railroader::Rescanner < Railroader::Scanner
     deleted
   end
 
-  #Guess at what kind of file the path contains
+  # Guess at what kind of file the path contains
   def file_type path
     case path
     when /\/app\/controllers/
@@ -346,7 +346,7 @@ class Railroader::Rescanner < Railroader::Scanner
 
     to_rescan = []
 
-    #Rescan controllers that mixed in library
+    # Rescan controllers that mixed in library
     tracker.controllers.each do |_name, controller|
       if controller.includes.include? lib.name
         controller.files.each do |path|
@@ -364,9 +364,9 @@ class Railroader::Rescanner < Railroader::Scanner
 
     to_rescan = []
 
-    #Check if a method from this mixin was used to render a template.
-    #This is not precise, because a different controller might have the
-    #same method...
+    # Check if a method from this mixin was used to render a template.
+    # This is not precise, because a different controller might have the
+    # same method...
     tracker.templates.each do |name, template|
       next unless template.render_path
 
@@ -395,7 +395,7 @@ class Railroader::Rescanner < Railroader::Scanner
   end
 end
 
-#Class to make reporting of rescan results simpler to deal with
+# Class to make reporting of rescan results simpler to deal with
 class Railroader::RescanReport
   include Railroader::Util
   attr_reader :old_results, :new_results
@@ -407,46 +407,46 @@ class Railroader::RescanReport
     @diff = nil
   end
 
-  #Returns true if any warnings were found (new or old)
+  # Returns true if any warnings were found (new or old)
   def any_warnings?
     not all_warnings.empty?
   end
 
-  #Returns an array of all warnings found
+  # Returns an array of all warnings found
   def all_warnings
     @all_warnings ||= @tracker.filtered_warnings
   end
 
-  #Returns an array of warnings which were in the old report but are not in the
-  #new report after rescanning
+  # Returns an array of warnings which were in the old report but are not in the
+  # new report after rescanning
   def fixed_warnings
     diff[:fixed]
   end
 
-  #Returns an array of warnings which were in the new report but were not in
-  #the old report
+  # Returns an array of warnings which were in the new report but were not in
+  # the old report
   def new_warnings
     diff[:new]
   end
 
-  #Returns true if there are any new or fixed warnings
+  # Returns true if there are any new or fixed warnings
   def warnings_changed?
     not (diff[:new].empty? and diff[:fixed].empty?)
   end
 
-  #Returns a hash of arrays for :new and :fixed warnings
+  # Returns a hash of arrays for :new and :fixed warnings
   def diff
     @diff ||= Railroader::Differ.new(all_warnings, @old_results).diff
   end
 
-  #Returns an array of warnings which were in the old report and the new report
+  # Returns an array of warnings which were in the old report and the new report
   def existing_warnings
     @old ||= all_warnings.select do |w|
       not new_warnings.include? w
     end
   end
 
-  #Output total, fixed, and new warnings
+  # Output total, fixed, and new warnings
   def to_s(verbose = false)
     Railroader.load_railroader_dependency 'terminal-table'
 
@@ -457,7 +457,7 @@ Fixed warnings: #{fixed_warnings.length}
 New warnings: #{new_warnings.length}
       OUTPUT
     else
-      #Eventually move this to different method, or make default to_s
+      # Eventually move this to different method, or make default to_s
       out = ""
 
       {:fixed => fixed_warnings, :new => new_warnings, :existing => existing_warnings}.each do |warning_type, warnings|

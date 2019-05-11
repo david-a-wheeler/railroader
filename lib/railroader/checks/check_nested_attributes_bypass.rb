@@ -1,6 +1,6 @@
 require 'railroader/checks/base_check'
 
-#https://groups.google.com/d/msg/rubyonrails-security/cawsWcQ6c8g/tegZtYdbFQAJ
+# https://groups.google.com/d/msg/rubyonrails-security/cawsWcQ6c8g/tegZtYdbFQAJ
 class Railroader::CheckNestedAttributesBypass < Railroader::BaseCheck
   Railroader::Checks.add self
 

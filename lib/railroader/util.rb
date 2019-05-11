@@ -1,7 +1,7 @@
 require 'set'
 require 'pathname'
 
-#This is a mixin containing utility methods.
+# This is a mixin containing utility methods.
 module Railroader::Util
 
   QUERY_PARAMETERS = Sexp.new(:call, Sexp.new(:call, nil, :request), :query_parameters)
@@ -28,16 +28,16 @@ module Railroader::Util
 
   SAFE_LITERAL = s(:lit, :BRAKEMAN_SAFE_LITERAL)
 
-  #Convert a string from "something_like_this" to "SomethingLikeThis"
+  # Convert a string from "something_like_this" to "SomethingLikeThis"
   #
-  #Taken from ActiveSupport.
+  # Taken from ActiveSupport.
   def camelize lower_case_and_underscored_word
     lower_case_and_underscored_word.to_s.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
   end
 
-  #Convert a string from "Something::LikeThis" to "something/like_this"
+  # Convert a string from "Something::LikeThis" to "something/like_this"
   #
-  #Taken from ActiveSupport.
+  # Taken from ActiveSupport.
   def underscore camel_cased_word
     camel_cased_word.to_s.gsub(/::/, '/').
       gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2').
@@ -51,8 +51,8 @@ module Railroader::Util
     word + "s"
   end
 
-  #Returns a class name as a Symbol.
-  #If class name cannot be determined, returns _exp_.
+  # Returns a class name as a Symbol.
+  # If class name cannot be determined, returns _exp_.
   def class_name exp
     case exp
     when Sexp
@@ -79,11 +79,11 @@ module Railroader::Util
     end
   end
 
-  #Takes an Sexp like
+  # Takes an Sexp like
   # (:hash, (:lit, :key), (:str, "value"))
-  #and yields the key and value pairs to the given block.
+  # and yields the key and value pairs to the given block.
   #
-  #For example:
+  # For example:
   #
   # h = Sexp.new(:hash, (:lit, :name), (:str, "bob"), (:lit, :name), (:str, "jane"))
   # names = []
@@ -99,7 +99,7 @@ module Railroader::Util
     end
   end
 
-  #Insert value into Hash Sexp
+  # Insert value into Hash Sexp
   def hash_insert hash, key, value
     index = 1
     hash_iterate hash.dup do |k, v|
@@ -115,9 +115,9 @@ module Railroader::Util
     hash
   end
 
-  #Get value from hash using key.
+  # Get value from hash using key.
   #
-  #If _key_ is a Symbol, it will be converted to a Sexp(:lit, key).
+  # If _key_ is a Symbol, it will be converted to a Sexp(:lit, key).
   def hash_access hash, key
     if key.is_a? Symbol
       key = Sexp.new(:lit, key)
@@ -130,21 +130,21 @@ module Railroader::Util
     nil
   end
 
-  #These are never modified
+  # These are never modified
   PARAMS_SEXP = Sexp.new(:params)
   SESSION_SEXP = Sexp.new(:session)
   COOKIES_SEXP = Sexp.new(:cookies)
 
-  #Adds params, session, and cookies to environment
-  #so they can be replaced by their respective Sexps.
+  # Adds params, session, and cookies to environment
+  # so they can be replaced by their respective Sexps.
   def set_env_defaults
     @env[PARAMETERS] = PARAMS_SEXP
     @env[SESSION] = SESSION_SEXP
     @env[COOKIES] = COOKIES_SEXP
   end
 
-  #Check if _exp_ represents a hash: s(:hash, {...})
-  #This also includes pseudo hashes params, session, and cookies.
+  # Check if _exp_ represents a hash: s(:hash, {...})
+  # This also includes pseudo hashes params, session, and cookies.
   def hash? exp
     exp.is_a? Sexp and (exp.node_type == :hash or
                         exp.node_type == :params or
@@ -152,12 +152,12 @@ module Railroader::Util
                         exp.node_type == :cookies)
   end
 
-  #Check if _exp_ represents an array: s(:array, [...])
+  # Check if _exp_ represents an array: s(:array, [...])
   def array? exp
     exp.is_a? Sexp and exp.node_type == :array
   end
 
-  #Check if _exp_ represents a String: s(:str, "...")
+  # Check if _exp_ represents a String: s(:str, "...")
   def string? exp
     exp.is_a? Sexp and exp.node_type == :str
   end
@@ -166,57 +166,57 @@ module Railroader::Util
     exp.is_a? Sexp and exp.node_type == :dstr
   end
 
-  #Check if _exp_ represents a Symbol: s(:lit, :...)
+  # Check if _exp_ represents a Symbol: s(:lit, :...)
   def symbol? exp
     exp.is_a? Sexp and exp.node_type == :lit and exp[1].is_a? Symbol
   end
 
-  #Check if _exp_ represents a method call: s(:call, ...)
+  # Check if _exp_ represents a method call: s(:call, ...)
   def call? exp
     exp.is_a? Sexp and
       (exp.node_type == :call or exp.node_type == :safe_call)
   end
 
-  #Check if _exp_ represents a Regexp: s(:lit, /.../)
+  # Check if _exp_ represents a Regexp: s(:lit, /.../)
   def regexp? exp
     exp.is_a? Sexp and exp.node_type == :lit and exp[1].is_a? Regexp
   end
 
-  #Check if _exp_ represents an Integer: s(:lit, ...)
+  # Check if _exp_ represents an Integer: s(:lit, ...)
   def integer? exp
     exp.is_a? Sexp and exp.node_type == :lit and exp[1].is_a? Integer
   end
 
-  #Check if _exp_ represents a number: s(:lit, ...)
+  # Check if _exp_ represents a number: s(:lit, ...)
   def number? exp
     exp.is_a? Sexp and exp.node_type == :lit and exp[1].is_a? Numeric
   end
 
-  #Check if _exp_ represents a result: s(:result, ...)
+  # Check if _exp_ represents a result: s(:result, ...)
   def result? exp
     exp.is_a? Sexp and exp.node_type == :result
   end
 
-  #Check if _exp_ represents a :true, :lit, or :string node
+  # Check if _exp_ represents a :true, :lit, or :string node
   def true? exp
     exp.is_a? Sexp and (exp.node_type == :true or
                         exp.node_type == :lit or
                         exp.node_type == :string)
   end
 
-  #Check if _exp_ represents a :false or :nil node
+  # Check if _exp_ represents a :false or :nil node
   def false? exp
     exp.is_a? Sexp and (exp.node_type == :false or
                         exp.node_type == :nil)
   end
 
-  #Check if _exp_ represents a block of code
+  # Check if _exp_ represents a block of code
   def block? exp
     exp.is_a? Sexp and (exp.node_type == :block or
                         exp.node_type == :rlist)
   end
 
-  #Check if _exp_ is a params hash
+  # Check if _exp_ is a params hash
   def params? exp
     if exp.is_a? Sexp
       return true if exp.node_type == :params or ALL_PARAMETERS.include? exp
@@ -253,7 +253,7 @@ module Railroader::Util
     call? exp and (exp == REQUEST_ENV or exp[1] == REQUEST_ENV)
   end
 
-  #Check if exp is params, cookies, or request_env
+  # Check if exp is params, cookies, or request_env
   def request_value? exp
     params? exp or
     cookies? exp or
@@ -264,19 +264,19 @@ module Railroader::Util
     node_type? exp, :const, :colon2, :colon3
   end
 
-  #Check if _exp_ is a Sexp.
+  # Check if _exp_ is a Sexp.
   def sexp? exp
     exp.is_a? Sexp
   end
 
-  #Check if _exp_ is a Sexp and the node type matches one of the given types.
+  # Check if _exp_ is a Sexp and the node type matches one of the given types.
   def node_type? exp, *types
     exp.is_a? Sexp and types.include? exp.node_type
   end
 
-  #Returns true if the given _exp_ contains a :class node.
+  # Returns true if the given _exp_ contains a :class node.
   #
-  #Useful for checking if a module is just a module or if it is a namespace.
+  # Useful for checking if a module is just a module or if it is a namespace.
   def contains_class? exp
     todo = [exp]
 
@@ -297,10 +297,10 @@ module Railroader::Util
     call = Sexp.new(:call, target, method)
 
     if args.empty? or args.first.empty?
-      #nothing to do
+      # nothing to do
     elsif node_type? args.first, :arglist
       call.concat args.first[1..-1]
-    elsif args.first.node_type.is_a? Sexp #just a list of args
+    elsif args.first.node_type.is_a? Sexp # just a list of args
       call.concat args.first
     else
       call.concat args
@@ -329,7 +329,7 @@ module Railroader::Util
     @tracker.config.rails_version
   end
 
-  #Return file name related to given warning. Uses +warning.file+ if it exists
+  # Return file name related to given warning. Uses +warning.file+ if it exists
   def file_for warning, tracker = nil
     if tracker.nil?
       tracker = @tracker || self.tracker
@@ -355,10 +355,10 @@ module Railroader::Util
     end
   end
 
-  #Attempt to determine path to context file based on the reported name
-  #in the warning.
+  # Attempt to determine path to context file based on the reported name
+  # in the warning.
   #
-  #For example,
+  # For example,
   #
   #  file_by_name FileController #=> "/rails/root/app/controllers/file_controller.rb
   def file_by_name name, type, tracker = nil
@@ -405,8 +405,8 @@ module Railroader::Util
     path
   end
 
-  #Return array of lines surrounding the warning location from the original
-  #file.
+  # Return array of lines surrounding the warning location from the original
+  # file.
   def context_for app_tree, warning, tracker = nil
     file = file_for warning, tracker
     context = []
@@ -446,7 +446,7 @@ module Railroader::Util
     end
   end
 
-  #Convert path/filename to view name
+  # Convert path/filename to view name
   #
   # views/test/something.html.erb -> test/something
   def template_path_to_name path

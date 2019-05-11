@@ -1,9 +1,9 @@
 require 'railroader/checks/base_check'
 
-#Checks for string interpolation and parameters in calls to
-#Kernel#system, Kernel#exec, Kernel#syscall, and inside backticks.
+# Checks for string interpolation and parameters in calls to
+# Kernel#system, Kernel#exec, Kernel#syscall, and inside backticks.
 #
-#Examples of command injection vulnerabilities:
+# Examples of command injection vulnerabilities:
 #
 # system("rf -rf #{params[:file]}")
 # exec(params[:command])
@@ -22,7 +22,7 @@ class Railroader::CheckExecute < Railroader::BaseCheck
 
   SHELLWORDS = s(:const, :Shellwords)
 
-  #Check models, controllers, and views for command injection.
+  # Check models, controllers, and views for command injection.
   def run_check
     Railroader.debug "Finding system calls using ``"
     check_for_backticks tracker
@@ -41,7 +41,7 @@ class Railroader::CheckExecute < Railroader::BaseCheck
     end
   end
 
-  #Processes results from Tracker#find_call.
+  # Processes results from Tracker#find_call.
   def process_result result
     call = result[:call]
     args = call.arglist
@@ -60,7 +60,7 @@ class Railroader::CheckExecute < Railroader::BaseCheck
 
     if failure and original? result
 
-      if failure.type == :interp #Not from user input
+      if failure.type == :interp # Not from user input
         confidence = :medium
       else
         confidence = :high
@@ -100,7 +100,7 @@ class Railroader::CheckExecute < Railroader::BaseCheck
     end
   end
 
-  #Looks for calls using backticks such as
+  # Looks for calls using backticks such as
   #
   # `rm -rf #{params[:file]}`
   def check_for_backticks tracker
@@ -109,7 +109,7 @@ class Railroader::CheckExecute < Railroader::BaseCheck
     end
   end
 
-  #Processes backticks.
+  # Processes backticks.
   def process_backticks result
     return unless original? result
 

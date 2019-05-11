@@ -1,8 +1,8 @@
 require 'railroader/checks/base_check'
 
-#This check tests for find calls which do not use Rails' auto SQL escaping
+# This check tests for find calls which do not use Rails' auto SQL escaping
 #
-#For example:
+# For example:
 # Project.find(:all, :conditions => "name = '" + params[:name] + "'")
 #
 # Project.find(:all, :conditions => "name = '#{params[:name]}'")
@@ -62,8 +62,8 @@ class Railroader::CheckSQL < Railroader::BaseCheck
     calls.each { |call| process_result call }
   end
 
-  #Find calls to named_scope() or scope() in models
-  #RP 3 TODO
+  # Find calls to named_scope() or scope() in models
+  # RP 3 TODO
   def find_scope_calls
     scope_calls = []
 
@@ -130,7 +130,7 @@ class Railroader::CheckSQL < Railroader::BaseCheck
     end
   end
 
-  #Process possible SQL injection sites:
+  # Process possible SQL injection sites:
   #
   # Model#find
   #
@@ -253,7 +253,7 @@ class Railroader::CheckSQL < Railroader::BaseCheck
   end
 
 
-  #The 'find' methods accept a number of different types of parameters:
+  # The 'find' methods accept a number of different types of parameters:
   #
   # * The first argument might be :all, :first, or :last
   # * The first argument might be an integer ID or an array of IDs
@@ -263,7 +263,7 @@ class Railroader::CheckSQL < Railroader::BaseCheck
   # * The second argument might contain properly parameterized SQL fragments in arrays
   # * The second argument might contain improperly parameterized SQL fragments in arrays
   #
-  #This method should only be passed the second argument.
+  # This method should only be passed the second argument.
   def check_find_arguments arg
     return nil if not sexp? arg or node_type? arg, :lit, :string, :str, :true, :false, :nil
 
@@ -271,7 +271,7 @@ class Railroader::CheckSQL < Railroader::BaseCheck
   end
 
   def check_scope_arguments call
-    scope_arg = call.second_arg #first arg is name of scope
+    scope_arg = call.second_arg # first arg is name of scope
 
     node_type?(scope_arg, :iter) ? unsafe_sql?(scope_arg.block) : unsafe_sql?(scope_arg)
   end
@@ -295,19 +295,19 @@ class Railroader::CheckSQL < Railroader::BaseCheck
         arg
       end
     elsif hash? arg
-      #This is generally going to be a hash of column names and values, which
-      #would escape the values. But the keys _could_ be user input.
+      # This is generally going to be a hash of column names and values, which
+      # would escape the values. But the keys _could_ be user input.
       check_hash_keys arg
     elsif node_type? arg, :lit, :str
       nil
     else
-      #Hashes are safe...but we check above for hash, so...?
+      # Hashes are safe...but we check above for hash, so...?
       unsafe_sql? arg, :ignore_hash
     end
   end
 
-  #Checks each argument to order/reorder/group for possible SQL.
-  #Anything used with these methods is passed in verbatim.
+  # Checks each argument to order/reorder/group for possible SQL.
+  # Anything used with these methods is passed in verbatim.
   def check_order_arguments args
     return unless sexp? args
 
@@ -318,18 +318,18 @@ class Railroader::CheckSQL < Railroader::BaseCheck
     end
   end
 
-  #find_by_sql and count_by_sql can take either a straight SQL string
-  #or an array with values to bind.
+  # find_by_sql and count_by_sql can take either a straight SQL string
+  # or an array with values to bind.
   def check_by_sql_arguments arg
     return unless sexp? arg
 
-    #This is kind of unnecessary, because unsafe_sql? will handle an array
-    #correctly, but might be better to be explicit.
+    # This is kind of unnecessary, because unsafe_sql? will handle an array
+    # correctly, but might be better to be explicit.
     array?(arg) ? unsafe_sql?(arg[1]) : unsafe_sql?(arg)
   end
 
-  #joins can take a string, hash of associations, or an array of both(?)
-  #We only care about the possible string values.
+  # joins can take a string, hash of associations, or an array of both(?)
+  # We only care about the possible string values.
   def check_joins_arguments arg
     return unless sexp? arg and not node_type? arg, :hash, :string, :str
 
@@ -354,9 +354,9 @@ class Railroader::CheckSQL < Railroader::BaseCheck
     nil
   end
 
-  #Model#lock essentially only cares about strings. But those strings can be
-  #any SQL fragment. This does not apply to all databases. (For those who do not
-  #support it, the lock method does nothing).
+  # Model#lock essentially only cares about strings. But those strings can be
+  # any SQL fragment. This does not apply to all databases. (For those who do not
+  # support it, the lock method does nothing).
   def check_lock_arguments arg
     return unless sexp? arg and not node_type? arg, :hash, :array, :string, :str
 
@@ -364,9 +364,9 @@ class Railroader::CheckSQL < Railroader::BaseCheck
   end
 
 
-  #Check hash keys for user input.
-  #(Seems unlikely, but if a user can control the column names queried, that
-  #could be bad)
+  # Check hash keys for user input.
+  # (Seems unlikely, but if a user can control the column names queried, that
+  # could be bad)
   def check_hash_keys exp
     hash_iterate(exp) do |key, _value|
       unless symbol?(key)
@@ -378,10 +378,10 @@ class Railroader::CheckSQL < Railroader::BaseCheck
     false
   end
 
-  #Check an interpolated string for dangerous values.
+  # Check an interpolated string for dangerous values.
   #
-  #This method assumes values interpolated into strings are unsafe by default,
-  #unless safe_value? explicitly returns true.
+  # This method assumes values interpolated into strings are unsafe by default,
+  # unless safe_value? explicitly returns true.
   def check_string_interp arg
     arg.each do |exp|
       if dangerous = unsafe_string_interp?(exp)
@@ -392,7 +392,7 @@ class Railroader::CheckSQL < Railroader::BaseCheck
     nil
   end
 
-  #Returns value if interpolated value is not something safe
+  # Returns value if interpolated value is not something safe
   def unsafe_string_interp? exp
     if node_type? exp, :evstr
       value = exp.value
@@ -426,10 +426,10 @@ class Railroader::CheckSQL < Railroader::BaseCheck
     end
   end
 
-  #Checks the given expression for unsafe SQL values. If an unsafe value is
-  #found, returns that value (may be the given _exp_ or a subexpression).
+  # Checks the given expression for unsafe SQL values. If an unsafe value is
+  # found, returns that value (may be the given _exp_ or a subexpression).
   #
-  #Otherwise, returns false/nil.
+  # Otherwise, returns false/nil.
   def unsafe_sql? exp, ignore_hash = false
     return unless sexp?(exp)
 
@@ -437,17 +437,17 @@ class Railroader::CheckSQL < Railroader::BaseCheck
     safe_value?(dangerous_value) ? false : dangerous_value
   end
 
-  #Check _exp_ for dangerous values. Used by unsafe_sql?
+  # Check _exp_ for dangerous values. Used by unsafe_sql?
   def find_dangerous_value exp, ignore_hash
     case exp.node_type
     when :lit, :str, :const, :colon2, :true, :false, :nil
       nil
     when :array
-      #Assume this is an array like
+      # Assume this is an array like
       #
       #  ["blah = ? AND thing = ?", ...]
       #
-      #and check first value
+      # and check first value
       unsafe_sql? exp[1]
     when :dstr
       check_string_interp exp
@@ -482,7 +482,7 @@ class Railroader::CheckSQL < Railroader::BaseCheck
     end
   end
 
-  #Checks hash values associated with these keys:
+  # Checks hash values associated with these keys:
   #
   # * conditions
   # * order
@@ -627,7 +627,7 @@ class Railroader::CheckSQL < Railroader::BaseCheck
     call? exp and (AREL_METHODS.include? exp.method or arel? exp.target)
   end
 
-  #Check call for string building
+  # Check call for string building
   def check_call exp
     return unless call? exp
     unsafe = check_for_string_building exp
@@ -649,10 +649,10 @@ class Railroader::CheckSQL < Railroader::BaseCheck
     end
   end
 
-  #Prior to Rails 2.1.1, the :offset and :limit parameters were not
-  #escaping input properly.
+  # Prior to Rails 2.1.1, the :offset and :limit parameters were not
+  # escaping input properly.
   #
-  #http://www.rorsecurity.info/2008/09/08/sql-injection-issue-in-limit-and-offset-parameter/
+  # http://www.rorsecurity.info/2008/09/08/sql-injection-issue-in-limit-and-offset-parameter/
   def check_for_limit_or_offset_vulnerability options
     return false if rails_version.nil? or rails_version >= "2.1.1" or not hash?(options)
 
@@ -661,7 +661,7 @@ class Railroader::CheckSQL < Railroader::BaseCheck
     false
   end
 
-  #Look for something like this:
+  # Look for something like this:
   #
   # params[:x].constantize.find('something')
   #

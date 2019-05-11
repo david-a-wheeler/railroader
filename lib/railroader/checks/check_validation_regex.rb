@@ -1,9 +1,9 @@
 require 'railroader/checks/base_check'
 
-#Reports any calls to +validates_format_of+ which do not use +\A+ and +\z+
-#as anchors in the given regular expression.
+# Reports any calls to +validates_format_of+ which do not use +\A+ and +\z+
+# as anchors in the given regular expression.
 #
-#For example:
+# For example:
 #
 # #Allows anything after new line
 # validates_format_of :user_name, :with => /^\w+$/
@@ -36,14 +36,14 @@ class Railroader::CheckValidationRegex < Railroader::BaseCheck
     end
   end
 
-  #Check validates_format_of
+  # Check validates_format_of
   def process_validates_format_of validator
     if value = hash_access(validator.last, WITH)
       check_regex value, validator
     end
   end
 
-  #Check validates ..., :format => ...
+  # Check validates ..., :format => ...
   def process_validates validator
     hash_arg = validator.last
     return unless hash? hash_arg
@@ -79,7 +79,7 @@ class Railroader::CheckValidationRegex < Railroader::BaseCheck
     \z
   }mx
 
-  #Issue warning if the regular expression does not use
+  # Issue warning if the regular expression does not use
   #+\A+ and +\z+
   def check_regex value, validator
     return unless regexp? value
@@ -95,7 +95,7 @@ class Railroader::CheckValidationRegex < Railroader::BaseCheck
     end
   end
 
-  #Get the name of the attribute being validated.
+  # Get the name of the attribute being validated.
   def get_name validator
     name = validator[1]
 

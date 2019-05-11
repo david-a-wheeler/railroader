@@ -12,8 +12,8 @@ class Railroader::FindAllCalls < Railroader::BasicProcessor
     @cache = {}
   end
 
-  #Process the given source. Provide either class and method being searched
-  #or the template. These names are used when reporting results.
+  # Process the given source. Provide either class and method being searched
+  # or the template. These names are used when reporting results.
   def process_source exp, opts
     @current_class = opts[:class]
     @current_method = opts[:method]
@@ -23,7 +23,7 @@ class Railroader::FindAllCalls < Railroader::BasicProcessor
     process exp
   end
 
-  #Process body of method
+  # Process body of method
   def process_defn exp
     return exp unless @current_method
     process_all exp.body
@@ -31,7 +31,7 @@ class Railroader::FindAllCalls < Railroader::BasicProcessor
 
   alias process_defs process_defn
 
-  #Process body of block
+  # Process body of block
   def process_rlist exp
     process_all exp
   end
@@ -54,7 +54,7 @@ class Railroader::FindAllCalls < Railroader::BasicProcessor
 
       process exp.block
     else
-      #Probably a :render call with block
+      # Probably a :render call with block
       process call
       process exp.block
     end
@@ -62,8 +62,8 @@ class Railroader::FindAllCalls < Railroader::BasicProcessor
     exp
   end
 
-  #Calls to render() are converted to s(:render, ...) but we would
-  #like them in the call cache still for speed
+  # Calls to render() are converted to s(:render, ...) but we would
+  # like them in the call cache still for speed
   def process_render exp
     process exp.last if sexp? exp.last
 
@@ -72,8 +72,8 @@ class Railroader::FindAllCalls < Railroader::BasicProcessor
     exp
   end
 
-  #Technically, `` is call to Kernel#`
-  #But we just need them in the call cache for speed
+  # Technically, `` is call to Kernel#`
+  # But we just need them in the call cache for speed
   def process_dxstr exp
     process exp.last if sexp? exp.last
 
@@ -100,7 +100,7 @@ class Railroader::FindAllCalls < Railroader::BasicProcessor
     exp
   end
 
-  #Process an assignment like a call
+  # Process an assignment like a call
   def process_attrasgn exp
     process_call exp
   end
@@ -116,8 +116,8 @@ class Railroader::FindAllCalls < Railroader::BasicProcessor
                 :parent => @current_call }
   end
 
-  #Gets the target of a call as a Symbol
-  #if possible
+  # Gets the target of a call as a Symbol
+  # if possible
   def get_target exp, include_calls = false
     if sexp? exp
       case exp.node_type
@@ -154,8 +154,8 @@ class Railroader::FindAllCalls < Railroader::BasicProcessor
     end
   end
 
-  #Returns method chain as an array
-  #For example, User.human.alive.all would return [:User, :human, :alive, :all]
+  # Returns method chain as an array
+  # For example, User.human.alive.all would return [:User, :human, :alive, :all]
   def get_chain call
     if node_type? call, :call, :attrasgn, :safe_call, :safe_attrasgn
       get_chain(call.target) + [call.method]
@@ -187,7 +187,7 @@ class Railroader::FindAllCalls < Railroader::BasicProcessor
 
   end
 
-  #Return info hash for a call Sexp
+  # Return info hash for a call Sexp
   def create_call_hash exp
     target = get_target exp.target
 

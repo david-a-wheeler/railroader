@@ -1,6 +1,6 @@
 require 'railroader/checks/base_check'
 
-#This check looks for regexes that include user input.
+# This check looks for regexes that include user input.
 class Railroader::CheckRegexDoS < Railroader::BaseCheck
   Railroader::Checks.add self
 
@@ -13,7 +13,7 @@ class Railroader::CheckRegexDoS < Railroader::BaseCheck
 
   @description = "Searches regexes including user input"
 
-  #Process calls
+  # Process calls
   def run_check
     Railroader.debug "Finding dynamic regexes"
     calls = tracker.find_call :method => [:railroader_regex_interp]
@@ -24,7 +24,7 @@ class Railroader::CheckRegexDoS < Railroader::BaseCheck
     end
   end
 
-  #Warns if regex includes user input
+  # Warns if regex includes user input
   def process_result result
     return unless original? result
 

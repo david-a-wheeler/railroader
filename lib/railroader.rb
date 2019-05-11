@@ -3,21 +3,21 @@ require 'railroader/version'
 
 module Railroader
 
-  #This exit code is used when warnings are found and the --exit-on-warn
-  #option is set
+  # This exit code is used when warnings are found and the --exit-on-warn
+  # option is set
   Warnings_Found_Exit_Code = 3
 
-  #Exit code returned when no Rails application is detected
+  # Exit code returned when no Rails application is detected
   No_App_Found_Exit_Code = 4
 
-  #Exit code returned when railroader was outdated
+  # Exit code returned when railroader was outdated
   Not_Latest_Version_Exit_Code = 5
 
-  #Exit code returned when user requests non-existent checks
+  # Exit code returned when user requests non-existent checks
   Missing_Checks_Exit_Code = 6
 
-  #Exit code returned when errors were found and the --exit-on-error
-  #option is set
+  # Exit code returned when errors were found and the --exit-on-error
+  # option is set
   Errors_Found_Exit_Code = 7
 
   @debug = false
@@ -25,9 +25,9 @@ module Railroader
   @loaded_dependencies = []
   @vendored_paths = false
 
-  #Run Railroader scan. Returns Tracker object.
+  # Run Railroader scan. Returns Tracker object.
   #
-  #Options:
+  # Options:
   #
   #  * :app_path - path to root of Rails app (required)
   #  * :additional_checks_path - array of additional directories containing additional out-of-tree checks to run
@@ -63,7 +63,7 @@ module Railroader
   #  * :absolute_paths - show absolute path of each file (default: false)
   #  * :summary_only - only output summary section of report for plain/table (:summary_only, :no_summary, true)
   #
-  #Alternatively, just supply a path as a string.
+  # Alternatively, just supply a path as a string.
   def self.run options
     options = set_options options
 
@@ -77,7 +77,7 @@ module Railroader
     scan options
   end
 
-  #Sets up options for run, checks given application path
+  # Sets up options for run, checks given application path
   def self.set_options options
     if options.is_a? String
       options = { :app_path => options }
@@ -107,13 +107,13 @@ module Railroader
     options
   end
 
-  #Load options from YAML file
+  # Load options from YAML file
   def self.load_options line_options
     custom_location = line_options[:config_file]
     quiet = line_options[:quiet]
     app_path = line_options[:app_path]
 
-    #Load configuration file
+    # Load configuration file
     if config = config_file(custom_location, app_path)
       require 'date' # https://github.com/dtao/safe_yaml/issues/80
       self.load_railroader_dependency 'safe_yaml/load'
@@ -156,7 +156,7 @@ module Railroader
     supported_locations.detect {|f| File.file?(f) }
   end
 
-  #Default set of options
+  # Default set of options
   def self.default_options
     { :assume_all_routes => true,
       :check_arguments => true,
@@ -183,10 +183,10 @@ module Railroader
     }
   end
 
-  #Determine output formats based on options[:output_formats]
-  #or options[:output_files]
+  # Determine output formats based on options[:output_formats]
+  # or options[:output_files]
   def self.get_output_formats options
-    #Set output format
+    # Set output format
     if options[:output_format] && options[:output_files] && options[:output_files].size > 1
       raise ArgumentError, "Cannot specify output format if multiple output files specified"
     end
@@ -274,7 +274,7 @@ module Railroader
   end
   private_class_method :get_github_url
 
-  #Output list of checks (for `-k` option)
+  # Output list of checks (for `-k` option)
   def self.list_checks options
     require 'railroader/scanner'
 
@@ -296,7 +296,7 @@ module Railroader
     end
   end
 
-  #Output configuration to YAML
+  # Output configuration to YAML
   def self.dump_config options
     require 'yaml'
     if options[:create_config].is_a? String
@@ -331,9 +331,9 @@ module Railroader
     end
   end
 
-  #Run a scan. Generally called from Railroader.run instead of directly.
+  # Run a scan. Generally called from Railroader.run instead of directly.
   def self.scan options
-    #Load scanner
+    # Load scanner
     notify "Loading scanner..."
 
     begin
@@ -344,7 +344,7 @@ module Railroader
 
     add_external_checks options
 
-    #Start scanning
+    # Start scanning
     scanner = Scanner.new options
     tracker = scanner.tracker
 
@@ -411,17 +411,17 @@ module Railroader
   end
   private_class_method :write_report_to_formats
 
-  #Rescan a subset of files in a Rails application.
+  # Rescan a subset of files in a Rails application.
   #
-  #A full scan must have been run already to use this method.
-  #The returned Tracker object from Railroader.run is used as a starting point
-  #for the rescan.
+  # A full scan must have been run already to use this method.
+  # The returned Tracker object from Railroader.run is used as a starting point
+  # for the rescan.
   #
-  #Options may be given as a hash with the same values as Railroader.run.
-  #Note that these options will be merged into the Tracker.
+  # Options may be given as a hash with the same values as Railroader.run.
+  # Note that these options will be merged into the Tracker.
   #
-  #This method returns a RescanReport object with information about the scan.
-  #However, the Tracker object will also be modified as the scan is run.
+  # This method returns a RescanReport object with information about the scan.
+  # However, the Tracker object will also be modified as the scan is run.
   def self.rescan tracker, files, options = {}
     require 'railroader/rescanner'
 

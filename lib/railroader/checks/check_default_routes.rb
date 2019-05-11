@@ -1,13 +1,13 @@
 require 'railroader/checks/base_check'
 
-#Checks if default routes are allowed in routes.rb
+# Checks if default routes are allowed in routes.rb
 class Railroader::CheckDefaultRoutes < Railroader::BaseCheck
   Railroader::Checks.add self
 
   @description = "Checks for default routes"
 
-  #Checks for :allow_all_actions globally and for individual routes
-  #if it is not enabled globally.
+  # Checks for :allow_all_actions globally and for individual routes
+  # if it is not enabled globally.
   def run_check
     check_for_default_routes
     check_for_action_globs
@@ -16,7 +16,7 @@ class Railroader::CheckDefaultRoutes < Railroader::BaseCheck
 
   def check_for_default_routes
     if allow_all_actions?
-      #Default routes are enabled globally
+      # Default routes are enabled globally
       warn :warning_type => "Default Routes",
         :warning_code => :all_default_routes,
         :message => "All public methods in controllers are available as actions in routes.rb",
@@ -52,7 +52,7 @@ class Railroader::CheckDefaultRoutes < Railroader::BaseCheck
   def check_for_cve_2014_0130
     case
     when lts_version?("2.3.18.9")
-      #TODO: Should support LTS 3.0.20 too
+      # TODO: Should support LTS 3.0.20 too
       return
     when version_between?("2.0.0", "2.3.18")
       upgrade = "3.2.18"

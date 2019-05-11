@@ -3,7 +3,7 @@ require 'railroader/processors/alias_processor'
 require 'railroader/processors/lib/module_helper'
 require 'railroader/tracker/library'
 
-#Process generic library and stores it in Tracker.libs
+# Process generic library and stores it in Tracker.libs
 class Railroader::LibraryProcessor < Railroader::BaseProcessor
   include Railroader::ModuleHelper
 

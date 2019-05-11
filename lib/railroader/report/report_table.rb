@@ -17,7 +17,7 @@ class Railroader::Report::Table < Railroader::Report::Base
         truncate_table(generate_warning_overview.to_s) << "\n"
     end
 
-    #Return output early if only summarizing
+    # Return output early if only summarizing
     if summary_option == :summary_only or summary_option == true
       return out
     end
@@ -62,7 +62,7 @@ class Railroader::Report::Table < Railroader::Report::Base
     end
   end
 
-  #Generate listings of templates and their output
+  # Generate listings of templates and their output
   def generate_templates
     out_processor = Railroader::OutputProcessor.new
     template_rows = {}
@@ -100,7 +100,7 @@ class Railroader::Report::Table < Railroader::Report::Base
     end
   end
 
-  #Generate header for text output
+  # Generate header for text output
   def text_header
     <<-HEADER
 

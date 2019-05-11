@@ -1,8 +1,8 @@
 require 'railroader/report/report_base'
 
-#Generates a report based on the Tracker and the results of
-#Tracker#run_checks. Be sure to +run_checks+ before generating
-#a report.
+# Generates a report based on the Tracker and the results of
+# Tracker#run_checks. Be sure to +run_checks+ before generating
+# a report.
 class Railroader::Report
   attr_reader :tracker
 

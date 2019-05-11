@@ -66,8 +66,6 @@ Layout/IndentHeredoc:
   Enabled: False
 Layout/LeadingBlankLines:
   Enabled: False
-Layout/LeadingCommentSpace:
-  Enabled: False
 Layout/MultilineArrayBraceLayout:
   Enabled: False
 Layout/MultilineHashBraceLayout:

@@ -1,10 +1,10 @@
 require 'railroader/processors/template_processor'
 
-#Processes ERB templates
-#(those ending in .html.erb or .rthml).
+# Processes ERB templates
+# (those ending in .html.erb or .rthml).
 class Railroader::ErbTemplateProcessor < Railroader::TemplateProcessor
 
-  #s(:call, TARGET, :method, ARGS)
+  # s(:call, TARGET, :method, ARGS)
   def process_call exp
     target = exp.target
     if sexp? target
@@ -12,7 +12,7 @@ class Railroader::ErbTemplateProcessor < Railroader::TemplateProcessor
     end
     method = exp.method
 
-    #_erbout is the default output variable for erb
+    # _erbout is the default output variable for erb
     if node_type? target, :lvar and target.value == :_erbout
       if method == :concat or method == :<<
         @inside_concat = true
@@ -25,7 +25,7 @@ class Railroader::ErbTemplateProcessor < Railroader::TemplateProcessor
 
         arg = normalize_output(exp.first_arg)
 
-        if arg.node_type == :str #ignore plain strings
+        if arg.node_type == :str # ignore plain strings
           ignore
         else
           add_output arg
@@ -45,7 +45,7 @@ class Railroader::ErbTemplateProcessor < Railroader::TemplateProcessor
     end
   end
 
-  #Process block, removing irrelevant expressions
+  # Process block, removing irrelevant expressions
   def process_block exp
     exp = exp.dup
     exp.shift

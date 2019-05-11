@@ -7,21 +7,21 @@ require 'railroader/processors/lib/find_all_calls'
 require 'railroader/tracker/config'
 require 'railroader/tracker/constants'
 
-#The Tracker keeps track of all the processed information.
+# The Tracker keeps track of all the processed information.
 class Railroader::Tracker
   attr_accessor :controllers, :constants, :templates, :models, :errors,
     :checks, :initializers, :config, :routes, :processor, :libs,
     :template_cache, :options, :filter_cache, :start_time, :end_time,
     :duration, :ignored_filter
 
-  #Place holder when there should be a model, but it is not
-  #clear what model it will be.
+  # Place holder when there should be a model, but it is not
+  # clear what model it will be.
   UNKNOWN_MODEL = :RailroaderUnresolvedModel
 
-  #Creates a new Tracker.
+  # Creates a new Tracker.
   #
-  #The Processor argument is only used by other Processors
-  #that might need to access it.
+  # The Processor argument is only used by other Processors
+  # that might need to access it.
   def initialize(app_tree, processor = nil, options = {})
     @app_tree = app_tree
     @processor = processor
@@ -30,9 +30,9 @@ class Railroader::Tracker
     @config = Railroader::Config.new(self)
     @templates = {}
     @controllers = {}
-    #Initialize models with the unknown model so
-    #we can match models later without knowing precisely what
-    #class they are.
+    # Initialize models with the unknown model so
+    # we can match models later without knowing precisely what
+    # class they are.
     @models = {}
     @models[UNKNOWN_MODEL] = Railroader::Model.new(UNKNOWN_MODEL, nil, nil, nil, self)
     @routes = {}
@@ -50,8 +50,8 @@ class Railroader::Tracker
     @duration = nil
   end
 
-  #Add an error to the list. If no backtrace is given,
-  #the one from the exception will be used.
+  # Add an error to the list. If no backtrace is given,
+  # the one from the exception will be used.
   def error exception, backtrace = nil
     backtrace ||= exception.backtrace
     unless backtrace.is_a? Array
@@ -64,8 +64,8 @@ class Railroader::Tracker
     @errors << { :error => exception.to_s.gsub("\n", " "), :backtrace => backtrace }
   end
 
-  #Run a set of checks on the current information. Results will be stored
-  #in Tracker#checks.
+  # Run a set of checks on the current information. Results will be stored
+  # in Tracker#checks.
   def run_checks
     @checks = Railroader::Checks.run_checks(@app_tree, self)
 
@@ -78,7 +78,7 @@ class Railroader::Tracker
     @app_path ||= File.expand_path @options[:app_path]
   end
 
-  #Iterate over all methods in controllers and models.
+  # Iterate over all methods in controllers and models.
   def each_method
     classes = [self.controllers, self.models]
 
@@ -96,8 +96,8 @@ class Railroader::Tracker
     end
   end
 
-  #Iterates over each template, yielding the name and the template.
-  #Prioritizes templates which have been rendered.
+  # Iterates over each template, yielding the name and the template.
+  # Prioritizes templates which have been rendered.
   def each_template
     if @processed.nil?
       @processed, @rest = templates.keys.sort_by{|template| template.to_s}.partition { |k| k.to_s.include? "." }
@@ -129,24 +129,24 @@ class Railroader::Tracker
     end
   end
 
-  #Find a method call.
+  # Find a method call.
   #
-  #Options:
+  # Options:
   #  * :target => target name(s)
   #  * :method => method name(s)
   #  * :chained => search in method chains
   #
-  #If :target => false or :target => nil, searches for methods without a target.
-  #Targets and methods can be specified as a symbol, an array of symbols,
-  #or a regular expression.
+  # If :target => false or :target => nil, searches for methods without a target.
+  # Targets and methods can be specified as a symbol, an array of symbols,
+  # or a regular expression.
   #
-  #If :chained => true, matches target at head of method chain and method at end.
+  # If :chained => true, matches target at head of method chain and method at end.
   #
-  #For example:
+  # For example:
   #
   #    find_call :target => User, :method => :all, :chained => true
   #
-  #could match
+  # could match
   #
   #    User.human.active.all(...)
   #
@@ -155,7 +155,7 @@ class Railroader::Tracker
     @call_index.find_calls options
   end
 
-  #Searches the initializers for a method call
+  # Searches the initializers for a method call
   def check_initializers target, method
     finder = Railroader::FindCall.new target, method, self
 
@@ -166,7 +166,7 @@ class Railroader::Tracker
     finder.matches
   end
 
-  #Returns a Report with this Tracker's information
+  # Returns a Report with this Tracker's information
   def report
     Railroader::Report.new(@app_tree, self)
   end
@@ -226,15 +226,15 @@ class Railroader::Tracker
     @call_index = Railroader::CallIndex.new finder.calls
   end
 
-  #Reindex call sites
+  # Reindex call sites
   #
-  #Takes a set of symbols which can include :templates, :models,
-  #or :controllers
+  # Takes a set of symbols which can include :templates, :models,
+  # or :controllers
   #
-  #This will limit reindexing to the given sets
+  # This will limit reindexing to the given sets
   def reindex_call_sites locations
-    #If reindexing templates, models, and controllers, just redo
-    #everything
+    # If reindexing templates, models, and controllers, just redo
+    # everything
     if locations.length == 3
       return index_call_sites
     end
@@ -278,9 +278,9 @@ class Railroader::Tracker
     @call_index.index_calls finder.calls
   end
 
-  #Clear information related to templates.
-  #If :only_rendered => true, will delete templates rendered from
-  #controllers (but not those rendered from other templates)
+  # Clear information related to templates.
+  # If :only_rendered => true, will delete templates rendered from
+  # controllers (but not those rendered from other templates)
   def reset_templates options = { :only_rendered => false }
     if options[:only_rendered]
       @templates.delete_if do |_name, template|
@@ -294,7 +294,7 @@ class Railroader::Tracker
     @template_cache.clear
   end
 
-  #Clear information related to template
+  # Clear information related to template
   def reset_template name
     name = name.to_sym
     @templates.delete name
@@ -303,7 +303,7 @@ class Railroader::Tracker
     @template_cache.clear
   end
 
-  #Clear information related to model
+  # Clear information related to model
   def reset_model path
     model_name = nil
 
@@ -317,7 +317,7 @@ class Railroader::Tracker
     @models.delete model_name
   end
 
-  #Clear information related to model
+  # Clear information related to model
   def reset_lib path
     lib_name = nil
 
@@ -334,12 +334,12 @@ class Railroader::Tracker
   def reset_controller path
     controller_name = nil
 
-    #Remove from controller
+    # Remove from controller
     @controllers.each do |name, controller|
       if controller.files.include?(path)
         controller_name = name
 
-        #Remove templates rendered from this controller
+        # Remove templates rendered from this controller
         @templates.each do |template_name, template|
           if template.render_path and template.render_path.include_controller? name
             reset_template template_name
@@ -347,7 +347,7 @@ class Railroader::Tracker
           end
         end
 
-        #Remove calls indexed from this controller
+        # Remove calls indexed from this controller
         @call_index.remove_indexes_by_class [name]
         break
       end
@@ -355,7 +355,7 @@ class Railroader::Tracker
     @controllers.delete controller_name
   end
 
-  #Clear information about routes
+  # Clear information about routes
   def reset_routes
     @routes = {}
   end

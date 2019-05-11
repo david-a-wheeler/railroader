@@ -1,7 +1,7 @@
 require 'railroader/checks/base_check'
 
-#Check for uses of quote_table_name in Rails versions before 2.3.13 and 3.0.10
-#http://groups.google.com/group/rubyonrails-security/browse_thread/thread/6a1e473744bc389b
+# Check for uses of quote_table_name in Rails versions before 2.3.13 and 3.0.10
+# http://groups.google.com/group/rubyonrails-security/browse_thread/thread/6a1e473744bc389b
 class Railroader::CheckQuoteTableName < Railroader::BaseCheck
   Railroader::Checks.add self
 

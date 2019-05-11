@@ -1,9 +1,9 @@
 require 'railroader/checks/base_check'
 
-#Check for bypassing mass assignment protection
-#with without_protection => true
+# Check for bypassing mass assignment protection
+# with without_protection => true
 #
-#Only for Rails 3.1
+# Only for Rails 3.1
 class Railroader::CheckWithoutProtection < Railroader::BaseCheck
   Railroader::Checks.add self
 
@@ -30,7 +30,7 @@ class Railroader::CheckWithoutProtection < Railroader::BaseCheck
     end
   end
 
-  #All results should be Model.new(...) or Model.attributes=() calls
+  # All results should be Model.new(...) or Model.attributes=() calls
   def process_result res
     call = res[:call]
     last_arg = call.last_arg
