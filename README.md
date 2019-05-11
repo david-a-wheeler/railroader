@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/david-a-wheeler/railroader.svg?branch=master)](https://travis-ci.org/david-a-wheeler/railroader)
 [![Maintainability](https://api.codeclimate.com/v1/badges/1b08a5c74695cb0d11ec/maintainability)](https://codeclimate.com/github/david-a-wheeler/railroader/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/1b08a5c74695cb0d11ec/test_coverage)](https://codeclimate.com/github/david-a-wheeler/railroader/test_coverage)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/2514/badge)](https://bestpractices.coreinfrastructure.org/projects/2514)
 <!-- [![Gitter](https://badges.gitter.im/david-a-wheeler/railroader.svg)](https://gitter.im/david-a-wheeler/railroader) -->
 
 # Railroader
