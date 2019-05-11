@@ -162,7 +162,7 @@ class Railroader::ControllerProcessor < Railroader::BaseProcessor
     if @current_method.nil? and call? exp.block_call
       block_call_name = exp.block_call.method
 
-      if block_call_name == :before_filter  or block_call_name == :before_action
+      if block_call_name == :before_filter or block_call_name == :before_action
         add_fake_filter exp
       else
         super

@@ -38,7 +38,7 @@ class Railroader::BaseCheck < Railroader::SexpProcessor
     @mass_assign_disabled = nil
     @has_user_input = nil
     @safe_input_attributes = Set[:to_i, :to_f, :arel_table, :id]
-    @comparison_ops  = Set[:==, :!=, :>, :<, :>=, :<=]
+    @comparison_ops = Set[:==, :!=, :>, :<, :>=, :<=]
   end
 
   #Add result to result list, which is used to check for duplicates

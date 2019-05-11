@@ -42,7 +42,7 @@ class Railroader::SexpProcessor
   # SexpProcessor
 
   def initialize
-    @expected            = Sexp
+    @expected = Sexp
     @processors = self.class.processors
     @context    = []
 
