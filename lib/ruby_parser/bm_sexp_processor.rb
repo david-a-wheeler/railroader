@@ -77,9 +77,9 @@ class Railroader::SexpProcessor
         result = self.process_default(exp)
       end
     end
-    
+
     raise SexpTypeError, "Result must be a #{@expected}, was #{result.class}:#{result.inspect}" unless @expected === result
-    
+
     result
   end
 

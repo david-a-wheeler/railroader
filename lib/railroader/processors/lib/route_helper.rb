@@ -42,7 +42,7 @@ module Railroader::RouteHelper
     end
 
     routes = @tracker.routes[@current_controller]
-    
+
     if routes and not routes.include? :allow_all_actions
       routes << route
     end

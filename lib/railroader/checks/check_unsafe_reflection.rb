@@ -20,7 +20,7 @@ class Railroader::CheckUnsafeReflection < Railroader::BaseCheck
   def check_unsafe_reflection result
     return unless original? result
 
-    call = result[:call] 
+    call = result[:call]
     method = call.method
 
     case method

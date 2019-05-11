@@ -47,7 +47,7 @@ module Railroader::ModuleHelper
       @current_class = collection[name]
       @current_class.add_file @file_name, exp
     else
-      @current_class = tracker_class.new name, parent, @file_name, exp, @tracker 
+      @current_class = tracker_class.new name, parent, @file_name, exp, @tracker
       collection[name] = @current_class
     end
 

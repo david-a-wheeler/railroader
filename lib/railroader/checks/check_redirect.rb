@@ -203,7 +203,7 @@ class Railroader::CheckRedirect < Railroader::BaseCheck
   def friendly_model? exp
     call? exp and model_name? exp.target and exp.method == :friendly
   end
-  
+
   #Returns true if exp is (probably) a decorated model instance
   #using the Draper gem
   def decorated_model? exp
@@ -244,7 +244,7 @@ class Railroader::CheckRedirect < Railroader::BaseCheck
     if call? exp and params? exp.target and exp.method == :permit
       exp.each_arg do |opt|
         if symbol? opt and DANGEROUS_KEYS.include? opt.value
-          return false 
+          return false
         end
       end
 

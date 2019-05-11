@@ -62,7 +62,7 @@ class Railroader::Rails3RoutesProcessor < Railroader::BasicProcessor
 
   def process_namespace exp
     arg = exp.block_call.first_arg
-    return exp unless symbol? arg or string? arg 
+    return exp unless symbol? arg or string? arg
 
     name = arg.value
     block = exp.block

@@ -3,7 +3,7 @@ require 'railroader/processors/template_processor'
 #Processes ERB templates
 #(those ending in .html.erb or .rthml).
 class Railroader::ErbTemplateProcessor < Railroader::TemplateProcessor
-  
+
   #s(:call, TARGET, :method, ARGS)
   def process_call exp
     target = exp.target
@@ -11,7 +11,7 @@ class Railroader::ErbTemplateProcessor < Railroader::TemplateProcessor
       target = process target
     end
     method = exp.method
-    
+
     #_erbout is the default output variable for erb
     if node_type? target, :lvar and target.value == :_erbout
       if method == :concat or method == :<<

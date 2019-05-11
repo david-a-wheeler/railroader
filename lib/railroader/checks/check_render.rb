@@ -94,4 +94,4 @@ class Railroader::CheckRender < Railroader::BaseCheck
       end
     end
   end
-end 
+end

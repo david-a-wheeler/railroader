@@ -314,7 +314,7 @@ class Sexp
     chain = []
     call = self
 
-    while call.class == Sexp and CALLS.include? call.first 
+    while call.class == Sexp and CALLS.include? call.first
       chain << call.method
       call = call.target
     end

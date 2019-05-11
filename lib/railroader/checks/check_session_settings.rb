@@ -17,7 +17,7 @@ class Railroader::CheckSessionSettings < Railroader::BaseCheck
   end
 
   def run_check
-    settings = tracker.config.session_settings 
+    settings = tracker.config.session_settings
 
     check_for_issues settings, @app_tree.expand_path("config/environment.rb")
 

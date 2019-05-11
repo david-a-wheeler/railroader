@@ -19,7 +19,7 @@ class Railroader::Report::Text < Railroader::Report::Base
     add_chunk generate_controllers if tracker.options[:debug] or tracker.options[:report_routes]
     add_chunk generate_templates if tracker.options[:debug]
     add_chunk generate_obsolete
-    add_chunk generate_errors 
+    add_chunk generate_errors
     add_chunk generate_warnings
   end
 
@@ -35,7 +35,7 @@ class Railroader::Report::Text < Railroader::Report::Base
 
   def generate_header
     [
-      header("Railroader Report"), 
+      header("Railroader Report"),
       label("Application Path", tracker.app_path),
       label("Rails Version", rails_version),
       label("Railroader Version", Railroader::Version),

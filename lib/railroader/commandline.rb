@@ -115,7 +115,7 @@ module Railroader
 
       # Runs a regular report based on the options provided.
       def regular_report options
-        tracker = run_railroader options 
+        tracker = run_railroader options
 
         if tracker.options[:exit_on_warn] and not tracker.filtered_warnings.empty?
           quit Railroader::Warnings_Found_Exit_Code
