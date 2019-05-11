@@ -60,7 +60,7 @@ module Railroader
         require 'erb'
         src = if ERB.instance_method(:initialize).parameters.assoc(:key) # Ruby 2.6+
           ERB.new(text, trim_mode: path).src
-        else
+              else
           ERB.new(text, nil, path).src
         end
         src.sub!(/^#.*\n/, '') if Railroader::Scanner::RUBY_1_9

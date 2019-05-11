@@ -45,7 +45,7 @@ class Railroader::CheckWeakHash < Railroader::BaseCheck
            " (MD5)"
            when :SHA1
             " (SHA1)"
-          else
+           else
             ""
           end
 

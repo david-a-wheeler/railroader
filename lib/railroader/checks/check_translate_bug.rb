@@ -14,7 +14,7 @@ class Railroader::CheckTranslateBug < Railroader::BaseCheck
 
       confidence = if uses_translate?
         :high
-      else
+                   else
         :medium
       end
 
@@ -22,9 +22,9 @@ class Railroader::CheckTranslateBug < Railroader::BaseCheck
 
       message = if rails_version =~ /^3\.1/
         "Versions before 3.1.2 #{description}."
-      elsif rails_version =~ /^3\.0/
+                elsif rails_version =~ /^3\.0/
         "Versions before 3.0.11 #{description}."
-      else
+                else
         "Rails 2.3.x using the rails_xss plugin #{description}."
       end
 

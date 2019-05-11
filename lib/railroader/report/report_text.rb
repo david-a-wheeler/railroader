@@ -92,7 +92,7 @@ class Railroader::Report::Text < Railroader::Report::Base
     errors = tracker.errors.map do |e|
       trace = if full_trace
         e[:backtrace].join("\n")
-      else
+              else
         e[:backtrace][0]
       end
 

@@ -32,8 +32,6 @@ Layout/ClosingHeredocIndentation:
   Enabled: False
 Layout/DotPosition:
   Enabled: False
-Layout/ElseAlignment:
-  Enabled: False
 Layout/EmptyLineAfterGuardClause:
   Enabled: False
 Layout/EmptyLineBetweenDefs:
