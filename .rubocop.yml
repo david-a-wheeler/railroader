@@ -92,8 +92,6 @@ Layout/SpaceInsideBlockBraces:
   Enabled: False
 Layout/SpaceInsideHashLiteralBraces:
   Enabled: False
-Layout/SpaceInsideParens:
-  Enabled: False
 Layout/Tab:
   Enabled: False
 Metrics/AbcSize:
