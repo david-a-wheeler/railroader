@@ -12,7 +12,7 @@ before_script:
     "
 script:
   - "bundle exec ruby test/test.rb"
-  - "bundle exec rake rubocop"
+  - "bundle exec rubocop"
 
 after_script:
   - |

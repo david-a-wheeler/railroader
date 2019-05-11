@@ -86,8 +86,6 @@ Layout/SpaceAroundEqualsInParameterDefault:
   Enabled: False
 Layout/SpaceAroundKeyword:
   Enabled: False
-Layout/SpaceAroundOperators:
-  Enabled: False
 Layout/SpaceBeforeBlockBraces:
   Enabled: False
 Layout/SpaceInsideArrayLiteralBrackets:
