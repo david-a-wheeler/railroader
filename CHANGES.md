@@ -1,3 +1,19 @@
+# 4.3.6
+
+* We earned a CII Best Practices badge!  Show its badge on the README.
+* Add use of the static analyzer Rubocop, and fix some issues it found.
+* Add information on how to report vulnerabilities in the Railroader
+  application itself.
+* Update `ruby_parser` to version 3.13.1. This improves and fixes handling of
+  some Ruby constructs, but it also means that we now longer support
+  running on Ruby 1.9.  The last branch of Ruby 1.9 (1.9.3)
+  ended all support on 23 Feb 2015, after a one-year warning, per:
+  https://www.ruby-lang.org/en/news/2015/02/23/support-for-ruby-1-9-3-has-ended/
+  Since this is more than 5 years after the final warning, and more than
+  4 years after support ended, we think this is reasonable.
+  If you really need to run something on Ruby 1.9, forcibly select
+  an older version of Railroader such as 4.3.5.
+
 # 4.3.5
 
 * Mass rename to Railroader in docs/
