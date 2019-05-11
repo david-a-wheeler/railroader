@@ -152,7 +152,7 @@ class Railroader::FindCall < Railroader::BasicProcessor
       if search_terms.empty?
         item == nil
       else
-        search_terms.each do|term|
+        search_terms.each do |term|
           if match(term, item)
             return true
           end
