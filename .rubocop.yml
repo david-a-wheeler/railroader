@@ -18,8 +18,6 @@ Bundler/OrderedGems:
   Enabled: False
 Layout/AccessModifierIndentation:
   Enabled: False
-Layout/AlignArguments:
-  Enabled: False
 Layout/AlignHash:
   Enabled: False
 Layout/BlockAlignment:

@@ -10,9 +10,9 @@ require 'railroader/tracker/constants'
 # The Tracker keeps track of all the processed information.
 class Railroader::Tracker
   attr_accessor :controllers, :constants, :templates, :models, :errors,
-    :checks, :initializers, :config, :routes, :processor, :libs,
-    :template_cache, :options, :filter_cache, :start_time, :end_time,
-    :duration, :ignored_filter
+                :checks, :initializers, :config, :routes, :processor, :libs,
+                :template_cache, :options, :filter_cache, :start_time, :end_time,
+                :duration, :ignored_filter
 
   # Place holder when there should be a model, but it is not
   # clear what model it will be.

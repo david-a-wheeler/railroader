@@ -20,12 +20,12 @@ class Railroader::CheckContentTag < Railroader::CheckCrossSiteScripting
 
   def run_check
     @ignore_methods = Set[:button_to, :check_box, :escapeHTML, :escape_once,
-                           :field_field, :fields_for, :h, :hidden_field,
-                           :hidden_field, :hidden_field_tag, :image_tag, :label,
-                           :mail_to, :radio_button, :select,
-                           :submit_tag, :text_area, :text_field,
-                           :text_field_tag, :url_encode, :u, :url_for,
-                           :will_paginate].merge tracker.options[:safe_methods]
+                          :field_field, :fields_for, :h, :hidden_field,
+                          :hidden_field, :hidden_field_tag, :image_tag, :label,
+                          :mail_to, :radio_button, :select,
+                          :submit_tag, :text_area, :text_field,
+                          :text_field_tag, :url_encode, :u, :url_for,
+                          :will_paginate].merge tracker.options[:safe_methods]
 
     @known_dangerous = []
     @content_tags = tracker.find_call :target => false, :method => :content_tag

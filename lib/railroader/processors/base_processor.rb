@@ -181,11 +181,11 @@ class Railroader::BaseProcessor < Railroader::SexpProcessor
   def process_cdecl exp
     if @tracker
       @tracker.add_constant exp.lhs,
-        exp.rhs,
-        :file => current_file_name,
-        :module => @current_module,
-        :class => @current_class,
-        :method => @current_method
+                            exp.rhs,
+                            :file => current_file_name,
+                            :module => @current_module,
+                            :class => @current_class,
+                            :method => @current_method
     end
 
     exp

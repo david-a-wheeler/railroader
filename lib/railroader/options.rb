@@ -204,9 +204,9 @@ module Railroader::Options
         end
 
         opts.on "-f",
-          "--format TYPE",
-          [:pdf, :text, :html, :csv, :tabs, :json, :markdown, :codeclimate, :cc, :plain, :table],
-          "Specify output formats. Default is text" do |type|
+                "--format TYPE",
+                [:pdf, :text, :html, :csv, :tabs, :json, :markdown, :codeclimate, :cc, :plain, :table],
+                "Specify output formats. Default is text" do |type|
 
           type = "s" if type == :text
           options[:output_format] = ("to_" << type.to_s).to_sym
@@ -282,9 +282,9 @@ module Railroader::Options
         end
 
         opts.on "-w",
-          "--confidence-level LEVEL",
-          ["1", "2", "3"],
-          "Set minimal confidence level (1 - 3)" do |level|
+                "--confidence-level LEVEL",
+                ["1", "2", "3"],
+                "Set minimal confidence level (1 - 3)" do |level|
 
           options[:min_confidence] =  3 - level.to_i
         end

@@ -5,8 +5,8 @@ require 'railroader/warning_codes'
 # The Warning class stores information about warnings
 class Railroader::Warning
   attr_reader :called_from, :check, :class, :confidence, :controller,
-    :line, :method, :model, :template, :user_input, :user_input_type,
-    :warning_code, :warning_set, :warning_type
+              :line, :method, :model, :template, :user_input, :user_input_type,
+              :warning_code, :warning_set, :warning_type
 
   attr_accessor :code, :context, :file, :message, :relative_path
 
