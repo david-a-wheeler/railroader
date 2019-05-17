@@ -14,7 +14,10 @@ When creating contributions:
   your changes pass tests.  If you add significant functionality, please
   add matching test(s) to check that it actually works, and also modify
   CHANGES.md to note it.
-* Use `bundle exec rubocop` to ensure that your code has a reasonable style.
+* Use `bundle exec rubocop` to ensure that your code has a reasonable style
+  and avoids some common mistakes.
+  Using a style checker helps us make the code easier to read, and
+  in the long run we hope that will make it easier to contribute.
 
 ## Signed commits
 
