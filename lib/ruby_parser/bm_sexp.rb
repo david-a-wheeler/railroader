@@ -597,10 +597,10 @@ end
 
 # Invalidate hash cache if the Sexp changes
 [:[]=, :clear, :collect!, :compact!, :concat, :delete, :delete_at,
-  :delete_if, :drop, :drop_while, :fill, :flatten!, :replace, :insert,
-  :keep_if, :map!, :pop, :push, :reject!, :replace, :reverse!, :rotate!,
-  :select!, :shift, :shuffle!, :slice!, :sort!, :sort_by!, :transpose,
-  :uniq!, :unshift].each do |method|
+ :delete_if, :drop, :drop_while, :fill, :flatten!, :replace, :insert,
+ :keep_if, :map!, :pop, :push, :reject!, :replace, :reverse!, :rotate!,
+ :select!, :shift, :shuffle!, :slice!, :sort!, :sort_by!, :transpose,
+ :uniq!, :unshift].each do |method|
 
   Sexp.class_eval <<-RUBY
     def #{method} *args

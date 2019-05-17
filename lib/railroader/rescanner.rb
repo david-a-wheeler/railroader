@@ -7,7 +7,7 @@ class Railroader::Rescanner < Railroader::Scanner
  include Railroader::Util
   KNOWN_TEMPLATE_EXTENSIONS = Railroader::TemplateParser::KNOWN_TEMPLATE_EXTENSIONS
   SCAN_ORDER = [:config, :gemfile, :initializer, :lib, :routes, :template,
-    :model, :controller]
+                :model, :controller]
 
   # Create new Rescanner to scan changed files
   def initialize options, processor, changed_files

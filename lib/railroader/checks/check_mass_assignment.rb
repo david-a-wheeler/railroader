@@ -35,19 +35,14 @@ class Railroader::CheckMassAssignment < Railroader::BaseCheck
     return [] if models.empty?
 
     Railroader.debug "Finding possible mass assignment calls on #{models.length} models"
-    @mass_assign_calls = tracker.find_call :chained => true, :targets => models, :methods => [:new,
-      :attributes=,
-      :update_attributes,
-      :update_attributes!,
-      :create,
-      :create!,
-      :build,
-      :first_or_create,
-      :first_or_create!,
-      :first_or_initialize!,
-      :assign_attributes,
-      :update
-    ]
+    @mass_assign_calls = tracker.find_call :chained => true,
+       :targets => models,
+       :methods => [
+                     :new, :attributes=, :update_attributes,
+                     :update_attributes!, :create, :create!, :build,
+                     :first_or_create, :first_or_create!,
+                     :first_or_initialize!, :assign_attributes, :update
+       ]
   end
 
   def check_mass_assignment

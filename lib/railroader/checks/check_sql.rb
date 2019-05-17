@@ -30,7 +30,7 @@ class Railroader::CheckSQL < Railroader::BaseCheck
     end
 
     @connection_calls = [:delete, :execute, :insert, :select_all, :select_one,
-      :select_rows, :select_value, :select_values]
+                         :select_rows, :select_value, :select_values]
 
     if tracker.options[:rails3]
       @connection_calls.concat [:exec_delete, :exec_insert, :exec_query, :exec_update]

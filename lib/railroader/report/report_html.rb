@@ -2,8 +2,8 @@ require 'cgi'
 
 class Railroader::Report::HTML < Railroader::Report::Base
   HTML_CONFIDENCE = [ "<span class='high-confidence'>High</span>",
-    "<span class='med-confidence'>Medium</span>",
-    "<span class='weak-confidence'>Weak</span>" ]
+                      "<span class='med-confidence'>Medium</span>",
+                      "<span class='weak-confidence'>Weak</span>" ]
 
   def initialize *args
     super

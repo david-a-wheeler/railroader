@@ -17,12 +17,11 @@ class Railroader::CheckWithoutProtection < Railroader::BaseCheck
     return if active_record_models.empty?
 
     Railroader.debug "Finding all mass assignments"
-    calls = tracker.find_call :targets => active_record_models.keys, :methods => [:new,
-      :attributes=,
-      :update_attributes,
-      :update_attributes!,
-      :create,
-      :create!]
+    calls = tracker.find_call :targets => active_record_models.keys,
+      :methods => [
+        :new, :attributes=, :update_attributes, :update_attributes!,
+        :create, :create!
+      ]
 
     Railroader.debug "Processing all mass assignments"
     calls.each do |result|

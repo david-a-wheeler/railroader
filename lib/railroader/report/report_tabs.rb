@@ -3,7 +3,7 @@
 class Railroader::Report::Tabs < Railroader::Report::Base
   def generate_report
     [[:generic_warnings, "General"], [:controller_warnings, "Controller"],
-      [:model_warnings, "Model"], [:template_warnings, "Template"]].map do |meth, category|
+     [:model_warnings, "Model"], [:template_warnings, "Template"]].map do |meth, category|
 
       self.send(meth).map do |w|
         line = w.line || 0

@@ -14,9 +14,9 @@ class Railroader::CheckExecute < Railroader::BaseCheck
   @description = "Finds instances of possible command injection"
 
   SAFE_VALUES = [s(:const, :RAILS_ROOT),
-                  s(:call, s(:const, :Rails), :root),
-                  s(:call, s(:const, :Rails), :env),
-                  s(:call, s(:const, :Process), :pid)]
+                 s(:call, s(:const, :Rails), :root),
+                 s(:call, s(:const, :Rails), :env),
+                 s(:call, s(:const, :Process), :pid)]
 
   SHELL_ESCAPES = [:escape, :shellescape, :join]
 
@@ -32,8 +32,8 @@ class Railroader::CheckExecute < Railroader::BaseCheck
     Railroader.debug "Finding other system calls"
     calls = tracker.find_call :targets => [:IO, :Open3, :Kernel, :'POSIX::Spawn', :Process, nil],
       :methods => [:capture2, :capture2e, :capture3, :exec, :pipeline, :pipeline_r,
-        :pipeline_rw, :pipeline_start, :pipeline_w, :popen, :popen2, :popen2e,
-        :popen3, :spawn, :syscall, :system], :nested => true
+                   :pipeline_rw, :pipeline_start, :pipeline_w, :popen, :popen2, :popen2e,
+                   :popen3, :spawn, :syscall, :system], :nested => true
 
     Railroader.debug "Processing system calls"
     calls.each do |result|

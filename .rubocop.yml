@@ -20,8 +20,6 @@ Layout/AccessModifierIndentation:
   Enabled: False
 Layout/AlignArguments:
   Enabled: False
-Layout/AlignArray:
-  Enabled: False
 Layout/AlignHash:
   Enabled: False
 Layout/BlockAlignment:
