@@ -8,7 +8,8 @@ module Railroader
 
     def self.base_dependencies spec
       spec.add_dependency "ruby_parser", "~>3.13.1"
-      spec.add_dependency "sexp_processor", "~> 4.7"
+      # 4.12.1 known to cause problems
+      spec.add_dependency "sexp_processor", ["~> 4.7", "!= 4.12.1"]
       spec.add_dependency "ruby2ruby", "~>2.4.0"
       spec.add_dependency "safe_yaml", ">= 1.0"
     end
