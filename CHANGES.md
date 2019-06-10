@@ -1,3 +1,13 @@
+# 4.3.8
+
+* Temporarily prevent use of `sexp_processor` version 4.12.1,
+  because it causes an error at
+  `lib/railroader/processors/alias_processor.rb:50:in process_safely'`.
+  We want to get back to working order quickly, and we can then
+  fix things more leisurely.
+* Various code cleanups, trying to make the code easier to read.
+
+
 # 4.3.7
 
 * We earned a CII Best Practices badge!  Show its badge on the README.
@@ -5,7 +15,7 @@
 * Add information on how to report vulnerabilities in the Railroader
   application itself.
 * Update `ruby_parser` to version 3.13.1. This improves and fixes handling of
-  some Ruby constructs, but it also means that we now longer support
+  some Ruby constructs, but it also means that we no longer support
   running on Ruby 1.9.  The last branch of Ruby 1.9 (1.9.3)
   ended all support on 23 Feb 2015, after a one-year warning, per:
   https://www.ruby-lang.org/en/news/2015/02/23/support-for-ruby-1-9-3-has-ended/
@@ -13,6 +23,9 @@
   4 years after support ended, we think this is reasonable.
   If you really need to run something on Ruby 1.9, forcibly select
   an older version of Railroader such as 4.3.5.
+  It would be possible to support Ruby 1.9 with some extra effort,
+  so I've left in a number of stubs for handling Ruby 1.9 in case we do so.
+  I suspect we won't bother, but patches welcome.
 
 # 4.3.5
 
