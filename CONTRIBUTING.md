@@ -6,6 +6,25 @@ NOTE: Your contributions *must* be released under at least the
 file in MIT-LICENSE (the MIT license).
 There is no need for a copyright assignent.
 
+## Setting up a Ruby environment
+
+After cloning the repository you'll need to have a local
+working Ruby environment.
+
+One way is to install rbenv
+[rbenv](https://github.com/rbenv/rbenv).
+Once you do this, you probably want to remove a system ruby
+(if there is one).
+Then cd into the top level of the `railroader` directory,
+and run something like:
+
+~~~~
+rbenv install 2.5.1 # Install some version of ruby
+gem install bundler # Get bundler
+bundle install # install all other gems
+rake # run tests to ensure everything works
+~~~~
+
 ## Tests and style
 
 When creating contributions:
